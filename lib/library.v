@@ -1,6 +1,5 @@
-`include "constants.h"
+`include "../include/constants.vh"
 `timescale 1ns/1ps
-
 
 // ALU. Inputs: inA, inB, op. Output: out. 
 // Operations: bitwise and (op = 0)
@@ -12,23 +11,25 @@
 //             nor (op = 12)
 module ALU #(parameter N = 32) (output wire [N-1:0] out,  
                                 output wire zero,
-                                input       [N-1:0] inA, inB,
-                                input       [4:0] shamt,
+                                input  signed     [N-1:0] inA, inB,
                                 input       [3:0] op);
   
   assign #`alu_delay out = 
-			(op == 4'b0000) ? (inA & inB) :
-			(op == 4'b0001) ? (inA | inB) :
-			(op == 4'b0010) ? (inA + inB) : 
-                        (op == 4'b0100) ? (inB << shamt) :   
-                        (op == 4'b0101) ? (inB << inA) :
-			(op == 4'b0110) ? (inA - inB) : 
-			(op == 4'b0111) ? ((inA < inB)?1:0) : 
-                        (op == 4'b1011) ? (inA ^ inB) :
-			(op == 4'b1100) ? ~(inA | inB) :                       
-			'bx;
+      (op == 4'b0000) ? (inA + inB) : 
+      (op == 4'b0001 || op == 4'b1010) ? (inA - inB) : 
+      (op == 4'b0010) ? (inA ^ inB) : 
+      (op == 4'b0011) ? (inA | inB) : 
+      (op == 4'b0100) ? (inA & inB) : 
+      (op == 4'b0101) ? (inA << inB) : 
+      (op == 4'b0110) ? (inA >> inB) : 
+      (op == 4'b0111) ? $signed(inA) >>> inB : // shift right arithmetic
+      (op == 4'b1000) ? ( (inA < inB) ? 1 : 0 ) : 
+      (op == 4'b1001 || op == 4'b1011) ? ( ($unsigned(inA) < $unsigned(inB)) ? 1 : 0) : 0;
 
-  assign #`alu_delay zero = (out == 0);
+  assign #`alu_delay zero = 
+      (op == 4'b0001) ? (out == 0) : //beq, bne
+      (op == 4'b1010) ? (out < 0) : //blt, bge
+      (op == 4'b1011) ? (out == 1) : 0;//bltu, bgeu
 endmodule
 
 
@@ -92,5 +93,24 @@ module RegFile (input clock, reset,
     end
    end
 
+endmodule
+
+module signExtendUnit(output reg [31:0] out, 
+                      input [31:0] imm_i, 
+                      input [31:0] imm_s, 
+                      input [31:0] imm_b, 
+                      input [31:0] imm_u, 
+                      input [31:0] imm_j, 
+                      input [6:0] opcode);
+  always @(*)
+  begin
+    case (opcode)
+    `I_COMP_FORMAT: out = imm_i;
+    `S_FORMAT: out = imm_s;
+    `B_FORMAT: out = imm_b;
+    `J_FORMAT: out = imm_j;
+    default: out = 32'b0;
+    endcase
+  end
 endmodule
 

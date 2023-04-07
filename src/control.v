@@ -1,9 +1,8 @@
-`include "constants.h"
+`include "../include/constants.vh"
 
 /************** Main control in ID pipe stage  *************/
 module control_main(output reg RegDst,
-                output reg BranchZ,  
-                output reg BranchNZ,
+                output reg Branch,  
                 output reg MemRead,
                 output reg MemWrite,  
                 output reg MemToReg,  
@@ -11,12 +10,12 @@ module control_main(output reg RegDst,
                 output reg RegWrite,  
                 output reg Jump, 
                 output reg [1:0] ALUcntrl,  
-                input [5:0] opcode);
+                input [6:0] opcode);
 
   always @(*) 
    begin
      case (opcode)
-      `R_FORMAT: 
+    	`R_FORMAT: 
           begin 
             RegDst = 1'b1;
             MemRead = 1'b0;
@@ -24,38 +23,35 @@ module control_main(output reg RegDst,
             MemToReg = 1'b0;
             ALUSrc = 1'b0;
             RegWrite = 1'b1;
-            BranchZ = 1'b0;   
-            BranchNZ = 1'b0;
+            Branch = 1'b0;   
             Jump = 0;      
-            ALUcntrl  = 2'b10; // R             
+            ALUcntrl  = 2'b00; // R             
           end
-      `ADDI :   
-           begin 
-            RegDst = 1'b0;
-            MemRead = 1'b0;
-            MemWrite = 1'b0;
-            MemToReg = 1'b0;
-            ALUSrc = 1'b1;
-            RegWrite = 1'b1;
-            BranchZ = 1'b0;
-            BranchNZ = 1'b0;
-            Jump = 0; 
-            ALUcntrl  = 2'b00; // add
+    	`I_COMP_FORMAT:
+           begin
+						RegDst = 1'b0;
+						MemRead = 1'b0;
+						MemWrite = 1'b0;
+						MemToReg = 1'b0;
+						ALUSrc = 1'b1;
+						RegWrite = 1'b1;
+						Branch = 1'b0;
+						Jump = 0;
+						ALUcntrl = 2'b00;
            end
-       `LW :   
-           begin 
-            RegDst = 1'b0;
-            MemRead = 1'b1;
-            MemWrite = 1'b0;
-            MemToReg = 1'b1;
-            ALUSrc = 1'b1;
-            RegWrite = 1'b1;
-            BranchZ = 1'b0;
-            BranchNZ = 1'b0;
-            Jump = 0; 
-            ALUcntrl  = 2'b00; // add
-           end
-        `SW :   
+			`I_LOAD_FORMAT:
+					begin 
+						RegDst = 1'b0;
+						MemRead = 1'b1;
+						MemWrite = 1'b0;
+						MemToReg = 1'b1;
+						ALUSrc = 1'b1;
+						RegWrite = 1'b1;
+						Branch = 1'b0;
+						Jump = 0; 
+						ALUcntrl  = 2'b01; // add
+					end	
+      `S_FORMAT:   
            begin 
             RegDst = 1'b0;
             MemRead = 1'b0;
@@ -63,12 +59,11 @@ module control_main(output reg RegDst,
             MemToReg = 1'b0;
             ALUSrc = 1'b1;
             RegWrite = 1'b0;
-            BranchZ = 1'b0;
-            BranchNZ = 1'b0;
+            Branch = 1'b0;
             Jump = 0; 
-            ALUcntrl  = 2'b00; // add
+            ALUcntrl  = 2'b01; // add
            end
-       `BEQ:   
+      `B_FORMAT:   
            begin 
             RegDst = 1'b0;
             MemRead = 1'b0;
@@ -76,12 +71,11 @@ module control_main(output reg RegDst,
             MemToReg = 1'b0;
             ALUSrc = 1'b0;
             RegWrite = 1'b0;
-            BranchZ = 1'b1;
-            BranchNZ = 1'b0;
+            Branch = 1'b1;
             Jump = 0; 
-            ALUcntrl = 2'b01; // sub
+            ALUcntrl = 2'b10; // sub
            end
-       `BNE:   
+       `J_FORMAT:  
            begin 
             RegDst = 1'b0;
             MemRead = 1'b0;
@@ -89,21 +83,7 @@ module control_main(output reg RegDst,
             MemToReg = 1'b0;
             ALUSrc = 1'b0;
             RegWrite = 1'b0;
-            BranchZ = 1'b0;
-            BranchNZ = 1'b1;
-            Jump = 0; 
-            ALUcntrl = 2'b01; // sub
-           end
-       `J:  
-           begin 
-            RegDst = 1'b0;
-            MemRead = 1'b0;
-            MemWrite = 1'b0;
-            MemToReg = 1'b0;
-            ALUSrc = 1'b0;
-            RegWrite = 1'b0;
-            BranchZ = 1'b0;
-            BranchNZ = 1'b0;
+            Branch = 1'b0;
             Jump = 1;
             ALUcntrl = 2'b00; // don't care 
            end
@@ -115,8 +95,7 @@ module control_main(output reg RegDst,
             MemToReg = 1'b0;
             ALUSrc = 1'b0;
             RegWrite = 1'b0;
-            BranchZ = 0; 
-            BranchNZ = 1'b0;
+            Branch = 0; 
             Jump = 0; 
             ALUcntrl = 2'b00; 
          end
@@ -214,32 +193,77 @@ endmodule
 /************** control for ALU control in EX pipe stage  *************/
 module control_alu(output reg [3:0] ALUOp,                  
                input [1:0] ALUcntrl,
-               input [5:0] func);
+               input [2:0] funct3, 
+							 input [6:0] funct7);
 
-  always @(ALUcntrl or func)  
+  always @(ALUcntrl or funct3 or funct7)  
     begin
       case (ALUcntrl)
-        2'b10: 
+        2'b00: // R/I_COMP-format 
            begin
-             case (func)
-              `SLL :  ALUOp  = 4'b0100; // sll
-              `SLLV :  ALUOp  = 4'b0101; // sllv
-              `ADD : ALUOp  = 4'b0010; // add
-              `SUB : ALUOp = 4'b0110; // sub
-              `AND : ALUOp = 4'b0000; // and
-              `OR  : ALUOp = 4'b0001; // or
-              `NOR : ALUOp = 4'b1100; // nor
-              `SLT : ALUOp = 4'b0111; // slt
-              `XOR : ALUOp = 4'b1011; // xor
+             case (funct3)
+							`ADD_SUB:
+								ALUOp = (funct7 == `ADD_FUNCT7) ? 4'b0000 : 4'b0001; // add : sub
+              `XOR: ALUOp = 4'b0010;
+							`OR: ALUOp = 4'b0011;
+							`AND: ALUOp = 4'b0100;
+							`SLL: ALUOp = 4'b0101;
+							`SRL: 
+								ALUOp = (funct7 == `SRL_FUNCT7) ? 4'b0110 : 4'b0111; // srl : sra
+							`SLT: ALUOp = 4'b1000;
+							`SLTU: ALUOp = 4'b1001;
               default: ALUOp = 4'b0000; 
              endcase
            end
-        2'b00: 
-              ALUOp  = 4'b0010; // add
-        2'b01: 
-              ALUOp = 4'b0110; // sub
+        2'b01: // I_Load/S format
+              ALUOp  = 4'b0000; // add
+        2'b10:  // Branch
+					begin
+						case (funct3)
+							`BEQ, `BNE:
+								ALUOp = 4'b0001; //sub
+							`BLT, `BGE:
+								ALUOp = 4'b1010; // sub but check if output < 0
+							`BLTU, `BGEU:
+								ALUOp = 4'b1011; // same as above but unsigned
+						endcase
+					end
         default:
               ALUOp = 4'b0000;
      endcase
     end
+endmodule
+
+module control_branch(output reg BranchZ,
+											output reg BranchNZ,
+											input Branch, 
+											input [2:0] funct3);
+	always @(Branch or funct3)
+	begin
+		if (Branch == 1'b1)
+		begin
+			case (funct3)
+				`BEQ, `BLT, `BLTU:
+					begin
+						BranchZ = 1'b1;
+						BranchNZ = 1'b0;
+					end
+				`BNE, `BGE, `BGEU:
+					begin
+						BranchZ = 1'b0;
+						BranchNZ = 1'b1;
+					end
+				default:
+					begin
+						BranchZ = 1'b0;
+						BranchNZ = 1'b1;
+					end
+			endcase
+		end
+		else
+		begin
+			BranchZ = 1'b0;
+			BranchNZ = 1'b0;
+		end
+	end
 endmodule

@@ -1,3 +1,5 @@
+`include "../lib/library.v"
+
 /*****************************************************************************************/
 /* Implementation of the 5-stage MIPS pipeline that supports the following instructions: */
 /*  R-format: add, sub, and, or, xor, slt                                                */
@@ -8,7 +10,10 @@ module cpu(input clock, input reset);
  reg [31:0] IFID_PCplus4, IFID_instr;
  wire [31:0] instr;
  reg [31:0] IDEX_signExtend;
+ wire [31:0] signExtend;
  wire [31:0] IDEX_rdA, IDEX_rdB;
+ reg [2:0]  IDEX_funct3;
+ reg [6:0]  IDEX_funct7;
  reg [31:0] IDEX_PCplus4;
  reg [4:0]  IDEX_instr_rs2, IDEX_instr_rs1, IDEX_instr_rd;                            
  reg        IDEX_RegDst, IDEX_ALUSrc;
@@ -27,7 +32,8 @@ module cpu(input clock, input reset);
  reg        MEMWB_MemToReg, MEMWB_RegWrite;
  wire [31:0] ALUInA, ALUInB, ALUOut, BranchALUOut, bypassOutB, DMemOut, wRegData;
  wire [31:0] PCplus4, JumpAddress, PC_br, PC_new;
- wire Zero, RegDst, MemRead, MemWrite, MemToReg, ALUSrc, PCSrc, RegWrite, BranchZ, BranchNZ, Jump;
+ wire Zero, RegDst, MemRead, MemWrite, MemToReg, ALUSrc, PCSrc, RegWrite, Jump;
+ wire BranchZ, BranchNZ;
  wire bubble_ifid, bubble_idex, bubble_exmem, bubble_memwb;   // create a NOP in respective stages
  wire write_ifid, write_idex, write_exmem, write_memwb, write_pc;  // enable/disable pipeline registers
  wire [6:0] opcode;
@@ -37,6 +43,8 @@ module cpu(input clock, input reset);
  wire [3:0] ALUOp;
  wire [1:0] ALUcntrl, bypassA, bypassB;
  wire [31:0] imm_i, imm_s, imm_b, imm_u, imm_j;
+ wire [31:0] rda, rdb;
+
 
 /********************** Instruction Fetch Unit (IF)  **********************/
  always @(posedge clock or negedge reset)
@@ -82,16 +90,17 @@ assign funct7 = IFID_instr[31:25];
 assign instr_rs1 = IFID_instr[19:15];
 assign instr_rs2 = IFID_instr[24:20];
 assign instr_rd = IFID_instr[11:7];
-assign imm_i = {20{IFID_instr[31]}, IFID_instr[31:20]};
-assign imm_s = {20{IFID_instr[31]}, IFID_instr[31:25], IFID_instr[11:7]};
-assign imm_b = {19{IFID_instr[31]}, IFID_instr[31], IFID_instr[7], IFID_instr[30:25], IFID_instr[11:8], 0};
-assign imm_u = {IFID_instr[31:12], 12{0}};
-assign imm_j = {20{IFID_instr[31]}, IFID_instr[31], IFID_instr[19:12], IFID_instr[20], IFID_instr[30:21], 0};
+assign imm_i = { {20{{IFID_instr[31]}}}, IFID_instr[31:12]};
+assign imm_s = { {20{IFID_instr[31]}}, IFID_instr[31:25], IFID_instr[11:7]};
+assign imm_b = { {19{IFID_instr[31]}}, IFID_instr[31], IFID_instr[7], IFID_instr[30:25], IFID_instr[11:8], 1'b0};
+assign imm_u = { IFID_instr[31:12], {12{1'b0}}};
+assign imm_j = { {20{IFID_instr[31]}}, IFID_instr[31], IFID_instr[19:12], IFID_instr[20], IFID_instr[30:21], 1'b0};
 
-wire [31:0] rda, rdb;
 // Register file
 RegFile cpu_regs(clock, reset, instr_rs1, instr_rs2, MEMWB_RegWriteAddr, 
                  MEMWB_RegWrite, wRegData, IDEX_rdA, IDEX_rdB);
+//Sign Extension Unit
+signExtendUnit signExtendUnit(signExtend, imm_i, imm_s, imm_b, imm_u, imm_j, opcode);
 
   // IDEX pipeline register
  always @(posedge clock or negedge reset)
@@ -102,7 +111,6 @@ RegFile cpu_regs(clock, reset, instr_rs1, instr_rs2, MEMWB_RegWriteAddr,
        IDEX_instr_rd <= 5'b0;
        IDEX_instr_rs1 <= 5'b0;
        IDEX_instr_rs2 <= 5'b0;
-       IDEX_instr_shamt <= 5'b0;
        IDEX_RegDst <= 1'b0;
        IDEX_ALUcntrl <= 2'b0;
        IDEX_ALUSrc <= 1'b0;
@@ -113,6 +121,8 @@ RegFile cpu_regs(clock, reset, instr_rs1, instr_rs2, MEMWB_RegWriteAddr,
        IDEX_MemToReg <= 1'b0;                  
        IDEX_RegWrite <= 1'b0;
        IDEX_PCplus4 <= 32'b0;
+       IDEX_funct3 <= 3'b0;
+       IDEX_funct7 <= 7'b0;
     end 
     else if (write_idex == 1'b1)
       begin
@@ -120,7 +130,6 @@ RegFile cpu_regs(clock, reset, instr_rs1, instr_rs2, MEMWB_RegWriteAddr,
        IDEX_instr_rd <= instr_rd;
        IDEX_instr_rs1 <= instr_rs1;
        IDEX_instr_rs2 <= instr_rs2;
-       IDEX_instr_shamt <= instr_shamt;
        IDEX_RegDst <= RegDst;
        IDEX_ALUcntrl <= ALUcntrl;
        IDEX_ALUSrc <= ALUSrc;
@@ -131,13 +140,14 @@ RegFile cpu_regs(clock, reset, instr_rs1, instr_rs2, MEMWB_RegWriteAddr,
        IDEX_MemToReg <= MemToReg;                  
        IDEX_RegWrite <= RegWrite;
        IDEX_PCplus4 <= IFID_PCplus4;
+       IDEX_funct3 <= funct3;
+       IDEX_funct7 <= funct7;
     end
   end
 
 // Main Control Unit 
 control_main control_main (RegDst,
-                  BranchZ,
-                  BranchNZ,
+                  Branch,
                   MemRead,
                   MemWrite,
                   MemToReg,
@@ -146,6 +156,12 @@ control_main control_main (RegDst,
                   Jump, 
                   ALUcntrl,
                   opcode);
+
+// Branch control unit
+control_branch control_branch (BranchZ,
+                          BranchNZ,
+                          Branch,
+                          funct3);
 
 // Control Unit that generates stalls and bubbles to pipeline stages
 control_stall_id control_stall_id(bubble_ifid, bubble_idex, bubble_exmem, bubble_memwb, 
@@ -165,10 +181,10 @@ assign ALUInB = (IDEX_ALUSrc == 1'b0) ? bypassOutB : IDEX_signExtend;
 
 
 // Branch ALU
-ALU  #32 branch_alu(BranchALUOut, , IDEX_PCplus4, IDEX_signExtend<<2, ,4'b0010);
+ALU  #32 branch_alu(.out(BranchALUOut), .inA(IDEX_PCplus4), .inB(IDEX_signExtend<<2), .op(4'b0000));
 
 //  ALU
-ALU  #32 cpu_alu(ALUOut, Zero, ALUInA, ALUInB, IDEX_instr_shamt, ALUOp);
+ALU  #32 cpu_alu(ALUOut, Zero, ALUInA, ALUInB, ALUOp);
 
 assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
 
@@ -206,7 +222,7 @@ assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
   end
 
    // ALU control
-  control_alu control_alu(ALUOp, IDEX_ALUcntrl, IDEX_signExtend[5:0]);
+  control_alu control_alu(ALUOp, IDEX_ALUcntrl, IDEX_funct3, IDEX_funct7);
 
   // Bypass control
   control_bypass_ex control_bypass_ex(bypassA, bypassB, 
