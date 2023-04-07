@@ -1,3 +1,7 @@
+`include "../include/constants.vh"
+`include "../src/control.v"
+`include "../src/cpu.v"
+
 `define clock_period  10
 `timescale 1ns/1ps
 
@@ -18,7 +22,6 @@ module cpu_tb;
     reset = 1'b0;
     test  = 0;
     fail  = 0;
-/* 
 
     // 1.   NOTHING SPECIAL
     str = " NOTHING SPECIAL";
@@ -808,8 +811,6 @@ module cpu_tb;
     end
     #(`clock_period) 
     reset = 1'b0; 
-
-*/
 
     // 23.  BEQ(-5) NT
     str = " BEQ(-5) NT";

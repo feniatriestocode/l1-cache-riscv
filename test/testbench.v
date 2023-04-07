@@ -4,7 +4,9 @@
 // It only needs to instantiate CPU, Drive the inputs to CPU (clock, reset)
 // and monitor the outputs. This is what all testbenches do
 
-`include "constants.h"
+`include "../include/constants.vh"
+`include "../src/control.v"
+`include "../src/cpu.v"
 `timescale 1ns/1ps
 
 module cpu_tb;
