@@ -106,6 +106,7 @@ module signExtendUnit(output reg [31:0] out,
   begin
     case (opcode)
     `I_COMP_FORMAT: out = imm_i;
+    `I_LOAD_FORMAT: out = imm_i;
     `S_FORMAT: out = imm_s;
     `B_FORMAT: out = imm_b;
     `J_FORMAT: out = imm_j;

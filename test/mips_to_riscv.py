@@ -37,17 +37,18 @@ for i in range(len(instructions)):
         funct3 = "001"
         rs1 = format(int(words[-3][1:-1]), '#07b')[2:]  
         rs2 = format(int(words[-2][1:-1]), '#07b')[2:]
-        imm = format(int(words[-1]) & 0xfff, '012b')[::-1]
+        imm = format((int(words[-1]) * 2) & 0xfff, '012b')
         imm = imm + "0"
-        new_instruction = imm[12] + imm[5:10] + "_" + rs2 + "_" + rs1 + "_" + funct3 + "_" + imm[1:4] + imm[11] + "_" + opcode
+        new_instruction = imm[12] + imm[5:11] + "_" + rs2 + "_" + rs1 + "_" + funct3 + "_" + imm[1:5] + imm[11] + "_" + opcode
     elif words[0] == "beq":
         opcode = "1100011"
         funct3 = "000"
         rs1 = format(int(words[-3][1:-1]), '#07b')[2:]  
         rs2 = format(int(words[-2][1:-1]), '#07b')[2:]
-        imm = format(int(words[-1]) & 0xfff, '012b')[::-1]
+        imm = format((int(words[-1]) * 2) & 0xfff, '012b')
         imm = imm + "0"
-        new_instruction = imm[12] + imm[5:10] + "_" + rs2 + "_" + rs1 + "_" + funct3 + "_" + imm[1:4] + imm[11] + "_" + opcode
+        imm = imm[::-1]
+        new_instruction = imm[12] + imm[5:11] + "_" + rs2 + "_" + rs1 + "_" + funct3 + "_" + imm[1:5] + imm[11] + "_" + opcode
     elif words[0] == "j":
         opcode = "1101111"
         funct3 = "000"
@@ -64,7 +65,7 @@ for i in range(len(instructions)):
         last_dollar = instruction.rfind("$")
         last_comma = instruction.rfind(",")
         imm = format(int(instruction[last_comma+2:last_dollar-1]), '#014b')[2:]
-        new_instruction = imm[5:11] + "_" + rs2 + "_" + rs1 + "_" + funct3 + "_" + imm[0:4] + "_" + opcode
+        new_instruction = imm[5:11] + "_" + rs2 + "_" + rs1 + "_" + funct3 + "_" + imm[0:5] + "_" + opcode
     elif words[0] == "addi" or words[0] == "sll":
         opcode = "0010011"
         if words[0] == "addi":
@@ -73,7 +74,7 @@ for i in range(len(instructions)):
             funct3 = "001"
         rs1 = format(int(words[-2][1:-1]), '#07b')[2:]  
         rd = format(int(words[-3][1:-1]), '#07b')[2:]
-        imm = format(int(words[-1]) & 0xfff, '012b')[::-1]
+        imm = format(int(words[-1]) & 0xfff, '012b')
         new_instruction = imm + "_" + rs1 + "_" + funct3 + "_" + rd + "_" + opcode
     
     file = file.replace(matches[i], "32'b"+new_instruction+";\t" + "//")

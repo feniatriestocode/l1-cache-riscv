@@ -29,7 +29,7 @@ module control_main(output reg RegDst,
           end
     	`I_COMP_FORMAT:
            begin
-						RegDst = 1'b0;
+						RegDst = 1'b1;
 						MemRead = 1'b0;
 						MemWrite = 1'b0;
 						MemToReg = 1'b0;
@@ -41,7 +41,7 @@ module control_main(output reg RegDst,
            end
 			`I_LOAD_FORMAT:
 					begin 
-						RegDst = 1'b0;
+						RegDst = 1'b1;
 						MemRead = 1'b1;
 						MemWrite = 1'b0;
 						MemToReg = 1'b1;
