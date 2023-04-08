@@ -63,6 +63,8 @@ module cpu(input clock, input reset);
   // PCSrc multiplexer (branch or not)
   assign PC_new = (PCSrc == 1'b0) ? ((Jump == 1'b0) ? PCplus4 : JumpAddress) : EXMEM_BranchALUOut;
 
+  assign JumpAddress = signExtend;
+
   // IFID pipeline register
  always @(posedge clock or negedge reset)
   begin 
@@ -92,9 +94,9 @@ assign instr_rs2 = IFID_instr[24:20];
 assign instr_rd = IFID_instr[11:7];
 assign imm_i = { {20{{IFID_instr[31]}}}, IFID_instr[31:20]};
 assign imm_s = { {20{IFID_instr[31]}}, IFID_instr[31:25], IFID_instr[11:7]};
-assign imm_b = { {19{IFID_instr[31]}}, IFID_instr[31], IFID_instr[7], IFID_instr[30:25], IFID_instr[11:8], 1'b0};
+assign imm_b = { {20{IFID_instr[31]}}, IFID_instr[7], IFID_instr[30:25], IFID_instr[11:8], 1'b0};
 assign imm_u = { IFID_instr[31:12], {12{1'b0}}};
-assign imm_j = { {20{IFID_instr[31]}}, IFID_instr[31], IFID_instr[19:12], IFID_instr[20], IFID_instr[30:21], 1'b0};
+assign imm_j = { {20{IFID_instr[31]}}, IFID_instr[31], IFID_instr[19:12], IFID_instr[20], IFID_instr[30:25], IFID_instr[24:21], 1'b0};
 
 // Register file
 RegFile cpu_regs(clock, reset, instr_rs1, instr_rs2, MEMWB_RegWriteAddr, 
@@ -182,6 +184,7 @@ assign ALUInB = (IDEX_ALUSrc == 1'b0) ? bypassOutB : IDEX_signExtend;
 
 // Branch ALU
 ALU  #32 branch_alu(.out(BranchALUOut), .inA(IDEX_PCplus4), .inB(IDEX_signExtend), .op(4'b0000));
+
 
 //  ALU
 ALU  #32 cpu_alu(ALUOut, Zero, ALUInA, ALUInB, ALUOp);
