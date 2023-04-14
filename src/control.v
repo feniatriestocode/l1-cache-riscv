@@ -267,3 +267,25 @@ module control_branch(output reg BranchZ,
 		end
 	end
 endmodule
+
+module control_mem_out(input [2:0] mem_select, 
+                      input [31:0] DMemOut,
+                      output [31:0] out);
+
+  
+  assign out = (mem_select == `LB) ? {{24{DMemOut[7]}}, DMemOut[7:0]} :
+                (mem_select == `LH) ?  {{16{DMemOut[15]}}, DMemOut[15:0]} : 
+                (mem_select == `LBU) ?  {{24{1'b0}}, DMemOut[7:0]} :
+                (mem_select == `LHU) ?  {{16{1'b0}}, DMemOut[15:0]} :
+                DMemOut;
+endmodule
+
+module control_mem_in(input [2:0] mem_select, 
+                      input [31:0] ALUin,
+                      output [31:0] out);
+
+  
+  assign out = (mem_select == `SB) ? {{24{ALUin[7]}}, ALUin[7:0]} :
+                (mem_select == `SH) ?  {{16{ALUin[15]}}, ALUin[15:0]} : 
+                ALUin;
+endmodule

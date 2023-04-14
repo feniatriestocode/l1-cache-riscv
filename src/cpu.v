@@ -19,18 +19,20 @@ module cpu(input clock, input reset);
  reg        IDEX_RegDst, IDEX_ALUSrc;
  reg [1:0]  IDEX_ALUcntrl;
  reg        IDEX_BranchZ, IDEX_BranchNZ, IDEX_MemRead, IDEX_MemWrite; 
- reg        IDEX_MemToReg, IDEX_RegWrite;                
+ reg        IDEX_MemToReg, IDEX_RegWrite;  
+ reg [2:0]  EXMEM_funct3, MEMWB_funct3;        
  reg [4:0]  EXMEM_RegWriteAddr;
  reg [31:0] EXMEM_ALUOut;
  reg [31:0] EXMEM_BranchALUOut;
  reg        EXMEM_Zero;
  reg [31:0] EXMEM_MemWriteData;
+ wire [31:0] MemWriteData;
  reg        EXMEM_BranchZ, EXMEM_BranchNZ, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_RegWrite, EXMEM_MemToReg;
  reg [31:0] MEMWB_DMemOut;
  reg [4:0]  MEMWB_RegWriteAddr;
  reg [31:0] MEMWB_ALUOut;
  reg        MEMWB_MemToReg, MEMWB_RegWrite;
- wire [31:0] ALUInA, ALUInB, ALUOut, BranchALUOut, bypassOutB, DMemOut, wRegData;
+ wire [31:0] ALUInA, ALUInB, ALUOut, BranchALUOut, bypassOutB, DMemOut, MemOut, wRegData;
  wire [31:0] PCplus4, JumpAddress, PC_br, PC_new;
  wire Zero, RegDst, MemRead, MemWrite, MemToReg, ALUSrc, PCSrc, RegWrite, Jump;
  wire BranchZ, BranchNZ;
@@ -207,6 +209,7 @@ assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
        EXMEM_MemWrite <= 1'b0;
        EXMEM_MemToReg <= 1'b0;                  
        EXMEM_RegWrite <= 1'b0;
+       EXMEM_funct3 <= 3'b111;
       end 
     else if (write_exmem == 1'b1)
       begin
@@ -221,6 +224,7 @@ assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
        EXMEM_MemWrite <= IDEX_MemWrite;
        EXMEM_MemToReg <= IDEX_MemToReg;                  
        EXMEM_RegWrite <= IDEX_RegWrite;
+       EXMEM_funct3 <= funct3;
       end
   end
 
@@ -238,9 +242,10 @@ assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
 /*********************************** Memory Unit (MEM)  ********************************************/  
 
 assign PCSrc = (EXMEM_Zero & EXMEM_BranchZ) | (~EXMEM_Zero & EXMEM_BranchNZ);
- 
+
+control_mem_in control_mem_in(EXMEM_funct3, EXMEM_MemWriteData, MemWriteData);
 // Data memory 1KB
-Memory cpu_DMem(clock, reset, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_ALUOut, EXMEM_MemWriteData, DMemOut);
+Memory cpu_DMem(clock, reset, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_ALUOut, MemWriteData, DMemOut);
 
 // MEMWB pipeline register
  always @(posedge clock or negedge reset)
@@ -252,6 +257,7 @@ Memory cpu_DMem(clock, reset, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_ALUOut, EXMEM
        MEMWB_RegWriteAddr <= 5'b0;
        MEMWB_MemToReg <= 1'b0;                  
        MEMWB_RegWrite <= 1'b0;
+       MEMWB_funct3 <= 3'b111;
       end 
     else if (write_memwb == 1'b1)
       begin
@@ -260,11 +266,14 @@ Memory cpu_DMem(clock, reset, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_ALUOut, EXMEM
        MEMWB_RegWriteAddr <= EXMEM_RegWriteAddr;
        MEMWB_MemToReg <= EXMEM_MemToReg;                  
        MEMWB_RegWrite <= EXMEM_RegWrite;
+       MEMWB_funct3 <= EXMEM_funct3;
       end
   end
 
 /**************************** WriteBack Unit (WB) **************************/  
-assign wRegData = (MEMWB_MemToReg == 1'b0) ? MEMWB_ALUOut : MEMWB_DMemOut;
+control_mem_out control_mem_out(MEMWB_funct3, MEMWB_DMemOut, MemOut);
+
+assign wRegData = (MEMWB_MemToReg == 1'b0) ? MEMWB_ALUOut : MemOut;
 
 
 endmodule
