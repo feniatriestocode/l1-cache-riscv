@@ -12,7 +12,8 @@
 module ALU #(parameter N = 32) (output wire [N-1:0] out,  
                                 output wire zero,
                                 input  signed     [N-1:0] inA, inB,
-                                input       [3:0] op);
+                                input       [3:0] op, 
+                                input [31:0] PC);
   
   assign #`alu_delay out = 
       (op == 4'b0000) ? (inA + inB) : 
@@ -24,7 +25,9 @@ module ALU #(parameter N = 32) (output wire [N-1:0] out,
       (op == 4'b0110) ? (inA >> inB) : 
       (op == 4'b0111) ? $signed(inA) >>> inB : // shift right arithmetic
       (op == 4'b1000) ? ( (inA < inB) ? 1 : 0 ) : 
-      (op == 4'b1001 || op == 4'b1011) ? ( ($unsigned(inA) < $unsigned(inB)) ? 1 : 0) : 0;
+      (op == 4'b1001 || op == 4'b1011) ? ( ($unsigned(inA) < $unsigned(inB)) ? 1 : 0) : 
+      (op == 4'b1100) ? (inB << 12) : 
+      (op == 4'b1101) ? (PC + inB << 12) : 0;
 
   assign #`alu_delay zero = 
       (op == 4'b0001) ? (out == 0) : //beq, bne

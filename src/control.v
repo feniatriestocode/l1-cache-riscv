@@ -9,7 +9,7 @@ module control_main(output reg RegDst,
                 output reg ALUSrc,  
                 output reg RegWrite,  
                 output reg Jump, 
-                output reg [1:0] ALUcntrl,  
+                output reg [2:0] ALUcntrl,  
                 input [6:0] opcode);
 
   always @(*) 
@@ -25,7 +25,7 @@ module control_main(output reg RegDst,
             RegWrite = 1'b1;
             Branch = 1'b0;   
             Jump = 0;      
-            ALUcntrl  = 2'b00; // R             
+            ALUcntrl  = 3'b000; // R             
           end
     	`I_COMP_FORMAT:
            begin
@@ -37,7 +37,7 @@ module control_main(output reg RegDst,
 						RegWrite = 1'b1;
 						Branch = 1'b0;
 						Jump = 0;
-						ALUcntrl = 2'b00;
+						ALUcntrl = 3'b000;
            end
 			`I_LOAD_FORMAT:
 					begin 
@@ -49,8 +49,20 @@ module control_main(output reg RegDst,
 						RegWrite = 1'b1;
 						Branch = 1'b0;
 						Jump = 0; 
-						ALUcntrl  = 2'b01; // add
+						ALUcntrl  = 3'b001; // add
 					end	
+      `I_JALR_FORMAT:
+          begin
+            RegDst = 1'b1;
+            MemRead = 1'b0;
+            MemWrite = 1'b0;
+            MemToReg = 1'b0;
+            ALUSrc = 1'b0;
+            RegWrite = 1'b1;
+            Branch = 1'b0;
+            Jump = 1;
+            ALUcntrl = 3'b000;
+          end
       `S_FORMAT:   
            begin 
             RegDst = 1'b0;
@@ -61,7 +73,7 @@ module control_main(output reg RegDst,
             RegWrite = 1'b0;
             Branch = 1'b0;
             Jump = 0; 
-            ALUcntrl  = 2'b01; // add
+            ALUcntrl  = 3'b001; // add
            end
       `B_FORMAT:   
            begin 
@@ -73,20 +85,44 @@ module control_main(output reg RegDst,
             RegWrite = 1'b0;
             Branch = 1'b1;
             Jump = 0; 
-            ALUcntrl = 2'b10; // sub
+            ALUcntrl = 3'b010; // sub
            end
        `J_FORMAT:  
            begin 
-            RegDst = 1'b0;
+            RegDst = 1'b1;
             MemRead = 1'b0;
             MemWrite = 1'b0;
             MemToReg = 1'b0;
             ALUSrc = 1'b0;
-            RegWrite = 1'b0;
+            RegWrite = 1'b1;
             Branch = 1'b0;
             Jump = 1;
-            ALUcntrl = 2'b00; // don't care 
+            ALUcntrl = 3'b000; // don't care 
            end
+        `LUI:
+            begin
+              RegDst = 1'b1;
+              MemRead = 1'b0;
+              MemWrite = 1'b0;
+              MemToReg = 1'b0;
+              ALUSrc = 1'b0;
+              RegWrite = 1'b1;
+              Branch = 1'b0;
+              Jump = 1'b1;
+              ALUcntrl = 3'b011;
+            end
+        `AUIPC:
+          begin
+            RegDst = 1'b1;
+            MemRead = 1'b0;
+            MemWrite = 1'b0;
+            MemToReg = 1'b0;
+            ALUSrc = 1'b0;
+            RegWrite = 1'b1;
+            Branch = 1'b0;
+            Jump = 1'b1;
+            ALUcntrl = 3'b100;
+          end
        default:
            begin
             RegDst = 1'b0;
@@ -97,7 +133,7 @@ module control_main(output reg RegDst,
             RegWrite = 1'b0;
             Branch = 0; 
             Jump = 0; 
-            ALUcntrl = 2'b00; 
+            ALUcntrl = 3'b000; 
          end
       endcase
     end // always
@@ -117,10 +153,17 @@ endmodule
                       output reg write_pc,
                       input [4:0] ifid_rs,
                       input [4:0] ifid_rt,
+                      input [4:0] ifid_rd,
                       input [4:0] idex_rt,
+                      input [4:0] idex_rd,
+                      input [4:0] exmem_rd,
+                      input [4:0] memwb_rd,
                       input idex_memread, 
                       input Jump,
-                      input PCSrc);                    
+                      input PCSrc,
+                      input IDEX_RegWrite,
+                      input EXMEM_RegWrite, 
+                      input MEMWB_RegWrite);                    
       
       always @(*)
         begin
@@ -141,8 +184,18 @@ endmodule
              end
          else if (Jump == 1'b1)   // j instruction in ID stage
              begin
-               bubble_ifid = 1'b1;
-               write_pc = 1'b1;
+              if ( ((IDEX_RegWrite == 1'b1) || (EXMEM_RegWrite == 1'b1) || (MEMWB_RegWrite == 1'b1)) &&
+                    (idex_rd == ifid_rd) || (exmem_rd == ifid_rd) && (memwb_rd == ifid_rd))
+              begin
+                bubble_idex = 1'b1;
+                write_ifid = 1'b0;
+                write_pc = 1'b0;
+              end
+              else
+              begin
+                bubble_ifid = 1'b1;
+                write_pc = 1'b1;
+              end
              end 
         if (PCSrc == 1'b1)   // Taken Branch in MEM stage
              begin
@@ -192,14 +245,14 @@ endmodule
                        
 /************** control for ALU control in EX pipe stage  *************/
 module control_alu(output reg [3:0] ALUOp,                  
-               input [1:0] ALUcntrl,
+               input [2:0] ALUcntrl,
                input [2:0] funct3, 
 							 input [6:0] funct7);
 
   always @(ALUcntrl or funct3 or funct7)  
     begin
       case (ALUcntrl)
-        2'b00: // R/I_COMP-format 
+        3'b000: // R/I_COMP-format 
            begin
              case (funct3)
 							`ADD_SUB:
@@ -215,9 +268,9 @@ module control_alu(output reg [3:0] ALUOp,
               default: ALUOp = 4'b0000; 
              endcase
            end
-        2'b01: // I_Load/S format
+        3'b001: // I_Load/S format
               ALUOp  = 4'b0000; // add
-        2'b10:  // Branch
+        3'b010:  // Branch
 					begin
 						case (funct3)
 							`BEQ, `BNE:
@@ -228,6 +281,14 @@ module control_alu(output reg [3:0] ALUOp,
 								ALUOp = 4'b1011; // same as above but unsigned
 						endcase
 					end
+        3'b011:
+        begin
+          ALUOp = 4'b1100;
+        end
+        3'b100:
+        begin
+          ALUOp = 4'b1101;
+        end
         default:
               ALUOp = 4'b0000;
      endcase

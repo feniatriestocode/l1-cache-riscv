@@ -63,4 +63,8 @@
 `define BLTU 3'b110
 `define BGEU 3'b111
 
+// U-format
+`define LUI 7'b0110111
+`define AUIPC 7'b0010111
+
 `define NOP  32'b0000_0000_0000_0000_0000_0000_0000_0000
