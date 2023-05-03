@@ -42,27 +42,28 @@ endmodule
 // Write: enable wen, disable ren, address addr, data din.
 module Dmem (input clock, reset, 
                input ren, wen, 
-               input  [31:0] addr, din, 
+               input [`DATA_BITS-3:0] addr, 
+               input [31:0] din, 
                output [31:0] dout);
 
-  reg [31:0] data[4095:0];
+  reg [31:0] data[0:2**(`DATA_BITS-2)-1];
 
-  assign dout = data[addr[11:0]];
+  assign dout = data[addr];
 
   always @(ren or wen)
     if (ren & wen)
       $display ("\nMemory ERROR (time %0d): ren and wen both active!\n", $time);
 
-  always @(posedge ren or posedge wen) begin
+  /*always @(posedge ren or posedge wen) begin
     if (addr[31:12] != 0)
       $display("Memory WARNING (time %0d): address msbs are not zero\n", $time);
-  end  
+  end*/  
   
   /* Write memory in the negative edge of the clock */
    always @(posedge clock)
    begin
           if (wen == 1'b1 && ren==1'b0)
-               data[addr[11:0]] <= din;
+               data[addr] <= din;
    end
 
 `ifdef DATA_HEX
@@ -73,27 +74,28 @@ endmodule
 
 module Imem (input clock, reset, 
                input ren, wen, 
-               input  [31:0] addr, din, 
+               input  [`TEXT_BITS-3:0] addr, 
+               input [31:0] din, 
                output [31:0] dout);
 
-  reg [31:0] data[4095:0];
+  reg [31:0] data[0:2**(`TEXT_BITS-2)-1];
 
-  assign dout = data[addr[11:0]];
+  assign dout = data[addr];
 
   always @(ren or wen)
     if (ren & wen)
       $display ("\nMemory ERROR (time %0d): ren and wen both active!\n", $time);
 
-  always @(posedge ren or posedge wen) begin
+  /*always @(posedge ren or posedge wen) begin
     if (addr[31:12] != 0)
       $display("Memory WARNING (time %0d): address msbs are not zero\n", $time);
-  end  
+  end*/  
   
   /* Write memory in the negative edge of the clock */
    always @(posedge clock)
    begin
           if (wen == 1'b1 && ren==1'b0)
-               data[addr[11:0]] <= din;
+               data[addr] <= din;
    end
 
 `ifdef TEXT_HEX

@@ -55,9 +55,7 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
  always @(posedge clock or negedge reset)
   begin 
     if (reset == 1'b0)     
-       PC <= -1;     
-    else if (PC == -1)
-       PC <= 0;
+       PC <= `INITIAL_PC;     
     else if (write_pc == 1'b1)
        PC <= PC_new;
   end
@@ -255,7 +253,7 @@ assign PCSrc = (EXMEM_Zero & EXMEM_BranchZ) | (~EXMEM_Zero & EXMEM_BranchNZ);
 
 control_mem_in control_mem_in(EXMEM_funct3, EXMEM_MemWriteData, MemWriteData);
 // Data memory 1KB
-Dmem cpu_DMem(clock, reset, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_ALUOut, MemWriteData, DMemOut);
+Dmem cpu_DMem(clock, reset, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_ALUOut[`DATA_BITS-1:2], MemWriteData, DMemOut);
 
 // MEMWB pipeline register
  always @(posedge clock or negedge reset)
