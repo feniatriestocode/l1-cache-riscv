@@ -471,26 +471,23 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
                                                         ((1U 
                                                           & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr)
                                                           ? 
-                                                         ((0xffe00000U 
+                                                         ((0xfff00000U 
                                                            & ((- (IData)(
                                                                          (1U 
                                                                           & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                                              >> 0x1fU)))) 
-                                                              << 0x15U)) 
-                                                          | ((0x100000U 
-                                                              & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                                 >> 0xbU)) 
-                                                             | ((0xff000U 
-                                                                 & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr) 
-                                                                | ((0x800U 
+                                                              << 0x14U)) 
+                                                          | ((0xff000U 
+                                                              & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr) 
+                                                             | ((0x800U 
+                                                                 & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                                                                    >> 9U)) 
+                                                                | ((0x7e0U 
                                                                     & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                                       >> 9U)) 
-                                                                   | ((0x7e0U 
-                                                                       & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                                          >> 0x14U)) 
-                                                                      | (0x1eU 
-                                                                         & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                                            >> 0x14U)))))))
+                                                                       >> 0x14U)) 
+                                                                   | (0x1eU 
+                                                                      & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                                                                         >> 0x14U))))))
                                                           : 0U)
                                                          : 0U)
                                                         : 0U)

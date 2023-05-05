@@ -313,26 +313,23 @@ void Vtoplevel::_settle__TOP__4(Vtoplevel__Syms* __restrict vlSymsp) {
                                                         ((1U 
                                                           & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr)
                                                           ? 
-                                                         ((0xffe00000U 
+                                                         ((0xfff00000U 
                                                            & ((- (IData)(
                                                                          (1U 
                                                                           & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                                              >> 0x1fU)))) 
-                                                              << 0x15U)) 
-                                                          | ((0x100000U 
-                                                              & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                                 >> 0xbU)) 
-                                                             | ((0xff000U 
-                                                                 & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr) 
-                                                                | ((0x800U 
+                                                              << 0x14U)) 
+                                                          | ((0xff000U 
+                                                              & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr) 
+                                                             | ((0x800U 
+                                                                 & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                                                                    >> 9U)) 
+                                                                | ((0x7e0U 
                                                                     & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                                       >> 9U)) 
-                                                                   | ((0x7e0U 
-                                                                       & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                                          >> 0x14U)) 
-                                                                      | (0x1eU 
-                                                                         & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                                            >> 0x14U)))))))
+                                                                       >> 0x14U)) 
+                                                                   | (0x1eU 
+                                                                      & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                                                                         >> 0x14U))))))
                                                           : 0U)
                                                          : 0U)
                                                         : 0U)
@@ -767,7 +764,6 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__cpu__DOT__ALUOut = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__bypassOutB = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__wRegData = VL_RAND_RESET_I(32);
-    toplevel__DOT__cpu__DOT__PC_br = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__PC_new = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__RegDst = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__MemRead = VL_RAND_RESET_I(1);
@@ -791,8 +787,6 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__cpu__DOT__bypassA = VL_RAND_RESET_I(2);
     toplevel__DOT__cpu__DOT__bypassB = VL_RAND_RESET_I(2);
     toplevel__DOT__cpu__DOT__imm_i = VL_RAND_RESET_I(32);
-    toplevel__DOT__cpu__DOT__rda = VL_RAND_RESET_I(32);
-    toplevel__DOT__cpu__DOT__rdb = VL_RAND_RESET_I(32);
     { int __Vi0=0; for (; __Vi0<16384; ++__Vi0) {
             toplevel__DOT__cpu__DOT__cpu_IMem__DOT__data[__Vi0] = VL_RAND_RESET_I(32);
     }}

@@ -1,4 +1,4 @@
-`include "constants.vh"
+`include "constants.v"
 `include "config.vh"
 
 /************** Main control in ID pipe stage  *************/

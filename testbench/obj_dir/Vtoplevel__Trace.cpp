@@ -150,26 +150,23 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                                    >> 7U)))))),32);
             tracep->chgIData(oldp+57,((0xfffff000U 
                                        & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr)),32);
-            tracep->chgIData(oldp+58,(((0xffe00000U 
+            tracep->chgIData(oldp+58,(((0xfff00000U 
                                         & ((- (IData)(
                                                       (1U 
                                                        & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                           >> 0x1fU)))) 
-                                           << 0x15U)) 
-                                       | ((0x100000U 
-                                           & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                              >> 0xbU)) 
-                                          | ((0xff000U 
-                                              & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr) 
-                                             | ((0x800U 
+                                           << 0x14U)) 
+                                       | ((0xff000U 
+                                           & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr) 
+                                          | ((0x800U 
+                                              & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                                                 >> 9U)) 
+                                             | ((0x7e0U 
                                                  & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                    >> 9U)) 
-                                                | ((0x7e0U 
-                                                    & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                       >> 0x14U)) 
-                                                   | (0x1eU 
-                                                      & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                         >> 0x14U)))))))),32);
+                                                    >> 0x14U)) 
+                                                | (0x1eU 
+                                                   & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                                                      >> 0x14U))))))),32);
             tracep->chgSData(oldp+59,((0x3fffU & (vlTOPp->toplevel__DOT__cpu__DOT__PC 
                                                   >> 2U))),14);
             tracep->chgIData(oldp+60,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__i),32);

@@ -105,11 +105,8 @@ VL_MODULE(Vtoplevel) {
         IData/*31:0*/ toplevel__DOT__cpu__DOT__ALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__bypassOutB;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__wRegData;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__PC_br;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__PC_new;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__imm_i;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__rda;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__rdb;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__cpu_regs__DOT__i;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__branch_alu__DOT__PC;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__cpu_IMem__DOT__data[16384];

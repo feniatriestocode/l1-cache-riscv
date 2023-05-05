@@ -1,4 +1,4 @@
-`include "constants.vh"
+`include "constants.v"
 `include "config.vh"
 `include "cpu.v"
 

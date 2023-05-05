@@ -1,4 +1,4 @@
-`include "constants.vh"
+`include "constants.v"
 `include "config.vh"
 `include "control.v"
 `include "library.v"
@@ -36,7 +36,7 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
  reg [31:0] MEMWB_ALUOut;
  reg        MEMWB_MemToReg, MEMWB_RegWrite;
  wire [31:0] ALUInA, ALUInB, ALUOut, BranchALUOut, bypassOutB, DMemOut, MemOut, wRegData;
- wire [31:0] PCplus4, JumpAddress, PC_br, PC_new;
+ wire [31:0] PCplus4, JumpAddress, PC_new;
  wire Zero, RegDst, MemRead, MemWrite, MemToReg, ALUSrc, PCSrc, RegWrite, Jump, CPU_RegWrite;
  wire BranchZ, BranchNZ, Branch;
  wire bubble_ifid, bubble_idex, bubble_exmem, bubble_memwb;   // create a NOP in respective stages
@@ -48,7 +48,6 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
  wire [3:0] ALUOp;
  wire [1:0] bypassA, bypassB;
  wire [31:0] imm_i, imm_s, imm_b, imm_u, imm_j;
- wire [31:0] rda, rdb;
 
 
 /********************** Instruction Fetch Unit (IF)  **********************/
@@ -99,7 +98,7 @@ assign imm_i = { {20{{IFID_instr[31]}}}, IFID_instr[31:20]};
 assign imm_s = { {20{IFID_instr[31]}}, IFID_instr[31:25], IFID_instr[11:7]};
 assign imm_b = { {20{IFID_instr[31]}}, IFID_instr[7], IFID_instr[30:25], IFID_instr[11:8], 1'b0};
 assign imm_u = { IFID_instr[31:12], {12{1'b0}}};  
-assign imm_j = { {20{IFID_instr[31]}}, IFID_instr[31], IFID_instr[19:12], IFID_instr[20], IFID_instr[30:25], IFID_instr[24:21], 1'b0};
+assign imm_j = { {12{IFID_instr[31]}}, IFID_instr[19:12], IFID_instr[20], IFID_instr[30:25], IFID_instr[24:21], 1'b0};
 
 
 assign CPU_RegWrite = ((Jump == 1'b1) && (IDEX_RegWrite == 1'b1) && (EXMEM_RegWrite == 1'b1) && (MEMWB_RegWrite == 1'b1)) 
@@ -120,7 +119,7 @@ signExtendUnit signExtendUnit(signExtend, imm_i, imm_s, imm_b, imm_u, imm_j, opc
        IDEX_instr_rs1 <= 5'b0;
        IDEX_instr_rs2 <= 5'b0;
        IDEX_RegDst <= 1'b0;
-       IDEX_ALUcntrl <= 2'b0;
+       IDEX_ALUcntrl <= 3'b0;
        IDEX_ALUSrc <= 1'b0;
        IDEX_BranchZ <= 1'b0;
        IDEX_BranchNZ <= 1'b0;
