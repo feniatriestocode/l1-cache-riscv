@@ -38,7 +38,7 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
  wire [31:0] ALUInA, ALUInB, ALUOut, BranchALUOut, bypassOutB, DMemOut, MemOut, wRegData;
  wire [31:0] PCplus4, JumpAddress, PC_br, PC_new;
  wire Zero, RegDst, MemRead, MemWrite, MemToReg, ALUSrc, PCSrc, RegWrite, Jump, CPU_RegWrite;
- wire BranchZ, BranchNZ;
+ wire BranchZ, BranchNZ, Branch;
  wire bubble_ifid, bubble_idex, bubble_exmem, bubble_memwb;   // create a NOP in respective stages
  wire write_ifid, write_idex, write_exmem, write_memwb, write_pc;  // enable/disable pipeline registers
  wire [6:0] opcode;
@@ -84,7 +84,7 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
   end
   
 // Instruction memory
-Imem cpu_IMem(clock, reset, write_ifid, 1'b0, PC>>2, 32'b0, instr);
+Imem cpu_IMem(clock, reset, write_ifid, 1'b0, PC[`TEXT_BITS-1:2], 32'b0, instr);
   
 
   
@@ -178,7 +178,7 @@ control_stall_id control_stall_id(bubble_ifid, bubble_idex, bubble_exmem, bubble
                           write_ifid, write_idex, write_exmem, write_memwb, write_pc, 
                           instr_rs1, instr_rs2, instr_rd, IDEX_instr_rs2, IDEX_instr_rd,
                           EXMEM_RegWriteAddr, MEMWB_RegWriteAddr, 
-                          EXMEM_IDEX_MemRead, Jump, PCSrc,
+                          IDEX_MemRead, Jump, PCSrc,
                           IDEX_RegWrite, EXMEM_RegWrite, MEMWB_RegWrite);
 
 /************************ Execution Unit (EX)  ***********************************/
