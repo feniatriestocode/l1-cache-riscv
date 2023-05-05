@@ -1,0 +1,2 @@
+testbench/pipelined/*
+!testbench/pipelined/Makefile
