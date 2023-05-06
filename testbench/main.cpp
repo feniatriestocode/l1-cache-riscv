@@ -20,11 +20,14 @@ int main(int argc, const char **argv, const char **env)
     str = Verilated::commandArgsPlusMatch("verbose");
     if (str && str[0]) verbose = true;
 
-    Verilated::traceEverOn(true);
     std::unique_ptr<Vtoplevel> top(new Vtoplevel);
+
+    #ifdef TRACE
+    Verilated::traceEverOn(true);
     VerilatedVcdC* tfp = new VerilatedVcdC;
-    // top->trace(tfp, 99);  // Trace 99 levels of hierarchy (or see below)
+    top->trace(tfp, 99);  // Trace 99 levels of hierarchy (or see below)
     tfp->open("simx.vcd");
+    #endif
 
     top->reset = 1;
 
@@ -35,7 +38,10 @@ int main(int argc, const char **argv, const char **env)
             top->reset = 0;
         top->clock = time & 1;
         top->eval();
+
+        #ifdef TRACE
         tfp->dump(time);
+        #endif
 
         if (verbose && top->clock && time > 8) {
             std::cout << std::hex << std::setfill('0')
@@ -45,10 +51,6 @@ int main(int argc, const char **argv, const char **env)
                       << "out=" << std::setw(8) << top->WriteData << " "
                       << "alu out=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut << " "                      
                       << (top->MemWriteEnable ? "1" : "0") << " \n";
-        }
-
-        if (top->toplevel__DOT__cpu__DOT__IDEX_RegWrite && top->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr == 28) {
-            //std::cout << top->toplevel__DOT__cpu__DOT__wRegData << std::endl;
         }
 
         if (top->MemWriteEnable && top->MemAddr == 0xfffffff0) {
@@ -62,7 +64,9 @@ int main(int argc, const char **argv, const char **env)
         }
     }
 
+    #ifdef TRACE
     tfp->close();
+    #endif
 
     std::cout << "TIMEOUT" << std::endl;
 

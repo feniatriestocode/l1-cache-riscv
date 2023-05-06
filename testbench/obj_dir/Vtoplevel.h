@@ -42,8 +42,6 @@ VL_MODULE(Vtoplevel) {
         CData/*0:0*/ toplevel__DOT__cpu__DOT__IDEX_RegDst;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__IDEX_ALUSrc;
         CData/*2:0*/ toplevel__DOT__cpu__DOT__IDEX_ALUcntrl;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__IDEX_BranchZ;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__IDEX_BranchNZ;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__IDEX_MemRead;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__IDEX_MemWrite;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__IDEX_MemToReg;
@@ -52,8 +50,6 @@ VL_MODULE(Vtoplevel) {
         CData/*2:0*/ toplevel__DOT__cpu__DOT__MEMWB_funct3;
         CData/*4:0*/ toplevel__DOT__cpu__DOT__EXMEM_RegWriteAddr;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__EXMEM_Zero;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__EXMEM_BranchZ;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__EXMEM_BranchNZ;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__EXMEM_MemRead;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__EXMEM_MemWrite;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__EXMEM_RegWrite;
@@ -70,9 +66,9 @@ VL_MODULE(Vtoplevel) {
         CData/*0:0*/ toplevel__DOT__cpu__DOT__RegWrite;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__Jump;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__CPU_RegWrite;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__BranchZ;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__BranchNZ;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__Branch;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__IDEX_Branch;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__EXMEM_Branch;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__bubble_ifid;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__bubble_idex;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__bubble_exmem;
@@ -98,12 +94,12 @@ VL_MODULE(Vtoplevel) {
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_MemWriteData;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__MemWriteData;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__MEMWB_DMemOut;
-    };
-    struct {
         IData/*31:0*/ toplevel__DOT__cpu__DOT__MEMWB_ALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__ALUInA;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__ALUInB;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__ALUOut;
+    };
+    struct {
         IData/*31:0*/ toplevel__DOT__cpu__DOT__bypassOutB;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__wRegData;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__PC_new;
@@ -118,9 +114,10 @@ VL_MODULE(Vtoplevel) {
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
     CData/*6:0*/ __Vtableidx1;
-    CData/*3:0*/ __Vtableidx2;
+    CData/*5:0*/ __Vtableidx2;
     CData/*0:0*/ __Vclklast__TOP__clock;
     CData/*0:0*/ __Vclklast__TOP__reset;
+    CData/*0:0*/ __Vtablechg2[64];
     CData/*0:0*/ __Vm_traceActivity[3];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__RegDst[128];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__MemRead[128];
@@ -131,8 +128,7 @@ VL_MODULE(Vtoplevel) {
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__Branch[128];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__Jump[128];
     static CData/*2:0*/ __Vtable1_toplevel__DOT__cpu__DOT__ALUcntrl[128];
-    static CData/*0:0*/ __Vtable2_toplevel__DOT__cpu__DOT__BranchZ[16];
-    static CData/*0:0*/ __Vtable2_toplevel__DOT__cpu__DOT__BranchNZ[16];
+    static CData/*0:0*/ __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[64];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code

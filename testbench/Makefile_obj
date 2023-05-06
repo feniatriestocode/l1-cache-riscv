@@ -1,7 +1,0 @@
-include Vtoplevel.mk
-
-COMPILE.cc = $(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
-
-main.o: main.cpp $(VM_PREFIX).h
-
-DEPS := $(wildcard *.d)

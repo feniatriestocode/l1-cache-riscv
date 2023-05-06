@@ -1,6 +1,5 @@
 `include "constants.v"
 `include "config.vh"
-`include "cpu.v"
 
 module toplevel(
     input clock,

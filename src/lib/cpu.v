@@ -1,7 +1,7 @@
 `include "constants.v"
 `include "config.vh"
-`include "control.v"
 `include "library.v"
+`include "control.v"
 
 /*****************************************************************************************/
 /* Implementation of the 5-stage MIPS pipeline that supports the following instructions: */
