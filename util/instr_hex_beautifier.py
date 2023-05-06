@@ -9,6 +9,8 @@ I_OPCODES_4 = "1100111"
 S_OPCODES = "0100011"
 B_OPCODES = "1100011"
 J_OPCODES = "1101111"
+U_OPCODES_1 = "0110111"
+U_OPCODES_2 = "0010111"
 
 # R-Type 
 ADD_FUNCT3 = "000"
@@ -175,8 +177,10 @@ def hexToString(instruction_str):
 	elif opcode == I_OPCODES_4:
 		if funct3 == JALR_FUNCT3:
 			inst_str = "jalr"
+		else:
+			inst_str = "unknown"
 		imm = int(imm_i, 2) - (int(imm_i[0], 2) << len(imm_i))
-		inst_str = inst_str + " " + reg_to_string(rd) + ", " + reg_to_string(rs1) + ", " + bin_to_hex(imm_i)
+		inst_str = inst_str + " " + reg_to_string(rd) + ", " + reg_to_string(rs1) + ", " + reg_to_string(rs2)
 	elif opcode == S_OPCODES:
 		if funct3 == SB_FUNCT3:
 			inst_str = "sb"
@@ -205,6 +209,16 @@ def hexToString(instruction_str):
 			inst_str = "unknown"
 		imm = int(imm_b, 2) - (int(imm_b[0], 2) << len(imm_b))
 		inst_str += " " + reg_to_string(rs1) + ", " + reg_to_string(rs2) + ", " + str(imm)
+	elif opcode == J_OPCODES:
+		imm = int(imm_j, 2) - (int(imm_j[0], 2) << len(imm_j))
+		inst_str = "jal" + " " + reg_to_string(rd) + ", " + str(imm)
+	elif opcode == U_OPCODES_1:
+		# imm = int(imm_u, 2) - (int(imm_u[0], 2) << len(imm_u))
+		inst_str = "lui" + " " + reg_to_string(rd) + ", " + bin_to_hex(imm_u)
+	elif opcode == U_OPCODES_2:
+		imm = int(imm_u, 2) - (int(imm_u[0], 2) << len(imm_u))
+		inst_str = "auipc" + " " + reg_to_string(rd) + ", " + str(imm)
+
 	return inst_str
 
 # Generates a string 
@@ -226,12 +240,13 @@ with open(filename, "r") as f:
 			# print(l)
 
 			line = l.split()
-			addr = int(line[0].split("@")[1], 16)
+			addr = 4*int(line[0].split("@")[1], 16)
 			instructions = line[1:]
 
 			for instruction in instructions:
 				hex_addr = '{:x}'.format(addr)
 				formatted_addr = '{:0>{width}}'.format(hex_addr, width=5)
+				
 				instrLine = getInstructionLine(formatted_addr, instruction)
 				addr += 4
 				

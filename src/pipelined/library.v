@@ -27,13 +27,13 @@ module ALU #(parameter N = 32) (output wire [N-1:0] out,
       (op == 4'b0111) ? $signed(inA) >>> inB : // shift right arithmetic
       (op == 4'b1000) ? ( (inA < inB) ? 1 : 0 ) : 
       (op == 4'b1001 || op == 4'b1011) ? ( ($unsigned(inA) < $unsigned(inB)) ? 1 : 0) : 
-      (op == 4'b1100) ? (inB << 12) : 
-      (op == 4'b1101) ? (PC + inB << 12) : 0;
+      (op == 4'b1100) ? {inB[31:12], 12'b0}:
+      (op == 4'b1101) ? (PC + {inB[31:12], 12'b0}) : 0;
 
   assign zero = 
-      (op == 4'b0001) ? (out == 0) : //beq, bne
-      (op == 4'b1010) ? (out < 0) : //blt, bge
-      (op == 4'b1011) ? (out == 1) : 0;//bltu, bgeu
+      (op == 4'b0001) ? (out == 0) :    //beq, bne
+      (op == 4'b1010) ? (out[31] == 1) :     //blt, bge
+      (op == 4'b1011) ? (out == 1) : 0; //bltu, bgeu
 endmodule
 
 
@@ -151,6 +151,7 @@ module signExtendUnit(output reg [31:0] out,
     `S_FORMAT: out = imm_s;
     `B_FORMAT: out = imm_b;
     `J_FORMAT: out = imm_j;
+    `AUIPC, `LUI: out = imm_u;
     default: out = 32'b0;
     endcase
   end

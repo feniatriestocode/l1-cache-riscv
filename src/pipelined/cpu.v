@@ -9,7 +9,7 @@
 /*  addi, lw, sw, beq, j                                                                 */
 /*****************************************************************************************/
 module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAddr, output [31:0] WriteData);
- reg [31:0] PC, IDEX_PC, EXMEM_PC;
+ reg [31:0] PC, IFID_PC, IDEX_PC, EXMEM_PC;
  reg [31:0] IFID_PCplus4, IFID_instr;
  wire [31:0] instr;
  reg [31:0] IDEX_signExtend;
@@ -65,19 +65,21 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
   // PCSrc multiplexer (branch or not)
   assign PC_new = (PCSrc == 1'b0) ? ((Jump == 1'b0) ? PCplus4 : JumpAddress) : EXMEM_BranchALUOut;
 
-  assign JumpAddress = (opcode == `J_FORMAT) ? signExtend : IDEX_rdA + signExtend;
+  assign JumpAddress = (opcode == `J_FORMAT) ? IFID_PC + signExtend : instr_rs1 + signExtend;
 
   // IFID pipeline register
  always @(posedge clock or negedge reset)
   begin 
     if ((reset == 1'b0) || (bubble_ifid == 1'b1))    
       begin
-        IFID_PCplus4 <= 32'b0;    
+        IFID_PCplus4 <= 32'b0;
+        IFID_PC <= 32'b0;    
         IFID_instr <= 32'b0;
       end 
     else if (write_ifid == 1'b1)
       begin
         IFID_PCplus4 <= PCplus4;
+        IFID_PC <= PC;
         IFID_instr <= instr;
     end
   end
@@ -150,7 +152,7 @@ signExtendUnit signExtendUnit(signExtend, imm_i, imm_s, imm_b, imm_u, imm_j, opc
        IDEX_PCplus4 <= IFID_PCplus4;
        IDEX_funct3 <= funct3;
        IDEX_funct7 <= funct7;
-       IDEX_PC <= PC;
+       IDEX_PC <= IFID_PC;
     end
   end
 
@@ -192,7 +194,7 @@ assign ALUInA = (bypassA==2'b00) ? IDEX_rdA :
 assign ALUInB = (IDEX_ALUSrc == 1'b0) ? bypassOutB : IDEX_signExtend;
 
 // Branch ALU
-ALU  #32 branch_alu(.out(BranchALUOut), .inA(IDEX_PCplus4), .inB(IDEX_signExtend), .op(4'b0000));
+ALU  #32 branch_alu(.out(BranchALUOut), .inA(IDEX_PC), .inB(IDEX_signExtend), .op(4'b0000));
 
 //  ALU
 ALU  #32 cpu_alu(ALUOut, Zero, ALUInA, ALUInB, ALUOp, EXMEM_PC);

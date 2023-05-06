@@ -70,6 +70,7 @@ VL_MODULE(Vtoplevel) {
         CData/*0:0*/ toplevel__DOT__cpu__DOT__CPU_RegWrite;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__BranchZ;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__BranchNZ;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__Branch;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__bubble_ifid;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__bubble_idex;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__bubble_exmem;
@@ -79,26 +80,24 @@ VL_MODULE(Vtoplevel) {
         CData/*3:0*/ toplevel__DOT__cpu__DOT__ALUOp;
         CData/*1:0*/ toplevel__DOT__cpu__DOT__bypassA;
         CData/*1:0*/ toplevel__DOT__cpu__DOT__bypassB;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__Branch;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__PC;
+        IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_PC;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_PC;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_PC;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_PCplus4;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_instr;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_signExtend;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__signExtend;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_rdA;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_rdB;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_PCplus4;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_ALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_MemWriteData;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__MemWriteData;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__MEMWB_DMemOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__MEMWB_ALUOut;
+        IData/*31:0*/ toplevel__DOT__cpu__DOT__ALUInA;
     };
     struct {
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__ALUInA;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__ALUInB;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__ALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__bypassOutB;

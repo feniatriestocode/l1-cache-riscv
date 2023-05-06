@@ -46,6 +46,16 @@
 `define SLT 3'b010
 `define SLTU 3'b011
 
+`define ADDI 3'b000
+`define XORI 3'b100
+`define ORI 3'b110
+`define ANDI 3'b111
+`define SLLI 3'b001
+`define SRLI 3'b101
+`define SLTI 3'b010
+`define SLTUI 3'b011
+
+
 // I_LOAD-format, FUNCT3
 `define LB 3'b000
 `define LH 3'b001

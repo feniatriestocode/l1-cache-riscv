@@ -38,7 +38,7 @@ module control_main(output reg RegDst,
 						RegWrite = 1'b1;
 						Branch = 1'b0;
 						Jump = 0;
-						ALUcntrl = 3'b000;
+						ALUcntrl = 3'b101;
            end
 			`I_LOAD_FORMAT:
 					begin 
@@ -106,10 +106,10 @@ module control_main(output reg RegDst,
               MemRead = 1'b0;
               MemWrite = 1'b0;
               MemToReg = 1'b0;
-              ALUSrc = 1'b0;
-              RegWrite = 1'b1;
+              ALUSrc = 1'b1;
+              RegWrite  = 1'b1;
               Branch = 1'b0;
-              Jump = 1'b1;
+              Jump = 1'b0;
               ALUcntrl = 3'b011;
             end
         `AUIPC:
@@ -118,10 +118,10 @@ module control_main(output reg RegDst,
             MemRead = 1'b0;
             MemWrite = 1'b0;
             MemToReg = 1'b0;
-            ALUSrc = 1'b0;
+            ALUSrc = 1'b1;
             RegWrite = 1'b1;
             Branch = 1'b0;
-            Jump = 1'b1;
+            Jump = 1'b0;
             ALUcntrl = 3'b100;
           end
        default:
@@ -132,7 +132,7 @@ module control_main(output reg RegDst,
             MemToReg = 1'b0;
             ALUSrc = 1'b0;
             RegWrite = 1'b0;
-            Branch = 0; 
+            Branch = 0;
             Jump = 0; 
             ALUcntrl = 3'b000; 
          end
@@ -230,70 +230,75 @@ endmodule
                if (memwb_rd == idex_rt)
                   bypassB <= 2'b01;
               end 
-			if (exmem_regwrite == 1'b1 && exmem_rd != 5'b0)
+			      if (exmem_regwrite == 1'b1 && exmem_rd != 5'b0)
               begin
                if (exmem_rd == idex_rs)
                   bypassA <= 2'b10;
                if (exmem_rd == idex_rt)
                   bypassB <= 2'b10;
-              end     			  
+              end
            end
-endmodule          
-                       
+endmodule
 
-                
-                       
-                       
 /************** control for ALU control in EX pipe stage  *************/
 module control_alu(output reg [3:0] ALUOp,                  
-               input [2:0] ALUcntrl,
-               input [2:0] funct3, 
-							 input [6:0] funct7);
+					input [2:0] ALUcntrl,
+					input [2:0] funct3, 
+					input [6:0] funct7);
 
-  always @(ALUcntrl or funct3 or funct7)  
-    begin
-      case (ALUcntrl)
-        3'b000: // R/I_COMP-format 
-           begin
-             case (funct3)
-							`ADD_SUB:
-								ALUOp = (funct7 == `ADD_FUNCT7) ? 4'b0000 : 4'b0001; // add : sub
-              `XOR: ALUOp = 4'b0010;
-							`OR: ALUOp = 4'b0011;
-							`AND: ALUOp = 4'b0100;
-							`SLL: ALUOp = 4'b0101;
-							`SRL: 
-								ALUOp = (funct7 == `SRL_FUNCT7) ? 4'b0110 : 4'b0111; // srl : sra
-							`SLT: ALUOp = 4'b1000;
-							`SLTU: ALUOp = 4'b1001;
-              default: ALUOp = 4'b0000; 
-             endcase
-           end
-        3'b001: // I_Load/S format
-              ALUOp  = 4'b0000; // add
-        3'b010:  // Branch
-					begin
-						case (funct3)
-							`BEQ, `BNE:
-								ALUOp = 4'b0001; //sub
-							`BLT, `BGE:
-								ALUOp = 4'b1010; // sub but check if output < 0
-							`BLTU, `BGEU:
-								ALUOp = 4'b1011; // same as above but unsigned
-						endcase
-					end
-        3'b011:
-        begin
-          ALUOp = 4'b1100;
-        end
-        3'b100:
-        begin
-          ALUOp = 4'b1101;
-        end
-        default:
-              ALUOp = 4'b0000;
-     endcase
-    end
+always @(ALUcntrl or funct3 or funct7)  
+begin
+	case (ALUcntrl)
+	3'b000: begin // R_COMP-format 
+		case (funct3)
+			`ADD_SUB:
+			ALUOp = (funct7 == `ADD_FUNCT7) ? 4'b0000 : 4'b0001; // add : sub
+			`XOR: ALUOp = 4'b0010;
+			`OR: ALUOp = 4'b0011;
+			`AND: ALUOp = 4'b0100;
+			`SLL: ALUOp = 4'b0101;
+			`SRL: 
+			ALUOp = (funct7 == `SRL_FUNCT7) ? 4'b0110 : 4'b0111; // srl : sra
+			`SLT: ALUOp = 4'b1000;
+			`SLTU: ALUOp = 4'b1001;
+			default: ALUOp = 4'b0000; 
+		endcase
+	end
+	3'b001: // I_Load/S format
+		ALUOp  = 4'b0000; // add
+	3'b010: begin // Branch
+		case (funct3)
+			`BEQ, `BNE:
+			ALUOp = 4'b0001; //sub
+			`BLT, `BGE:
+			ALUOp = 4'b1010; // sub but check if output < 0
+			`BLTU, `BGEU:
+			ALUOp = 4'b1011; // same as above but unsigned
+		endcase
+	end
+	3'b011: begin
+		ALUOp = 4'b1100;
+	end
+	3'b100: begin
+		ALUOp = 4'b1101;
+	end
+	3'b101: begin // I_COMP-format 
+		case (funct3)
+			`ADDI: ALUOp = 4'b0000;
+			`XORI: ALUOp = 4'b0010;
+			`ORI: ALUOp = 4'b0011;
+			`ANDI: ALUOp = 4'b0100;
+			`SLLI: ALUOp = 4'b0101;
+			`SRLI: ALUOp = (funct7 == `SRL_FUNCT7) ? 4'b0110 : 4'b0111; // srl : sra
+			`SLTI: ALUOp = 4'b1000;
+			`SLTUI: ALUOp = 4'b1001;
+			default: ALUOp = 4'b0000; 
+		endcase
+	end
+	default:
+			ALUOp = 4'b0000;
+endcase
+end
 endmodule
 
 module control_branch(output reg BranchZ,
