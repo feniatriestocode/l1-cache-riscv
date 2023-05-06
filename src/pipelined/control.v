@@ -301,38 +301,26 @@ endcase
 end
 endmodule
 
-module control_branch(output reg BranchZ,
-											output reg BranchNZ,
-											input Branch, 
-											input [2:0] funct3);
-	always @(Branch or funct3)
-	begin
-		if (Branch == 1'b1)
-		begin
-			case (funct3)
-				`BEQ, `BLT, `BLTU:
-					begin
-						BranchZ = 1'b1;
-						BranchNZ = 1'b0;
-					end
-				`BNE, `BGE, `BGEU:
-					begin
-						BranchZ = 1'b0;
-						BranchNZ = 1'b1;
-					end
-				default:
-					begin
-						BranchZ = 1'b0;
-						BranchNZ = 1'b1;
-					end
-			endcase
-		end
-		else
-		begin
-			BranchZ = 1'b0;
-			BranchNZ = 1'b0;
-		end
+module control_branch(output reg branch_taken,
+                      input [2:0] funct3,
+					  input Branch,
+					  input zero,
+					  input sign);
+
+always @(funct3) 
+begin
+	if (Branch) begin
+		case (funct3)
+			`BEQ: branch_taken = zero;
+			`BNE: branch_taken = ~zero;
+			`BLT, `BLTU: branch_taken = sign;
+			`BGE, `BGEU: branch_taken = ~sign;
+		endcase
 	end
+	else begin
+		branch_taken = 0;
+	end 
+end
 endmodule
 
 module control_mem_out(input [2:0] mem_select, 

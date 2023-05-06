@@ -82,4 +82,13 @@
 
 `define NOP  32'b0000_0000_0000_0000_0000_0000_0000_0000
 
+`define BEQ_CODE 2'b00
+`define BNE_CODE 2'b01
+`define BLT_CODE 2'b10
+`define BGE_CODE 2'b11
+
+
+
+
+
 `endif

@@ -21,16 +21,16 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
  reg [4:0]  IDEX_instr_rs2, IDEX_instr_rs1, IDEX_instr_rd;
  reg        IDEX_RegDst, IDEX_ALUSrc;
  reg [2:0]  IDEX_ALUcntrl;
- reg        IDEX_BranchZ, IDEX_BranchNZ, IDEX_MemRead, IDEX_MemWrite; 
- reg        IDEX_MemToReg, IDEX_RegWrite;  
- reg [2:0]  EXMEM_funct3, MEMWB_funct3;        
+ reg        IDEX_MemRead, IDEX_MemWrite; 
+ reg        IDEX_MemToReg, IDEX_RegWrite;
+ reg [2:0]  EXMEM_funct3, MEMWB_funct3;
  reg [4:0]  EXMEM_RegWriteAddr;
  reg [31:0] EXMEM_ALUOut;
  reg [31:0] EXMEM_BranchALUOut;
  reg        EXMEM_Zero;
  reg [31:0] EXMEM_MemWriteData;
  wire [31:0] MemWriteData;
- reg        EXMEM_BranchZ, EXMEM_BranchNZ, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_RegWrite, EXMEM_MemToReg;
+ reg        EXMEM_MemRead, EXMEM_MemWrite, EXMEM_RegWrite, EXMEM_MemToReg;
  reg [31:0] MEMWB_DMemOut;
  reg [4:0]  MEMWB_RegWriteAddr;
  reg [31:0] MEMWB_ALUOut;
@@ -38,7 +38,8 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
  wire [31:0] ALUInA, ALUInB, ALUOut, BranchALUOut, bypassOutB, DMemOut, MemOut, wRegData;
  wire [31:0] PCplus4, JumpAddress, PC_new;
  wire Zero, RegDst, MemRead, MemWrite, MemToReg, ALUSrc, PCSrc, RegWrite, Jump, CPU_RegWrite;
- wire BranchZ, BranchNZ, Branch;
+ wire Branch;
+ reg IDEX_Branch, EXMEM_Branch;
  wire bubble_ifid, bubble_idex, bubble_exmem, bubble_memwb;   // create a NOP in respective stages
  wire write_ifid, write_idex, write_exmem, write_memwb, write_pc;  // enable/disable pipeline registers
  wire [6:0] opcode;
@@ -64,7 +65,7 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
 
   // PCSrc multiplexer (branch or not)
   assign PC_new = (PCSrc == 1'b0) ? ((Jump == 1'b0) ? PCplus4 : JumpAddress) : EXMEM_BranchALUOut;
-
+  
   assign JumpAddress = (opcode == `J_FORMAT) ? IFID_PC + signExtend : instr_rs1 + signExtend;
 
   // IFID pipeline register
@@ -102,7 +103,6 @@ assign imm_b = { {20{IFID_instr[31]}}, IFID_instr[7], IFID_instr[30:25], IFID_in
 assign imm_u = { IFID_instr[31:12], {12{1'b0}}};  
 assign imm_j = { {12{IFID_instr[31]}}, IFID_instr[19:12], IFID_instr[20], IFID_instr[30:25], IFID_instr[24:21], 1'b0};
 
-
 assign CPU_RegWrite = ((Jump == 1'b1) && (IDEX_RegWrite == 1'b1) && (EXMEM_RegWrite == 1'b1) && (MEMWB_RegWrite == 1'b1)) 
                       ? 1'b1 : MEMWB_RegWrite; 
 // Register file
@@ -123,11 +123,10 @@ signExtendUnit signExtendUnit(signExtend, imm_i, imm_s, imm_b, imm_u, imm_j, opc
        IDEX_RegDst <= 1'b0;
        IDEX_ALUcntrl <= 3'b0;
        IDEX_ALUSrc <= 1'b0;
-       IDEX_BranchZ <= 1'b0;
-       IDEX_BranchNZ <= 1'b0;
+       IDEX_Branch <= 1'b0;
        IDEX_MemRead <= 1'b0;
        IDEX_MemWrite <= 1'b0;
-       IDEX_MemToReg <= 1'b0;                  
+       IDEX_MemToReg <= 1'b0;
        IDEX_RegWrite <= 1'b0;
        IDEX_PCplus4 <= 32'b0;
        IDEX_funct3 <= 3'b0;
@@ -143,11 +142,10 @@ signExtendUnit signExtendUnit(signExtend, imm_i, imm_s, imm_b, imm_u, imm_j, opc
        IDEX_RegDst <= RegDst;
        IDEX_ALUcntrl <= ALUcntrl;
        IDEX_ALUSrc <= ALUSrc;
-       IDEX_BranchZ <= BranchZ;
-       IDEX_BranchNZ <= BranchNZ;
+       IDEX_Branch <= Branch;
        IDEX_MemRead <= MemRead;
        IDEX_MemWrite <= MemWrite;
-       IDEX_MemToReg <= MemToReg;                  
+       IDEX_MemToReg <= MemToReg;
        IDEX_RegWrite <= RegWrite;
        IDEX_PCplus4 <= IFID_PCplus4;
        IDEX_funct3 <= funct3;
@@ -167,12 +165,6 @@ control_main control_main (RegDst,
                   Jump, 
                   ALUcntrl,
                   opcode);
-
-// Branch control unit
-control_branch control_branch (BranchZ,
-                          BranchNZ,
-                          Branch,
-                          funct3);
 
 // Control Unit that generates stalls and bubbles to pipeline stages
 control_stall_id control_stall_id(bubble_ifid, bubble_idex, bubble_exmem, bubble_memwb, 
@@ -211,11 +203,10 @@ assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
        EXMEM_RegWriteAddr <= 5'b0;
        EXMEM_MemWriteData <= 32'b0;
        EXMEM_Zero <= 1'b0;
-       EXMEM_BranchZ <= 1'b0;
-       EXMEM_BranchNZ <= 1'b0;
+       EXMEM_Branch <= 1'b0;
        EXMEM_MemRead <= 1'b0;
        EXMEM_MemWrite <= 1'b0;
-       EXMEM_MemToReg <= 1'b0;                  
+       EXMEM_MemToReg <= 1'b0;
        EXMEM_RegWrite <= 1'b0;
        EXMEM_funct3 <= 3'b111;
        EXMEM_PC <= 32'b0;
@@ -227,13 +218,12 @@ assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
        EXMEM_RegWriteAddr <= RegWriteAddr;
        EXMEM_MemWriteData <= bypassOutB;
        EXMEM_Zero <= Zero;
-       EXMEM_BranchZ <= IDEX_BranchZ;
-       EXMEM_BranchNZ <= IDEX_BranchNZ;
+       EXMEM_Branch <= IDEX_Branch;
        EXMEM_MemRead <= IDEX_MemRead;
        EXMEM_MemWrite <= IDEX_MemWrite;
-       EXMEM_MemToReg <= IDEX_MemToReg;                  
+       EXMEM_MemToReg <= IDEX_MemToReg;
        EXMEM_RegWrite <= IDEX_RegWrite;
-       EXMEM_funct3 <= funct3;
+       EXMEM_funct3 <= IDEX_funct3;
        EXMEM_PC <= IDEX_PC;
       end
   end
@@ -247,10 +237,11 @@ assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
                               EXMEM_RegWriteAddr, MEMWB_RegWriteAddr,
                               EXMEM_RegWrite, MEMWB_RegWrite);
 
+// Branch control unit
+control_branch control_branch (.branch_taken(PCSrc), .funct3(EXMEM_funct3), .Branch(EXMEM_Branch), .zero(EXMEM_Zero), .sign(EXMEM_ALUOut[31]));
       
 /*********************************** Memory Unit (MEM)  ********************************************/  
 
-assign PCSrc = (EXMEM_Zero & EXMEM_BranchZ) | (~EXMEM_Zero & EXMEM_BranchNZ);
 
 control_mem_in control_mem_in(EXMEM_funct3, EXMEM_MemWriteData, MemWriteData);
 // Data memory 1KB
