@@ -1,7 +1,7 @@
 VERILATOR = verilator
 VERILATOR_FLAGS = -cc --exe -Wall --trace
 VERILATOR_INPUT = ../src/pipelined/toplevel.v main.cpp
-VERILATOR_INCLUDES = -I../src/pipelined -I../src/include -I../src/lib
+VERILATOR_INCLUDES = -I../src/pipelined -I../src/common -I../src/control -I../src/include -I../src/lib
 TESTDIR=../tests
 TESTS=$(notdir $(patsubst %.S,%,$(wildcard $(TESTDIR)/*.S)))
 TEST = addi
@@ -29,4 +29,4 @@ check: $(addsuffix .run,$(TESTS))
 	./obj_dir/Vtoplevel +text_file=$(TESTDIR)/$(@:.run=).text.vh +data_file=$(TESTDIR)/$(@:.run=).data.vh
 
 clean:
-	rm -rf obj_dir   
+	rm -rf obj_dir
