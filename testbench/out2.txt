@@ -23,47 +23,47 @@ PASS
 ./obj_dir/Vtoplevel +text_file=../tests/jal.text.vh +data_file=../tests/jal.data.vh
 PASS
 ./obj_dir/Vtoplevel +text_file=../tests/jalr.text.vh +data_file=../tests/jalr.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/lb.text.vh +data_file=../tests/lb.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/lbu.text.vh +data_file=../tests/lbu.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/lh.text.vh +data_file=../tests/lh.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/lhu.text.vh +data_file=../tests/lhu.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/lui.text.vh +data_file=../tests/lui.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/lw.text.vh +data_file=../tests/lw.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/or.text.vh +data_file=../tests/or.data.vh
 PASS
 ./obj_dir/Vtoplevel +text_file=../tests/ori.text.vh +data_file=../tests/ori.data.vh
 PASS
 ./obj_dir/Vtoplevel +text_file=../tests/sb.text.vh +data_file=../tests/sb.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/sh.text.vh +data_file=../tests/sh.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/simple.text.vh +data_file=../tests/simple.data.vh
 PASS
 ./obj_dir/Vtoplevel +text_file=../tests/sll.text.vh +data_file=../tests/sll.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/slli.text.vh +data_file=../tests/slli.data.vh
 PASS
 ./obj_dir/Vtoplevel +text_file=../tests/slt.text.vh +data_file=../tests/slt.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/slti.text.vh +data_file=../tests/slti.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/sltiu.text.vh +data_file=../tests/sltiu.data.vh
 PASS
 ./obj_dir/Vtoplevel +text_file=../tests/sltu.text.vh +data_file=../tests/sltu.data.vh
 PASS
 ./obj_dir/Vtoplevel +text_file=../tests/sra.text.vh +data_file=../tests/sra.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/srai.text.vh +data_file=../tests/srai.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/srl.text.vh +data_file=../tests/srl.data.vh
-PASS
+FAIL
 ./obj_dir/Vtoplevel +text_file=../tests/srli.text.vh +data_file=../tests/srli.data.vh
 PASS
 ./obj_dir/Vtoplevel +text_file=../tests/sub.text.vh +data_file=../tests/sub.data.vh

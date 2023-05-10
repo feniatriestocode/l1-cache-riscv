@@ -10,6 +10,7 @@ module control_main(output reg RegDst,
 					output reg ALUSrc,
 					output reg RegWrite,
 					output reg Jump,
+					output reg JumpJALR,
 					output reg inA_is_PC,
 					output reg [2:0] ALUcntrl,
 					input [6:0] opcode);
@@ -26,6 +27,7 @@ begin
 			RegWrite = 1'b1;
 			Branch = 1'b0;
 			Jump = 0;
+			JumpJALR = 0;
 			inA_is_PC = 1'b0;
 			ALUcntrl  = `ALU_R;
 		end
@@ -38,6 +40,7 @@ begin
 			RegWrite = 1'b1;
 			Branch = 1'b0;
 			Jump = 0;
+			JumpJALR = 0;
 			inA_is_PC = 1'b0;
 			ALUcntrl = `ALU_I_COMP;
 		end
@@ -50,6 +53,7 @@ begin
 			RegWrite = 1'b1;
 			Branch = 1'b0;
 			Jump = 0;
+			JumpJALR = 0;
 			inA_is_PC = 1'b0;
 			ALUcntrl = `ALU_LOAD_STORE;
 		end
@@ -61,7 +65,8 @@ begin
 			ALUSrc = 1'b0;
 			RegWrite = 1'b1;
 			Branch = 1'b0;
-			Jump = 1;
+			Jump = 0;
+			JumpJALR = 1;
 			inA_is_PC = 1'b1;
 			ALUcntrl = `ALU_J;
 		end
@@ -74,6 +79,7 @@ begin
 			RegWrite = 1'b0;
 			Branch = 1'b0;
 			Jump = 0;
+			JumpJALR = 0;
 			inA_is_PC = 1'b0;
 			ALUcntrl = `ALU_LOAD_STORE;
 		end
@@ -86,6 +92,7 @@ begin
 			RegWrite = 1'b0;
 			Branch = 1'b1;
 			Jump = 0;
+			JumpJALR = 0;
 			inA_is_PC = 1'b0;
 			ALUcntrl = `ALU_BRANCH;
 		end
@@ -98,6 +105,7 @@ begin
 			RegWrite = 1'b1;
 			Branch = 1'b0;
 			Jump = 1;
+			JumpJALR = 0;
 			inA_is_PC = 1'b1;
 			ALUcntrl = `ALU_J;
 		end
@@ -110,6 +118,7 @@ begin
 			RegWrite = 1'b1;
 			Branch = 1'b0;
 			Jump = 1'b0;
+			JumpJALR = 0;
 			inA_is_PC = 1'b0;
 			ALUcntrl = `ALU_LUI;
 		end
@@ -122,6 +131,7 @@ begin
 			RegWrite = 1'b1;
 			Branch = 1'b0;
 			Jump = 1'b0;
+			JumpJALR = 0;
 			inA_is_PC = 1'b1;
 			ALUcntrl = `ALU_AUIPC;
 		end
@@ -134,6 +144,7 @@ begin
 			RegWrite = 1'b0;
 			Branch = 0;
 			Jump = 0;
+			JumpJALR = 0;
 			inA_is_PC = 1'b0;
 			ALUcntrl = `ALU_R;
 		end

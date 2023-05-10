@@ -14,9 +14,10 @@ CData/*0:0*/ Vtoplevel::__Vtable1_toplevel__DOT__cpu__DOT__ALUSrc[128];
 CData/*0:0*/ Vtoplevel::__Vtable1_toplevel__DOT__cpu__DOT__RegWrite[128];
 CData/*0:0*/ Vtoplevel::__Vtable1_toplevel__DOT__cpu__DOT__Branch[128];
 CData/*0:0*/ Vtoplevel::__Vtable1_toplevel__DOT__cpu__DOT__Jump[128];
+CData/*0:0*/ Vtoplevel::__Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[128];
 CData/*0:0*/ Vtoplevel::__Vtable1_toplevel__DOT__cpu__DOT__inA_is_PC[128];
 CData/*2:0*/ Vtoplevel::__Vtable1_toplevel__DOT__cpu__DOT__ALUcntrl[128];
-CData/*0:0*/ Vtoplevel::__Vtable2_toplevel__DOT__cpu__DOT__PCSrc[64];
+CData/*0:0*/ Vtoplevel::__Vtable2_toplevel__DOT__cpu__DOT__branch_taken[64];
 
 VL_CTOR_IMP(Vtoplevel) {
     Vtoplevel__Syms* __restrict vlSymsp = __VlSymsp = new Vtoplevel__Syms(this, name());
@@ -39,8 +40,8 @@ Vtoplevel::~Vtoplevel() {
     VL_DO_CLEAR(delete __VlSymsp, __VlSymsp = NULL);
 }
 
-void Vtoplevel::_initial__TOP__4(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_initial__TOP__4\n"); );
+void Vtoplevel::_initial__TOP__3(Vtoplevel__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_initial__TOP__3\n"); );
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
     WData/*95:0*/ __Vtemp1[3];
@@ -88,8 +89,8 @@ void Vtoplevel::_initial__TOP__4(Vtoplevel__Syms* __restrict vlSymsp) {
                  , 0, ~0ULL);
 }
 
-void Vtoplevel::_settle__TOP__5(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_settle__TOP__5\n"); );
+void Vtoplevel::_settle__TOP__4(Vtoplevel__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_settle__TOP__4\n"); );
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->toplevel__DOT__cpu__DOT__wRegData = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_MemToReg)
@@ -154,7 +155,8 @@ void Vtoplevel::_settle__TOP__5(Vtoplevel__Syms* __restrict vlSymsp) {
                                                  >> 0x1bU)) 
                                        | (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_funct3) 
                                            << 1U) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_Branch))));
-    vlTOPp->toplevel__DOT__cpu__DOT__PCSrc = vlTOPp->__Vtable2_toplevel__DOT__cpu__DOT__PCSrc
+    vlTOPp->toplevel__DOT__cpu__DOT__branch_taken = 
+        vlTOPp->__Vtable2_toplevel__DOT__cpu__DOT__branch_taken
         [vlTOPp->__Vtableidx2];
     if ((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUcntrl))) {
         vlTOPp->toplevel__DOT__cpu__DOT__ALUOp = ((2U 
@@ -306,28 +308,15 @@ void Vtoplevel::_settle__TOP__5(Vtoplevel__Syms* __restrict vlSymsp) {
         [vlTOPp->__Vtableidx1];
     vlTOPp->toplevel__DOT__cpu__DOT__Jump = vlTOPp->__Vtable1_toplevel__DOT__cpu__DOT__Jump
         [vlTOPp->__Vtableidx1];
+    vlTOPp->toplevel__DOT__cpu__DOT__JumpJALR = vlTOPp->__Vtable1_toplevel__DOT__cpu__DOT__JumpJALR
+        [vlTOPp->__Vtableidx1];
     vlTOPp->toplevel__DOT__cpu__DOT__inA_is_PC = vlTOPp->__Vtable1_toplevel__DOT__cpu__DOT__inA_is_PC
         [vlTOPp->__Vtableidx1];
     vlTOPp->toplevel__DOT__cpu__DOT__ALUcntrl = vlTOPp->__Vtable1_toplevel__DOT__cpu__DOT__ALUcntrl
         [vlTOPp->__Vtableidx1];
     vlTOPp->WriteData = vlTOPp->toplevel__DOT__cpu__DOT__MemWriteData;
-    vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem = 0U;
-    if (vlTOPp->toplevel__DOT__cpu__DOT__PCSrc) {
-        vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem = 1U;
-    }
-    vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex = 0U;
-    if (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemRead) 
-         & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2) 
-             == (0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                          >> 0xfU))) | ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2) 
-                                        == (0x1fU & 
-                                            (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                             >> 0x14U)))))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex = 1U;
-    }
-    if (vlTOPp->toplevel__DOT__cpu__DOT__PCSrc) {
-        vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex = 1U;
-    }
+    vlTOPp->toplevel__DOT__cpu__DOT__PCSrc = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_JumpJALR) 
+                                              | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__branch_taken));
     vlTOPp->toplevel__DOT__cpu__DOT__ALUInA = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_inA_is_PC)
                                                 ? vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC
                                                 : (
@@ -529,6 +518,23 @@ void Vtoplevel::_settle__TOP__5(Vtoplevel__Syms* __restrict vlSymsp) {
                                                           ? vlTOPp->toplevel__DOT__cpu__DOT__imm_i
                                                           : 0U)
                                                          : 0U))))));
+    vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem = 0U;
+    if (vlTOPp->toplevel__DOT__cpu__DOT__PCSrc) {
+        vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem = 1U;
+    }
+    vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex = 0U;
+    if (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemRead) 
+         & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2) 
+             == (0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                          >> 0xfU))) | ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2) 
+                                        == (0x1fU & 
+                                            (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                                             >> 0x14U)))))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex = 1U;
+    }
+    if (vlTOPp->toplevel__DOT__cpu__DOT__PCSrc) {
+        vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex = 1U;
+    }
     vlTOPp->toplevel__DOT__cpu__DOT__bubble_ifid = 0U;
     if ((1U & (~ ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemRead) 
                   & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2) 
@@ -562,7 +568,8 @@ void Vtoplevel::_settle__TOP__5(Vtoplevel__Syms* __restrict vlSymsp) {
     if (vlTOPp->toplevel__DOT__cpu__DOT__PCSrc) {
         vlTOPp->toplevel__DOT__cpu__DOT__write_pc = 1U;
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__ALUInB = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Jump)
+    vlTOPp->toplevel__DOT__cpu__DOT__ALUInB = (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Jump) 
+                                                | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR))
                                                 ? 4U
                                                 : ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUSrc)
                                                     ? vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend
@@ -571,16 +578,8 @@ void Vtoplevel::_settle__TOP__5(Vtoplevel__Syms* __restrict vlSymsp) {
                                                 ? vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut
                                                 : ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__Jump)
                                                     ? 
-                                                   ((0x6fU 
-                                                     == 
-                                                     (0x7fU 
-                                                      & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr))
-                                                     ? 
-                                                    (vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC 
-                                                     + vlTOPp->toplevel__DOT__cpu__DOT__signExtend)
-                                                     : 
-                                                    (vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdA 
-                                                     + vlTOPp->toplevel__DOT__cpu__DOT__signExtend))
+                                                   (vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC 
+                                                    + vlTOPp->toplevel__DOT__cpu__DOT__signExtend)
                                                     : 
                                                    ((IData)(4U) 
                                                     + vlTOPp->toplevel__DOT__cpu__DOT__PC)));
@@ -682,7 +681,7 @@ void Vtoplevel::_eval_initial(Vtoplevel__Syms* __restrict vlSymsp) {
     // Body
     vlTOPp->__Vclklast__TOP__clock = vlTOPp->clock;
     vlTOPp->__Vclklast__TOP__reset = vlTOPp->reset;
-    vlTOPp->_initial__TOP__4(vlSymsp);
+    vlTOPp->_initial__TOP__3(vlSymsp);
 }
 
 void Vtoplevel::final() {
@@ -696,9 +695,7 @@ void Vtoplevel::_eval_settle(Vtoplevel__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_eval_settle\n"); );
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->_settle__TOP__5(vlSymsp);
-    vlTOPp->__Vm_traceActivity[4U] = 1U;
-    vlTOPp->__Vm_traceActivity[3U] = 1U;
+    vlTOPp->_settle__TOP__4(vlSymsp);
     vlTOPp->__Vm_traceActivity[2U] = 1U;
     vlTOPp->__Vm_traceActivity[1U] = 1U;
     vlTOPp->__Vm_traceActivity[0U] = 1U;
@@ -719,6 +716,7 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__cpu__DOT__IFID_PCplus4 = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__IFID_instr = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__inA_is_PC = VL_RAND_RESET_I(1);
+    toplevel__DOT__cpu__DOT__branch_taken = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__IDEX_signExtend = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__signExtend = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__IDEX_rdA = VL_RAND_RESET_I(32);
@@ -733,6 +731,7 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__cpu__DOT__IDEX_ALUSrc = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__IDEX_inA_is_PC = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__IDEX_Jump = VL_RAND_RESET_I(1);
+    toplevel__DOT__cpu__DOT__IDEX_JumpJALR = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__IDEX_ALUcntrl = VL_RAND_RESET_I(3);
     toplevel__DOT__cpu__DOT__IDEX_MemRead = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__IDEX_MemWrite = VL_RAND_RESET_I(1);
@@ -744,6 +743,7 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__cpu__DOT__EXMEM_ALUOut = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__EXMEM_Zero = VL_RAND_RESET_I(1);
+    toplevel__DOT__cpu__DOT__EXMEM_JumpJALR = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__EXMEM_MemWriteData = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__MemWriteData = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__EXMEM_MemRead = VL_RAND_RESET_I(1);
@@ -781,6 +781,7 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__cpu__DOT__bypassA = VL_RAND_RESET_I(2);
     toplevel__DOT__cpu__DOT__bypassB = VL_RAND_RESET_I(2);
     toplevel__DOT__cpu__DOT__imm_i = VL_RAND_RESET_I(32);
+    toplevel__DOT__cpu__DOT__JumpJALR = VL_RAND_RESET_I(1);
     { int __Vi0=0; for (; __Vi0<16384; ++__Vi0) {
             toplevel__DOT__cpu__DOT__cpu_IMem__DOT__data[__Vi0] = VL_RAND_RESET_I(32);
     }}
@@ -1792,7 +1793,7 @@ void Vtoplevel::_ctor_var_reset() {
     __Vtable1_toplevel__DOT__cpu__DOT__Jump[100] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__Jump[101] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__Jump[102] = 0U;
-    __Vtable1_toplevel__DOT__cpu__DOT__Jump[103] = 1U;
+    __Vtable1_toplevel__DOT__cpu__DOT__Jump[103] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__Jump[104] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__Jump[105] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__Jump[106] = 0U;
@@ -1817,6 +1818,134 @@ void Vtoplevel::_ctor_var_reset() {
     __Vtable1_toplevel__DOT__cpu__DOT__Jump[125] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__Jump[126] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__Jump[127] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[0] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[1] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[2] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[3] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[4] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[5] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[6] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[7] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[8] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[9] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[10] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[11] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[12] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[13] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[14] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[15] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[16] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[17] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[18] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[19] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[20] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[21] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[22] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[23] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[24] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[25] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[26] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[27] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[28] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[29] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[30] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[31] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[32] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[33] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[34] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[35] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[36] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[37] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[38] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[39] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[40] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[41] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[42] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[43] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[44] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[45] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[46] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[47] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[48] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[49] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[50] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[51] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[52] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[53] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[54] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[55] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[56] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[57] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[58] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[59] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[60] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[61] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[62] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[63] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[64] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[65] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[66] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[67] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[68] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[69] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[70] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[71] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[72] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[73] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[74] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[75] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[76] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[77] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[78] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[79] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[80] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[81] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[82] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[83] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[84] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[85] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[86] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[87] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[88] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[89] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[90] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[91] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[92] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[93] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[94] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[95] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[96] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[97] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[98] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[99] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[100] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[101] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[102] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[103] = 1U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[104] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[105] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[106] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[107] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[108] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[109] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[110] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[111] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[112] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[113] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[114] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[115] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[116] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[117] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[118] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[119] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[120] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[121] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[122] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[123] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[124] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[125] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[126] = 0U;
+    __Vtable1_toplevel__DOT__cpu__DOT__JumpJALR[127] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__inA_is_PC[0] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__inA_is_PC[1] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__inA_is_PC[2] = 0U;
@@ -2074,71 +2203,71 @@ void Vtoplevel::_ctor_var_reset() {
     __Vtable1_toplevel__DOT__cpu__DOT__ALUcntrl[126] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__ALUcntrl[127] = 0U;
     __Vtableidx2 = 0;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[0] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[1] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[2] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[3] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[4] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[5] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[6] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[7] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[8] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[9] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[10] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[11] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[12] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[13] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[14] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[15] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[16] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[17] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[18] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[19] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[20] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[21] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[22] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[23] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[24] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[25] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[26] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[27] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[28] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[29] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[30] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[31] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[32] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[33] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[34] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[35] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[36] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[37] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[38] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[39] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[40] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[41] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[42] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[43] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[44] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[45] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[46] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[47] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[48] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[49] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[50] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[51] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[52] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[53] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[54] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[55] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[56] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[57] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[58] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[59] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[60] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[61] = 1U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[62] = 0U;
-    __Vtable2_toplevel__DOT__cpu__DOT__PCSrc[63] = 0U;
-    { int __Vi0=0; for (; __Vi0<5; ++__Vi0) {
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[0] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[1] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[2] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[3] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[4] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[5] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[6] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[7] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[8] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[9] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[10] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[11] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[12] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[13] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[14] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[15] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[16] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[17] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[18] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[19] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[20] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[21] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[22] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[23] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[24] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[25] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[26] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[27] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[28] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[29] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[30] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[31] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[32] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[33] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[34] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[35] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[36] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[37] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[38] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[39] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[40] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[41] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[42] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[43] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[44] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[45] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[46] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[47] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[48] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[49] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[50] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[51] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[52] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[53] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[54] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[55] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[56] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[57] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[58] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[59] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[60] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[61] = 1U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[62] = 0U;
+    __Vtable2_toplevel__DOT__cpu__DOT__branch_taken[63] = 0U;
+    { int __Vi0=0; for (; __Vi0<3; ++__Vi0) {
             __Vm_traceActivity[__Vi0] = VL_RAND_RESET_I(1);
     }}
 }

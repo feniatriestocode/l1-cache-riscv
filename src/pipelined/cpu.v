@@ -10,15 +10,17 @@ module cpu(input clock, input reset, output MemWriteEnable, output [31:0] MemAdd
 reg [31:0] PC, IFID_PC, IDEX_PC, EXMEM_PC;
 reg [31:0] IFID_PCplus4, IFID_instr;
 wire [31:0] instr;
-wire inA_is_PC;
+wire inA_is_PC, branch_taken;
+wire [31:0] BranchInA;
 reg [31:0] IDEX_signExtend;
 wire [31:0] signExtend;
-wire [31:0] IDEX_rdA, IDEX_rdB;
+wire [31:0] rdA, rdB;
+reg [31:0] IDEX_rdA, IDEX_rdB;
 reg [2:0]  IDEX_funct3;
 reg [6:0]  IDEX_funct7;
 reg [31:0] IDEX_PCplus4;
 reg [4:0]  IDEX_instr_rs2, IDEX_instr_rs1, IDEX_instr_rd;
-reg        IDEX_RegDst, IDEX_ALUSrc, IDEX_inA_is_PC, IDEX_Jump;
+reg        IDEX_RegDst, IDEX_ALUSrc, IDEX_inA_is_PC, IDEX_Jump, IDEX_JumpJALR;
 reg [2:0]  IDEX_ALUcntrl;
 reg        IDEX_MemRead, IDEX_MemWrite;
 reg        IDEX_MemToReg, IDEX_RegWrite;
@@ -26,7 +28,7 @@ reg [2:0]  EXMEM_funct3, MEMWB_funct3;
 reg [4:0]  EXMEM_RegWriteAddr;
 reg [31:0] EXMEM_ALUOut;
 reg [31:0] EXMEM_BranchALUOut;
-reg        EXMEM_Zero;
+reg        EXMEM_Zero, EXMEM_JumpJALR;
 reg [31:0] EXMEM_MemWriteData;
 wire [31:0] MemWriteData;
 reg        EXMEM_MemRead, EXMEM_MemWrite, EXMEM_RegWrite, EXMEM_MemToReg;
@@ -65,7 +67,7 @@ assign PCplus4 = PC + 32'd4;
 // PCSrc multiplexer (branch or not)
 assign PC_new = (PCSrc == 1'b0) ? ((Jump == 1'b0) ? PCplus4 : JumpAddress) : EXMEM_BranchALUOut;
 
-assign JumpAddress = (opcode == `J_FORMAT) ? IFID_PC + signExtend : IDEX_rdA + signExtend;
+assign JumpAddress = IFID_PC + signExtend;
 
 // IFID pipeline register
 always @(posedge clock or negedge reset)
@@ -102,7 +104,7 @@ assign CPU_RegWrite = MEMWB_RegWrite;
 
 // Register file
 RegFile cpu_regs(clock, reset, instr_rs1, instr_rs2, MEMWB_RegWriteAddr,
-				CPU_RegWrite, wRegData, IDEX_rdA, IDEX_rdB);
+				CPU_RegWrite, wRegData, rdA, rdB);
 
 //Sign Extension Unit
 SignExtendSelector SignExtendSelector(signExtend, imm_i, imm_s, imm_b, imm_u, imm_j, opcode);
@@ -113,6 +115,7 @@ begin
 	if ((reset == 1'b0) || (bubble_idex == 1'b1)) begin
 		IDEX_inA_is_PC <= 1'b0;
 		IDEX_Jump <= 1'b0;
+		IDEX_JumpJALR <= 1'b0;
 		IDEX_signExtend <= 32'b0;
 		IDEX_instr_rd <= 5'b0;
 		IDEX_instr_rs1 <= 5'b0;
@@ -129,10 +132,13 @@ begin
 		IDEX_funct3 <= 3'b0;
 		IDEX_funct7 <= 7'b0;
 		IDEX_PC <= 32'b0;
+		IDEX_rdA <= 32'b0;
+		IDEX_rdB <= 32'b0;
 	end
 	else if (write_idex == 1'b1) begin
 		IDEX_inA_is_PC <= inA_is_PC;
 		IDEX_Jump <= Jump;
+		IDEX_JumpJALR <= JumpJALR;
 		IDEX_signExtend <= signExtend;
 		IDEX_instr_rd <= instr_rd;
 		IDEX_instr_rs1 <= instr_rs1;
@@ -149,6 +155,8 @@ begin
 		IDEX_funct3 <= funct3;
 		IDEX_funct7 <= funct7;
 		IDEX_PC <= IFID_PC;
+		IDEX_rdA <= rdA;
+		IDEX_rdB <= rdB;
 	end
 end
 
@@ -161,6 +169,7 @@ control_main control_main (RegDst,
 						ALUSrc,
 						RegWrite,
 						Jump,
+						JumpJALR,
 						inA_is_PC,
 						ALUcntrl,
 						opcode);
@@ -183,12 +192,14 @@ assign ALUInA = (IDEX_inA_is_PC == 1'b1)	? IDEX_PC :
 				(bypassA==2'b01)			? wRegData :
 											EXMEM_ALUOut;
 
-assign ALUInB = (IDEX_Jump == 1'b1) ? 	32'd4 :
+assign ALUInB = (IDEX_Jump == 1'b1 || IDEX_JumpJALR == 1'b1) ? 	32'd4 :
 				(IDEX_ALUSrc == 1'b0) ? bypassOutB :
 										IDEX_signExtend;
 
+assign BranchInA = (IDEX_JumpJALR == 1'b1) ? IDEX_rdA : IDEX_PC;
+
 // Branch ALU
-ALU  #32 branch_alu(.out(BranchALUOut), .inA(IDEX_PC), .inB(IDEX_signExtend), .op(4'b0000));
+ALU  #32 branch_alu(.out(BranchALUOut), .inA(BranchInA), .inB(IDEX_signExtend), .op(4'b0000));
 
 //  ALU
 ALU  #32 cpu_alu(ALUOut, Zero, ALUInA, ALUInB, ALUOp);
@@ -200,6 +211,7 @@ always @(posedge clock or negedge reset)
 begin
 	if ((reset == 1'b0) || (bubble_exmem == 1'b1)) begin
 		EXMEM_ALUOut <= 32'b0;
+		EXMEM_JumpJALR <= 1'b0;
 		EXMEM_BranchALUOut <= 32'b0;
 		EXMEM_RegWriteAddr <= 5'b0;
 		EXMEM_MemWriteData <= 32'b0;
@@ -214,6 +226,7 @@ begin
 	end 
 	else if (write_exmem == 1'b1) begin
 		EXMEM_ALUOut <= ALUOut;
+		EXMEM_JumpJALR <= IDEX_JumpJALR;
 		EXMEM_BranchALUOut <= BranchALUOut;
 		EXMEM_RegWriteAddr <= RegWriteAddr;
 		EXMEM_MemWriteData <= bypassOutB;
@@ -238,7 +251,8 @@ control_bypass_ex control_bypass_ex(bypassA, bypassB,
 									EXMEM_RegWrite, MEMWB_RegWrite);
 
 // Branch control unit
-control_branch control_branch (.branch_taken(PCSrc), .funct3(EXMEM_funct3), .Branch(EXMEM_Branch), .zero(EXMEM_Zero), .sign(EXMEM_ALUOut[31]));
+control_branch control_branch (.branch_taken(branch_taken), .funct3(EXMEM_funct3), .Branch(EXMEM_Branch), .zero(EXMEM_Zero), .sign(EXMEM_ALUOut[31]));
+assign PCSrc = (EXMEM_JumpJALR) ? 1'b1 : branch_taken;
 
 /*********************************** Memory Unit (MEM)  ********************************************/
 mem_write_selector mem_write_selector(EXMEM_funct3, EXMEM_MemWriteData, MemWriteData);
