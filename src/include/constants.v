@@ -100,9 +100,9 @@
 `define ALU_LUI    3'b011
 `define ALU_AUIPC  3'b100 
 `define ALU_I_COMP 3'b101
+`define ALU_J      3'b110
 
-
-`define NOP  32'b0000_0000_0000_0000_0000_0000_0000_0000
+`define NOP 32'b0000_0000_0000_0000_0000_0000_0000_0000
 
 `define BEQ_CODE 2'b00
 `define BNE_CODE 2'b01

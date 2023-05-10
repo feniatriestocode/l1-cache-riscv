@@ -51,6 +51,9 @@ begin
 				default: ALUOp = `ADD;
 			endcase
 		end
+		`ALU_J: begin
+			ALUOp = `ADD;
+		end
 		default: begin
 			ALUOp = `ADD;
 		end

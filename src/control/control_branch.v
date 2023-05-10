@@ -15,10 +15,11 @@ begin
 			`FUNCT3_BNE: branch_taken = ~zero;
 			`FUNCT3_BLT, `FUNCT3_BLTU: branch_taken = sign;
 			`FUNCT3_BGE, `FUNCT3_BGEU: branch_taken = ~sign;
+			default: branch_taken = 1'b0;
 		endcase
 	end
 	else begin
-		branch_taken = 0;
+		branch_taken = 1'b0;
 	end
 end
 endmodule

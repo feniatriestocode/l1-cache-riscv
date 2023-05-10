@@ -43,17 +43,9 @@ begin
 		write_ifid = 1'b0;
 		write_pc = 1'b0;
 	end
-	else if (Jump == 1'b1) begin // j instruction in ID stage
-		if ( ((IDEX_RegWrite == 1'b1) || (EXMEM_RegWrite == 1'b1) || (MEMWB_RegWrite == 1'b1)) &&
-			(idex_rd == ifid_rd) || (exmem_rd == ifid_rd) && (memwb_rd == ifid_rd)) begin
-			bubble_idex = 1'b1;
-			write_ifid = 1'b0;
-			write_pc = 1'b0;
-		end
-		else begin
-			bubble_ifid = 1'b1;
-			write_pc = 1'b1;
-		end
+	else if (Jump == 1'b1) begin // j instruction in ID stage	
+		bubble_ifid = 1'b1;
+		write_pc = 1'b1;
 	end
 
 	if (PCSrc == 1'b1) begin // Taken Branch in MEM stage

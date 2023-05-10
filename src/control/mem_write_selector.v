@@ -1,7 +1,7 @@
 `include "constants.v"
 `include "config.vh"
 
-module control_mem_in(input [2:0] mem_select,
+module mem_write_selector(input [2:0] mem_select,
 					input [31:0] ALUin,
 					output [31:0] out);
 

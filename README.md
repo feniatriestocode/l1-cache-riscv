@@ -1,4 +1,4 @@
-# PRISCV: Parallel RISC-V
+# An RV32I implementation with 5 pipeline stages
 A parallel risc-v implementation for our Parallel Computer Architecture Class.A
 
 ## Implemented ISA
@@ -15,7 +15,6 @@ git clone git@github.com:akastoras/priscv.git
 
 ## RISC-V ISA Compliance
 To run the device verification tests, build the docker image, or download it from the docker hub.
-
 
 * To create the image from the Dockerfile run
 	```
@@ -36,13 +35,14 @@ docker exec -it <container_name> bash
 ## Building the tests
 To build the unit tests, run 
 ```
+cd tests
 make
 ```
-in the **priscv/tests** folder
 
 ## Compile the model
 To compile the **toplevel.v** RISCV model and **main.cpp** testbench into one executable, run
 ```
+cd testbench
 make verilate 
 make build
 ```
@@ -50,6 +50,7 @@ make build
 ## Run the tests
 To run an individual test (for example addi.S), change the variable **TEST** of **testbench/Makefile** file to the test name and run
 ```
+cd testbench # if not already in testbech folder
 make run
 ```
 

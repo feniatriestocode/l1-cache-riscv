@@ -1,2 +1,3 @@
 testbench/pipelined/*
 !testbench/pipelined/Makefile
+testbench/out.txt

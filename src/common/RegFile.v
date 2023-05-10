@@ -9,8 +9,11 @@ module RegFile (input clock, reset,
 				input wen,
 				input [31:0] wd,
 				output reg[31:0] rdA, rdB);
+/****** SIGNALS ******/
 integer i;
 reg [31:0] data[31:0];
+
+/****** LOGIC ******/
 
 // The register file is written at the positive edge. Make sure that bypasssing is enabled. 
 always @(posedge clock or negedge reset)
@@ -24,7 +27,8 @@ begin
 	else begin
 		rdA <= (wen == 1'b1 && wa == raA && wa != 5'b0) ? wd : data[raA];
 		rdB <= (wen == 1'b1 && wa == raB && wa != 5'b0) ? wd : data[raB];
-		if (wen == 1'b1 && wa != 5'b0) data[wa] <=  wd;
+		if (wen == 1'b1 && wa != 5'b0)
+			data[wa] <=  wd;
 	end
 end
 

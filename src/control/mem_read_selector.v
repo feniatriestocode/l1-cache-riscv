@@ -1,7 +1,7 @@
 `include "constants.v"
 `include "config.vh"
 
-module control_mem_out(input [2:0] mem_select,
+module mem_read_selector(input [2:0] mem_select,
 					input [31:0] DMemOut,
 					output [31:0] out);
 
