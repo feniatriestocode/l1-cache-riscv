@@ -1,0 +1,120 @@
+
+--- addi.run ---
+PASS
+
+--- add.run ---
+PASS
+
+--- andi.run ---
+PASS
+
+--- and.run ---
+PASS
+
+--- auipc.run ---
+PASS
+
+--- beq.run ---
+PASS
+
+--- bge.run ---
+PASS
+
+--- bgeu.run ---
+PASS
+
+--- blt.run ---
+PASS
+
+--- bltu.run ---
+PASS
+
+--- bne.run ---
+PASS
+
+--- jalr.run ---
+PASS
+
+--- jalr.text.beautified.run ---
+%Error: ../tests/jalr.text.beautified.data.vh:0: $readmem file not found
+Aborting...
+
+--- jal.run ---
+PASS
+
+--- lb.run ---
+FAIL
+
+--- lbu.run ---
+FAIL
+
+--- lh.run ---
+FAIL
+
+--- lhu.run ---
+FAIL
+
+--- lui.run ---
+FAIL
+
+--- lw.run ---
+FAIL
+
+--- ori.run ---
+PASS
+
+--- or.run ---
+PASS
+
+--- sb.run ---
+FAIL
+
+--- sh.run ---
+FAIL
+
+--- simple.run ---
+PASS
+
+--- slli.run ---
+PASS
+
+--- sll.run ---
+FAIL
+
+--- slti.run ---
+FAIL
+
+--- sltiu.run ---
+PASS
+
+--- slt.run ---
+FAIL
+
+--- sltu.run ---
+PASS
+
+--- srai.run ---
+FAIL
+
+--- sra.run ---
+FAIL
+
+--- srli.run ---
+PASS
+
+--- srl.run ---
+FAIL
+
+--- sub.run ---
+PASS
+
+--- sw.run ---
+PASS
+
+--- xori.run ---
+PASS
+
+--- xor.run ---
+PASS
+
+----- RUN ALL TESTS-----

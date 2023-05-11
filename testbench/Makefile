@@ -1,10 +1,14 @@
 VERILATOR = verilator
-VERILATOR_FLAGS = -cc --exe -Wall --trace
-VERILATOR_INPUT = ../src/pipelined/toplevel.v main.cpp
+VERILATOR_FLAGS = -cc --exe -Wall --trace -CFLAGS $(CFLAGS)
+VERILATOR_INPUT = ../src/pipelined/toplevel.v main.cpp 
 VERILATOR_INCLUDES = -I../src/pipelined -I../src/common -I../src/control -I../src/include -I../src/lib
 TESTDIR=../tests
 TESTS=$(notdir $(patsubst %.S,%,$(wildcard $(TESTDIR)/*.S)))
-TEST = addi
+TEST ?= add
+CFLAGS = -DVERBOSE=$(VERBOSE)
+CFLAGS += -CFLAGS -DTRACE=$(TRACE)
+VERBOSE ?= 0
+TRACE ?= 0
 
 verilate:
 	@echo 
@@ -20,13 +24,16 @@ run:
 	@echo
 	@echo "----- RUN INDIVIDUAL TEST -----"
 	obj_dir/Vtoplevel +trace +text_file=../tests/$(TEST).text.vh +data_file=../tests/$(TEST).data.vh
+	mv simx.vcd $(TEST).vcd
 
 check: $(addsuffix .run,$(TESTS)) 
 	@echo 
 	@echo "----- RUN ALL TESTS-----"
 
 %.run: obj_dir/Vtoplevel
-	./obj_dir/Vtoplevel +text_file=$(TESTDIR)/$(@:.run=).text.vh +data_file=$(TESTDIR)/$(@:.run=).data.vh
+	-@echo
+	-@echo "--- $@ ---"
+	-@./obj_dir/Vtoplevel +text_file=$(TESTDIR)/$(@:.run=).text.vh +data_file=$(TESTDIR)/$(@:.run=).data.vh
 
 clean:
 	rm -rf obj_dir

@@ -22,7 +22,7 @@ int main(int argc, const char **argv, const char **env)
 
     std::unique_ptr<Vtoplevel> top(new Vtoplevel);
 
-    #ifdef TRACE
+    #if TRACE==1
     Verilated::traceEverOn(true);
     VerilatedVcdC* tfp = new VerilatedVcdC;
     top->trace(tfp, 99);  // Trace 99 levels of hierarchy (or see below)
@@ -39,11 +39,12 @@ int main(int argc, const char **argv, const char **env)
         top->clock = time & 1;
         top->eval();
 
-        #ifdef TRACE
+        #if TRACE==1
         tfp->dump(time);
         #endif
 
-        if (verbose && top->clock && time > 8) {
+        #if VERBOSE==1
+        if (top->clock && time > 8) {
             std::cout << std::hex << std::setfill('0')
                       << "pc=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__PC << " "
                       << "inst=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__IFID_instr << " "
@@ -52,6 +53,7 @@ int main(int argc, const char **argv, const char **env)
                       << "alu out=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut << " "                      
                       << (top->MemWriteEnable ? "1" : "0") << " \n";
         }
+        #endif
 
         if (top->MemWriteEnable && top->MemAddr == 0xfffffff0) {
             if (top->WriteData) {
@@ -59,12 +61,17 @@ int main(int argc, const char **argv, const char **env)
                 return 0;
             } else {
                 std::cout << "FAIL" << std::endl;
+                #if TRACE==1
+                tfp->close();
+                #endif
                 return -1;
             }
         }
+        
     }
+    
 
-    #ifdef TRACE
+    #if TRACE==1
     tfp->close();
     #endif
 

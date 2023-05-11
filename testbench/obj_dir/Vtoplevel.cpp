@@ -112,12 +112,21 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
         vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[0x1eU] = 0x1eU;
         vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[0x1fU] = 0x1fU;
     }
+    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PCplus4 = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUcntrl = 0U;
+    } else {
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PCplus4 
+            = vlTOPp->toplevel__DOT__cpu__DOT__IFID_PCplus4;
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUcntrl 
+            = vlTOPp->toplevel__DOT__cpu__DOT__ALUcntrl;
+    }
     vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemWriteData 
         = ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem)))
             ? 0U : vlTOPp->toplevel__DOT__cpu__DOT__bypassOutB);
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUcntrl 
-        = ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))
-            ? 0U : (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUcntrl));
+    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_inA_is_PC 
+        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
+           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__inA_is_PC));
     vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Jump = ((~ 
                                                    ((~ (IData)(vlTOPp->reset)) 
                                                     | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
@@ -125,31 +134,27 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
     vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUSrc = 
         ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
          & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUSrc));
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_inA_is_PC 
-        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
-           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__inA_is_PC));
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PCplus4 = 
-        ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))
-          ? 0U : vlTOPp->toplevel__DOT__cpu__DOT__IFID_PCplus4);
-    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_PC = ((1U 
-                                                  & ((~ (IData)(vlTOPp->reset)) 
-                                                     | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem)))
-                                                  ? 0U
-                                                  : vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC);
-    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_JumpJALR 
-        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem))) 
-           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR));
+    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut 
+        = ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem)))
+            ? 0U : (vlTOPp->toplevel__DOT__cpu__DOT__BranchInA 
+                    + vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend));
     vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_Zero = (
                                                    (~ 
                                                     ((~ (IData)(vlTOPp->reset)) 
                                                      | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem))) 
                                                    & (0U 
                                                       == vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__out_val));
-    vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_MemToReg 
-        = ((IData)(vlTOPp->reset) & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemToReg));
+    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_PC = ((1U 
+                                                  & ((~ (IData)(vlTOPp->reset)) 
+                                                     | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem)))
+                                                  ? 0U
+                                                  : vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC);
     vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_Branch = 
         ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem))) 
          & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Branch));
+    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_JumpJALR 
+        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem))) 
+           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR));
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__IDEX_funct7 = 0U;
         vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs1 = 0U;
@@ -161,19 +166,21 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
             = (0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                         >> 0xfU));
     }
+    vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_MemToReg 
+        = ((IData)(vlTOPp->reset) & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemToReg));
     if (vlTOPp->reset) {
+        vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3 
+            = vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_funct3;
         vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_ALUOut 
             = vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut;
         vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut 
             = ((IData)(vlTOPp->reset) ? vlTOPp->toplevel__DOT__cpu__DOT__cpu_DMem__DOT__data
                [(0x7fffU & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
                             >> 2U))] : 0U);
-        vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3 
-            = vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_funct3;
     } else {
+        vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3 = 7U;
         vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_ALUOut = 0U;
         vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut = 0U;
-        vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3 = 7U;
     }
     if (vlTOPp->reset) {
         if (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite) 
@@ -185,60 +192,19 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
                 = vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr;
         }
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdB = ((1U 
-                                                  & ((~ (IData)(vlTOPp->reset)) 
-                                                     | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))
-                                                  ? 0U
-                                                  : 
-                                                 ((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite) 
-                                                    & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr) 
-                                                       == 
-                                                       (0x1fU 
-                                                        & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                           >> 0x14U)))) 
-                                                   & (0U 
-                                                      != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr)))
-                                                   ? vlTOPp->toplevel__DOT__cpu__DOT__wRegData
-                                                   : 
-                                                  vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data
-                                                  [
-                                                  (0x1fU 
-                                                   & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                                                      >> 0x14U))]));
-    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut 
-        = ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem)))
-            ? 0U : (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR)
-                      ? vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdA
-                      : vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC) 
-                    + vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend));
-    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_ifid)))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__IFID_PCplus4 = 0U;
-    } else {
-        if (vlTOPp->toplevel__DOT__cpu__DOT__write_ifid) {
-            vlTOPp->toplevel__DOT__cpu__DOT__IFID_PCplus4 
-                = ((IData)(4U) + vlTOPp->toplevel__DOT__cpu__DOT__PC);
-        }
-    }
-    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemToReg 
-        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem))) 
-           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemToReg));
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Branch = 
-        ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
-         & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Branch));
-    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_funct3 = 
-        ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem)))
-          ? 7U : (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_funct3));
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend 
-        = ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))
-            ? 0U : vlTOPp->toplevel__DOT__cpu__DOT__signExtend);
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR 
-        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
-           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__JumpJALR));
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdB = 0U;
         vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdA = 0U;
     } else {
-        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC = vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC;
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdB = 
+            ((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite) 
+               & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr) 
+                  == (0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                               >> 0x14U)))) & (0U != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr)))
+              ? vlTOPp->toplevel__DOT__cpu__DOT__wRegData
+              : vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data
+             [(0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                        >> 0x14U))]);
         vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdA = 
             ((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite) 
                & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr) 
@@ -253,6 +219,34 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
         vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[__Vdlyvdim0__toplevel__DOT__cpu__DOT__cpu_regs__DOT__data__v0] 
             = __Vdlyvval__toplevel__DOT__cpu__DOT__cpu_regs__DOT__data__v0;
     }
+    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_ifid)))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__IFID_PCplus4 = 0U;
+    } else {
+        if (vlTOPp->toplevel__DOT__cpu__DOT__write_ifid) {
+            vlTOPp->toplevel__DOT__cpu__DOT__IFID_PCplus4 
+                = ((IData)(4U) + vlTOPp->toplevel__DOT__cpu__DOT__PC);
+        }
+    }
+    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC = 0U;
+    } else {
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend 
+            = vlTOPp->toplevel__DOT__cpu__DOT__signExtend;
+        vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC = vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC;
+    }
+    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Branch = 
+        ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
+         & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Branch));
+    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR 
+        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
+           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__JumpJALR));
+    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemToReg 
+        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem))) 
+           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemToReg));
+    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_funct3 = 
+        ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem)))
+          ? 7U : (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_funct3));
     vlTOPp->toplevel__DOT__cpu__DOT__wRegData = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_MemToReg)
                                                   ? 
                                                  ((0U 
@@ -292,13 +286,11 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
                                                       & vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut)
                                                       : vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut))))
                                                   : vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_ALUOut);
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemToReg 
-        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
-           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MemToReg));
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_funct3 = 
-        ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))
-          ? 0U : (7U & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
-                        >> 0xcU)));
+    vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite 
+        = ((IData)(vlTOPp->reset) & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWrite));
+    vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr 
+        = ((IData)(vlTOPp->reset) ? (IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWriteAddr)
+            : 0U);
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_ifid)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC = 0U;
     } else {
@@ -307,11 +299,21 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
                 = vlTOPp->toplevel__DOT__cpu__DOT__PC;
         }
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite 
-        = ((IData)(vlTOPp->reset) & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWrite));
-    vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr 
-        = ((IData)(vlTOPp->reset) ? (IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWriteAddr)
-            : 0U);
+    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemToReg 
+        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
+           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MemToReg));
+    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_funct3 = 
+        ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))
+          ? 0U : (7U & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                        >> 0xcU)));
+    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWrite 
+        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem))) 
+           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegWrite));
+    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWriteAddr 
+        = ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem)))
+            ? 0U : ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegDst)
+                     ? (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rd)
+                     : (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2)));
     if ((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUcntrl))) {
         vlTOPp->toplevel__DOT__cpu__DOT__ALUOp = ((2U 
                                                    & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUcntrl))
@@ -398,17 +400,12 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
                                                      : 1U)))));
         }
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWrite 
-        = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem))) 
-           & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegWrite));
-    vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWriteAddr 
-        = ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem)))
-            ? 0U : ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegDst)
-                     ? (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rd)
-                     : (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2)));
     vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegWrite 
         = ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
            & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__RegWrite));
+    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegDst = 
+        ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
+         & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__RegDst));
     vlTOPp->toplevel__DOT__cpu__DOT__bypassA = ((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWrite) 
                                                   & (0U 
                                                      != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWriteAddr))) 
@@ -423,9 +420,6 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
                                                      == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs1)))
                                                   ? 1U
                                                   : 0U));
-    vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegDst = 
-        ((~ ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex))) 
-         & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__RegDst));
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rd = 0U;
         vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2 = 0U;
@@ -731,9 +725,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__5(Vtoplevel__Syms* __restrict vlSym
     vlTOPp->toplevel__DOT__cpu__DOT__branch_taken = 
         vlTOPp->__Vtable2_toplevel__DOT__cpu__DOT__branch_taken
         [vlTOPp->__Vtableidx2];
-    vlTOPp->toplevel__DOT__cpu__DOT__ALUInA = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_inA_is_PC)
-                                                ? vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC
-                                                : (
+    vlTOPp->toplevel__DOT__cpu__DOT__bypassOutA = (
                                                    (0U 
                                                     == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bypassA))
                                                     ? vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdA
@@ -741,7 +733,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__5(Vtoplevel__Syms* __restrict vlSym
                                                    ((1U 
                                                      == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bypassA))
                                                      ? vlTOPp->toplevel__DOT__cpu__DOT__wRegData
-                                                     : vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut)));
+                                                     : vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut));
     vlTOPp->toplevel__DOT__cpu__DOT__bypassOutB = (
                                                    (0U 
                                                     == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bypassB))
@@ -776,6 +768,12 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__5(Vtoplevel__Syms* __restrict vlSym
         [vlTOPp->__Vtableidx1];
     vlTOPp->toplevel__DOT__cpu__DOT__PCSrc = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_JumpJALR) 
                                               | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__branch_taken));
+    vlTOPp->toplevel__DOT__cpu__DOT__BranchInA = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR)
+                                                   ? vlTOPp->toplevel__DOT__cpu__DOT__bypassOutA
+                                                   : vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC);
+    vlTOPp->toplevel__DOT__cpu__DOT__ALUInA = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_inA_is_PC)
+                                                ? vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC
+                                                : vlTOPp->toplevel__DOT__cpu__DOT__bypassOutA);
     vlTOPp->toplevel__DOT__cpu__DOT__ALUInB = (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Jump) 
                                                 | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR))
                                                 ? 4U
@@ -851,6 +849,87 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__5(Vtoplevel__Syms* __restrict vlSym
                                                     : 
                                                    ((IData)(4U) 
                                                     + vlTOPp->toplevel__DOT__cpu__DOT__PC)));
+    vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__unsigned_sub 
+        = (0x1ffffffffULL & ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                             - (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))));
+    vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__overflow 
+        = (1U & (IData)((1ULL & (((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                   ? ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                      + (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                   : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                       ? ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                          - (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                       : ((2U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                           ? ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                              ^ (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                           : ((3U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                               ? ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                  | (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                               : ((4U 
+                                                   == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                   ? 
+                                                  ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                   & (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                                   : 
+                                                  ((5U 
+                                                    == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                    ? 
+                                                   ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                    << 
+                                                    (0x1fU 
+                                                     & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))
+                                                    : 
+                                                   ((6U 
+                                                     == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                     ? 
+                                                    ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                     >> 
+                                                     (0x1fU 
+                                                      & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))
+                                                     : 
+                                                    ((7U 
+                                                      == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                      ? (QData)((IData)(
+                                                                        VL_SHIFTRS_III(32,32,5, vlTOPp->toplevel__DOT__cpu__DOT__ALUInA, 
+                                                                                (0x1fU 
+                                                                                & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))))
+                                                      : 
+                                                     ((8U 
+                                                       == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                       ? 
+                                                      (VL_LTS_III(1,32,32, vlTOPp->toplevel__DOT__cpu__DOT__ALUInA, vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
+                                                        ? 1ULL
+                                                        : 0ULL)
+                                                       : 
+                                                      ((9U 
+                                                        == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                        ? 
+                                                       ((vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
+                                                         < vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
+                                                         ? 1ULL
+                                                         : 0ULL)
+                                                        : 
+                                                       ((0xaU 
+                                                         == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                         ? (QData)((IData)(
+                                                                           (vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__unsigned_sub 
+                                                                            >> 1U)))
+                                                         : 
+                                                        ((0xbU 
+                                                          == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                          ? (QData)((IData)(
+                                                                            (0xfffff000U 
+                                                                             & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                                          : 
+                                                         ((0xcU 
+                                                           == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                           ? 
+                                                          ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                           + (QData)((IData)(
+                                                                             (0xfffff000U 
+                                                                              & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))))
+                                                           : 0ULL))))))))))))) 
+                                 >> 0x20U))));
     vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__out_val 
         = (IData)((0x1ffffffffULL & ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
                                       ? ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
@@ -876,38 +955,30 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__5(Vtoplevel__Syms* __restrict vlSym
                                                   ((5U 
                                                     == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
                                                     ? 
-                                                   ((0x20U 
-                                                     >= vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
-                                                     ? 
-                                                    ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
-                                                     << vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
-                                                     : 0ULL)
+                                                   ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                    << 
+                                                    (0x1fU 
+                                                     & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))
                                                     : 
                                                    ((6U 
                                                      == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
                                                      ? 
-                                                    ((0x20U 
-                                                      >= vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
-                                                      ? 
-                                                     ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
-                                                      >> vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
-                                                      : 0ULL)
+                                                    ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                     >> 
+                                                     (0x1fU 
+                                                      & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))
                                                      : 
                                                     ((7U 
                                                       == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                      ? 
-                                                     ((0x20U 
-                                                       >= vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
-                                                       ? 
-                                                      ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
-                                                       >> vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
-                                                       : 0ULL)
+                                                      ? (QData)((IData)(
+                                                                        VL_SHIFTRS_III(32,32,5, vlTOPp->toplevel__DOT__cpu__DOT__ALUInA, 
+                                                                                (0x1fU 
+                                                                                & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))))
                                                       : 
                                                      ((8U 
                                                        == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
                                                        ? 
-                                                      ((vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
-                                                        < vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
+                                                      (VL_LTS_III(1,32,32, vlTOPp->toplevel__DOT__cpu__DOT__ALUInA, vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
                                                         ? 1ULL
                                                         : 0ULL)
                                                        : 
@@ -921,11 +992,9 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__5(Vtoplevel__Syms* __restrict vlSym
                                                         : 
                                                        ((0xaU 
                                                          == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                         ? 
-                                                        (0xffffffffULL 
-                                                         & (((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
-                                                             - (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))) 
-                                                            >> 1U))
+                                                         ? (QData)((IData)(
+                                                                           (vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__unsigned_sub 
+                                                                            >> 1U)))
                                                          : 
                                                         ((0xbU 
                                                           == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))

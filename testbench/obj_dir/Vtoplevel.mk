@@ -33,6 +33,8 @@ VM_PREFIX = Vtoplevel
 VM_MODPREFIX = Vtoplevel
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
+	-DVERBOSE=0 \
+	-DTRACE=0 \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \

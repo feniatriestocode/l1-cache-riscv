@@ -36,9 +36,9 @@ reg [31:0] MEMWB_DMemOut;
 reg [4:0]  MEMWB_RegWriteAddr;
 reg [31:0] MEMWB_ALUOut;
 reg        MEMWB_MemToReg, MEMWB_RegWrite;
-wire [31:0] ALUInA, ALUInB, ALUOut, BranchALUOut, bypassOutB, DMemOut, MemOut, wRegData;
+wire [31:0] ALUInA, ALUInB, ALUOut, BranchALUOut, bypassOutA, bypassOutB, DMemOut, MemOut, wRegData;
 wire [31:0] PCplus4, JumpAddress, PC_new;
-wire Zero, RegDst, MemRead, MemWrite, MemToReg, ALUSrc, PCSrc, RegWrite, Jump, CPU_RegWrite;
+wire Zero, RegDst, MemRead, MemWrite, MemToReg, ALUSrc, PCSrc, RegWrite, Jump, CPU_RegWrite, JumpJALR;
 wire Branch;
 reg IDEX_Branch, EXMEM_Branch;
 wire bubble_ifid, bubble_idex, bubble_exmem, bubble_memwb;   // create a NOP in respective stages
@@ -183,26 +183,27 @@ control_stall_id control_stall_id(bubble_ifid, bubble_idex, bubble_exmem, bubble
 								IDEX_RegWrite, EXMEM_RegWrite, MEMWB_RegWrite);
 
 /************************ Execution Unit (EX)  ***********************************/
+assign bypassOutA = (bypassA==2'b00) ? IDEX_rdA :
+					(bypassA==2'b01) ? wRegData :
+										EXMEM_ALUOut;
+
 assign bypassOutB = (bypassB==2'b00) ?	IDEX_rdB :
-					((bypassB==2'b01) ?	wRegData :
-										EXMEM_ALUOut);
+					(bypassB==2'b01) ?	wRegData :
+										EXMEM_ALUOut;
 
-assign ALUInA = (IDEX_inA_is_PC == 1'b1)	? IDEX_PC :
-				(bypassA==2'b00) 			? IDEX_rdA :
-				(bypassA==2'b01)			? wRegData :
-											EXMEM_ALUOut;
-
+assign ALUInA = (IDEX_inA_is_PC == 1'b1) ? IDEX_PC : bypassOutA;
+		
 assign ALUInB = (IDEX_Jump == 1'b1 || IDEX_JumpJALR == 1'b1) ? 	32'd4 :
 				(IDEX_ALUSrc == 1'b0) ? bypassOutB :
 										IDEX_signExtend;
 
-assign BranchInA = (IDEX_JumpJALR == 1'b1) ? IDEX_rdA : IDEX_PC;
+assign BranchInA = (IDEX_JumpJALR == 1'b1) ? bypassOutA : IDEX_PC;
 
 // Branch ALU
-ALU  #32 branch_alu(.out(BranchALUOut), .inA(BranchInA), .inB(IDEX_signExtend), .op(4'b0000));
+ALU branch_alu(.out(BranchALUOut), .inA(BranchInA), .inB(IDEX_signExtend), .op(4'b0000));
 
 //  ALU
-ALU  #32 cpu_alu(ALUOut, Zero, ALUInA, ALUInB, ALUOp);
+ALU cpu_alu(.out(ALUOut), .zero(Zero), .inA(ALUInA), .inB(ALUInB), .op(ALUOp));
 
 assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
 

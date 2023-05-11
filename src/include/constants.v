@@ -89,9 +89,7 @@
 
 /******* Funct7, R-format ********/
 `define FUNCT7_ADD 7'h00
-`define FUNCT7_SUB 7'h20
 `define FUNCT7_SRL 7'h00
-`define FUNCT7_SRA 7'h20
 
 /********* ALUcntrl Codes ********/
 `define ALU_R 3'b000
