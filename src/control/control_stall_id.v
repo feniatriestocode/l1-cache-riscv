@@ -38,7 +38,7 @@ begin
 	write_exmem = 1'b1;
 	write_memwb = 1'b1;
 
-	if ((idex_memread == 1'b1) && ((idex_rt==ifid_rs) || (idex_rt==ifid_rt))) begin // Load stall
+	if ((idex_memread == 1'b1) && ((idex_rd==ifid_rs) || (idex_rd==ifid_rt))) begin // Load stall
 		bubble_idex = 1'b1;
 		write_ifid = 1'b0;
 		write_pc = 1'b0;

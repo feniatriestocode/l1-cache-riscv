@@ -55,6 +55,12 @@ int main(int argc, const char **argv, const char **env)
         }
         #endif
 
+        /*
+        if (top->toplevel__DOT__cpu__DOT__EXMEM_MemRead && top->toplevel__DOT__cpu__DOT__EXMEM_funct3 == 2)  {
+            printf("Load word from address %x\n", top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut);
+        }
+        */
+
         if (top->MemWriteEnable && top->MemAddr == 0xfffffff0) {
             if (top->WriteData) {
                 std::cout << "PASS" << std::endl;

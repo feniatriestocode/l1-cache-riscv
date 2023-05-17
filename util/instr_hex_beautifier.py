@@ -163,7 +163,7 @@ def hexToString(instruction_str):
 		elif funct3 == LHU_FUNCT3:
 			inst_str = "lhu"
 		imm = int(imm_i, 2) - (int(imm_i[0], 2) << len(imm_i))
-		inst_str += " " + reg_to_string(rs2) + ", " + str(imm) + "(" + reg_to_string(rs1) + ") "
+		inst_str += " " + reg_to_string(rd) + ", " + str(imm) + "(" + reg_to_string(rs1) + ") "
 	elif opcode == I_OPCODES_3:
 		if funct3 == ECALL_EBREAK_FUNCT3:
 			if imm_i[0] == ECALL_IMM:

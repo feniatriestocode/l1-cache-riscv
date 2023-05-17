@@ -44,31 +44,31 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
     if (false && tracep && c) {}  // Prevent unused
     // Body
     {
-        tracep->declBit(c+138,"clock", false,-1);
-        tracep->declBit(c+139,"reset", false,-1);
-        tracep->declBit(c+140,"MemWriteEnable", false,-1);
-        tracep->declBus(c+141,"MemAddr", false,-1, 31,0);
-        tracep->declBus(c+142,"WriteData", false,-1, 31,0);
-        tracep->declBit(c+138,"toplevel clock", false,-1);
-        tracep->declBit(c+139,"toplevel reset", false,-1);
-        tracep->declBit(c+140,"toplevel MemWriteEnable", false,-1);
-        tracep->declBus(c+141,"toplevel MemAddr", false,-1, 31,0);
-        tracep->declBus(c+142,"toplevel WriteData", false,-1, 31,0);
-        tracep->declBit(c+138,"toplevel cpu clock", false,-1);
-        tracep->declBit(c+139,"toplevel cpu reset", false,-1);
-        tracep->declBit(c+140,"toplevel cpu MemWriteEnable", false,-1);
-        tracep->declBus(c+141,"toplevel cpu MemAddr", false,-1, 31,0);
-        tracep->declBus(c+142,"toplevel cpu WriteData", false,-1, 31,0);
+        tracep->declBit(c+142,"clock", false,-1);
+        tracep->declBit(c+143,"reset", false,-1);
+        tracep->declBit(c+144,"MemWriteEnable", false,-1);
+        tracep->declBus(c+145,"MemAddr", false,-1, 31,0);
+        tracep->declBus(c+146,"WriteData", false,-1, 31,0);
+        tracep->declBit(c+142,"toplevel clock", false,-1);
+        tracep->declBit(c+143,"toplevel reset", false,-1);
+        tracep->declBit(c+144,"toplevel MemWriteEnable", false,-1);
+        tracep->declBus(c+145,"toplevel MemAddr", false,-1, 31,0);
+        tracep->declBus(c+146,"toplevel WriteData", false,-1, 31,0);
+        tracep->declBit(c+142,"toplevel cpu clock", false,-1);
+        tracep->declBit(c+143,"toplevel cpu reset", false,-1);
+        tracep->declBit(c+144,"toplevel cpu MemWriteEnable", false,-1);
+        tracep->declBus(c+145,"toplevel cpu MemAddr", false,-1, 31,0);
+        tracep->declBus(c+146,"toplevel cpu WriteData", false,-1, 31,0);
         tracep->declBus(c+1,"toplevel cpu PC", false,-1, 31,0);
         tracep->declBus(c+2,"toplevel cpu IFID_PC", false,-1, 31,0);
         tracep->declBus(c+3,"toplevel cpu IDEX_PC", false,-1, 31,0);
         tracep->declBus(c+4,"toplevel cpu EXMEM_PC", false,-1, 31,0);
         tracep->declBus(c+5,"toplevel cpu IFID_PCplus4", false,-1, 31,0);
         tracep->declBus(c+6,"toplevel cpu IFID_instr", false,-1, 31,0);
-        tracep->declBus(c+143,"toplevel cpu instr", false,-1, 31,0);
-        tracep->declBit(c+102,"toplevel cpu inA_is_PC", false,-1);
-        tracep->declBit(c+103,"toplevel cpu branch_taken", false,-1);
-        tracep->declBus(c+104,"toplevel cpu BranchInA", false,-1, 31,0);
+        tracep->declBus(c+147,"toplevel cpu instr", false,-1, 31,0);
+        tracep->declBit(c+104,"toplevel cpu inA_is_PC", false,-1);
+        tracep->declBit(c+105,"toplevel cpu branch_taken", false,-1);
+        tracep->declBus(c+106,"toplevel cpu BranchInA", false,-1, 31,0);
         tracep->declBus(c+7,"toplevel cpu IDEX_signExtend", false,-1, 31,0);
         tracep->declBus(c+8,"toplevel cpu signExtend", false,-1, 31,0);
         tracep->declBus(c+9,"toplevel cpu rdA", false,-1, 31,0);
@@ -87,21 +87,22 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declBit(c+22,"toplevel cpu IDEX_Jump", false,-1);
         tracep->declBit(c+23,"toplevel cpu IDEX_JumpJALR", false,-1);
         tracep->declBus(c+24,"toplevel cpu IDEX_ALUcntrl", false,-1, 2,0);
-        tracep->declBit(c+105,"toplevel cpu IDEX_MemRead", false,-1);
-        tracep->declBit(c+106,"toplevel cpu IDEX_MemWrite", false,-1);
+        tracep->declBit(c+107,"toplevel cpu IDEX_MemRead", false,-1);
+        tracep->declBit(c+108,"toplevel cpu IDEX_MemWrite", false,-1);
         tracep->declBit(c+25,"toplevel cpu IDEX_MemToReg", false,-1);
         tracep->declBit(c+26,"toplevel cpu IDEX_RegWrite", false,-1);
         tracep->declBus(c+27,"toplevel cpu EXMEM_funct3", false,-1, 2,0);
         tracep->declBus(c+28,"toplevel cpu MEMWB_funct3", false,-1, 2,0);
         tracep->declBus(c+29,"toplevel cpu EXMEM_RegWriteAddr", false,-1, 4,0);
-        tracep->declBus(c+107,"toplevel cpu EXMEM_ALUOut", false,-1, 31,0);
+        tracep->declBus(c+109,"toplevel cpu EXMEM_ALUOut", false,-1, 31,0);
         tracep->declBus(c+30,"toplevel cpu EXMEM_BranchALUOut", false,-1, 31,0);
         tracep->declBit(c+31,"toplevel cpu EXMEM_Zero", false,-1);
         tracep->declBit(c+32,"toplevel cpu EXMEM_JumpJALR", false,-1);
+        tracep->declBus(c+110,"toplevel cpu byte_select_vector", false,-1, 3,0);
         tracep->declBus(c+33,"toplevel cpu EXMEM_MemWriteData", false,-1, 31,0);
-        tracep->declBus(c+108,"toplevel cpu MemWriteData", false,-1, 31,0);
-        tracep->declBit(c+109,"toplevel cpu EXMEM_MemRead", false,-1);
-        tracep->declBit(c+110,"toplevel cpu EXMEM_MemWrite", false,-1);
+        tracep->declBus(c+111,"toplevel cpu MemWriteData", false,-1, 31,0);
+        tracep->declBit(c+112,"toplevel cpu EXMEM_MemRead", false,-1);
+        tracep->declBit(c+113,"toplevel cpu EXMEM_MemWrite", false,-1);
         tracep->declBit(c+34,"toplevel cpu EXMEM_RegWrite", false,-1);
         tracep->declBit(c+35,"toplevel cpu EXMEM_MemToReg", false,-1);
         tracep->declBus(c+36,"toplevel cpu MEMWB_DMemOut", false,-1, 31,0);
@@ -109,44 +110,44 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declBus(c+38,"toplevel cpu MEMWB_ALUOut", false,-1, 31,0);
         tracep->declBit(c+39,"toplevel cpu MEMWB_MemToReg", false,-1);
         tracep->declBit(c+40,"toplevel cpu MEMWB_RegWrite", false,-1);
-        tracep->declBus(c+111,"toplevel cpu ALUInA", false,-1, 31,0);
-        tracep->declBus(c+112,"toplevel cpu ALUInB", false,-1, 31,0);
-        tracep->declBus(c+113,"toplevel cpu ALUOut", false,-1, 31,0);
-        tracep->declBus(c+96,"toplevel cpu BranchALUOut", false,-1, 31,0);
-        tracep->declBus(c+114,"toplevel cpu bypassOutA", false,-1, 31,0);
-        tracep->declBus(c+115,"toplevel cpu bypassOutB", false,-1, 31,0);
-        tracep->declBus(c+144,"toplevel cpu DMemOut", false,-1, 31,0);
+        tracep->declBus(c+114,"toplevel cpu ALUInA", false,-1, 31,0);
+        tracep->declBus(c+115,"toplevel cpu ALUInB", false,-1, 31,0);
+        tracep->declBus(c+116,"toplevel cpu ALUOut", false,-1, 31,0);
+        tracep->declBus(c+98,"toplevel cpu BranchALUOut", false,-1, 31,0);
+        tracep->declBus(c+117,"toplevel cpu bypassOutA", false,-1, 31,0);
+        tracep->declBus(c+118,"toplevel cpu bypassOutB", false,-1, 31,0);
+        tracep->declBus(c+148,"toplevel cpu DMemOut", false,-1, 31,0);
         tracep->declBus(c+41,"toplevel cpu MemOut", false,-1, 31,0);
         tracep->declBus(c+42,"toplevel cpu wRegData", false,-1, 31,0);
         tracep->declBus(c+43,"toplevel cpu PCplus4", false,-1, 31,0);
         tracep->declBus(c+44,"toplevel cpu JumpAddress", false,-1, 31,0);
-        tracep->declBus(c+97,"toplevel cpu PC_new", false,-1, 31,0);
-        tracep->declBit(c+116,"toplevel cpu Zero", false,-1);
-        tracep->declBit(c+117,"toplevel cpu RegDst", false,-1);
-        tracep->declBit(c+118,"toplevel cpu MemRead", false,-1);
-        tracep->declBit(c+119,"toplevel cpu MemWrite", false,-1);
-        tracep->declBit(c+120,"toplevel cpu MemToReg", false,-1);
-        tracep->declBit(c+121,"toplevel cpu ALUSrc", false,-1);
-        tracep->declBit(c+122,"toplevel cpu PCSrc", false,-1);
-        tracep->declBit(c+123,"toplevel cpu RegWrite", false,-1);
-        tracep->declBit(c+124,"toplevel cpu Jump", false,-1);
+        tracep->declBus(c+99,"toplevel cpu PC_new", false,-1, 31,0);
+        tracep->declBit(c+119,"toplevel cpu Zero", false,-1);
+        tracep->declBit(c+120,"toplevel cpu RegDst", false,-1);
+        tracep->declBit(c+121,"toplevel cpu MemRead", false,-1);
+        tracep->declBit(c+122,"toplevel cpu MemWrite", false,-1);
+        tracep->declBit(c+123,"toplevel cpu MemToReg", false,-1);
+        tracep->declBit(c+124,"toplevel cpu ALUSrc", false,-1);
+        tracep->declBit(c+125,"toplevel cpu PCSrc", false,-1);
+        tracep->declBit(c+126,"toplevel cpu RegWrite", false,-1);
+        tracep->declBit(c+127,"toplevel cpu Jump", false,-1);
         tracep->declBit(c+40,"toplevel cpu CPU_RegWrite", false,-1);
-        tracep->declBit(c+125,"toplevel cpu JumpJALR", false,-1);
-        tracep->declBit(c+126,"toplevel cpu Branch", false,-1);
+        tracep->declBit(c+128,"toplevel cpu JumpJALR", false,-1);
+        tracep->declBit(c+129,"toplevel cpu Branch", false,-1);
         tracep->declBit(c+45,"toplevel cpu IDEX_Branch", false,-1);
         tracep->declBit(c+46,"toplevel cpu EXMEM_Branch", false,-1);
-        tracep->declBit(c+127,"toplevel cpu bubble_ifid", false,-1);
-        tracep->declBit(c+128,"toplevel cpu bubble_idex", false,-1);
-        tracep->declBit(c+129,"toplevel cpu bubble_exmem", false,-1);
-        tracep->declBit(c+145,"toplevel cpu bubble_memwb", false,-1);
-        tracep->declBit(c+130,"toplevel cpu write_ifid", false,-1);
-        tracep->declBit(c+146,"toplevel cpu write_idex", false,-1);
-        tracep->declBit(c+146,"toplevel cpu write_exmem", false,-1);
-        tracep->declBit(c+146,"toplevel cpu write_memwb", false,-1);
-        tracep->declBit(c+131,"toplevel cpu write_pc", false,-1);
+        tracep->declBit(c+130,"toplevel cpu bubble_ifid", false,-1);
+        tracep->declBit(c+131,"toplevel cpu bubble_idex", false,-1);
+        tracep->declBit(c+132,"toplevel cpu bubble_exmem", false,-1);
+        tracep->declBit(c+149,"toplevel cpu bubble_memwb", false,-1);
+        tracep->declBit(c+133,"toplevel cpu write_ifid", false,-1);
+        tracep->declBit(c+150,"toplevel cpu write_idex", false,-1);
+        tracep->declBit(c+150,"toplevel cpu write_exmem", false,-1);
+        tracep->declBit(c+150,"toplevel cpu write_memwb", false,-1);
+        tracep->declBit(c+134,"toplevel cpu write_pc", false,-1);
         tracep->declBus(c+47,"toplevel cpu opcode", false,-1, 6,0);
         tracep->declBus(c+48,"toplevel cpu funct3", false,-1, 2,0);
-        tracep->declBus(c+132,"toplevel cpu ALUcntrl", false,-1, 2,0);
+        tracep->declBus(c+135,"toplevel cpu ALUcntrl", false,-1, 2,0);
         tracep->declBus(c+49,"toplevel cpu funct7", false,-1, 6,0);
         tracep->declBus(c+50,"toplevel cpu instr_rs1", false,-1, 4,0);
         tracep->declBus(c+51,"toplevel cpu instr_rs2", false,-1, 4,0);
@@ -160,15 +161,15 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declBus(c+59,"toplevel cpu imm_b", false,-1, 31,0);
         tracep->declBus(c+60,"toplevel cpu imm_u", false,-1, 31,0);
         tracep->declBus(c+61,"toplevel cpu imm_j", false,-1, 31,0);
-        tracep->declBit(c+138,"toplevel cpu cpu_IMem clock", false,-1);
-        tracep->declBit(c+139,"toplevel cpu cpu_IMem reset", false,-1);
-        tracep->declBit(c+130,"toplevel cpu cpu_IMem ren", false,-1);
-        tracep->declBit(c+145,"toplevel cpu cpu_IMem wen", false,-1);
+        tracep->declBit(c+142,"toplevel cpu cpu_IMem clock", false,-1);
+        tracep->declBit(c+143,"toplevel cpu cpu_IMem reset", false,-1);
+        tracep->declBit(c+133,"toplevel cpu cpu_IMem ren", false,-1);
+        tracep->declBit(c+149,"toplevel cpu cpu_IMem wen", false,-1);
         tracep->declBus(c+62,"toplevel cpu cpu_IMem addr", false,-1, 13,0);
-        tracep->declBus(c+147,"toplevel cpu cpu_IMem din", false,-1, 31,0);
-        tracep->declBus(c+143,"toplevel cpu cpu_IMem dout", false,-1, 31,0);
-        tracep->declBit(c+138,"toplevel cpu cpu_regs clock", false,-1);
-        tracep->declBit(c+139,"toplevel cpu cpu_regs reset", false,-1);
+        tracep->declBus(c+151,"toplevel cpu cpu_IMem din", false,-1, 31,0);
+        tracep->declBus(c+147,"toplevel cpu cpu_IMem dout", false,-1, 31,0);
+        tracep->declBit(c+142,"toplevel cpu cpu_regs clock", false,-1);
+        tracep->declBit(c+143,"toplevel cpu cpu_regs reset", false,-1);
         tracep->declBus(c+50,"toplevel cpu cpu_regs raA", false,-1, 4,0);
         tracep->declBus(c+51,"toplevel cpu cpu_regs raB", false,-1, 4,0);
         tracep->declBus(c+37,"toplevel cpu cpu_regs wa", false,-1, 4,0);
@@ -176,9 +177,9 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declBus(c+42,"toplevel cpu cpu_regs wd", false,-1, 31,0);
         tracep->declBus(c+9,"toplevel cpu cpu_regs rdA", false,-1, 31,0);
         tracep->declBus(c+10,"toplevel cpu cpu_regs rdB", false,-1, 31,0);
-        tracep->declBus(c+63,"toplevel cpu cpu_regs i", false,-1, 31,0);
+        tracep->declBus(c+152,"toplevel cpu cpu_regs i", false,-1, 31,0);
         {int i; for (i=0; i<32; i++) {
-                tracep->declBus(c+64+i*1,"toplevel cpu cpu_regs data", true,(i+0), 31,0);}}
+                tracep->declBus(c+63+i*1,"toplevel cpu cpu_regs data", true,(i+0), 31,0);}}
         tracep->declBus(c+8,"toplevel cpu SignExtendSelector out", false,-1, 31,0);
         tracep->declBus(c+57,"toplevel cpu SignExtendSelector imm_i", false,-1, 31,0);
         tracep->declBus(c+58,"toplevel cpu SignExtendSelector imm_s", false,-1, 31,0);
@@ -186,27 +187,27 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declBus(c+60,"toplevel cpu SignExtendSelector imm_u", false,-1, 31,0);
         tracep->declBus(c+61,"toplevel cpu SignExtendSelector imm_j", false,-1, 31,0);
         tracep->declBus(c+47,"toplevel cpu SignExtendSelector opcode", false,-1, 6,0);
-        tracep->declBit(c+117,"toplevel cpu control_main RegDst", false,-1);
-        tracep->declBit(c+126,"toplevel cpu control_main Branch", false,-1);
-        tracep->declBit(c+118,"toplevel cpu control_main MemRead", false,-1);
-        tracep->declBit(c+119,"toplevel cpu control_main MemWrite", false,-1);
-        tracep->declBit(c+120,"toplevel cpu control_main MemToReg", false,-1);
-        tracep->declBit(c+121,"toplevel cpu control_main ALUSrc", false,-1);
-        tracep->declBit(c+123,"toplevel cpu control_main RegWrite", false,-1);
-        tracep->declBit(c+124,"toplevel cpu control_main Jump", false,-1);
-        tracep->declBit(c+125,"toplevel cpu control_main JumpJALR", false,-1);
-        tracep->declBit(c+102,"toplevel cpu control_main inA_is_PC", false,-1);
-        tracep->declBus(c+132,"toplevel cpu control_main ALUcntrl", false,-1, 2,0);
+        tracep->declBit(c+120,"toplevel cpu control_main RegDst", false,-1);
+        tracep->declBit(c+129,"toplevel cpu control_main Branch", false,-1);
+        tracep->declBit(c+121,"toplevel cpu control_main MemRead", false,-1);
+        tracep->declBit(c+122,"toplevel cpu control_main MemWrite", false,-1);
+        tracep->declBit(c+123,"toplevel cpu control_main MemToReg", false,-1);
+        tracep->declBit(c+124,"toplevel cpu control_main ALUSrc", false,-1);
+        tracep->declBit(c+126,"toplevel cpu control_main RegWrite", false,-1);
+        tracep->declBit(c+127,"toplevel cpu control_main Jump", false,-1);
+        tracep->declBit(c+128,"toplevel cpu control_main JumpJALR", false,-1);
+        tracep->declBit(c+104,"toplevel cpu control_main inA_is_PC", false,-1);
+        tracep->declBus(c+135,"toplevel cpu control_main ALUcntrl", false,-1, 2,0);
         tracep->declBus(c+47,"toplevel cpu control_main opcode", false,-1, 6,0);
-        tracep->declBit(c+127,"toplevel cpu control_stall_id bubble_ifid", false,-1);
-        tracep->declBit(c+128,"toplevel cpu control_stall_id bubble_idex", false,-1);
-        tracep->declBit(c+129,"toplevel cpu control_stall_id bubble_exmem", false,-1);
-        tracep->declBit(c+145,"toplevel cpu control_stall_id bubble_memwb", false,-1);
-        tracep->declBit(c+130,"toplevel cpu control_stall_id write_ifid", false,-1);
-        tracep->declBit(c+146,"toplevel cpu control_stall_id write_idex", false,-1);
-        tracep->declBit(c+146,"toplevel cpu control_stall_id write_exmem", false,-1);
-        tracep->declBit(c+146,"toplevel cpu control_stall_id write_memwb", false,-1);
-        tracep->declBit(c+131,"toplevel cpu control_stall_id write_pc", false,-1);
+        tracep->declBit(c+130,"toplevel cpu control_stall_id bubble_ifid", false,-1);
+        tracep->declBit(c+131,"toplevel cpu control_stall_id bubble_idex", false,-1);
+        tracep->declBit(c+132,"toplevel cpu control_stall_id bubble_exmem", false,-1);
+        tracep->declBit(c+149,"toplevel cpu control_stall_id bubble_memwb", false,-1);
+        tracep->declBit(c+133,"toplevel cpu control_stall_id write_ifid", false,-1);
+        tracep->declBit(c+150,"toplevel cpu control_stall_id write_idex", false,-1);
+        tracep->declBit(c+150,"toplevel cpu control_stall_id write_exmem", false,-1);
+        tracep->declBit(c+150,"toplevel cpu control_stall_id write_memwb", false,-1);
+        tracep->declBit(c+134,"toplevel cpu control_stall_id write_pc", false,-1);
         tracep->declBus(c+50,"toplevel cpu control_stall_id ifid_rs", false,-1, 4,0);
         tracep->declBus(c+51,"toplevel cpu control_stall_id ifid_rt", false,-1, 4,0);
         tracep->declBus(c+52,"toplevel cpu control_stall_id ifid_rd", false,-1, 4,0);
@@ -214,30 +215,30 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declBus(c+18,"toplevel cpu control_stall_id idex_rd", false,-1, 4,0);
         tracep->declBus(c+29,"toplevel cpu control_stall_id exmem_rd", false,-1, 4,0);
         tracep->declBus(c+37,"toplevel cpu control_stall_id memwb_rd", false,-1, 4,0);
-        tracep->declBit(c+105,"toplevel cpu control_stall_id idex_memread", false,-1);
-        tracep->declBit(c+124,"toplevel cpu control_stall_id Jump", false,-1);
-        tracep->declBit(c+122,"toplevel cpu control_stall_id PCSrc", false,-1);
+        tracep->declBit(c+107,"toplevel cpu control_stall_id idex_memread", false,-1);
+        tracep->declBit(c+127,"toplevel cpu control_stall_id Jump", false,-1);
+        tracep->declBit(c+125,"toplevel cpu control_stall_id PCSrc", false,-1);
         tracep->declBit(c+26,"toplevel cpu control_stall_id IDEX_RegWrite", false,-1);
         tracep->declBit(c+34,"toplevel cpu control_stall_id EXMEM_RegWrite", false,-1);
         tracep->declBit(c+40,"toplevel cpu control_stall_id MEMWB_RegWrite", false,-1);
-        tracep->declBus(c+148,"toplevel cpu branch_alu N", false,-1, 31,0);
-        tracep->declBus(c+96,"toplevel cpu branch_alu out", false,-1, 31,0);
-        tracep->declBit(c+98,"toplevel cpu branch_alu zero", false,-1);
-        tracep->declBus(c+104,"toplevel cpu branch_alu inA", false,-1, 31,0);
+        tracep->declBus(c+153,"toplevel cpu branch_alu N", false,-1, 31,0);
+        tracep->declBus(c+98,"toplevel cpu branch_alu out", false,-1, 31,0);
+        tracep->declBit(c+100,"toplevel cpu branch_alu zero", false,-1);
+        tracep->declBus(c+106,"toplevel cpu branch_alu inA", false,-1, 31,0);
         tracep->declBus(c+7,"toplevel cpu branch_alu inB", false,-1, 31,0);
-        tracep->declBus(c+149,"toplevel cpu branch_alu op", false,-1, 3,0);
-        tracep->declBus(c+96,"toplevel cpu branch_alu out_val", false,-1, 31,0);
-        tracep->declQuad(c+99,"toplevel cpu branch_alu unsigned_sub", false,-1, 32,0);
-        tracep->declBit(c+101,"toplevel cpu branch_alu overflow", false,-1);
-        tracep->declBus(c+148,"toplevel cpu cpu_alu N", false,-1, 31,0);
-        tracep->declBus(c+113,"toplevel cpu cpu_alu out", false,-1, 31,0);
-        tracep->declBit(c+116,"toplevel cpu cpu_alu zero", false,-1);
-        tracep->declBus(c+111,"toplevel cpu cpu_alu inA", false,-1, 31,0);
-        tracep->declBus(c+112,"toplevel cpu cpu_alu inB", false,-1, 31,0);
+        tracep->declBus(c+154,"toplevel cpu branch_alu op", false,-1, 3,0);
+        tracep->declBus(c+98,"toplevel cpu branch_alu out_val", false,-1, 31,0);
+        tracep->declQuad(c+101,"toplevel cpu branch_alu unsigned_sub", false,-1, 32,0);
+        tracep->declBit(c+103,"toplevel cpu branch_alu overflow", false,-1);
+        tracep->declBus(c+153,"toplevel cpu cpu_alu N", false,-1, 31,0);
+        tracep->declBus(c+116,"toplevel cpu cpu_alu out", false,-1, 31,0);
+        tracep->declBit(c+119,"toplevel cpu cpu_alu zero", false,-1);
+        tracep->declBus(c+114,"toplevel cpu cpu_alu inA", false,-1, 31,0);
+        tracep->declBus(c+115,"toplevel cpu cpu_alu inB", false,-1, 31,0);
         tracep->declBus(c+54,"toplevel cpu cpu_alu op", false,-1, 3,0);
-        tracep->declBus(c+113,"toplevel cpu cpu_alu out_val", false,-1, 31,0);
-        tracep->declQuad(c+133,"toplevel cpu cpu_alu unsigned_sub", false,-1, 32,0);
-        tracep->declBit(c+135,"toplevel cpu cpu_alu overflow", false,-1);
+        tracep->declBus(c+116,"toplevel cpu cpu_alu out_val", false,-1, 31,0);
+        tracep->declQuad(c+136,"toplevel cpu cpu_alu unsigned_sub", false,-1, 32,0);
+        tracep->declBit(c+138,"toplevel cpu cpu_alu overflow", false,-1);
         tracep->declBus(c+54,"toplevel cpu control_alu ALUOp", false,-1, 3,0);
         tracep->declBus(c+24,"toplevel cpu control_alu ALUcntrl", false,-1, 2,0);
         tracep->declBus(c+13,"toplevel cpu control_alu funct3", false,-1, 2,0);
@@ -250,24 +251,30 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declBus(c+37,"toplevel cpu control_bypass_ex memwb_rd", false,-1, 4,0);
         tracep->declBit(c+34,"toplevel cpu control_bypass_ex exmem_regwrite", false,-1);
         tracep->declBit(c+40,"toplevel cpu control_bypass_ex memwb_regwrite", false,-1);
-        tracep->declBit(c+103,"toplevel cpu control_branch branch_taken", false,-1);
+        tracep->declBit(c+105,"toplevel cpu control_branch branch_taken", false,-1);
         tracep->declBus(c+27,"toplevel cpu control_branch funct3", false,-1, 2,0);
         tracep->declBit(c+46,"toplevel cpu control_branch Branch", false,-1);
         tracep->declBit(c+31,"toplevel cpu control_branch zero", false,-1);
-        tracep->declBit(c+136,"toplevel cpu control_branch sign", false,-1);
+        tracep->declBit(c+139,"toplevel cpu control_branch sign", false,-1);
         tracep->declBus(c+27,"toplevel cpu mem_write_selector mem_select", false,-1, 2,0);
         tracep->declBus(c+33,"toplevel cpu mem_write_selector ALUin", false,-1, 31,0);
-        tracep->declBus(c+108,"toplevel cpu mem_write_selector out", false,-1, 31,0);
-        tracep->declBit(c+138,"toplevel cpu cpu_DMem clock", false,-1);
-        tracep->declBit(c+139,"toplevel cpu cpu_DMem reset", false,-1);
-        tracep->declBit(c+109,"toplevel cpu cpu_DMem ren", false,-1);
-        tracep->declBit(c+110,"toplevel cpu cpu_DMem wen", false,-1);
-        tracep->declBus(c+137,"toplevel cpu cpu_DMem addr", false,-1, 14,0);
-        tracep->declBus(c+108,"toplevel cpu cpu_DMem din", false,-1, 31,0);
-        tracep->declBus(c+144,"toplevel cpu cpu_DMem dout", false,-1, 31,0);
+        tracep->declBus(c+140,"toplevel cpu mem_write_selector offset", false,-1, 1,0);
+        tracep->declBus(c+110,"toplevel cpu mem_write_selector byte_select_vector", false,-1, 3,0);
+        tracep->declBus(c+111,"toplevel cpu mem_write_selector out", false,-1, 31,0);
+        tracep->declBit(c+142,"toplevel cpu cpu_DMem clock", false,-1);
+        tracep->declBit(c+143,"toplevel cpu cpu_DMem reset", false,-1);
+        tracep->declBit(c+112,"toplevel cpu cpu_DMem ren", false,-1);
+        tracep->declBit(c+113,"toplevel cpu cpu_DMem wen", false,-1);
+        tracep->declBus(c+110,"toplevel cpu cpu_DMem byte_select_vector", false,-1, 3,0);
+        tracep->declBus(c+141,"toplevel cpu cpu_DMem addr", false,-1, 14,0);
+        tracep->declBus(c+111,"toplevel cpu cpu_DMem din", false,-1, 31,0);
+        tracep->declBus(c+148,"toplevel cpu cpu_DMem dout", false,-1, 31,0);
         tracep->declBus(c+28,"toplevel cpu mem_read_selector mem_select", false,-1, 2,0);
         tracep->declBus(c+36,"toplevel cpu mem_read_selector DMemOut", false,-1, 31,0);
+        tracep->declBus(c+95,"toplevel cpu mem_read_selector byte_index", false,-1, 1,0);
         tracep->declBus(c+41,"toplevel cpu mem_read_selector out", false,-1, 31,0);
+        tracep->declBus(c+96,"toplevel cpu mem_read_selector byte_sel", false,-1, 7,0);
+        tracep->declBus(c+97,"toplevel cpu mem_read_selector half", false,-1, 15,0);
     }
 }
 
@@ -354,32 +361,29 @@ void Vtoplevel::traceFullSub0(void* userp, VerilatedVcd* tracep) {
         tracep->fullIData(oldp+38,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_ALUOut),32);
         tracep->fullBit(oldp+39,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_MemToReg));
         tracep->fullBit(oldp+40,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite));
-        tracep->fullIData(oldp+41,(((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
-                                     ? ((0xffffff00U 
-                                         & ((- (IData)(
-                                                       (1U 
-                                                        & (vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut 
-                                                           >> 7U)))) 
-                                            << 8U)) 
-                                        | (0xffU & vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut))
-                                     : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
-                                         ? ((0xffff0000U 
-                                             & ((- (IData)(
-                                                           (1U 
-                                                            & (vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut 
-                                                               >> 0xfU)))) 
-                                                << 0x10U)) 
-                                            | (0xffffU 
-                                               & vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut))
-                                         : ((4U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
-                                             ? (0xffU 
-                                                & vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut)
-                                             : ((5U 
-                                                 == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
-                                                 ? 
-                                                (0xffffU 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut)
-                                                 : vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut))))),32);
+        tracep->fullIData(oldp+41,(((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
+                                     ? ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
+                                         ? vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut
+                                         : ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
+                                             ? (IData)(vlTOPp->toplevel__DOT__cpu__DOT__mem_read_selector__DOT__half)
+                                             : (IData)(vlTOPp->toplevel__DOT__cpu__DOT__mem_read_selector__DOT__byte_sel)))
+                                     : ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
+                                         ? vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut
+                                         : ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
+                                             ? ((0xffff0000U 
+                                                 & ((- (IData)(
+                                                               (1U 
+                                                                & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__mem_read_selector__DOT__half) 
+                                                                   >> 0xfU)))) 
+                                                    << 0x10U)) 
+                                                | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__mem_read_selector__DOT__half))
+                                             : ((0xffffff00U 
+                                                 & ((- (IData)(
+                                                               (1U 
+                                                                & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__mem_read_selector__DOT__byte_sel) 
+                                                                   >> 7U)))) 
+                                                    << 8U)) 
+                                                | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__mem_read_selector__DOT__byte_sel)))))),32);
         tracep->fullIData(oldp+42,(vlTOPp->toplevel__DOT__cpu__DOT__wRegData),32);
         tracep->fullIData(oldp+43,(((IData)(4U) + vlTOPp->toplevel__DOT__cpu__DOT__PC)),32);
         tracep->fullIData(oldp+44,((vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC 
@@ -446,113 +450,118 @@ void Vtoplevel::traceFullSub0(void* userp, VerilatedVcd* tracep) {
                                                  >> 0x14U))))))),32);
         tracep->fullSData(oldp+62,((0x3fffU & (vlTOPp->toplevel__DOT__cpu__DOT__PC 
                                                >> 2U))),14);
-        tracep->fullIData(oldp+63,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__i),32);
-        tracep->fullIData(oldp+64,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[0]),32);
-        tracep->fullIData(oldp+65,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[1]),32);
-        tracep->fullIData(oldp+66,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[2]),32);
-        tracep->fullIData(oldp+67,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[3]),32);
-        tracep->fullIData(oldp+68,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[4]),32);
-        tracep->fullIData(oldp+69,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[5]),32);
-        tracep->fullIData(oldp+70,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[6]),32);
-        tracep->fullIData(oldp+71,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[7]),32);
-        tracep->fullIData(oldp+72,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[8]),32);
-        tracep->fullIData(oldp+73,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[9]),32);
-        tracep->fullIData(oldp+74,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[10]),32);
-        tracep->fullIData(oldp+75,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[11]),32);
-        tracep->fullIData(oldp+76,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[12]),32);
-        tracep->fullIData(oldp+77,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[13]),32);
-        tracep->fullIData(oldp+78,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[14]),32);
-        tracep->fullIData(oldp+79,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[15]),32);
-        tracep->fullIData(oldp+80,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[16]),32);
-        tracep->fullIData(oldp+81,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[17]),32);
-        tracep->fullIData(oldp+82,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[18]),32);
-        tracep->fullIData(oldp+83,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[19]),32);
-        tracep->fullIData(oldp+84,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[20]),32);
-        tracep->fullIData(oldp+85,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[21]),32);
-        tracep->fullIData(oldp+86,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[22]),32);
-        tracep->fullIData(oldp+87,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[23]),32);
-        tracep->fullIData(oldp+88,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[24]),32);
-        tracep->fullIData(oldp+89,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[25]),32);
-        tracep->fullIData(oldp+90,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[26]),32);
-        tracep->fullIData(oldp+91,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[27]),32);
-        tracep->fullIData(oldp+92,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[28]),32);
-        tracep->fullIData(oldp+93,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[29]),32);
-        tracep->fullIData(oldp+94,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[30]),32);
-        tracep->fullIData(oldp+95,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[31]),32);
-        tracep->fullIData(oldp+96,((vlTOPp->toplevel__DOT__cpu__DOT__BranchInA 
+        tracep->fullIData(oldp+63,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[0]),32);
+        tracep->fullIData(oldp+64,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[1]),32);
+        tracep->fullIData(oldp+65,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[2]),32);
+        tracep->fullIData(oldp+66,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[3]),32);
+        tracep->fullIData(oldp+67,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[4]),32);
+        tracep->fullIData(oldp+68,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[5]),32);
+        tracep->fullIData(oldp+69,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[6]),32);
+        tracep->fullIData(oldp+70,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[7]),32);
+        tracep->fullIData(oldp+71,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[8]),32);
+        tracep->fullIData(oldp+72,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[9]),32);
+        tracep->fullIData(oldp+73,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[10]),32);
+        tracep->fullIData(oldp+74,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[11]),32);
+        tracep->fullIData(oldp+75,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[12]),32);
+        tracep->fullIData(oldp+76,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[13]),32);
+        tracep->fullIData(oldp+77,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[14]),32);
+        tracep->fullIData(oldp+78,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[15]),32);
+        tracep->fullIData(oldp+79,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[16]),32);
+        tracep->fullIData(oldp+80,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[17]),32);
+        tracep->fullIData(oldp+81,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[18]),32);
+        tracep->fullIData(oldp+82,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[19]),32);
+        tracep->fullIData(oldp+83,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[20]),32);
+        tracep->fullIData(oldp+84,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[21]),32);
+        tracep->fullIData(oldp+85,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[22]),32);
+        tracep->fullIData(oldp+86,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[23]),32);
+        tracep->fullIData(oldp+87,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[24]),32);
+        tracep->fullIData(oldp+88,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[25]),32);
+        tracep->fullIData(oldp+89,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[26]),32);
+        tracep->fullIData(oldp+90,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[27]),32);
+        tracep->fullIData(oldp+91,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[28]),32);
+        tracep->fullIData(oldp+92,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[29]),32);
+        tracep->fullIData(oldp+93,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[30]),32);
+        tracep->fullIData(oldp+94,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[31]),32);
+        tracep->fullCData(oldp+95,((3U & vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_ALUOut)),2);
+        tracep->fullCData(oldp+96,(vlTOPp->toplevel__DOT__cpu__DOT__mem_read_selector__DOT__byte_sel),8);
+        tracep->fullSData(oldp+97,(vlTOPp->toplevel__DOT__cpu__DOT__mem_read_selector__DOT__half),16);
+        tracep->fullIData(oldp+98,((vlTOPp->toplevel__DOT__cpu__DOT__BranchInA 
                                     + vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend)),32);
-        tracep->fullIData(oldp+97,(((IData)(vlTOPp->toplevel__DOT__cpu__DOT__PCSrc)
+        tracep->fullIData(oldp+99,(((IData)(vlTOPp->toplevel__DOT__cpu__DOT__PCSrc)
                                      ? vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut
                                      : ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__Jump)
                                          ? (vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC 
                                             + vlTOPp->toplevel__DOT__cpu__DOT__signExtend)
                                          : ((IData)(4U) 
                                             + vlTOPp->toplevel__DOT__cpu__DOT__PC)))),32);
-        tracep->fullBit(oldp+98,((0U == (vlTOPp->toplevel__DOT__cpu__DOT__BranchInA 
-                                         + vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend))));
-        tracep->fullQData(oldp+99,((0x1ffffffffULL 
-                                    & ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__BranchInA)) 
-                                       - (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend))))),33);
-        tracep->fullBit(oldp+101,((1U & (IData)((1ULL 
+        tracep->fullBit(oldp+100,((0U == (vlTOPp->toplevel__DOT__cpu__DOT__BranchInA 
+                                          + vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend))));
+        tracep->fullQData(oldp+101,((0x1ffffffffULL 
+                                     & ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__BranchInA)) 
+                                        - (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend))))),33);
+        tracep->fullBit(oldp+103,((1U & (IData)((1ULL 
                                                  & (((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__BranchInA)) 
                                                      + (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend))) 
                                                     >> 0x20U))))));
-        tracep->fullBit(oldp+102,(vlTOPp->toplevel__DOT__cpu__DOT__inA_is_PC));
-        tracep->fullBit(oldp+103,(vlTOPp->toplevel__DOT__cpu__DOT__branch_taken));
-        tracep->fullIData(oldp+104,(vlTOPp->toplevel__DOT__cpu__DOT__BranchInA),32);
-        tracep->fullBit(oldp+105,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemRead));
-        tracep->fullBit(oldp+106,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemWrite));
-        tracep->fullIData(oldp+107,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut),32);
-        tracep->fullIData(oldp+108,(vlTOPp->toplevel__DOT__cpu__DOT__MemWriteData),32);
-        tracep->fullBit(oldp+109,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemRead));
-        tracep->fullBit(oldp+110,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemWrite));
-        tracep->fullIData(oldp+111,(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA),32);
-        tracep->fullIData(oldp+112,(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB),32);
-        tracep->fullIData(oldp+113,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__out_val),32);
-        tracep->fullIData(oldp+114,(vlTOPp->toplevel__DOT__cpu__DOT__bypassOutA),32);
-        tracep->fullIData(oldp+115,(vlTOPp->toplevel__DOT__cpu__DOT__bypassOutB),32);
-        tracep->fullBit(oldp+116,((0U == vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__out_val)));
-        tracep->fullBit(oldp+117,(vlTOPp->toplevel__DOT__cpu__DOT__RegDst));
-        tracep->fullBit(oldp+118,(vlTOPp->toplevel__DOT__cpu__DOT__MemRead));
-        tracep->fullBit(oldp+119,(vlTOPp->toplevel__DOT__cpu__DOT__MemWrite));
-        tracep->fullBit(oldp+120,(vlTOPp->toplevel__DOT__cpu__DOT__MemToReg));
-        tracep->fullBit(oldp+121,(vlTOPp->toplevel__DOT__cpu__DOT__ALUSrc));
-        tracep->fullBit(oldp+122,(vlTOPp->toplevel__DOT__cpu__DOT__PCSrc));
-        tracep->fullBit(oldp+123,(vlTOPp->toplevel__DOT__cpu__DOT__RegWrite));
-        tracep->fullBit(oldp+124,(vlTOPp->toplevel__DOT__cpu__DOT__Jump));
-        tracep->fullBit(oldp+125,(vlTOPp->toplevel__DOT__cpu__DOT__JumpJALR));
-        tracep->fullBit(oldp+126,(vlTOPp->toplevel__DOT__cpu__DOT__Branch));
-        tracep->fullBit(oldp+127,(vlTOPp->toplevel__DOT__cpu__DOT__bubble_ifid));
-        tracep->fullBit(oldp+128,(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex));
-        tracep->fullBit(oldp+129,(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem));
-        tracep->fullBit(oldp+130,(vlTOPp->toplevel__DOT__cpu__DOT__write_ifid));
-        tracep->fullBit(oldp+131,(vlTOPp->toplevel__DOT__cpu__DOT__write_pc));
-        tracep->fullCData(oldp+132,(vlTOPp->toplevel__DOT__cpu__DOT__ALUcntrl),3);
-        tracep->fullQData(oldp+133,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__unsigned_sub),33);
-        tracep->fullBit(oldp+135,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__overflow));
-        tracep->fullBit(oldp+136,((1U & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
+        tracep->fullBit(oldp+104,(vlTOPp->toplevel__DOT__cpu__DOT__inA_is_PC));
+        tracep->fullBit(oldp+105,(vlTOPp->toplevel__DOT__cpu__DOT__branch_taken));
+        tracep->fullIData(oldp+106,(vlTOPp->toplevel__DOT__cpu__DOT__BranchInA),32);
+        tracep->fullBit(oldp+107,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemRead));
+        tracep->fullBit(oldp+108,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemWrite));
+        tracep->fullIData(oldp+109,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut),32);
+        tracep->fullCData(oldp+110,(vlTOPp->toplevel__DOT__cpu__DOT__byte_select_vector),4);
+        tracep->fullIData(oldp+111,(vlTOPp->toplevel__DOT__cpu__DOT__MemWriteData),32);
+        tracep->fullBit(oldp+112,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemRead));
+        tracep->fullBit(oldp+113,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemWrite));
+        tracep->fullIData(oldp+114,(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA),32);
+        tracep->fullIData(oldp+115,(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB),32);
+        tracep->fullIData(oldp+116,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__out_val),32);
+        tracep->fullIData(oldp+117,(vlTOPp->toplevel__DOT__cpu__DOT__bypassOutA),32);
+        tracep->fullIData(oldp+118,(vlTOPp->toplevel__DOT__cpu__DOT__bypassOutB),32);
+        tracep->fullBit(oldp+119,((0U == vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__out_val)));
+        tracep->fullBit(oldp+120,(vlTOPp->toplevel__DOT__cpu__DOT__RegDst));
+        tracep->fullBit(oldp+121,(vlTOPp->toplevel__DOT__cpu__DOT__MemRead));
+        tracep->fullBit(oldp+122,(vlTOPp->toplevel__DOT__cpu__DOT__MemWrite));
+        tracep->fullBit(oldp+123,(vlTOPp->toplevel__DOT__cpu__DOT__MemToReg));
+        tracep->fullBit(oldp+124,(vlTOPp->toplevel__DOT__cpu__DOT__ALUSrc));
+        tracep->fullBit(oldp+125,(vlTOPp->toplevel__DOT__cpu__DOT__PCSrc));
+        tracep->fullBit(oldp+126,(vlTOPp->toplevel__DOT__cpu__DOT__RegWrite));
+        tracep->fullBit(oldp+127,(vlTOPp->toplevel__DOT__cpu__DOT__Jump));
+        tracep->fullBit(oldp+128,(vlTOPp->toplevel__DOT__cpu__DOT__JumpJALR));
+        tracep->fullBit(oldp+129,(vlTOPp->toplevel__DOT__cpu__DOT__Branch));
+        tracep->fullBit(oldp+130,(vlTOPp->toplevel__DOT__cpu__DOT__bubble_ifid));
+        tracep->fullBit(oldp+131,(vlTOPp->toplevel__DOT__cpu__DOT__bubble_idex));
+        tracep->fullBit(oldp+132,(vlTOPp->toplevel__DOT__cpu__DOT__bubble_exmem));
+        tracep->fullBit(oldp+133,(vlTOPp->toplevel__DOT__cpu__DOT__write_ifid));
+        tracep->fullBit(oldp+134,(vlTOPp->toplevel__DOT__cpu__DOT__write_pc));
+        tracep->fullCData(oldp+135,(vlTOPp->toplevel__DOT__cpu__DOT__ALUcntrl),3);
+        tracep->fullQData(oldp+136,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__unsigned_sub),33);
+        tracep->fullBit(oldp+138,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__overflow));
+        tracep->fullBit(oldp+139,((1U & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
                                          >> 0x1fU))));
-        tracep->fullSData(oldp+137,((0x7fffU & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
+        tracep->fullCData(oldp+140,((3U & vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut)),2);
+        tracep->fullSData(oldp+141,((0x7fffU & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
                                                 >> 2U))),15);
-        tracep->fullBit(oldp+138,(vlTOPp->clock));
-        tracep->fullBit(oldp+139,(vlTOPp->reset));
-        tracep->fullBit(oldp+140,(vlTOPp->MemWriteEnable));
-        tracep->fullIData(oldp+141,(vlTOPp->MemAddr),32);
-        tracep->fullIData(oldp+142,(vlTOPp->WriteData),32);
-        tracep->fullIData(oldp+143,(((IData)(vlTOPp->reset)
+        tracep->fullBit(oldp+142,(vlTOPp->clock));
+        tracep->fullBit(oldp+143,(vlTOPp->reset));
+        tracep->fullBit(oldp+144,(vlTOPp->MemWriteEnable));
+        tracep->fullIData(oldp+145,(vlTOPp->MemAddr),32);
+        tracep->fullIData(oldp+146,(vlTOPp->WriteData),32);
+        tracep->fullIData(oldp+147,(((IData)(vlTOPp->reset)
                                       ? vlTOPp->toplevel__DOT__cpu__DOT__cpu_IMem__DOT__data
                                      [(0x3fffU & (vlTOPp->toplevel__DOT__cpu__DOT__PC 
                                                   >> 2U))]
                                       : 0U)),32);
-        tracep->fullIData(oldp+144,(((IData)(vlTOPp->reset)
+        tracep->fullIData(oldp+148,(((IData)(vlTOPp->reset)
                                       ? vlTOPp->toplevel__DOT__cpu__DOT__cpu_DMem__DOT__data
                                      [(0x7fffU & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
                                                   >> 2U))]
                                       : 0U)),32);
-        tracep->fullBit(oldp+145,(0U));
-        tracep->fullBit(oldp+146,(1U));
-        tracep->fullIData(oldp+147,(0U),32);
-        tracep->fullIData(oldp+148,(0x20U),32);
-        tracep->fullCData(oldp+149,(0U),4);
+        tracep->fullBit(oldp+149,(0U));
+        tracep->fullBit(oldp+150,(1U));
+        tracep->fullIData(oldp+151,(0U),32);
+        tracep->fullIData(oldp+152,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__i),32);
+        tracep->fullIData(oldp+153,(0x20U),32);
+        tracep->fullCData(oldp+154,(0U),4);
     }
 }

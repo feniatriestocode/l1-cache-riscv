@@ -29,6 +29,7 @@ reg [4:0]  EXMEM_RegWriteAddr;
 reg [31:0] EXMEM_ALUOut;
 reg [31:0] EXMEM_BranchALUOut;
 reg        EXMEM_Zero, EXMEM_JumpJALR;
+reg [3:0]	byte_select_vector;
 reg [31:0] EXMEM_MemWriteData;
 wire [31:0] MemWriteData;
 reg        EXMEM_MemRead, EXMEM_MemWrite, EXMEM_RegWrite, EXMEM_MemToReg;
@@ -256,10 +257,16 @@ control_branch control_branch (.branch_taken(branch_taken), .funct3(EXMEM_funct3
 assign PCSrc = (EXMEM_JumpJALR) ? 1'b1 : branch_taken;
 
 /*********************************** Memory Unit (MEM)  ********************************************/
-mem_write_selector mem_write_selector(EXMEM_funct3, EXMEM_MemWriteData, MemWriteData);
+mem_write_selector mem_write_selector(.mem_select(EXMEM_funct3),
+									  .ALUin(EXMEM_MemWriteData),
+									  .offset(EXMEM_ALUOut[1:0]),
+									  .byte_select_vector(byte_select_vector),
+									  .out(MemWriteData));
 
 // Data memory 1KB
-Dmem cpu_DMem(clock, reset, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_ALUOut[`DATA_BITS-1:2], MemWriteData, DMemOut);
+Dmem cpu_DMem(.clock(clock), .reset(reset),
+.ren(EXMEM_MemRead), .wen(EXMEM_MemWrite), .byte_select_vector(byte_select_vector), .addr(EXMEM_ALUOut[`DATA_BITS-1:2]), .din(MemWriteData), .dout(DMemOut));
+
 
 // MEMWB pipeline register
 always @(posedge clock or negedge reset)
@@ -283,11 +290,11 @@ begin
 end
 
 /**************************** WriteBack Unit (WB) **************************/  
-mem_read_selector mem_read_selector(MEMWB_funct3, MEMWB_DMemOut, MemOut);
+mem_read_selector mem_read_selector(MEMWB_funct3, MEMWB_DMemOut, MEMWB_ALUOut[1:0], MemOut);
 
 assign wRegData = (MEMWB_MemToReg == 1'b0) ? MEMWB_ALUOut : MemOut;
 assign MemWriteEnable = EXMEM_MemWrite;
 assign MemAddr = EXMEM_ALUOut;
-assign WriteData = MemWriteData;
+assign WriteData = EXMEM_MemWriteData;
 
 endmodule
