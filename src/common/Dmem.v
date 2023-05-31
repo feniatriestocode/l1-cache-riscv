@@ -19,7 +19,7 @@ reg [31:0] data[0:2**(`DATA_BITS-2)-1];
 assign dout = (reset == 1) ? data[addr] : 32'b0;
 
 /* Write memory in the negative edge of the clock */
-always @(posedge clock)
+always @(posedge clock or negedge reset)
 begin
 	if (wen == 1'b1 && ren==1'b0 && reset == 1'b1) begin
 		if (byte_select_vector[3] == 1'b1)

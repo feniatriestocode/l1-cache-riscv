@@ -11,11 +11,13 @@ always @(funct3)
 begin
 	if (Branch) begin
 		case (funct3)
-			`FUNCT3_BEQ: branch_taken = zero;
-			`FUNCT3_BNE: branch_taken = ~zero;
-			`FUNCT3_BLT, `FUNCT3_BLTU: branch_taken = sign;
-			`FUNCT3_BGE, `FUNCT3_BGEU: branch_taken = ~sign;
-			default: branch_taken = 1'b0;
+			`FUNCT3_BEQ:	branch_taken = zero;
+			`FUNCT3_BNE:	branch_taken = ~zero;
+			`FUNCT3_BLT,
+			`FUNCT3_BLTU:	branch_taken = sign;
+			`FUNCT3_BGE,
+			`FUNCT3_BGEU:	branch_taken = ~sign;
+			default:		branch_taken = 1'b0;
 		endcase
 	end
 	else begin

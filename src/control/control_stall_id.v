@@ -15,18 +15,10 @@ module  control_stall_id(
 	output reg write_pc,
 	input [4:0] ifid_rs,
 	input [4:0] ifid_rt,
-	input [4:0] ifid_rd,
-	input [4:0] idex_rt,
 	input [4:0] idex_rd,
-	input [4:0] exmem_rd,
-	input [4:0] memwb_rd,
 	input idex_memread,
 	input Jump,
-	input PCSrc,
-	input IDEX_RegWrite,
-	input EXMEM_RegWrite,
-	input MEMWB_RegWrite
-);
+	input PCSrc);
 
 always @(*)
 begin

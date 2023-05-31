@@ -48,21 +48,15 @@ int main(int argc, const char **argv, const char **env)
             std::cout << std::hex << std::setfill('0')
                       << "pc=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__PC << " "
                       << "inst=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__IFID_instr << " "
-                      << "addr=" << std::setw(8) << top->MemAddr << " "
-                      << "out=" << std::setw(8) << top->WriteData << " "
+                      << "addr=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut << " "
+                      << "out=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__EXMEM_MemWriteData << " "
                       << "alu out=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut << " "                      
-                      << (top->MemWriteEnable ? "1" : "0") << " \n";
+                      << (top->toplevel__DOT__cpu__DOT__EXMEM_MemWrite ? "1" : "0") << " \n";
         }
         #endif
 
-        /*
-        if (top->toplevel__DOT__cpu__DOT__EXMEM_MemRead && top->toplevel__DOT__cpu__DOT__EXMEM_funct3 == 2)  {
-            printf("Load word from address %x\n", top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut);
-        }
-        */
-
-        if (top->MemWriteEnable && top->MemAddr == 0xfffffff0) {
-            if (top->WriteData) {
+        if (top->toplevel__DOT__cpu__DOT__EXMEM_MemWrite && top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut == 0xfffffff0) {
+            if (top->toplevel__DOT__cpu__DOT__EXMEM_MemWriteData) {
                 std::cout << "PASS" << std::endl;
                 return 0;
             } else {

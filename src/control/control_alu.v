@@ -28,9 +28,9 @@ begin
 		end
 		`ALU_BRANCH: begin
 			case (funct3)
-				`FUNCT3_BEQ, `FUNCT3_BNE, `FUNCT3_BLT, `FUNCT3_BGE:
-				ALUOp = `SUB;
-				`FUNCT3_BLTU, `FUNCT3_BGEU: ALUOp = `SUBU;
+				`FUNCT3_BEQ, `FUNCT3_BNE, `FUNCT3_BLT, `FUNCT3_BGE:	ALUOp = `SUB;
+				`FUNCT3_BLTU, `FUNCT3_BGEU:							ALUOp = `SUBU;
+				default:											ALUOp = `SUB;
 			endcase
 		end
 		`ALU_LUI: begin

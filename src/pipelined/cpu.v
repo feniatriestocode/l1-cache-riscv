@@ -8,11 +8,13 @@
 /*****************************************************************************************/
 module cpu(	input clock,
 			input reset,
+			output overflow,
 			output MemWriteEnable,
 			output [31:0] MemAddr,
 			output [31:0] WriteData);
-reg		[31:0]	IFID_PCplus4, IFID_instr;
+reg		[31:0]	IFID_instr;
 reg		[31:0]	PC, IFID_PC, IDEX_PC;
+wire	[31:0]	PCplus4, JumpAddress, PC_new;
 wire	[31:0]	instr;
 wire			inA_is_PC, branch_taken;
 wire	[31:0]	BranchInA;
@@ -41,7 +43,6 @@ reg		[4:0]	MEMWB_RegWriteAddr;
 reg		[31:0]	MEMWB_ALUOut;
 reg				MEMWB_MemToReg, MEMWB_RegWrite;
 wire	[31:0]	ALUInA, ALUInB, ALUOut, BranchALUOut, bypassOutA, bypassOutB, DMemOut, MemOut, wRegData;
-wire	[31:0]	PCplus4, JumpAddress, PC_new;
 wire			Zero, RegDst, MemRead, MemWrite, MemToReg, ALUSrc, PCSrc, RegWrite, Jump, JumpJALR;
 wire			Branch;
 reg				IDEX_Branch, EXMEM_Branch;
@@ -79,12 +80,10 @@ assign JumpAddress = IFID_PC + signExtend;
 always @(posedge clock or negedge reset)
 begin 
 	if ((reset == 1'b0) || (bubble_ifid == 1'b1)) begin
-		IFID_PCplus4	<= 32'b0;
 		IFID_PC			<= 32'b0;
 		IFID_instr		<= 32'b0;
 	end 
 	else if (write_ifid == 1'b1) begin
-		IFID_PCplus4	<= PCplus4;
 		IFID_PC			<= PC;
 		IFID_instr		<= instr;
 	end
@@ -219,18 +218,10 @@ control_stall_id control_stall_id (
 	.write_pc		(write_pc),
 	.ifid_rs		(instr_rs1),
 	.ifid_rt		(instr_rs2),
-	.ifid_rd		(instr_rd),
-	.idex_rt		(IDEX_instr_rs2),
 	.idex_rd		(IDEX_instr_rd),
-	.exmem_rd		(EXMEM_RegWriteAddr),
-	.memwb_rd		(MEMWB_RegWriteAddr),
 	.idex_memread	(IDEX_MemRead),
 	.Jump			(Jump),
-	.PCSrc			(PCSrc),
-	.IDEX_RegWrite	(IDEX_RegWrite),
-	.EXMEM_RegWrite	(EXMEM_RegWrite),
-	.MEMWB_RegWrite	(MEMWB_RegWrite)
-);
+	.PCSrc			(PCSrc));
 
 /************************ Execution Unit (EX)  ***********************************/
 assign bypassOutA = (bypassA==2'b00) ? IDEX_rdA :
@@ -249,15 +240,12 @@ assign ALUInB = (IDEX_Jump == 1'b1 || IDEX_JumpJALR == 1'b1) ? 	32'd4 :
 
 assign BranchInA = (IDEX_JumpJALR == 1'b1) ? bypassOutA : IDEX_PC;
 
-// Branch ALU
-ALU branch_alu(	.out(BranchALUOut),
-				.inA(BranchInA),
-				.inB(IDEX_signExtend),
-				.op(4'b0000));
+assign BranchALUOut = BranchInA + IDEX_signExtend;
 
-//  ALU
+// ALU
 ALU cpu_alu(.out(ALUOut),
 			.zero(Zero),
+			.overflow(overflow),
 			.inA(ALUInA),
 			.inB(ALUInB),
 			.op(ALUOp));
@@ -380,8 +368,5 @@ mem_read_selector mem_read_selector(
 );
 
 assign wRegData = (MEMWB_MemToReg == 1'b0) ? MEMWB_ALUOut : MemOut;
-assign MemWriteEnable = EXMEM_MemWrite;
-assign MemAddr = EXMEM_ALUOut;
-assign WriteData = EXMEM_MemWriteData;
 
 endmodule

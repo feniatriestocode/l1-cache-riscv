@@ -34,6 +34,7 @@ VL_MODULE(Vtoplevel) {
     // Internals; generally not touched by application code
     // Anonymous structures to workaround compiler member-count bugs
     struct {
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__overflow;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__inA_is_PC;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__branch_taken;
         CData/*2:0*/ toplevel__DOT__cpu__DOT__IDEX_funct3;
@@ -85,22 +86,20 @@ VL_MODULE(Vtoplevel) {
         CData/*3:0*/ toplevel__DOT__cpu__DOT__ALUOp;
         CData/*1:0*/ toplevel__DOT__cpu__DOT__bypassA;
         CData/*1:0*/ toplevel__DOT__cpu__DOT__bypassB;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__cpu_alu__DOT__overflow;
         CData/*7:0*/ toplevel__DOT__cpu__DOT__mem_read_selector__DOT__byte_sel;
         SData/*15:0*/ toplevel__DOT__cpu__DOT__mem_read_selector__DOT__half;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_PCplus4;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_instr;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__PC;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_PC;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_PC;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__BranchInA;
+        IData/*31:0*/ toplevel__DOT__cpu__DOT__PC_new;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_signExtend;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__signExtend;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_rdA;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_rdB;
+        IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_ALUOut;
     };
     struct {
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_ALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_MemWriteData;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__MemWriteData;
@@ -111,7 +110,6 @@ VL_MODULE(Vtoplevel) {
         IData/*31:0*/ toplevel__DOT__cpu__DOT__bypassOutA;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__bypassOutB;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__wRegData;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__PC_new;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__imm_i;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__cpu_regs__DOT__i;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__cpu_alu__DOT__out_val;
@@ -127,7 +125,7 @@ VL_MODULE(Vtoplevel) {
     CData/*5:0*/ __Vtableidx2;
     CData/*0:0*/ __Vclklast__TOP__clock;
     CData/*0:0*/ __Vclklast__TOP__reset;
-    CData/*0:0*/ __Vm_traceActivity[3];
+    CData/*0:0*/ __Vm_traceActivity[2];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__RegDst[128];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__MemRead[128];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__MemWrite[128];
@@ -187,11 +185,9 @@ VL_MODULE(Vtoplevel) {
   public:
     static void _eval_initial(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _eval_settle(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _initial__TOP__3(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _initial__TOP__2(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _sequent__TOP__1(Vtoplevel__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__2(Vtoplevel__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__5(Vtoplevel__Syms* __restrict vlSymsp);
-    static void _settle__TOP__4(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _settle__TOP__3(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
   private:
     static void traceChgSub0(void* userp, VerilatedVcd* tracep);
     static void traceChgTop0(void* userp, VerilatedVcd* tracep);
