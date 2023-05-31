@@ -1,7 +1,7 @@
 `include "constants.v"
 `include "config.vh"
 
-module Imem (	input clock, reset, 
+module Imem (	input reset, 
 				input ren, 
 				input  [`TEXT_BITS-3:0] addr, 
 				output [31:0] dout);

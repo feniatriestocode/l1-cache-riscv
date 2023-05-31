@@ -922,101 +922,97 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__1(Vtoplevel__Syms* __restrict vlSym
     if (vlTOPp->toplevel__DOT__cpu__DOT__PCSrc) {
         vlTOPp->toplevel__DOT__cpu__DOT__write_pc = 1U;
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__overflow = (1U 
-                                                 & (IData)(
-                                                           (1ULL 
-                                                            & (((0U 
-                                                                 == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                 ? 
-                                                                ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
-                                                                 + (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
-                                                                 : 
-                                                                ((1U 
-                                                                  == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                  ? 
-                                                                 ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
-                                                                  - (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
-                                                                  : 
-                                                                 ((2U 
-                                                                   == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                   ? (QData)((IData)(
-                                                                                (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
-                                                                                ^ vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
-                                                                   : 
-                                                                  ((3U 
-                                                                    == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                    ? (QData)((IData)(
-                                                                                (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
-                                                                                | vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
-                                                                    : 
-                                                                   ((4U 
-                                                                     == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                     ? (QData)((IData)(
-                                                                                (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
-                                                                                & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
-                                                                     : 
-                                                                    ((5U 
-                                                                      == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                      ? (QData)((IData)(
-                                                                                (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
-                                                                                << 
+    vlTOPp->overflow = (1U & (IData)((1ULL & (((0U 
+                                                == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                ? ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                   + (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                                : (
+                                                   (1U 
+                                                    == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                    ? 
+                                                   ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                    - (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                                    : 
+                                                   ((2U 
+                                                     == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                     ? (QData)((IData)(
+                                                                       (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
+                                                                        ^ vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                                     : 
+                                                    ((3U 
+                                                      == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                      ? (QData)((IData)(
+                                                                        (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
+                                                                         | vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                                      : 
+                                                     ((4U 
+                                                       == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                       ? (QData)((IData)(
+                                                                         (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
+                                                                          & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)))
+                                                       : 
+                                                      ((5U 
+                                                        == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                        ? (QData)((IData)(
+                                                                          (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
+                                                                           << 
+                                                                           (0x1fU 
+                                                                            & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))))
+                                                        : 
+                                                       ((6U 
+                                                         == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                         ? (QData)((IData)(
+                                                                           (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
+                                                                            >> 
+                                                                            (0x1fU 
+                                                                             & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))))
+                                                         : 
+                                                        ((7U 
+                                                          == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                          ? (QData)((IData)(
+                                                                            VL_SHIFTRS_III(32,32,5, vlTOPp->toplevel__DOT__cpu__DOT__ALUInA, 
                                                                                 (0x1fU 
                                                                                 & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))))
-                                                                      : 
-                                                                     ((6U 
-                                                                       == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                       ? (QData)((IData)(
-                                                                                (vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
-                                                                                >> 
-                                                                                (0x1fU 
-                                                                                & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))))
-                                                                       : 
-                                                                      ((7U 
-                                                                        == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                        ? (QData)((IData)(
-                                                                                VL_SHIFTRS_III(32,32,5, vlTOPp->toplevel__DOT__cpu__DOT__ALUInA, 
-                                                                                (0x1fU 
-                                                                                & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))))
-                                                                        : 
-                                                                       ((8U 
-                                                                         == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                         ? (QData)((IData)(
-                                                                                (VL_LTS_III(1,32,32, vlTOPp->toplevel__DOT__cpu__DOT__ALUInA, vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
-                                                                                 ? 1U
-                                                                                 : 0U)))
-                                                                         : 
-                                                                        ((9U 
-                                                                          == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                          ? (QData)((IData)(
-                                                                                ((vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
+                                                          : 
+                                                         ((8U 
+                                                           == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                           ? (QData)((IData)(
+                                                                             (VL_LTS_III(1,32,32, vlTOPp->toplevel__DOT__cpu__DOT__ALUInA, vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
+                                                                               ? 1U
+                                                                               : 0U)))
+                                                           : 
+                                                          ((9U 
+                                                            == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                            ? (QData)((IData)(
+                                                                              ((vlTOPp->toplevel__DOT__cpu__DOT__ALUInA 
                                                                                 < vlTOPp->toplevel__DOT__cpu__DOT__ALUInB)
-                                                                                 ? 1U
-                                                                                 : 0U)))
-                                                                          : 
-                                                                         ((0xaU 
-                                                                           == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                           ? (QData)((IData)(
-                                                                                (vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__unsigned_sub 
+                                                                                ? 1U
+                                                                                : 0U)))
+                                                            : 
+                                                           ((0xaU 
+                                                             == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                             ? (QData)((IData)(
+                                                                               (vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__unsigned_sub 
                                                                                 >> 1U)))
-                                                                           : 
-                                                                          ((0xbU 
-                                                                            == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                            ? 
-                                                                           ((QData)((IData)(
-                                                                                (0xfffffU 
-                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__ALUInB 
+                                                             : 
+                                                            ((0xbU 
+                                                              == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                              ? 
+                                                             ((QData)((IData)(
+                                                                              (0xfffffU 
+                                                                               & (vlTOPp->toplevel__DOT__cpu__DOT__ALUInB 
                                                                                 >> 0xcU)))) 
-                                                                            << 0xcU)
-                                                                            : 
-                                                                           ((0xcU 
-                                                                             == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
-                                                                             ? 
-                                                                            ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
-                                                                             + (QData)((IData)(
+                                                              << 0xcU)
+                                                              : 
+                                                             ((0xcU 
+                                                               == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
+                                                               ? 
+                                                              ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 
+                                                               + (QData)((IData)(
                                                                                 (0xfffff000U 
                                                                                 & vlTOPp->toplevel__DOT__cpu__DOT__ALUInB))))
-                                                                             : 0ULL))))))))))))) 
-                                                               >> 0x20U))));
+                                                               : 0ULL))))))))))))) 
+                                              >> 0x20U))));
     vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__out_val 
         = (IData)((0x1ffffffffULL & ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp))
                                       ? ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__ALUInA)) 

@@ -26,15 +26,12 @@ VL_MODULE(Vtoplevel) {
     // propagate new values into/out from the Verilated model.
     VL_IN8(clock,0,0);
     VL_IN8(reset,0,0);
-    VL_OUT8(MemWriteEnable,0,0);
-    VL_OUT(MemAddr,31,0);
-    VL_OUT(WriteData,31,0);
+    VL_OUT8(overflow,0,0);
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
     // Anonymous structures to workaround compiler member-count bugs
     struct {
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__overflow;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__inA_is_PC;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__branch_taken;
         CData/*2:0*/ toplevel__DOT__cpu__DOT__IDEX_funct3;
@@ -98,9 +95,9 @@ VL_MODULE(Vtoplevel) {
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_rdA;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_rdB;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_ALUOut;
+        IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut;
     };
     struct {
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_MemWriteData;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__MemWriteData;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__MEMWB_DMemOut;

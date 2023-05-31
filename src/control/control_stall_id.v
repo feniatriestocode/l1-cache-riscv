@@ -7,7 +7,6 @@ module  control_stall_id(
 	output reg bubble_ifid,
 	output reg bubble_idex,
 	output reg bubble_exmem,
-	output reg bubble_memwb,
 	output reg write_ifid,
 	output reg write_idex,
 	output reg write_exmem,
@@ -25,7 +24,6 @@ begin
 	bubble_ifid		= 1'b0;
 	bubble_idex		= 1'b0;
 	bubble_exmem	= 1'b0;
-	bubble_memwb	= 1'b0;
 	write_pc		= 1'b1;
 	write_ifid		= 1'b1;
 	write_idex		= 1'b1;
