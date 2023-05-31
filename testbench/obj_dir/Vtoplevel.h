@@ -88,20 +88,18 @@ VL_MODULE(Vtoplevel) {
         CData/*0:0*/ toplevel__DOT__cpu__DOT__cpu_alu__DOT__overflow;
         CData/*7:0*/ toplevel__DOT__cpu__DOT__mem_read_selector__DOT__byte_sel;
         SData/*15:0*/ toplevel__DOT__cpu__DOT__mem_read_selector__DOT__half;
+        IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_PCplus4;
+        IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_instr;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__PC;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_PC;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_PC;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_PC;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_PCplus4;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__IFID_instr;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__BranchInA;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_signExtend;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__signExtend;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_rdA;
+        IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_rdB;
     };
     struct {
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_rdB;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__IDEX_PCplus4;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_ALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__EXMEM_MemWriteData;

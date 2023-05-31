@@ -3,12 +3,12 @@
 
 // Read : disable wen, enable ren, address addr, data dout
 // Write: enable wen, disable ren, address addr, data din.
-module Dmem (input clock, reset,
-			input ren, wen,
-			input [3:0] byte_select_vector,
-			input [`DATA_BITS-3:0] addr,
-			input [31:0] din,
-			output [31:0] dout);
+module Dmem (	input clock, reset,
+				input ren, wen,
+				input [3:0] byte_select_vector,
+				input [`DATA_BITS-3:0] addr,
+				input [31:0] din,
+				output [31:0] dout);
 
 /****** SIGNALS ******/
 reg [31:0] data[0:2**(`DATA_BITS-2)-1];

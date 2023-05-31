@@ -19,9 +19,8 @@ reg [31:0] data[31:0];
 always @(posedge clock or negedge reset)
 begin
 	if (reset == 1'b0) begin
-		/*for (i = 0; i < 32; i = i+1)
-			// data[i] = 0;
-		*/
+		for (i = 0; i < 32; i = i+1)
+			data[i] = 0;
 	end
 	else begin
 		if (wen == 1'b1 && wa != 5'b0)

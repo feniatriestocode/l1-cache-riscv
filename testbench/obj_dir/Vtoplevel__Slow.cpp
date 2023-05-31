@@ -809,12 +809,11 @@ void Vtoplevel::_ctor_var_reset() {
     MemWriteEnable = VL_RAND_RESET_I(1);
     MemAddr = VL_RAND_RESET_I(32);
     WriteData = VL_RAND_RESET_I(32);
+    toplevel__DOT__cpu__DOT__IFID_PCplus4 = VL_RAND_RESET_I(32);
+    toplevel__DOT__cpu__DOT__IFID_instr = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__PC = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__IFID_PC = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__IDEX_PC = VL_RAND_RESET_I(32);
-    toplevel__DOT__cpu__DOT__EXMEM_PC = VL_RAND_RESET_I(32);
-    toplevel__DOT__cpu__DOT__IFID_PCplus4 = VL_RAND_RESET_I(32);
-    toplevel__DOT__cpu__DOT__IFID_instr = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__inA_is_PC = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__branch_taken = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__BranchInA = VL_RAND_RESET_I(32);
@@ -824,7 +823,6 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__cpu__DOT__IDEX_rdB = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__IDEX_funct3 = VL_RAND_RESET_I(3);
     toplevel__DOT__cpu__DOT__IDEX_funct7 = VL_RAND_RESET_I(7);
-    toplevel__DOT__cpu__DOT__IDEX_PCplus4 = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__IDEX_instr_rs2 = VL_RAND_RESET_I(5);
     toplevel__DOT__cpu__DOT__IDEX_instr_rs1 = VL_RAND_RESET_I(5);
     toplevel__DOT__cpu__DOT__IDEX_instr_rd = VL_RAND_RESET_I(5);

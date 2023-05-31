@@ -1,11 +1,11 @@
 `include "constants.v"
 `include "config.vh"
 
-module control_branch(output reg branch_taken,
-					input [2:0] funct3,
-					input Branch,
-					input zero,
-					input sign);
+module control_branch(	output reg branch_taken,
+						input [2:0] funct3,
+						input Branch,
+						input zero,
+						input sign);
 
 always @(funct3)
 begin

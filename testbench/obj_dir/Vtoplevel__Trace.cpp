@@ -23,15 +23,14 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
     // Body
     {
         if (VL_UNLIKELY(vlTOPp->__Vm_traceActivity[1U])) {
-            tracep->chgIData(oldp+0,(vlTOPp->toplevel__DOT__cpu__DOT__PC),32);
-            tracep->chgIData(oldp+1,(vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC),32);
-            tracep->chgIData(oldp+2,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC),32);
-            tracep->chgIData(oldp+3,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_PC),32);
-            tracep->chgIData(oldp+4,(vlTOPp->toplevel__DOT__cpu__DOT__IFID_PCplus4),32);
-            tracep->chgIData(oldp+5,(vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr),32);
-            tracep->chgIData(oldp+6,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend),32);
-            tracep->chgIData(oldp+7,(vlTOPp->toplevel__DOT__cpu__DOT__signExtend),32);
-            tracep->chgIData(oldp+8,(((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite) 
+            tracep->chgIData(oldp+0,(vlTOPp->toplevel__DOT__cpu__DOT__IFID_PCplus4),32);
+            tracep->chgIData(oldp+1,(vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr),32);
+            tracep->chgIData(oldp+2,(vlTOPp->toplevel__DOT__cpu__DOT__PC),32);
+            tracep->chgIData(oldp+3,(vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC),32);
+            tracep->chgIData(oldp+4,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PC),32);
+            tracep->chgIData(oldp+5,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_signExtend),32);
+            tracep->chgIData(oldp+6,(vlTOPp->toplevel__DOT__cpu__DOT__signExtend),32);
+            tracep->chgIData(oldp+7,(((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite) 
                                         & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr) 
                                            == (0x1fU 
                                                & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
@@ -41,7 +40,7 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                        : vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data
                                       [(0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                  >> 0xfU))])),32);
-            tracep->chgIData(oldp+9,(((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite) 
+            tracep->chgIData(oldp+8,(((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite) 
                                         & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr) 
                                            == (0x1fU 
                                                & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
@@ -51,37 +50,36 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                        : vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data
                                       [(0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                  >> 0x14U))])),32);
-            tracep->chgIData(oldp+10,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdA),32);
-            tracep->chgIData(oldp+11,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdB),32);
-            tracep->chgCData(oldp+12,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_funct3),3);
-            tracep->chgCData(oldp+13,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_funct7),7);
-            tracep->chgIData(oldp+14,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_PCplus4),32);
-            tracep->chgCData(oldp+15,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2),5);
-            tracep->chgCData(oldp+16,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs1),5);
-            tracep->chgCData(oldp+17,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rd),5);
-            tracep->chgBit(oldp+18,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegDst));
-            tracep->chgBit(oldp+19,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUSrc));
-            tracep->chgBit(oldp+20,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_inA_is_PC));
-            tracep->chgBit(oldp+21,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Jump));
-            tracep->chgBit(oldp+22,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR));
-            tracep->chgCData(oldp+23,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUcntrl),3);
-            tracep->chgBit(oldp+24,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemToReg));
-            tracep->chgBit(oldp+25,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegWrite));
-            tracep->chgCData(oldp+26,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_funct3),3);
-            tracep->chgCData(oldp+27,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3),3);
-            tracep->chgCData(oldp+28,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWriteAddr),5);
-            tracep->chgIData(oldp+29,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut),32);
-            tracep->chgBit(oldp+30,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_Zero));
-            tracep->chgBit(oldp+31,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_JumpJALR));
-            tracep->chgIData(oldp+32,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemWriteData),32);
-            tracep->chgBit(oldp+33,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWrite));
-            tracep->chgBit(oldp+34,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemToReg));
-            tracep->chgIData(oldp+35,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut),32);
-            tracep->chgCData(oldp+36,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr),5);
-            tracep->chgIData(oldp+37,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_ALUOut),32);
-            tracep->chgBit(oldp+38,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_MemToReg));
-            tracep->chgBit(oldp+39,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite));
-            tracep->chgIData(oldp+40,(((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
+            tracep->chgIData(oldp+9,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdA),32);
+            tracep->chgIData(oldp+10,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_rdB),32);
+            tracep->chgCData(oldp+11,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_funct3),3);
+            tracep->chgCData(oldp+12,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_funct7),7);
+            tracep->chgCData(oldp+13,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2),5);
+            tracep->chgCData(oldp+14,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs1),5);
+            tracep->chgCData(oldp+15,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rd),5);
+            tracep->chgBit(oldp+16,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegDst));
+            tracep->chgBit(oldp+17,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUSrc));
+            tracep->chgBit(oldp+18,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_inA_is_PC));
+            tracep->chgBit(oldp+19,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Jump));
+            tracep->chgBit(oldp+20,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_JumpJALR));
+            tracep->chgCData(oldp+21,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_ALUcntrl),3);
+            tracep->chgBit(oldp+22,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_MemToReg));
+            tracep->chgBit(oldp+23,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegWrite));
+            tracep->chgCData(oldp+24,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_funct3),3);
+            tracep->chgCData(oldp+25,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3),3);
+            tracep->chgCData(oldp+26,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWriteAddr),5);
+            tracep->chgIData(oldp+27,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_BranchALUOut),32);
+            tracep->chgBit(oldp+28,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_Zero));
+            tracep->chgBit(oldp+29,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_JumpJALR));
+            tracep->chgIData(oldp+30,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemWriteData),32);
+            tracep->chgBit(oldp+31,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_RegWrite));
+            tracep->chgBit(oldp+32,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_MemToReg));
+            tracep->chgIData(oldp+33,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut),32);
+            tracep->chgCData(oldp+34,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWriteAddr),5);
+            tracep->chgIData(oldp+35,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_ALUOut),32);
+            tracep->chgBit(oldp+36,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_MemToReg));
+            tracep->chgBit(oldp+37,(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_RegWrite));
+            tracep->chgIData(oldp+38,(((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
                                         ? ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_funct3))
                                             ? vlTOPp->toplevel__DOT__cpu__DOT__MEMWB_DMemOut
                                             : ((1U 
@@ -108,32 +106,32 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                                                       >> 7U)))) 
                                                        << 8U)) 
                                                    | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__mem_read_selector__DOT__byte_sel)))))),32);
-            tracep->chgIData(oldp+41,(vlTOPp->toplevel__DOT__cpu__DOT__wRegData),32);
-            tracep->chgIData(oldp+42,(((IData)(4U) 
+            tracep->chgIData(oldp+39,(vlTOPp->toplevel__DOT__cpu__DOT__wRegData),32);
+            tracep->chgIData(oldp+40,(((IData)(4U) 
                                        + vlTOPp->toplevel__DOT__cpu__DOT__PC)),32);
-            tracep->chgIData(oldp+43,((vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC 
+            tracep->chgIData(oldp+41,((vlTOPp->toplevel__DOT__cpu__DOT__IFID_PC 
                                        + vlTOPp->toplevel__DOT__cpu__DOT__signExtend)),32);
-            tracep->chgBit(oldp+44,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Branch));
-            tracep->chgBit(oldp+45,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_Branch));
-            tracep->chgCData(oldp+46,((0x7fU & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr)),7);
-            tracep->chgCData(oldp+47,((7U & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+            tracep->chgBit(oldp+42,(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_Branch));
+            tracep->chgBit(oldp+43,(vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_Branch));
+            tracep->chgCData(oldp+44,((0x7fU & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr)),7);
+            tracep->chgCData(oldp+45,((7U & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                              >> 0xcU))),3);
-            tracep->chgCData(oldp+48,((0x7fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+            tracep->chgCData(oldp+46,((0x7fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                 >> 0x19U))),7);
-            tracep->chgCData(oldp+49,((0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+            tracep->chgCData(oldp+47,((0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                 >> 0xfU))),5);
-            tracep->chgCData(oldp+50,((0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+            tracep->chgCData(oldp+48,((0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                 >> 0x14U))),5);
-            tracep->chgCData(oldp+51,((0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+            tracep->chgCData(oldp+49,((0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                 >> 7U))),5);
-            tracep->chgCData(oldp+52,(((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegDst)
+            tracep->chgCData(oldp+50,(((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_RegDst)
                                         ? (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rd)
                                         : (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IDEX_instr_rs2))),5);
-            tracep->chgCData(oldp+53,(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp),4);
-            tracep->chgCData(oldp+54,(vlTOPp->toplevel__DOT__cpu__DOT__bypassA),2);
-            tracep->chgCData(oldp+55,(vlTOPp->toplevel__DOT__cpu__DOT__bypassB),2);
-            tracep->chgIData(oldp+56,(vlTOPp->toplevel__DOT__cpu__DOT__imm_i),32);
-            tracep->chgIData(oldp+57,(((0xfffff000U 
+            tracep->chgCData(oldp+51,(vlTOPp->toplevel__DOT__cpu__DOT__ALUOp),4);
+            tracep->chgCData(oldp+52,(vlTOPp->toplevel__DOT__cpu__DOT__bypassA),2);
+            tracep->chgCData(oldp+53,(vlTOPp->toplevel__DOT__cpu__DOT__bypassB),2);
+            tracep->chgIData(oldp+54,(vlTOPp->toplevel__DOT__cpu__DOT__imm_i),32);
+            tracep->chgIData(oldp+55,(((0xfffff000U 
                                         & ((- (IData)(
                                                       (1U 
                                                        & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
@@ -145,7 +143,7 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                           | (0x1fU 
                                              & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                 >> 7U))))),32);
-            tracep->chgIData(oldp+58,(((0xfffff000U 
+            tracep->chgIData(oldp+56,(((0xfffff000U 
                                         & ((- (IData)(
                                                       (1U 
                                                        & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
@@ -160,9 +158,9 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                              | (0x1eU 
                                                 & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                    >> 7U)))))),32);
-            tracep->chgIData(oldp+59,((0xfffff000U 
+            tracep->chgIData(oldp+57,((0xfffff000U 
                                        & vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr)),32);
-            tracep->chgIData(oldp+60,(((0xfff00000U 
+            tracep->chgIData(oldp+58,(((0xfff00000U 
                                         & ((- (IData)(
                                                       (1U 
                                                        & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
@@ -179,8 +177,12 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                                 | (0x1eU 
                                                    & (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
                                                       >> 0x14U))))))),32);
-            tracep->chgSData(oldp+61,((0x3fffU & (vlTOPp->toplevel__DOT__cpu__DOT__PC 
+            tracep->chgSData(oldp+59,((0x3fffU & (vlTOPp->toplevel__DOT__cpu__DOT__PC 
                                                   >> 2U))),14);
+            tracep->chgIData(oldp+60,((0x1ffffffU & 
+                                       (vlTOPp->toplevel__DOT__cpu__DOT__IFID_instr 
+                                        >> 7U))),25);
+            tracep->chgIData(oldp+61,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__i),32);
             tracep->chgIData(oldp+62,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[0]),32);
             tracep->chgIData(oldp+63,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[1]),32);
             tracep->chgIData(oldp+64,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_regs__DOT__data[2]),32);
@@ -275,18 +277,19 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
             tracep->chgCData(oldp+134,(vlTOPp->toplevel__DOT__cpu__DOT__ALUcntrl),3);
             tracep->chgQData(oldp+135,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__unsigned_sub),33);
             tracep->chgBit(oldp+137,(vlTOPp->toplevel__DOT__cpu__DOT__cpu_alu__DOT__overflow));
-            tracep->chgBit(oldp+138,((1U & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
-                                            >> 0x1fU))));
-            tracep->chgCData(oldp+139,((3U & vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut)),2);
-            tracep->chgSData(oldp+140,((0x7fffU & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
+            tracep->chgCData(oldp+138,((3U & vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut)),2);
+            tracep->chgSData(oldp+139,((0x7fffU & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
                                                    >> 2U))),15);
+            tracep->chgBit(oldp+140,((1U & (vlTOPp->toplevel__DOT__cpu__DOT__EXMEM_ALUOut 
+                                            >> 0x1fU))));
         }
         tracep->chgBit(oldp+141,(vlTOPp->clock));
         tracep->chgBit(oldp+142,(vlTOPp->reset));
         tracep->chgBit(oldp+143,(vlTOPp->MemWriteEnable));
         tracep->chgIData(oldp+144,(vlTOPp->MemAddr),32);
         tracep->chgIData(oldp+145,(vlTOPp->WriteData),32);
-        tracep->chgIData(oldp+146,(((IData)(vlTOPp->reset)
+        tracep->chgIData(oldp+146,((((IData)(vlTOPp->reset) 
+                                     & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__write_ifid))
                                      ? vlTOPp->toplevel__DOT__cpu__DOT__cpu_IMem__DOT__data
                                     [(0x3fffU & (vlTOPp->toplevel__DOT__cpu__DOT__PC 
                                                  >> 2U))]

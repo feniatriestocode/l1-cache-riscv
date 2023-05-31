@@ -2,14 +2,14 @@
 `include "config.vh"
 
 /**************** control for Bypass Detection in EX pipe stage  *********/
-module  control_bypass_ex(output reg [1:0] bypassA,
-						output reg [1:0] bypassB,
-						input [4:0] idex_rs1,
-						input [4:0] idex_rs2,
-						input [4:0] exmem_rd,
-						input [4:0] memwb_rd,
-						input exmem_regwrite,
-						input memwb_regwrite);
+module  control_bypass_ex(	output reg [1:0] bypassA,
+							output reg [1:0] bypassB,
+							input [4:0] idex_rs1,
+							input [4:0] idex_rs2,
+							input [4:0] exmem_rd,
+							input [4:0] memwb_rd,
+							input exmem_regwrite,
+							input memwb_regwrite);
 
 always @(*)
 begin

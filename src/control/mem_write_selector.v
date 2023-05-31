@@ -1,11 +1,11 @@
 `include "constants.v"
 `include "config.vh"
 
-module mem_write_selector(input [2:0] mem_select,
-					input [31:0] ALUin,
-					input [1:0] offset,
-					output reg [3:0] byte_select_vector,
-					output reg [31:0] out);
+module mem_write_selector(	input [2:0] mem_select,
+							input [31:0] ALUin,
+							input [1:0] offset,
+							output reg [3:0] byte_select_vector,
+							output reg [31:0] out);
 
 always @(*)
 begin

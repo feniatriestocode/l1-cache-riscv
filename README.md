@@ -63,3 +63,7 @@ make -i check
 For each folder than contains a .v file which in turn defines a module used in a .v in (potentially another folder) add -I\<relative path to the folder from folder testbench\> to the VERILATOR_INCLUDES variable in the **testbench/Makefile**. Basically, include all folders that contain a .v file
 
 You don't need to `include paths, just the name of the file, the -I flag will take care of the rest
+
+## TODO
+- Remove wen from instruction memory
+- Make a unit for sign extension
