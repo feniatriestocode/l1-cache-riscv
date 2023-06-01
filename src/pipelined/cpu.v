@@ -239,7 +239,7 @@ assign BranchALUOut = BranchInA + IDEX_signExtend;
 
 // ALU
 ALU cpu_alu(.out(ALUOut),
-			.zero(Zero),
+			.zero(Zero),	
 			.overflow(overflow),
 			.inA(ALUInA),
 			.inB(ALUInB),

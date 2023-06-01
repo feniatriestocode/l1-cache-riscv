@@ -15,13 +15,11 @@ double sc_time_stamp() { return 0; }
 int main(int argc, const char **argv, const char **env)
 {
     Verilated::commandArgs(argc, argv);
-    bool verbose = false;
-    const char *str;
-    str = Verilated::commandArgsPlusMatch("verbose");
-    if (str && str[0]) verbose = true;
 
+    // instatiate top level module
     std::unique_ptr<Vtoplevel> top(new Vtoplevel);
 
+    // dump waveforms to simx.vcd
     #if TRACE==1
     Verilated::traceEverOn(true);
     VerilatedVcdC* tfp = new VerilatedVcdC;
@@ -31,6 +29,7 @@ int main(int argc, const char **argv, const char **env)
 
     top->reset = 1;
 
+    // define clock and reset signals (reset is active low)
     for (int time = 0; time < 100000; time++) {
         if (time > 9)
             top->reset = 1;
@@ -43,6 +42,7 @@ int main(int argc, const char **argv, const char **env)
         tfp->dump(time);
         #endif
 
+        // print debugging messages
         #if VERBOSE==1
         if (top->clock && time > 8) {
             std::cout << std::hex << std::setfill('0')
@@ -75,6 +75,9 @@ int main(int argc, const char **argv, const char **env)
     tfp->close();
     #endif
 
+    // need timeout because if something is wrong the processor
+    // will never write to the correct memory address and 
+    // simulation will never finish
     std::cout << "TIMEOUT" << std::endl;
 
     return -1;

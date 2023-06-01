@@ -1,3 +1,6 @@
 testbench/pipelined/*
 !testbench/pipelined/Makefile
 testbench/out.txt
+*.vcd
+.vscode
+beautified_tests
