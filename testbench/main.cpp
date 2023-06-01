@@ -28,7 +28,7 @@ int main(int argc, const char **argv, const char **env)
     #if TRACE==1
     Verilated::traceEverOn(true);
     VerilatedVcdC* tfp = new VerilatedVcdC;
-    top->trace(tfp, 99);  // Trace 99 levels of hierarchy (or see below)
+    top->trace(tfp, 99);  // Trace 99 levels of hierarchy
     tfp->open("simx.vcd");
     #endif
 
