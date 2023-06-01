@@ -20,7 +20,7 @@ RUN pip install --upgrade pip
 # Install RISCOF
 # RUN pip3 install git+https://github.com/riscv/riscof.git
 
-# Install RISCV-GNU Toolchain
+# Install R	ISCV-GNU Toolchain
 RUN sudo apt-get install -y autoconf automake autotools-dev curl python3 libmpc-dev \
       libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool \
       patchutils bc zlib1g-dev libexpat-dev

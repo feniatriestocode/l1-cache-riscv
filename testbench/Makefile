@@ -26,6 +26,10 @@ run:
 	obj_dir/Vtoplevel +trace +text_file=../tests/$(TEST).text.vh +data_file=../tests/$(TEST).data.vh
 	mv simx.vcd $(TEST).vcd
 
+run_waveforms: run
+	gtkwave $(TEST).vcd
+
+
 check: $(addsuffix .run,$(TESTS)) 
 	@echo 
 	@echo "----- RUN ALL TESTS-----"
