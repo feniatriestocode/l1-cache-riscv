@@ -27,9 +27,9 @@ begin
 		endcase
 	else if (mem_select == `FUNCT3_SH)
 		case (offset)
-			2'b00: out = ALUin;
-			2'b10: out = ALUin << 16;
-			default: out = 32'b0;
+			2'b00:		out = ALUin;
+			2'b10:		out = ALUin << 16;
+			default:	out = 32'b0;
 		endcase
 	else
 		out = ALUin;

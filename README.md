@@ -1,18 +1,20 @@
 # An RV32I implementation with 5 pipeline stages
-A parallel risc-v implementation for our Parallel Computer Architecture Class.A
+A risc-v implementation for our Parallel Computer Architecture Class
+
+## Project Structure
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="file_structure.jpeg">
+  <img alt="Shows an illustrated sun in light color mode and a moon with stars in dark color mode." src="file_structure.jpeg">
+</picture>
 
 ## Implemented ISA
-The base ISA is RV32I. On top of that we plan to implement:
-* The M extention
-* The C extention
-* The V extention 
+The base ISA is RV32I
 
 ## Installation
 Download the repository
 ```
-$ git clone git@github.com:akastoras/priscv.git
+$ git clone git@github.com:akastoras/riscv.git
 ```
-
 
 ## RISC-V ISA Compliance Suite
 
@@ -31,12 +33,11 @@ To run the device verification tests, build the docker image, or download it fro
 
 After acquiring the docker image in either way, create the container with the following instructions
 ```
-$ docker run -it -d --name <container_name> --mount type=bind,source=<absolute-path>/priscv,destination=/home/docker/priscv ipanagou/riscv
+$ docker run -it -d --name <container_name> --mount type=bind,source=<absolute-path>/riscv,destination=/home/docker/riscv ipanagou/riscv
 $ docker exec -it <container_name> bash
 ```
 
 ### Native installation
-
 
 * Install RISCV-GNU Toolchain
 	```
@@ -48,6 +49,7 @@ $ docker exec -it <container_name> bash
 	$ git clone --recursive https://github.com/riscv/riscv-opcodes.git
 	$ cd riscv-gnu-toolchain && ./configure --prefix=/opt/riscv --with-arch=rv32gc --with-abi=ilp32d && sudo make
 
+	# Add riscv-gnu-toolchain installation path to path
 	$ RISCV=/opt/riscv
 	$ PATH="$PATH:$RISCV"
 	$ PATH="$PATH:$RISCV/bin"
@@ -93,7 +95,7 @@ $ make run
 
 To run and view the waveforms (provided you compiled with the aforementioned flags)
 ```
-$ cd testbench # if not already in testbech folder
+$ cd testbench # if not already in testbench folder
 $ make waveforms
 ```
 

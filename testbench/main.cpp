@@ -10,6 +10,11 @@
 #include <memory>
 #include <string>
 
+#define GREEN "\033[1;32m"
+#define RED "\033[1;31m"
+#define RESET "\033[1;0m"
+#define YELLOW "\033[1;33m"
+
 double sc_time_stamp() { return 0; }
 
 int main(int argc, const char **argv, const char **env)
@@ -57,10 +62,13 @@ int main(int argc, const char **argv, const char **env)
 
         if (top->toplevel__DOT__cpu__DOT__EXMEM_MemWrite && top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut == 0xfffffff0) {
             if (top->toplevel__DOT__cpu__DOT__EXMEM_MemWriteData) {
-                std::cout << "PASS" << std::endl;
+                printf("%sPASS%s\n", GREEN, RESET);
+                #if TRACE==1
+                tfp->close();
+                #endif
                 return 0;
             } else {
-                std::cout << "FAIL" << std::endl;
+                printf("%sFAIL%s\n", RED, RESET);
                 #if TRACE==1
                 tfp->close();
                 #endif
@@ -78,7 +86,7 @@ int main(int argc, const char **argv, const char **env)
     // need timeout because if something is wrong the processor
     // will never write to the correct memory address and 
     // simulation will never finish
-    std::cout << "TIMEOUT" << std::endl;
+    printf("%sTIMEOUT%s\n", YELLOW, RESET);
 
     return -1;
 }
