@@ -3,8 +3,8 @@ A risc-v implementation for our Parallel Computer Architecture Class
 
 ## Project Structure
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="file_structure.jpeg">
-  <img alt="Shows an illustrated sun in light color mode and a moon with stars in dark color mode." src="file_structure.jpeg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/file_structure.jpeg">
+  <img alt="" src="docs/file_structure.jpeg">
 </picture>
 
 ## Implemented ISA
