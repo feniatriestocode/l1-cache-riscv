@@ -13,7 +13,7 @@ The base ISA is RV32I
 ## Installation
 Download the repository
 ```
-$ git clone git@github.com:akastoras/riscv.git
+$ git clone git@github.com:feniatriestocode/riscv.git
 ```
 
 ## RISC-V ISA Compliance Suite
