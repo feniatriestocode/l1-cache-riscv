@@ -6,7 +6,7 @@ module cache
         parameter NUM_LINES = 4,
         parameter NUM_SETS = 4,
         parameter BLOCK_SIZE = 32,
-        parameter SIZE = CACHE_LINES*BLOCK_SIZE*NUM_SETS,
+        parameter SIZE = NUM_LINES*BLOCK_SIZE*NUM_SETS,
         parameter LINE_WIDTH = 32,
         parameter INDEX_WIDTH = 10,
         parameter OFFSET_WIDTH = 3
@@ -15,14 +15,14 @@ module cache
 
     (
         //port declarations
-        input wire clk,
-        input wire wren, 
-        input wire rden, 
-        input wire [LINE_WIDTH:0] addr,
-        input wire [LINE_WIDTH:0] data_in,
-        output wire cache_hit,
-        output wire [LINE_WIDTH:0] data_out,
-        output wire [LINE_WIDTH:0] mem_out
+        input clk,
+        input wren, 
+        input rden, 
+        input [LINE_WIDTH:0] addr,
+        input [LINE_WIDTH:0] data_in,
+        output cache_hit,
+        output [LINE_WIDTH:0] data_out,
+        output [LINE_WIDTH:0] mem_out
     );
 
     //segmentation of the table
