@@ -53,6 +53,13 @@ wire	[3:0]	ALUOp;
 wire	[1:0]	bypassA, bypassB;
 wire	[31:0]	imm_i, imm_s, imm_b, imm_u, imm_j;
 
+//changes for controlles 
+/* 
+wire stall_from_cache, icache_stall, dcache_stall;
+
+assign stall_from_cache = icache_stall || dcache_stall;
+*/
+
 
 /********************** Instruction Fetch Unit (IF)  **********************/
 always @(posedge clock or negedge reset)
@@ -76,7 +83,7 @@ assign JumpAddress = IFID_PC + signExtend;
 // IFID pipeline register
 always @(posedge clock or negedge reset)
 begin 
-	if ((reset == 1'b0) || (bubble_ifid == 1'b1)) begin
+	if ((reset == 1'b0) || (bubble_ifid == 1'b1) || (stall_from_cache == 1'b1)) begin //cache stall
 		IFID_PC			<= 32'b0;
 		IFID_instr		<= 32'b0;
 	end 
@@ -89,7 +96,27 @@ end
 // Instruction memory
 
 // To be implemented !!!!!!!!!!!!
-Icntr Icache_Controller();
+
+Icntr Icache_Controller(
+    .clk_i                  (clock),
+    .rst_i                  (reset),
+    // to Data Memory interface
+    .mem_data_i             (mem_data_i), //input ap to cpu
+    .mem_ack_i              (mem_ack_i),
+    .mem_data_o             (mem_data_o),
+    .mem_addr_o             (mem_addr_o),
+    .mem_enable_o           (mem_enable_o),
+    .mem_write_o            (mem_write_o),
+    // to CPU interface
+    .pipeline_data_i             (MEM_write_data),
+    .pipeline_addr_i             (MEM_addr),
+    .pipeline_MemRead_i          (MEM_MemRead),
+    .pipeline_MemWrite_i         (MEM_MemWrite),
+    .pipeline_data_o             (MEM_read_data),
+    .pipeline_stall_o            (icache_stall)
+);
+
+
 
 /***************************** Instruction Decode Unit (ID)  *******************/
 assign opcode		= IFID_instr[6:0];
@@ -136,7 +163,7 @@ SignExtendSelector SignExtendSelector (
 // IDEX pipeline register
 always @(posedge clock or negedge reset)
 begin 
-	if ((reset == 1'b0) || (bubble_idex == 1'b1)) begin
+	if ((reset == 1'b0) || (bubble_idex == 1'b1) || (stall_from_cache == 1'b1)) begin //cache stall logika the perasei kai tha gine ides stall_from_cache
 		IDEX_inA_is_PC	<= 1'b0;
 		IDEX_Jump		<= 1'b0;
 		IDEX_JumpJALR	<= 1'b0;
@@ -247,7 +274,7 @@ assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
 // EXMEM pipeline register
 always @(posedge clock or negedge reset)
 begin
-	if ((reset == 1'b0) || (bubble_exmem == 1'b1)) begin
+	if ((reset == 1'b0) || (bubble_exmem == 1'b1) || (stall_from_cache == 1'b1)) begin //stall here logika tha perasoun ap ta pipeline san exmem
 		EXMEM_ALUOut		<= 32'b0;
 		EXMEM_JumpJALR 		<= 1'b0;
 		EXMEM_BranchALUOut	<= 32'b0;
@@ -309,7 +336,24 @@ mem_write_selector mem_write_selector(
 
 
 // To be implemented !!!!!!!!!!!!
-Dcntr Dcache_Controller ();
+Dcntr Dcache_Controller(
+    .clk_i                  (clock),
+    .rst_i                  (reset),
+    // to Data Memory interface
+    .mem_data_i             (mem_data_i),
+    .mem_ack_i              (mem_ack_i),
+    .mem_data_o             (mem_data_o),
+    .mem_addr_o             (mem_addr_o),
+    .mem_enable_o           (mem_enable_o),
+    .mem_write_o            (mem_write_o),
+    // to CPU interface
+    .pipeline_data_i             (MEM_write_data),
+    .pipeline_addr_i             (MEM_addr),
+    .pipeline_MemRead_i          (MEM_MemRead),
+    .pipeline_MemWrite_i         (MEM_MemWrite),
+    .pipeline_data_o             (MEM_read_data),
+    .pipeline_stall_o            (dcache_stall)
+);
 
 // MEMWB pipeline register
 always @(posedge clock or negedge reset)
