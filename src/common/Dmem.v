@@ -1,5 +1,6 @@
 `include "constants.v"
 `include "config.vh"
+`include "counter.v"
 
 // Read : disable wen, enable ren, address addr, data dout
 // Write: enable wen, disable ren, address addr, data din.
@@ -13,10 +14,16 @@ module Dmem (	input clock, reset,
 /****** SIGNALS ******/
 reg [31:0] data[0:2**(`DATA_BITS-2)-1];
 
+wire delayed;
+wire [3:0] delay_counter;
+
 
 /****** LOGIC ******/
+counter #(.size(4)) delay_cntr (.reset(~reset), .clk(clock), .hold(delayed), .counter(delay_counter));
 
-assign dout = (reset == 1) ? data[addr] : 32'b0;
+assign delayed = &delay_counter;
+
+assign dout = (reset == 1 && delayed == 1) ? data[addr] : 32'b0;
 
 /* Write memory in the negative edge of the clock */
 always @(posedge clock or negedge reset)
