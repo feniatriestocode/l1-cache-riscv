@@ -1,0 +1,107 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib64/ivl/system.vpi";
+:vpi_module "/usr/lib64/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib64/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib64/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib64/ivl/va_math.vpi";
+S_0x564a9f8c2490 .scope module, "Imem" "Imem" 2 9;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clock";
+    .port_info 1 /INPUT 1 "reset";
+    .port_info 2 /INPUT 1 "ren";
+    .port_info 3 /INPUT 5 "block_address";
+    .port_info 4 /OUTPUT 1 "ready";
+    .port_info 5 /OUTPUT 256 "dout";
+P_0x564a9f8ed050 .param/l "BLOCK_SIZE" 0 2 10, +C4<00000000000000000000000000001000>;
+P_0x564a9f8ed090 .param/l "DELAY_CNTR_SIZE" 0 2 12, +C4<00000000000000000000000000000100>;
+P_0x564a9f8ed0d0 .param/l "MEM_SIZE" 0 2 11, +C4<00000000000000000000000000100000>;
+P_0x564a9f8ed110 .param/l "WORD_SIZE" 0 2 9, +C4<00000000000000000000000000100000>;
+o0x7f5ef650c378 .functor BUFZ 1, C4<z>; HiZ drive
+L_0x564a9f915980 .functor NOT 1, o0x7f5ef650c378, C4<0>, C4<0>, C4<0>;
+o0x7f5ef650c348 .functor BUFZ 1, C4<z>; HiZ drive
+L_0x564a9f915a70 .functor NOT 1, o0x7f5ef650c348, C4<0>, C4<0>, C4<0>;
+L_0x564a9f915b40 .functor OR 1, L_0x564a9f915980, L_0x564a9f915a70, C4<0>, C4<0>;
+v0x564a9f914bc0_0 .net *"_ivl_0", 0 0, L_0x564a9f915980;  1 drivers
+v0x564a9f914cc0_0 .net *"_ivl_10", 6 0, L_0x564a9f915e30;  1 drivers
+L_0x7f5ef64c3018 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0x564a9f914da0_0 .net *"_ivl_13", 1 0, L_0x7f5ef64c3018;  1 drivers
+L_0x7f5ef64c3060 .functor BUFT 1, C4<0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x564a9f914e60_0 .net/2u *"_ivl_14", 255 0, L_0x7f5ef64c3060;  1 drivers
+v0x564a9f914f40_0 .net *"_ivl_2", 0 0, L_0x564a9f915a70;  1 drivers
+v0x564a9f915070_0 .net *"_ivl_8", 255 0, L_0x564a9f915d90;  1 drivers
+o0x7f5ef650c2b8 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0x564a9f915150_0 .net "block_address", 4 0, o0x7f5ef650c2b8;  0 drivers
+o0x7f5ef650c018 .functor BUFZ 1, C4<z>; HiZ drive
+v0x564a9f915230_0 .net "clock", 0 0, o0x7f5ef650c018;  0 drivers
+v0x564a9f9152d0_0 .net "counter_reset", 0 0, L_0x564a9f915b40;  1 drivers
+v0x564a9f9153a0 .array "data", 31 0, 255 0;
+v0x564a9f915440_0 .net "delay_counter", 3 0, v0x564a9f9148a0_0;  1 drivers
+v0x564a9f915510_0 .net "delayed", 0 0, L_0x564a9f915c50;  1 drivers
+v0x564a9f9155e0_0 .net "dout", 255 0, L_0x564a9f926090;  1 drivers
+v0x564a9f915680_0 .var "ready", 0 0;
+v0x564a9f915740_0 .net "ren", 0 0, o0x7f5ef650c348;  0 drivers
+v0x564a9f915800_0 .net "reset", 0 0, o0x7f5ef650c378;  0 drivers
+E_0x564a9f8fda30/0 .event negedge, v0x564a9f915800_0;
+E_0x564a9f8fda30/1 .event posedge, v0x564a9f8fce00_0;
+E_0x564a9f8fda30 .event/or E_0x564a9f8fda30/0, E_0x564a9f8fda30/1;
+L_0x564a9f915c50 .reduce/and v0x564a9f9148a0_0;
+L_0x564a9f915d90 .array/port v0x564a9f9153a0, L_0x564a9f915e30;
+L_0x564a9f915e30 .concat [ 5 2 0 0], o0x7f5ef650c2b8, L_0x7f5ef64c3018;
+L_0x564a9f926090 .functor MUXZ 256, L_0x7f5ef64c3060, L_0x564a9f915d90, L_0x564a9f915c50, C4<>;
+S_0x564a9f8fcb00 .scope module, "delay_cntr" "counter" 2 28, 3 3 0, S_0x564a9f8c2490;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "reset";
+    .port_info 1 /INPUT 1 "clk";
+    .port_info 2 /INPUT 1 "hold";
+    .port_info 3 /OUTPUT 4 "counter";
+P_0x564a9f8fcc90 .param/l "size" 0 3 3, +C4<00000000000000000000000000000100>;
+v0x564a9f8fce00_0 .net "clk", 0 0, o0x7f5ef650c018;  alias, 0 drivers
+v0x564a9f9148a0_0 .var "counter", 3 0;
+v0x564a9f914980_0 .net "hold", 0 0, L_0x564a9f915c50;  alias, 1 drivers
+v0x564a9f914a50_0 .net "reset", 0 0, L_0x564a9f915b40;  alias, 1 drivers
+E_0x564a9f8febe0 .event posedge, v0x564a9f914a50_0, v0x564a9f8fce00_0;
+    .scope S_0x564a9f8fcb00;
+T_0 ;
+    %wait E_0x564a9f8febe0;
+    %load/vec4 v0x564a9f914a50_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %pushi/vec4 0, 0, 4;
+    %assign/vec4 v0x564a9f9148a0_0, 0;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/vec4 v0x564a9f914980_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.2, 8;
+    %load/vec4 v0x564a9f9148a0_0;
+    %assign/vec4 v0x564a9f9148a0_0, 0;
+    %jmp T_0.3;
+T_0.2 ;
+    %load/vec4 v0x564a9f9148a0_0;
+    %addi 1, 0, 4;
+    %assign/vec4 v0x564a9f9148a0_0, 0;
+T_0.3 ;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0x564a9f8c2490;
+T_1 ;
+    %wait E_0x564a9f8fda30;
+    %load/vec4 v0x564a9f915510_0;
+    %assign/vec4 v0x564a9f915680_0, 0;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_0x564a9f8c2490;
+T_2 ;
+    %vpi_call 2 40 "$readmemh", "test.hex", v0x564a9f9153a0 {0 0 0};
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "Imem.v";
+    "./counter.v";
