@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-`include "Dmem.v"
+//`include "Dmem.v"
 
 module Dmem_tb();
   reg clock, reset, ren, wen;

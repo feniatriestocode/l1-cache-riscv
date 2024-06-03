@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
-`include "constants.v"
-`include "counter.v"
+//`include "constants.v"
+//`include "counter.v"
 
 // Use this for Imem too??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // If ren stays up then the next read has no delay (need fixing?) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -40,10 +40,18 @@ assign delayed = &delay_counter;
 assign temp_ready = delayed && ren && ~wen;
 assign temp_done = delayed && ~ren && wen;
 
-always @ (posedge clock or negedge reset) // is this synthesizable??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+always @ (posedge clock or negedge reset)
 begin
-	ready <= temp_ready;
-	done <= temp_done;
+	if(~reset)
+	begin
+		ready <= 1'b0;
+		done <= 1'b0;
+	end
+	else
+	begin
+		ready <= temp_ready;
+		done <= temp_done;
+	end
 end
 
 // read
@@ -52,22 +60,30 @@ assign dout = (temp_ready) ? data[block_address] : {(WORD_SIZE*BLOCK_SIZE){1'b0}
 // write
 always @ (posedge clock or negedge reset)
 begin
-	if(~reset || ~wen || ren)
+	if(~reset)
 	begin
 		temp_din <= {(WORD_SIZE*BLOCK_SIZE){1'b0}};
 		flag <= 1'b0;
 	end
 	else
 	begin
-		if(~flag)
+		if(~wen || ren)
 		begin
-			temp_din <= din;
-			flag <= 1'b1;
+			temp_din <= {(WORD_SIZE*BLOCK_SIZE){1'b0}};
+			flag <= 1'b0;
+		end
+		else
+		begin
+			if(~flag)
+			begin
+				temp_din <= din;
+				flag <= 1'b1;
+			end
 		end
 	end
 end
 
-always @ (posedge clock or negedge reset)
+always @ (posedge clock)
 begin 
 	if(temp_done)
 	begin
@@ -76,7 +92,7 @@ begin
 end
 
 /****** SIMULATION ******/
-initial $readmemh("test.hex", data);
+initial $readmemh("/github/riscv/src/temp_testbenches/test.hex", data);
 
 always @(ren or wen)
 begin

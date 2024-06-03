@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
-`include "constants.v"
-`include "counter.v"
+//`include "constants.v"
+//`include "counter.v"
 
 // If ren stays up then the next read has no delay (need fixing?) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -31,14 +31,21 @@ counter #(.size(DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock)
 
 assign delayed = &delay_counter;
 
-always @ (posedge clock or negedge reset) // is this synthesizable??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+always @ (posedge clock or negedge reset)
 begin
-	ready <= delayed;
+	if(~reset)
+	begin
+		ready <= 1'b0;
+	end
+	else
+	begin
+		ready <= delayed;
+	end
 end 
 
 assign dout = delayed ? data[block_address] : {(WORD_SIZE*BLOCK_SIZE){1'b0}};
 
 /****** SIMULATION ******/
-initial $readmemh("test.hex", data);
+initial $readmemh("/github/riscv/src/temp_testbenches/test.hex", data);
 
 endmodule
