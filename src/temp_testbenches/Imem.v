@@ -5,7 +5,7 @@
 
 // Read: Input: reset = 1'b1, ren = 1'b1, block_address = address of block in memory.
 //       Output: when ready = 1'b1: dout = desired block data.
-// No Write
+// No Write.
 module Imem #(	parameter WORD_SIZE = 32,		// in bits
 				parameter BLOCK_SIZE = 8,		// in words
 			  	parameter MEM_SIZE = 32,		// in blocks
