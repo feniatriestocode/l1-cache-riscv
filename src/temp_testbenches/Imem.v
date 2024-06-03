@@ -1,5 +1,6 @@
 `include "constants.v"
 `include "counter.v"
+`timescale 1ns / 1ps
 
 // If ren stays up then the next read has no delay (need fixing?) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -25,7 +26,7 @@ wire [(DELAY_CNTR_SIZE-1):0] delay_counter;
 /****** LOGIC ******/
 assign counter_reset = ~reset || ~ren;
 
-counter #(.size(DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .counter(delay_counter));
+counter #(.size(DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .cntr(delay_counter));
 
 assign delayed = &delay_counter;
 

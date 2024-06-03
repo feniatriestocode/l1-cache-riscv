@@ -1,23 +1,24 @@
+`timescale 1ns / 1ps
 // A general purpose parameterized, for size, counter with hold.
 
-module counter #(parameter size=8) (reset, clk, hold, counter);
+module counter #(parameter size=8) (reset, clk, hold, cntr);
   input reset, clk, hold;
-  output reg [size-1:0] counter;
+  output reg [size-1:0] cntr;
 
   always @ (posedge clk or posedge reset)
   begin
     if(reset)
     begin
-      counter <= 0;
+      cntr <= 0;
     end
     else
     if(hold)
     begin
-      counter <= counter;
+      cntr <= cntr;
     end
     else
     begin
-      counter <= counter + 1'b1;
+      cntr <= cntr + 1'b1;
     end 
   end
 endmodule
