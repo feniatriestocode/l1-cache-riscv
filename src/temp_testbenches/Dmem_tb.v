@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 `include "Dmem.v"
 
 module Dmem_tb();

@@ -1,5 +1,6 @@
-`include "Imem.v"
 `timescale 1ns / 1ps
+
+`include "Imem.v"
 
 module Imem_tb();
   reg clock, reset, ren;

@@ -1,6 +1,7 @@
+`timescale 1ns / 1ps
+
 `include "constants.v"
 `include "counter.v"
-`timescale 1ns / 1ps
 
 // If ren stays up then the next read has no delay (need fixing?) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -13,7 +14,7 @@ module Imem #(	parameter WORD_SIZE = 32,		// in bits
 				parameter DELAY_CNTR_SIZE = 4) 	// in bits, (delay = (DELAY_CNTR_SIZE ** 2) in cycles)
 	    (	input clock, reset, 
 			input ren, 
-			input [($clog2(MEM_SIZE)-1):0] block_address, 		// in blocks
+			input [($clog2(MEM_SIZE)-1):0] block_address, 		// in blocks // maybe full address??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			output reg ready,									// if not that then what??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			output [((WORD_SIZE*BLOCK_SIZE)-1):0] dout);
 

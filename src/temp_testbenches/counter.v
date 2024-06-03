@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+
 // A general purpose parameterized, for size, counter with hold.
 
 module counter #(parameter size=8) (reset, clk, hold, cntr);
