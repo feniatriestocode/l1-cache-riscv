@@ -3,7 +3,6 @@
 //`include "constants.v"
 //`include "counter.v"
 
-// Use this for Imem too??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // If ren stays up then the next read has no delay (need fixing?) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 // Read:  Input: reset = 1'b1, ren = 1'b1, wen = 1'b0, block_address = address of block in memory, din = don't care.
@@ -18,7 +17,7 @@ module Dmem #(	parameter WORD_SIZE = 32,		// in bits
 			input ren, wen,
 			input [($clog2(MEM_SIZE)-1):0] block_address, 		// in blocks // maybe full address??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			input [((WORD_SIZE*BLOCK_SIZE)-1):0] din,
-			output reg ready, done,								// if not that then what??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			output reg ready, done,
 			output [((WORD_SIZE*BLOCK_SIZE)-1):0] dout);
 
 /****** SIGNALS ******/
