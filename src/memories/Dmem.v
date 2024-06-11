@@ -3,36 +3,32 @@
 //`include "constants.v"
 //`include "counter.v"
 
-// If ren stays up then the next read has no delay (need fixing?) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// If ren stays up then the next read has no delay !
 
 // Read:  Input: reset = 1'b1, ren = 1'b1, wen = 1'b0, block_address = address of block in memory, din = don't care.
 //        Output: when ready = 1'b1: dout = desired block data, done = don't care.
 // Write: Input: reset = 1'b1, ren = 1'b0, wen = 1'b1, block address = address of block in memory, din = data of block.
 //        Output: ready = don't care, dout = don't care, when done = 1'b1: data is written.
-module Dmem #(	parameter WORD_SIZE = 32,		// in bits
-				parameter BLOCK_SIZE = 8,		// in words
-			  	parameter MEM_SIZE = 32,		// in blocks
-				parameter DELAY_CNTR_SIZE = 4) 	// in bits, (delay = (DELAY_CNTR_SIZE ** 2) in cycles)
-		(	input clock, reset, 
+module Dmem(input clock, reset, 
 			input ren, wen,
-			input [($clog2(MEM_SIZE)-1):0] block_address, 		// in blocks // maybe full address??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			input [((WORD_SIZE*BLOCK_SIZE)-1):0] din,
+			input [($clog2(`MEM_SIZE)-1):0] block_address, 		// in blocks
+			input [((`WORD_SIZE*`BLOCK_SIZE)-1):0] din,
 			output reg ready, done,
-			output [((WORD_SIZE*BLOCK_SIZE)-1):0] dout);
+			output [((`WORD_SIZE*`BLOCK_SIZE)-1):0] dout);
 
 /****** SIGNALS ******/
-reg [((WORD_SIZE*BLOCK_SIZE)-1):0] data [0:MEM_SIZE-1];
-reg [((WORD_SIZE*BLOCK_SIZE)-1):0] temp_din;
+reg [((`WORD_SIZE*`BLOCK_SIZE)-1):0] data [0:`MEM_SIZE-1];
+reg [((`WORD_SIZE*`BLOCK_SIZE)-1):0] temp_din;
 reg flag;
 
 wire delayed;
-wire [(DELAY_CNTR_SIZE-1):0] delay_counter;
+wire [(`DELAY_CNTR_SIZE-1):0] delay_counter;
 wire temp_ready, temp_done;
 
 /****** LOGIC ******/
 assign counter_reset = ~reset || (~wen && ~ren) || (wen && ren);
 
-counter #(.size(DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .cntr(delay_counter));
+counter #(.size(`DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .cntr(delay_counter));
 
 assign delayed = &delay_counter;
 
@@ -54,21 +50,21 @@ begin
 end
 
 // read
-assign dout = (temp_ready) ? data[block_address] : {(WORD_SIZE*BLOCK_SIZE){1'b0}};
+assign dout = (temp_ready) ? data[block_address] : {(`WORD_SIZE*`BLOCK_SIZE){1'b0}};
 
 // write
 always @ (posedge clock or negedge reset)
 begin
 	if(~reset)
 	begin
-		temp_din <= {(WORD_SIZE*BLOCK_SIZE){1'b0}};
+		temp_din <= {(`WORD_SIZE*`BLOCK_SIZE){1'b0}};
 		flag <= 1'b0;
 	end
 	else
 	begin
 		if(~wen || ren)
 		begin
-			temp_din <= {(WORD_SIZE*BLOCK_SIZE){1'b0}};
+			temp_din <= {(`WORD_SIZE*`BLOCK_SIZE){1'b0}};
 			flag <= 1'b0;
 		end
 		else
