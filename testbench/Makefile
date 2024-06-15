@@ -1,7 +1,7 @@
 VERILATOR = verilator
 VERILATOR_FLAGS = -cc --exe -Wall --trace -CFLAGS $(CFLAGS)
 VERILATOR_INPUT = ../src/pipelined/toplevel.v main.cpp 
-VERILATOR_INCLUDES = -I../src/pipelined -I../src/common -I../src/control -I../src/include -I../src/lib
+VERILATOR_INCLUDES = -I../src/pipelined -I../src/common -I../src/control -I../src/include -I../src/cache_controller -I../src/caches -I../src/memories -I../src/lib
 TESTDIR=../tests
 TESTS=$(notdir $(patsubst %.S,%,$(wildcard $(TESTDIR)/*.S)))
 TEST ?= add
