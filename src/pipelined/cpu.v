@@ -5,41 +5,40 @@ module cpu(input clock,
 		   input reset,
 		   // imem
 		   output imem_ren,
-           output [($clog2(`MEM_SIZE)-1):0] imem_block_address,
-           input [((`WORD_SIZE*`BLOCK_SIZE)-1):0] imem_dout,
+           output [($clog2(`IMEM_SIZE)-1):0] imem_block_address,
+           input [((`IWORD_SIZE*`IBLOCK_SIZE)-1):0] imem_dout,
            input imem_ready,
            // dmem
            output dmem_ren, 
            output dmem_wen,
-           output [($clog2(`MEM_SIZE)-1):0] dmem_block_address, 
-           output [((`WORD_SIZE*`BLOCK_SIZE)-1):0] dmem_din,
+           output [($clog2(`DMEM_SIZE)-1):0] dmem_block_address, 
+           output [((`DWORD_SIZE*`DBLOCK_SIZE)-1):0] dmem_din,
            input dmem_ready, 
            input dmem_done,
-           input [((`WORD_SIZE*`BLOCK_SIZE)-1):0] dmem_dout);     
+           input [((`DWORD_SIZE*`DBLOCK_SIZE)-1):0] dmem_dout);     
            
            
  //pipeline          
 wire dcache_stall, dcache_ren, dcache_wen;
-wire [] dcache_output;
-wire [] dcache_addr;
-wire [] byteSelectVector;
-wire [] dcache_input;
+wire [`DBLOCK_SIZE_BITS-1:0] dcache_output;
+wire [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] dcache_addr;
+wire [`DBLOCK_SIZE-1:0] byteSelectVector;
+wire [`DBLOCK_SIZE_BITS-1:0] dcache_input;
 
 // dcache
 wire DcacheEn, DcacheWen, DcacheMemWen;
-wire [] DcacheBytesAccess;
-wire [] DcacheBlockAddr;
-wire [] DcacheDin;
+wire [`DBLOCK_SIZE-1:0] DcacheBytesAccess;
+wire [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] DcacheBlockAddr;
+wire [`DBLOCK_SIZE_BITS-1:0] DcacheDin;
 wire DcacheHit, DcacheDirtyBit;
-wire [] DcacheDout;
-
+wire [`DBLOCK_SIZE_BITS-1:0] DcacheDout;
 
 // icache
 wire IcacheEn, IcacheMemWen;
-wire [] IcacheBlockAddr;
-wire [] IcacheDin;
+wire [`ITAG_SIZE+`ISET_INDEX_SIZE-1:0] IcacheBlockAddr;
+wire [`IBLOCK_SIZE_BITS-1:0] IcacheDin;
 wire IcacheHit, IcacheDirtyBit;
-wire [] IcacheDout;
+wire [`IBLOCK_SIZE_BITS-1:0] IcacheDout;
 
 pipeline pipeline(.clock(clock), 
 				  .reset(reset),
@@ -52,13 +51,12 @@ pipeline pipeline(.clock(clock),
 				  .dcache_input(dcache_input));
 
 // caches instantiated here
-// to be implemented !!!!!!!!!!!!!!!!!!!!!
-Icache_SRAM( Icache(.clk(clock), 
+Icache_SRAM Icache(.clk(clock), 
                 .rst(reset),
                 .en(IcacheEn), 
                 .memWen(IcacheMemWen),
-                .blockAddr(IcacheBlockAddr), .
-                .dataIn(IcacheDin), .
+                .blockAddr(IcacheBlockAddr), 
+                .dataIn(IcacheDin), 
                 .hit(IcacheHit),
                 .dirtyBit(IcacheDirtyBit),
                 .dataOut(IcacheDout));
@@ -69,14 +67,14 @@ D_SRAM Dcache(.clk(clock),
                 .wen(DcacheWen), 
                 .dmemWen(DcacheMemWen),
                 .bytesAccess(DcacheBytesAccess),
-                .blockAddr(DcacheBlockAddr), .
-                .dataIn(DcacheDin), .
+                .blockAddr(DcacheBlockAddr), 
+                .dataIn(DcacheDin), 
                 .hit(DcacheHit),
                 .dirtyBit(DcacheDirtyBit),
                 .dataOut(DcacheDout));
 
-dcache_controller(// pipeline inputs
-                        .clock(clock,
+D_CNTRL dcache_controller(// pipeline inputs
+                        .clock(clock),
                         .reset(reset),
                         .ren(dcache_ren), 
                         .wen(dcache_wen),
@@ -110,5 +108,5 @@ dcache_controller(// pipeline inputs
                         .memRen(dmem_ren), 
                         .memWen(dmem_wen),
                         .memBlockAddr(dmem_block_address),
-                        .memDin(dmem_din));
+                        .memDin(dmem_din)); 
 endmodule

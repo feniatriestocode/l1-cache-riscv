@@ -1,4 +1,5 @@
-`include "constants.v"
+`include "../include/constants.v"
+`include "../include/constants.vh"
 `include "config.vh"
 
 module toplevel(input clock, 
@@ -6,13 +7,13 @@ module toplevel(input clock,
 				
 
 wire    dmem_ren, dmem_wen, dmem_ready, dmem_done;
-wire [] dmem_block_address;
-wire [] dmem_din;
-wire [] dmem_dout;
+wire [((DBLOCK_SIZE_BITS)-1):0] dmem_block_address;
+wire [((DBLOCK_SIZE_BITS)-1):0] dmem_din;
+wire [((DBLOCK_SIZE_BITS)-1):0] dmem_dout;
 
 wire    imem_ren, imem_ready;
-wire [] imem_block_address;
-wire [] imem_dout;
+wire [($clog2(IMEM_SIZE)-1):0] imem_block_address;
+wire [((WORD_SIZE*BLOCK_SIZE)-1):0] imem_dout;
 
 
 cpu cpu(.clock(clock), 
@@ -34,7 +35,6 @@ cpu cpu(.clock(clock),
 
 // Memories
 
-// to be implemented !!!!!!!!!!!!!!!
 Imem Instruction_Mem(clock(clock), 
             .reset(reset), 
 			.ren(imem_ren), 
