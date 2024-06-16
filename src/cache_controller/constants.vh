@@ -8,7 +8,7 @@
 //ADDRESS SEGMENTS//
 `define DADDR_SIZE              $clog2(`DMEM_SIZE)
 `define DBLOCK_OFFSET_SIZE      $clog2(`DBLOCK_SIZE)
-`define DSET_INDEX_SIZE         $clog2(`DASSOCIATIVITY)
+`define DSET_INDEX_SIZE         $clog2(`DCACHE_ASSOCIATIVITY)
 `define DTAG_SIZE               `DADDR_SIZE - `DSET_INDEX_SIZE - `DBLOCK_OFFSET_SIZE 
 
 /*********************************************D-CACHE*********************************************/
@@ -38,7 +38,7 @@
 //ADDRESS SEGMENTS//
 `define IADDR_SIZE              $clog2(`IMEM_SIZE)
 `define IBLOCK_OFFSET_SIZE      $clog2(`IBLOCK_SIZE)
-`define ISET_INDEX_SIZE         $clog2(`IASSOCIATIVITY)
+`define ISET_INDEX_SIZE         $clog2(`ICACHE_ASSOCIATIVITY)
 `define ITAG_SIZE               `IADDR_SIZE - `IBLOCK_OFFSET_SIZE - `ISET_INDEX_SIZE
 
 /*********************************************I-CACHE*********************************************/
