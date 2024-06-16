@@ -8,7 +8,17 @@
 /*****************************************************************************************/
 module pipeline( input clock,
 			     input reset,
-				 output overflow);
+			     //dcache 
+			     input dcache_stall,
+                 input [] dcache_output,
+                 output dcache_ren,
+                 output dcache_wen,
+                 output [] dcache_addr,
+                 output [] byteSelectVector,
+                 output [] dcache_input);
+
+				  
+			     );
 reg		[31:0]	IFID_instr;
 reg		[31:0]	PC, IFID_PC, IDEX_PC;
 wire	[31:0]	PCplus4, JumpAddress, PC_new;
@@ -53,6 +63,8 @@ wire	[3:0]	ALUOp;
 wire	[1:0]	bypassA, bypassB;
 wire	[31:0]	imm_i, imm_s, imm_b, imm_u, imm_j;
 
+
+wire            overflow;
 //changes for controlles 
 /* 
 wire stall_from_cache, icache_stall, dcache_stall;
