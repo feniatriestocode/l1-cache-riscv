@@ -19,6 +19,7 @@
 /**********************************************D-MEM**********************************************/
 `define DMEM_SIZE               1024*1024                                           // in bytes
 `define DMEM_SIZE_BLOCKS        `DMEM_SIZE / `DBLOCK_SIZE                           // in blocks
+`define DMEM_BLOCK_ADDR         $clog2(`DMEM_SIZE_BLOCKS)
 `define DMEM_ACCESS_DELAY       16                                                  // in cycles
 `define DMEM_DELAY_CNTR_SIZE    $clog2(`DMEM_ACCESS_DELAY)
 
@@ -39,7 +40,7 @@
 `define IADDR_SIZE              $clog2(`IMEM_SIZE)
 `define IBLOCK_OFFSET_SIZE      $clog2(`IBLOCK_SIZE)
 `define ISET_INDEX_SIZE         $clog2(`ICACHE_ASSOCIATIVITY)
-`define ITAG_SIZE               `IADDR_SIZE - `IBLOCK_OFFSET_SIZE - `ISET_INDEX_SIZE
+`define ITAG_SIZE               `IADDR_SIZE - `ISET_INDEX_SIZE - `IBLOCK_OFFSET_SIZE
 
 /*********************************************I-CACHE*********************************************/
 `define ICACHE_SIZE             1024                                                // in bytes
@@ -49,3 +50,7 @@
 /**********************************************I-MEM**********************************************/
 `define IMEM_SIZE               1024*1024                                           // in bytes
 `define IMEM_SIZE_BLOCKS        `IMEM_SIZE / `IBLOCK_SIZE                           // in blocks
+`define IMEM_BLOCK_ADDR         $clog2(`IMEM_SIZE_BLOCKS)
+`define IMEM_ACCESS_DELAY       16                                                  // in cycles
+`define IMEM_DELAY_CNTR_SIZE    $clog2(`IMEM_ACCESS_DELAY)
+

@@ -11,14 +11,14 @@
 //        Output: ready = don't care, dout = don't care, when done = 1'b1: data is written.
 module Dmem(input clock, reset, 
 			input ren, wen,
-			input [($clog2(`DMEM_SIZE)-1):0] block_address, 		// in blocks
-			input [((DBLOCK_SIZE_BITS)-1):0] din,
+			input [-1:0] block_address, 		// in blocks
+			input [((`DBLOCK_SIZE_BITS)-1):0] din,
 			output reg ready, done,
-			output [((DBLOCK_SIZE_BITS)-1):0] dout);
+			output [((`DBLOCK_SIZE_BITS)-1):0] dout);
 
 /****** SIGNALS ******/
-reg [((DBLOCK_SIZE_BITS)-1):0] data [0:`MEM_SIZE-1];
-reg [((DBLOCK_SIZE_BITS)-1):0] temp_din;
+reg [((`DBLOCK_SIZE_BITS)-1):0] data [0:`MEM_SIZE-1];
+reg [((`DBLOCK_SIZE_BITS)-1):0] temp_din;
 reg flag;
 
 wire delayed;
