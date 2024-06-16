@@ -9,35 +9,35 @@
 `timescale 1ns/1ps
 `include "constants.vh"
 
-module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, dirtyBit, dataOut);
+module D_SRAM(clk, rst, en, wen, memWen, bytesAccess, blockAddr, dataIn, hit, dirtyBit, dataOut);
     //INPUT PORTS//
     input clk, rst;
-    input en, wen, dmemWen;
-    input [`DCACHE_BLOCK_SIZE-1:0] bytesAccess;
-    input [`DTAG_SIZE+`DINDEX_SIZE-1:0] blockAddr;
+    input en, wen, memWen;
     input [`DBLOCK_SIZE_BITS-1:0] dataIn;
+    input [`DBLOCK_SIZE-1:0] bytesAccess;
+    input [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] blockAddr;
     //OUTPUT PORTS//
     output wire hit;
     output wire dirtyBit;
     output wire [`DBLOCK_SIZE_BITS-1:0] dataOut;
 
     //SRAM
-    reg [`DASSOCIATIVITY-1:0]   valid_col  [`DBLOCK_NUMBER-1:0];
-    reg [`DASSOCIATIVITY-1:0]   dirty_col  [`DBLOCK_NUMBER-1:0];
-    reg [`DASSOCIATIVITY-1:0]   status_col [`DBLOCK_NUMBER-1:0]; 
-    reg [`DTAG_SIZE-1:0]        tag_col    [`DBLOCK_NUMBER-1:0][`DASSOCIATIVITY-1:0];
-    reg [`DBLOCK_SIZE_BITS-1:0] data_col   [`DBLOCK_NUMBER-1:0][`DASSOCIATIVITY-1:0];
+    reg [`DASSOCIATIVITY-1:0]   valid_col  [`DCACHE_SIZE_BLOCKS-1:0];
+    reg [`DASSOCIATIVITY-1:0]   dirty_col  [`DCACHE_SIZE_BLOCKS-1:0];
+    reg [`DASSOCIATIVITY-1:0]   status_col [`DCACHE_SIZE_BLOCKS-1:0]; 
+    reg [`DTAG_SIZE-1:0]        tag_col    [`DCACHE_SIZE_BLOCKS-1:0][`DASSOCIATIVITY-1:0];
+    reg [`DBLOCK_SIZE_BITS-1:0] data_col   [`DCACHE_SIZE_BLOCKS-1:0][`DASSOCIATIVITY-1:0];
 
-    //ADDRESS' SEGS
-    wire [`DOFFSET_SIZE-1:0] offset;
-    wire [`DINDEX_SIZE-1:0] index;
+    //ADDRESS' SEGMENTATION
+    wire [`DBLOCK_OFFSET_SIZE-1:0] offset;
+    wire [`DSET_INDEX_SIZE-1:0] index;
     wire [`DTAG_SIZE-1:0] tag;
     
     //BLOCK ADDRESS = [TAG][INDEX]
-    assign index = blockAddr[`DINDEX_SIZE-1:0];
-    assign tag   = blockAddr[`DTAG_SIZE+`DINDEX_SIZE-1:`DINDEX_SIZE]; 
+    assign index = blockAddr[`DSET_INDEX_SIZE-1:0];
+    assign tag   = blockAddr[`DTAG_SIZE+`DSET_INDEX_SIZE-1:`DSET_INDEX_SIZE]; 
 
-    //******************************ASYCHRONOUS HIT********************************//
+    //***********************************ASYNCHRONOUS HIT***********************************//
     integer j;
     reg [`DASSOCIATIVITY-1:0] hitReg;
 
@@ -52,7 +52,7 @@ module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, d
 
     assign hit = |hitReg;
 
-    //****************************ASYNCHRONOUS READ DATA***************************//
+    //********************************ASYNCHRONOUS READ DATA********************************//
 
     integer i;
     reg [`DBLOCK_SIZE_BITS-1:0] dataOut_reg;
@@ -68,7 +68,7 @@ module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, d
 
     assign dataOut = dataOut_reg;
 
-    //************************ΑSYNCHRONOUS READ DIRTY BIT*************************//
+    //******************************ΑSYNCHRONOUS READ DIRTY BIT*****************************//
 
     reg dirtyBit_reg;
     reg found;
@@ -91,14 +91,13 @@ module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, d
 
     assign dirtyBit = dirtyBit_reg;
 
-    //***************************SYNCHRONOUS WRITE DATA***************************//
+    //********************************SYNCHRONOUS WRITE DATA*******************************//
    
-
     integer m,k,l;
     
     always @(posedge clk or negedge rst)begin
         if(!rst)begin
-             for(l=0; l<`DBLOCK_NUMBER; l=l+1)begin
+             for(l=0; l<`DCACHE_SIZE_BLOCKS; l=l+1)begin
                 valid_col [l] = {`DASSOCIATIVITY{1'b0}};
                 status_col[l] = {`DASSOCIATIVITY{1'b0}};
                 dirty_col [l] = {`DASSOCIATIVITY{1'b0}};
@@ -130,7 +129,7 @@ module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, d
                             end
                         end
                     end 
-                    else if(dmemWen)begin 
+                    else if(memWen)begin 
                         for(m=0; m<`DASSOCIATIVITY; m=m+1)
                             if(blockToEvict[m] == 1'b1)begin
                                 dirty_col [index][m] <= 1'b0;
@@ -147,18 +146,21 @@ module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, d
                                     status_col[index][k] <= 1'b0;
                     end
 
-                end //end of WEN_PL if
-            end //end of EN_PL if
+                end //end of WEN if
+            end //end of EN if
         end //end of rst==1 if
     end //end of always
-    
-    /*reg wen_pl;
+
+endmodule
+
+
+/*reg wen_pl;
     reg en_pl;
-    reg dmemWen_pl;
+    reg memWen_pl;
     reg hit_pl;
     reg [`DASSOCIATIVITY-1:0]   blockToEvict_pl;
     reg [`DASSOCIATIVITY-1:0]   hitReg_pl;
-    reg [`DINDEX_SIZE-1:0]      index_pl;
+    reg [`DSET_INDEX_SIZE-1:0]      index_pl;
     reg [`DTAG_SIZE-1:0]        tag_pl;
     reg [`DBLOCK_SIZE_BITS-1:0] dataIn_pl;*/
 
@@ -168,12 +170,12 @@ module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, d
             en_pl <= en;
             hit_pl <= hit;
             hitReg_pl <= {`DASSOCIATIVITY{1'b0}};
-            index_pl <= {`DINDEX_SIZE{1'b0}};
+            index_pl <= {`DSET_INDEX_SIZE{1'b0}};
             tag_pl <= {`DTAG_SIZE{1'b0}};
             blockToEvict_pl <= {`DASSOCIATIVITY{1'b0}};
             dataIn_pl <= {`DBLOCK_SIZE_BITS{1'b0}};
             
-             for(l=0; l<`DBLOCK_NUMBER; l=l+1)begin
+             for(l=0; l<`DCACHE_SIZE_BLOCKS; l=l+1)begin
                 valid_col [l] = {`DASSOCIATIVITY{1'b0}};
                 status_col[l] = {`DASSOCIATIVITY{1'b0}};
                 dirty_col [l] = {`DASSOCIATIVITY{1'b0}};
@@ -183,7 +185,7 @@ module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, d
             wen_pl <= wen;
             hit_pl <= hit;
             hitReg_pl <= hitReg;
-            dmemWen_pl <= dmemWen;
+            memWen_pl <= memWen;
             index_pl <= index;
             blockToEvict_pl <= blockToEvict;
             tag_pl <= tag;
@@ -214,7 +216,7 @@ module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, d
                             end
                         end
                     end 
-                    else if(dmemWen_pl)begin 
+                    else if(memWen_pl)begin 
                         for(m=0; m<`DASSOCIATIVITY; m=m+1)
                             if(blockToEvict_pl[m] == 1'b1)begin
                                 dirty_col [index_pl][m] <= 1'b0;
@@ -235,6 +237,3 @@ module D_SRAM(clk, rst, en, wen, dmemWen, bytesAccess, blockAddr, dataIn, hit, d
             end //end of EN_PL if
         end //end of rst==1 if
     end //end of always*/
-
-
-endmodule

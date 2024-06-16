@@ -1,8 +1,7 @@
 `timescale 1ns/1ps
-
 `include "constants.vh"
 
-module Dcache_SRAM_tb;
+module Icache_SRAM_tb;
     reg clk, rst;
     reg en, wen, memWen;
     reg [`DCACHE_BLOCK_SIZE-1:0] bytesAccess;
