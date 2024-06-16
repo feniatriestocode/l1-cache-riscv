@@ -14,6 +14,7 @@
 /*********************************************D-CACHE*********************************************/
 `define DCACHE_SIZE             1024                                                // in bytes 
 `define DCACHE_SIZE_BLOCKS      `DCACHE_SIZE / `DBLOCK_SIZE                         // in blocks
+`define DCACHE_SIZE_SETS        `DCACHE_SIZE_BLOCKS / `DCACHE_ASSOCIATIVITY         // in sets
 `define DCACHE_ASSOCIATIVITY    2
 
 /**********************************************D-MEM**********************************************/
@@ -45,6 +46,7 @@
 /*********************************************I-CACHE*********************************************/
 `define ICACHE_SIZE             1024                                                // in bytes
 `define ICACHE_SIZE_BLOCKS      `ICACHE_SIZE / `IBLOCK_SIZE                         // in blocks
+`define ICACHE_SIZE_SETS        `ICACHE_SIZE_BLOCKS / `ICACHE_ASSOCIATIVITY         // in sets
 `define ICACHE_ASSOCIATIVITY    2
 
 /**********************************************I-MEM**********************************************/

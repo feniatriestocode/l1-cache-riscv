@@ -11,7 +11,7 @@
 //        Output: ready = don't care, dout = don't care, when done = 1'b1: data is written.
 module Dmem(input clock, reset, 
 			input ren, wen,
-			input [-1:0] block_address, 		// in blocks
+			input [`DMEM_BLOCK_ADDR-1:0] block_address, 		// in blocks
 			input [((`DBLOCK_SIZE_BITS)-1):0] din,
 			output reg ready, done,
 			output [((`DBLOCK_SIZE_BITS)-1):0] dout);
