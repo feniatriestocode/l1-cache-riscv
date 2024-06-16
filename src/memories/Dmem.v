@@ -11,14 +11,14 @@
 //        Output: ready = don't care, dout = don't care, when done = 1'b1: data is written.
 module Dmem(input clock, reset, 
 			input ren, wen,
-			input [($clog2(`MEM_SIZE)-1):0] block_address, 		// in blocks
-			input [((`WORD_SIZE*`BLOCK_SIZE)-1):0] din,
+			input [($clog2(`DMEM_SIZE)-1):0] block_address, 		// in blocks
+			input [((DBLOCK_SIZE_BITS)-1):0] din,
 			output reg ready, done,
-			output [((`WORD_SIZE*`BLOCK_SIZE)-1):0] dout);
+			output [((DBLOCK_SIZE_BITS)-1):0] dout);
 
 /****** SIGNALS ******/
-reg [((`WORD_SIZE*`BLOCK_SIZE)-1):0] data [0:`MEM_SIZE-1];
-reg [((`WORD_SIZE*`BLOCK_SIZE)-1):0] temp_din;
+reg [((DBLOCK_SIZE_BITS)-1):0] data [0:`MEM_SIZE-1];
+reg [((DBLOCK_SIZE_BITS)-1):0] temp_din;
 reg flag;
 
 wire delayed;
@@ -28,7 +28,7 @@ wire temp_ready, temp_done;
 /****** LOGIC ******/
 assign counter_reset = ~reset || (~wen && ~ren) || (wen && ren);
 
-counter #(.size(`DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .cntr(delay_counter));
+counter #(.size(`DMEM_DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .cntr(delay_counter));
 
 assign delayed = &delay_counter;
 
@@ -50,21 +50,21 @@ begin
 end
 
 // read
-assign dout = (temp_ready) ? data[block_address] : {(`WORD_SIZE*`BLOCK_SIZE){1'b0}};
+assign dout = (temp_ready) ? data[block_address] : {`DBLOCK_SIZE_BITS{1'b0}};
 
 // write
 always @ (posedge clock or negedge reset)
 begin
 	if(~reset)
 	begin
-		temp_din <= {(`WORD_SIZE*`BLOCK_SIZE){1'b0}};
+		temp_din <= {(`DBLOCK_SIZE_BITS){1'b0}};
 		flag <= 1'b0;
 	end
 	else
 	begin
 		if(~wen || ren)
 		begin
-			temp_din <= {(`WORD_SIZE*`BLOCK_SIZE){1'b0}};
+			temp_din <= {(`DBLOCK_SIZE_BITS){1'b0}};
 			flag <= 1'b0;
 		end
 		else

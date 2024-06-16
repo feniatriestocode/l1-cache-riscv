@@ -1,45 +1,51 @@
-/*****************************D-CACHE*******************************/
+/*******************************************D-CONSTANTS*******************************************/
+`define DWORD_SIZE              4                                                   // in bytes 
+`define DWORD_SIZE_BITS         `DWORD_SIZE*8                                       // in bits
 
-//SIZES IN BYTES//
-`define DCACHE_SIZE 1024 
-`define DCACHE_BLOCK_SIZE 16 
-`define DCACHE_WORD_SIZE 4
+`define DBLOCK_SIZE             16                                                  // in bytes 
+`define DBLOCK_SIZE_BITS        `DBLOCK_SIZE*8                                      // in bits
 
-//DCACHE SEPCS//
-`define DASSOCIATIVITY 2
+//ADDRESS SEGMENTS//
+`define DADDR_SIZE              $clog2(`DMEM_SIZE)
+`define DBLOCK_OFFSET_SIZE      $clog2(`DBLOCK_SIZE)
+`define DSET_INDEX_SIZE         $clog2(`DASSOCIATIVITY)
+`define DTAG_SIZE               `DADDR_SIZE - `DSET_INDEX_SIZE - `DBLOCK_OFFSET_SIZE 
 
-//NUMS//
-`define DBLOCK_NUMBER `DCACHE_SIZE / `DCACHE_BLOCK_SIZE
-`define DBLOCK_SIZE_BITS `DCACHE_BLOCK_SIZE*8
-`define DWORD_SIZE_BITS `DCACHE_WORD_SIZE*8
+/*********************************************D-CACHE*********************************************/
+`define DCACHE_SIZE             1024                                                // in bytes 
+`define DCACHE_SIZE_BLOCKS      `DCACHE_SIZE / `DBLOCK_SIZE                         // in blocks
+`define DCACHE_ASSOCIATIVITY    2
 
-//ADDRESS SEGS
-`define ADDR_SIZE 32 
-`define DBLOCK_OFFSET_SIZE $clog2(`DCACHE_BLOCK_SIZE)
-`define DSET_INDEX_SIZE $clog2(`DASSOCIATIVITY)
-`define DTAG_SIZE `ADDR_SIZE - `DBLOCK_OFFSET_BITS - `DSET_INDEX_BITS
+/**********************************************D-MEM**********************************************/
+`define DMEM_SIZE               1024*1024                                           // in bytes
+`define DMEM_SIZE_BLOCKS        `DMEM_SIZE / `DBLOCK_SIZE                           // in blocks
+`define DMEM_ACCESS_DELAY       16                                                  // in cycles
+`define DMEM_DELAY_CNTR_SIZE    $clog2(`DMEM_ACCESS_DELAY)
 
-//****************************I-CACHE******************************//
-//SIZES IN BYTES//
-`define ICACHE_SIZE 1024 
-`define ICACHE_BLOCK_SIZE 16 
-`define ICACHE_WORD_SIZE 4
 
-//DCACHE SEPCS//
-`define IASSOCIATIVITY 2
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
-//NUMS//
-`define IBLOCK_NUMBER `DCACHE_SIZE / `DCACHE_BLOCK_SIZE
-`define IBLOCK_SIZE_BITS `DCACHE_BLOCK_SIZE*8
-`define IWORD_SIZE_BITS `DCACHE_WORD_SIZE*8
 
-//ADDRESS SEGS
-`define INSTRUCTION_SIZE 32 
-`define IBLOCK_OFFSET_SIZE $clog2(`DCACHE_BLOCK_SIZE)
-`define ISET_INDEX_SIZE $clog2(`DASSOCIATIVITY)
-`define ITAG_SIZE `ADDR_SIZE - `DBLOCK_OFFSET_BITS - `DSET_INDEX_BITS
+/*******************************************I-CONSTANTS*******************************************/
+`define IWORD_SIZE              4                                                   // in bytes 
+`define IWORD_SIZE_BITS         `IWORD_SIZE*8                                       // in bits
 
-//*****************************D-MEM******************************//
+`define IBLOCK_SIZE             16                                                  // in bytes 
+`define IBLOCK_SIZE_BITS        `IBLOCK_SIZE*8                                      // in bits
 
-//*****************************I-MEM******************************//
+//ADDRESS SEGMENTS//
+`define IADDR_SIZE              $clog2(`IMEM_SIZE)
+`define IBLOCK_OFFSET_SIZE      $clog2(`IBLOCK_SIZE)
+`define ISET_INDEX_SIZE         $clog2(`IASSOCIATIVITY)
+`define ITAG_SIZE               `IADDR_SIZE - `IBLOCK_OFFSET_SIZE - `ISET_INDEX_SIZE
 
+/*********************************************I-CACHE*********************************************/
+`define ICACHE_SIZE             1024                                                // in bytes
+`define ICACHE_SIZE_BLOCKS      `ICACHE_SIZE / `IBLOCK_SIZE                         // in blocks
+`define ICACHE_ASSOCIATIVITY    2
+
+/**********************************************I-MEM**********************************************/
+`define IMEM_SIZE               1024*1024                                           // in bytes
+`define IMEM_SIZE_BLOCKS        `IMEM_SIZE / `IBLOCK_SIZE                           // in blocks
