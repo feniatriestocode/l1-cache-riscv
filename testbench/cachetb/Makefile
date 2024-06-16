@@ -2,7 +2,7 @@ VERILATOR = verilator
 VERILATOR_FLAGS = -cc --exe -Wall --trace -CFLAGS $(CFLAGS)
 VERILATOR_INPUT = ../src/pipelined/toplevel.v main.cpp 
 VERILATOR_INCLUDES = -I../src/cache_controller -I../src/caches -I../src/memories -I../src/pipelined -I../src/common -I../src/control -I../src/include -I../src/lib
-TESTDIR=../tests
+TESTDIR=../tests/cachetests
 TESTS=$(notdir $(patsubst %.S,%,$(wildcard $(TESTDIR)/*.S)))
 TEST ?= add
 CFLAGS = -DVERBOSE=$(VERBOSE)
@@ -23,7 +23,7 @@ build:
 run:
 	@echo
 	@echo "----- RUN INDIVIDUAL TEST -----"
-	obj_dir/Vtoplevel +trace +text_file=../tests/$(TEST).text.vh +data_file=../tests/$(TEST).data.vh
+	obj_dir/Vtoplevel +trace +text_file=../tests/cachetests/$(TEST).text.vh +data_file=../tests/cachetests/$(TEST).data.vh
 	[ ! -f simx.vcd ] || mv simx.vcd $(TEST).vcd
 
 run_waveforms: run
