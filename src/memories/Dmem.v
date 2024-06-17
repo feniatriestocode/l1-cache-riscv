@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-//`include "constants.v"
+`include "constants.vh"
 //`include "counter.v"
 
 // If ren stays up then the next read has no delay !
@@ -11,18 +11,18 @@
 //        Output: ready = don't care, dout = don't care, when done = 1'b1: data is written.
 module Dmem(input clock, reset, 
 			input ren, wen,
-			input [`DMEM_BLOCK_ADDR-1:0] block_address, 		// in blocks
-			input [((`DBLOCK_SIZE_BITS)-1):0] din,
+			input [(`DMEM_BLOCK_ADDR_SIZE-1):0] block_address, 		// in blocks
+			input [(`DBLOCK_SIZE_BITS-1):0] din,
 			output reg ready, done,
-			output [((`DBLOCK_SIZE_BITS)-1):0] dout);
+			output [(`DBLOCK_SIZE_BITS-1):0] dout);
 
 /****** SIGNALS ******/
-reg [((`DBLOCK_SIZE_BITS)-1):0] data [0:`MEM_SIZE-1];
-reg [((`DBLOCK_SIZE_BITS)-1):0] temp_din;
+reg [(`DBLOCK_SIZE_BITS-1):0] data [0:(`DMEM_SIZE_BLOCKS-1)];
+reg [(`DBLOCK_SIZE_BITS-1):0] temp_din;
 reg flag;
 
 wire delayed;
-wire [(`DELAY_CNTR_SIZE-1):0] delay_counter;
+wire [(`DMEM_DELAY_CNTR_SIZE-1):0] delay_counter;
 wire temp_ready, temp_done;
 
 /****** LOGIC ******/
@@ -57,14 +57,14 @@ always @ (posedge clock or negedge reset)
 begin
 	if(~reset)
 	begin
-		temp_din <= {(`DBLOCK_SIZE_BITS){1'b0}};
+		temp_din <= {`DBLOCK_SIZE_BITS{1'b0}};
 		flag <= 1'b0;
 	end
 	else
 	begin
 		if(~wen || ren)
 		begin
-			temp_din <= {(`DBLOCK_SIZE_BITS){1'b0}};
+			temp_din <= {`DBLOCK_SIZE_BITS{1'b0}};
 			flag <= 1'b0;
 		end
 		else
@@ -87,7 +87,7 @@ begin
 end
 
 /****** SIMULATION ******/
-initial $readmemh("/github/riscv/src/temp_testbenches/test.hex", data);
+initial $readmemh("/github/riscv/src/memories/test.hex", data);
 
 always @(ren or wen)
 begin
