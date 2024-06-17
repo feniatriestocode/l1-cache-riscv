@@ -3,44 +3,14 @@
 # SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Mon Jun 17 21:00:49 2024
-# Process ID: 12924
+# Start of session at: Mon Jun 17 23:23:35 2024
+# Process ID: 3551
 # Current directory: /home/iordana/Documents/GitHub/riscv/src/caches
 # Command line: vivado
 # Log file: /home/iordana/Documents/GitHub/riscv/src/caches/vivado.log
 # Journal file: /home/iordana/Documents/GitHub/riscv/src/caches/vivado.jou
-# Running On: iordana-HP-Pavilion-Laptop-15-eg3xxx, OS: Linux, CPU Frequency: 4075.463 MHz, CPU Physical cores: 10, Host memory: 16384 MB
+# Running On: iordana-HP-Pavilion-Laptop-15-eg3xxx, OS: Linux, CPU Frequency: 718.329 MHz, CPU Physical cores: 10, Host memory: 16384 MB
 #-----------------------------------------------------------
 start_gui
-create_project project_1 {/home/iordana/Documents/Parallel Computer Architecture/project_1} -part xc7k70tfbv676-1
-add_files -norecurse /home/iordana/Documents/GitHub/riscv/src/caches/constants.vh
-add_files -norecurse /home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM.v
+open_project {/home/iordana/Documents/Parallel Computer Architecture/project_1/project_1.xpr}
 update_compile_order -fileset sources_1
-set_property SOURCE_SET sources_1 [get_filesets sim_1]
-add_files -fileset sim_1 -norecurse /home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM_tb.v
-update_compile_order -fileset sim_1
-update_compile_order -fileset sim_1
-launch_simulation
-source Dcache_SRAM_tb.tcl
-close_sim
-launch_simulation
-source Dcache_SRAM_tb.tcl
-relaunch_sim
-relaunch_sim
-close_sim
-launch_simulation
-source Dcache_SRAM_tb.tcl
-relaunch_sim
-relaunch_sim
-relaunch_sim
-relaunch_sim
-relaunch_sim
-relaunch_sim
-relaunch_sim
-relaunch_sim
-launch_runs synth_1 -jobs 6
-wait_on_run synth_1
-relaunch_sim
-reset_run synth_1
-launch_runs synth_1 -jobs 6
-wait_on_run synth_1
