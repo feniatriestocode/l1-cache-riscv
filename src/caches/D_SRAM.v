@@ -1,10 +1,4 @@
-//USEFUL SITES: 
-// RISCV BYTE ADDRESSING: https://projectf.io/posts/riscv-load-store/
-
-/**A 2-WAY ASSOCIATIVE CACHE**********/ 
-/**CACHE SIZE 1KB // 1024 BYTES*******/
-/**CACHE BLOCK SIZE 16 BYTES**********/
-/**CACHE WORD SIZE 32bits - 4 BYTES***/
+/*IMPLEMENTATION OF A PARAMETRIZED DATA CACHE ON RISC-V*/
 
 `timescale 1ns/1ps
 `include "constants.vh"

@@ -2668,3 +2668,63 @@ selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a (RDIResource.BaseDia
 dismissDialog("Synthesis Completed"); // Q.a (dialog9)
 selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Synthesis, [Synth 8-567] referenced signal 'valid_col' should be on the sensitivity list [/home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM.v:44]. ]", 4, true); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE) - Node
 messagesViewCrossProbe(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "src;-;/home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM.v;-;;-;16;-;line;-;44;-;;-;16;-;"); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:20m:53s
+// Elapsed Time for: 'L.f': 01h:20m:55s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:21m:43s
+// Elapsed Time for: 'L.f': 01h:21m:45s
+// HMemoryUtils.trashcanNow. Engine heap size: 2,449 MB. GUI used memory: 77 MB. Current time: 6/17/24, 10:23:33 PM EEST
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:22m:21s
+// Elapsed Time for: 'L.f': 01h:22m:23s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:22m:27s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:22m:29s
+// Elapsed Time for: 'L.f': 01h:22m:31s
+// HMemoryUtils.trashcanNow. Engine heap size: 2,503 MB. GUI used memory: 77 MB. Current time: 6/17/24, 10:24:18 PM EEST
+// [Engine Memory]: 2,503 MB (+14406kb) [01:23:28]
+// Elapsed Time for: 'L.f': 01h:22m:33s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:22m:55s
+// HMemoryUtils.trashcanNow. Engine heap size: 2,521 MB. GUI used memory: 77 MB. Current time: 6/17/24, 10:24:43 PM EEST
+// Elapsed Time for: 'L.f': 01h:22m:57s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:23m:33s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:23m:35s
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:23m:37s
+// Elapsed Time for: 'L.f': 01h:23m:39s
+// HMemoryUtils.trashcanNow. Engine heap size: 2,557 MB. GUI used memory: 77 MB. Current time: 6/17/24, 10:25:28 PM EEST
+// Elapsed time: 420 seconds
+selectButton(PAResourceAtoD.AbstractFileView_RELOAD, "Reload"); // g (PAResourceAtoD.AbstractFileView_RELOAD)
+// HMemoryUtils.trashcanNow. Engine heap size: 3,088 MB. GUI used memory: 76 MB. Current time: 6/17/24, 10:26:28 PM EEST
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:27m:27s
+// Elapsed Time for: 'L.f': 01h:27m:29s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:27m:33s
+// Elapsed Time for: 'L.f': 01h:27m:35s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:27m:39s
+// Elapsed Time for: 'L.f': 01h:27m:41s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:27m:45s
+// Elapsed Time for: 'L.f': 01h:27m:47s
+// Elapsed time: 661 seconds
+selectButton(PAResourceAtoD.AbstractFileView_RELOAD, "Reload"); // g (PAResourceAtoD.AbstractFileView_RELOAD)
+// HMemoryUtils.trashcanNow. Engine heap size: 2,628 MB. GUI used memory: 76 MB. Current time: 6/17/24, 10:56:28 PM EEST
