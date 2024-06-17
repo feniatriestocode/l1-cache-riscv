@@ -3,56 +3,72 @@
 
 module Icache_SRAM_tb;
     reg clk, rst;
-    reg en, wen, memWen;
-    reg [`DCACHE_BLOCK_SIZE-1:0] bytesAccess;
-    reg [`DTAG_SIZE+`DINDEX_SIZE-1:0] blockAddr;
-    reg [`DBLOCK_SIZE_BITS-1:0] dataIn;
+    reg en, memWen;
+    reg [`ITAG_SIZE+`ISET_INDEX_SIZE-1:0] blockAddr;
+    reg [`IBLOCK_SIZE_BITS-1:0] dataIn;
 
     wire hit;
-    wire dirtyBit;
-    wire [`DBLOCK_SIZE_BITS-1:0] dataOut;
+    wire [`IBLOCK_SIZE_BITS-1:0] dataOut;
 
-    D_SRAM D_SRAM_inst(.clk(clk), .rst(rst), .en(en), .wen(wen), .memWen(memWen), .bytesAccess(bytesAccess), 
-                       .blockAddr(blockAddr), .dataIn(dataIn), .hit(hit), .dirtyBit(dirtyBit), .dataOut(dataOut));
+    Icache_SRAM I_SRAM_inst(.clk(clk), .rst(rst), .en(en), .memWen(memWen), .blockAddr(blockAddr), .dataIn(dataIn), .hit(hit), .dataOut(dataOut));
 
     initial begin
+        en=0;
+        memWen=0;
         clk=0;
         rst=0;
         #20 rst=1;
-        #20
-        wen=1;
-        en=1;
-        memWen=1;
-        blockAddr = {`DTAG_SIZE+`DINDEX_SIZE{1'b0}};
+        #16
+        
+        //WRITE TARGETTING SET 0 BLOCK 0//
+        blockAddr={`ITAG_SIZE+`ISET_INDEX_SIZE{1'b0}};
+        dataIn={`IBLOCK_SIZE_BITS{1'b0}};
 
-        dataIn = {`DBLOCK_SIZE_BITS{1'b0}};
-        
-        #10
-        wen=1;
         en=1;
         memWen=1;
-        blockAddr = {{`DTAG_SIZE{1'b1}},{`DINDEX_SIZE{1'b0}}};
-        dataIn = {`DBLOCK_SIZE_BITS{1'b1}};
         
+        //WRITE DIFFERENT TAG / TARGETTING SET 0 BLOCK 1//
         #10
+        blockAddr={{`ITAG_SIZE{1'b1}},{`ISET_INDEX_SIZE{1'b0}}};
+        dataIn={`IBLOCK_SIZE_BITS{1'b1}};
+
         en=1;
-        wen=0;
-        memWen=0;
-        blockAddr = {{`DTAG_SIZE{1'b1}},{`DINDEX_SIZE{1'b0}}};
+        memWen=1;
+
+        //WRITE TARGETTING SET 1 BLOCK 1//
+        #10
+        blockAddr <= {{`ITAG_SIZE{1'b1}},{`ISET_INDEX_SIZE{1'b0}}};
+        dataIn <= {{32{1'b1}},{`IBLOCK_SIZE_BITS-32{1'b0}}};
+
+        en=1;
+        memWen=1;
         
-        #30
-        wen=1;
+        //WRITE TARGETTING SET 1 BLOCK 1//
+        #10
+        blockAddr={{`ITAG_SIZE{1'b1}},{`ISET_INDEX_SIZE{1'b0}}};
+        dataIn={{32{1'b0}},{`IBLOCK_SIZE_BITS-32{1'b1}}};
+
+        en=1;
+        memWen=1;
+      
+        //READ TARGETTING SET 1 BLOCK 1//
+        #10
+        blockAddr={{`ITAG_SIZE{1'b1}},{`ISET_INDEX_SIZE{1'b0}}};
+
         en=1;
         memWen=0;
-        blockAddr = {{`DTAG_SIZE{1'b1}},{`DINDEX_SIZE{1'b0}}};
-        bytesAccess = {{1'b1},{`DCACHE_BLOCK_SIZE-1{1'b0}}};
-        dataIn = {8'b10101010,{`DBLOCK_SIZE_BITS-8{1'b0}}};
-        
-        
+           
     end
 
     always #5 clk = ~clk;
-   
+    
+    /*always @(posedge clk or negedge rst)begin
+        if(!rst)    
+            dataIn <= {`IBLOCK_SIZE_BITS{1'b0}};
+        else begin
+            blockAddr = {`ITAG_SIZE+`ISET_INDEX_SIZE{1'b0}};
+            dataIn <= dataIn+1;
+        end
 
-      
+    end*/
 endmodule

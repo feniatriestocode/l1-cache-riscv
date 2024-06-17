@@ -9,7 +9,7 @@
 `timescale 1ns/1ps
 `include "constants.vh"
 
-module Icache_SRAM(clk, rst, en, memWen, blockAddr, dataIn, hit, dirtyBit, dataOut);
+module Icache_SRAM(clk, rst, en, memWen, blockAddr, dataIn, hit, dataOut);
     //INPUT PORTS//
     input clk, rst;
     input en, memWen;
@@ -17,18 +17,16 @@ module Icache_SRAM(clk, rst, en, memWen, blockAddr, dataIn, hit, dirtyBit, dataO
     input [`ITAG_SIZE+`ISET_INDEX_SIZE-1:0] blockAddr;
     //OUTPUT PORTS//
     output wire hit;
-    output wire dirtyBit;
     output wire [`IBLOCK_SIZE_BITS-1:0] dataOut;
 
     //SRAM
-    reg [`IASSOCIATIVITY-1:0]   valid_col  [`ICACHE_SIZE_BLOCKS-1:0];
-    reg [`IASSOCIATIVITY-1:0]   dirty_col  [`ICACHE_SIZE_BLOCKS-1:0];
-    reg [`IASSOCIATIVITY-1:0]   status_col [`ICACHE_SIZE_BLOCKS-1:0]; 
-    reg [`ITAG_SIZE-1:0]        tag_col    [`ICACHE_SIZE_BLOCKS-1:0][`IASSOCIATIVITY-1:0];
-    reg [`IBLOCK_SIZE_BITS-1:0] data_col   [`ICACHE_SIZE_BLOCKS-1:0][`IASSOCIATIVITY-1:0];
+    reg [`ICACHE_ASSOCIATIVITY-1:0]   valid_col  [`ICACHE_SIZE_SETS-1:0];
+    reg [`ICACHE_ASSOCIATIVITY-1:0]   status_col [`ICACHE_SIZE_SETS-1:0]; 
+
+    reg [`ITAG_SIZE-1:0]        tag_col    [`ICACHE_SIZE_SETS-1:0][`ICACHE_ASSOCIATIVITY-1:0];
+    reg [`IBLOCK_SIZE_BITS-1:0] data_col   [`ICACHE_SIZE_SETS-1:0][`ICACHE_ASSOCIATIVITY-1:0];
 
     //ADDRESS' SEGMENTATION
-    wire [`IBLOCK_OFFSET_SIZE-1:0] offset;
     wire [`ISET_INDEX_SIZE-1:0] index;
     wire [`ITAG_SIZE-1:0] tag;
     
@@ -36,85 +34,86 @@ module Icache_SRAM(clk, rst, en, memWen, blockAddr, dataIn, hit, dirtyBit, dataO
     assign index = blockAddr[`ISET_INDEX_SIZE-1:0];
     assign tag   = blockAddr[`ITAG_SIZE+`ISET_INDEX_SIZE-1:`ISET_INDEX_SIZE]; 
 
-    //***********************************ASYNCHRONOUS HIT***********************************//
+    //*************************************ASYNCHRONOUS HIT/DATA OUT*************************************//
     integer j;
-    reg [`IASSOCIATIVITY-1:0] hitReg;
+    reg [`ICACHE_ASSOCIATIVITY-1:0] hitReg;
+    reg [`IBLOCK_SIZE_BITS-1:0] dataOut_reg;
 
-    always @(blockAddr or en or rst or tag_col)begin
-        for(j=0; j<`IASSOCIATIVITY; j=j+1)begin
-            if(en && rst)
+    always @(en or rst or blockAddr or memWen or dataIn)begin
+        dataOut_reg = {`IBLOCK_SIZE_BITS{1'b0}};
+        hitReg = {`ICACHE_ASSOCIATIVITY{1'b0}};
+
+        for(j=0; j<`ICACHE_ASSOCIATIVITY; j=j+1)begin
+            if(rst && en && valid_col[index][j])
                 hitReg[j] = (tag_col[index][j] == tag) && valid_col[index][j];
+
+                if(hitReg[j])
+                    dataOut_reg = data_col[index][j];
+
             else
-                hitReg[j] = {`IASSOCIATIVITY{1'b0}};
+                hitReg[j] = {`ICACHE_ASSOCIATIVITY{1'b0}};
         end
     end
 
     assign hit = |hitReg;
-
-    //********************************ASYNCHRONOUS READ DATA********************************//
-
-    integer i;
-    reg [`IBLOCK_SIZE_BITS-1:0] dataOut_reg;
-
-    always @(hit or en or rst or data_col)begin
-        dataOut_reg = {`IBLOCK_SIZE_BITS{1'b0}};
-
-        for(i=0; i<`IASSOCIATIVITY; i=i+1)
-            if(en && rst && hitReg[i] == 1'b1)begin
-                dataOut_reg = data_col[index][i];
-            end
-    end
-
     assign dataOut = dataOut_reg;
 
-    //******************************ΑSYNCHRONOUS READ DIRTY BIT*****************************//
+    //******************************/////////////////////////////*****************************//
 
-    reg dirtyBit_reg;
     reg found;
-    reg [`IASSOCIATIVITY-1:0] blockToEvict;
-    integer w;
+    reg [`ICACHE_ASSOCIATIVITY-1:0] blockToEvict;
+    reg [`ICACHE_ASSOCIATIVITY-1:0] statusCol;
 
-    always @(hit or en or rst or blockAddr)begin
-        dirtyBit_reg = 1'b0;
+    always @(en or rst or blockAddr or memWen or dataIn)begin
         found = 1'b0;
-        blockToEvict = {`IASSOCIATIVITY{1'b0}};
-
-        if(en && rst && !hit)
-            for(w=0; w<`IASSOCIATIVITY; w=w+1)
-                if(status_col[index][w] == 1'b0 && found == 1'b0)begin
+        blockToEvict = {`ICACHE_ASSOCIATIVITY{1'b0}};
+        statusCol = {`ICACHE_ASSOCIATIVITY{1'b0}};
+        
+        if(en && rst)
+            for(j=0; j<`ICACHE_ASSOCIATIVITY; j=j+1)
+                if((valid_col[index][j] == 1'b0 || status_col[index][j] == 1'b0) && found==1'b0)begin
                     found = 1'b1;
-                    blockToEvict[w] = 1'b1;
-                    dirtyBit_reg = dirty_col[index][w]; 
-                end
+                    blockToEvict[j] = 1'b1;
+                    statusCol[j] = 1'b1;
+                end else
+                    statusCol[j] = status_col[index][j];
     end
 
-    assign dirtyBit = dirtyBit_reg;
-
     //********************************SYNCHRONOUS WRITE DATA*******************************//
+
+    reg en_pl;
+    reg memWen_pl;
+    reg hit_pl;
+    reg [`DCACHE_ASSOCIATIVITY-1:0]   blockToEvict_pl;
+    reg [`DCACHE_ASSOCIATIVITY-1:0]   hitReg_pl;
+    reg [`DSET_INDEX_SIZE-1:0]        index_pl;
+    reg [`DTAG_SIZE-1:0]              tag_pl;
+    reg [`DBLOCK_SIZE_BITS-1:0]       dataIn_pl;
    
     integer m,k,l;
     
     always @(posedge clk or negedge rst)begin
         if(!rst)begin
-             for(l=0; l<`ICACHE_SIZE_BLOCKS; l=l+1)begin
-                valid_col [l] = {`IASSOCIATIVITY{1'b0}};
-                status_col[l] = {`IASSOCIATIVITY{1'b0}};
-                dirty_col [l] = {`IASSOCIATIVITY{1'b0}};
+            for(l=0; l<`ICACHE_SIZE_SETS; l=l+1)begin
+                valid_col [l] <= {`ICACHE_ASSOCIATIVITY{1'b0}}; 
+                status_col[l] <= {`ICACHE_ASSOCIATIVITY{1'b0}};  
+                for(m=0; m<`ICACHE_ASSOCIATIVITY; m=m+1)begin
+                   tag_col [l][m] <= 1'b0;  
+                   data_col[l][m] <= 1'b0;
+                end
             end
         end
         else begin
             if(en)begin //CACHE ENABLED
                 if(hit)begin //BLOCK HIT
-                    for(m=0; m<`DASSOCIATIVITY; m=m+1)begin
+                    for(m=0; m<`ICACHE_ASSOCIATIVITY; m=m+1)begin
                         if(hitReg[m])begin
-                            valid_col [index][m]  <= 1'b1;
-                            dirty_col [index][m]  <= 1'b1;
+                            data_col  [index][m] <= dataIn;
                             status_col[index][m]  <= 1'b1;
-                            tag_col   [index][m]  <= tag;
                                 
                             //PLRU POLICY
-                            if(&status_col[index])begin
-                                for(k=0; k<`DASSOCIATIVITY; k=k+1)
+                            if(&statusCol)begin
+                                for(k=0; k<`ICACHE_ASSOCIATIVITY; k=k+1)
                                     if(k != m)
                                         status_col[index][k] <= 1'b0;
                                 end
@@ -122,20 +121,20 @@ module Icache_SRAM(clk, rst, en, memWen, blockAddr, dataIn, hit, dirtyBit, dataO
                     end
                 end 
                 else if(memWen)begin 
-                    for(m=0; m<`IASSOCIATIVITY; m=m+1)`
-                        if(blockToEvict[m] == 1'b1)begin
-                            dirty_col [index][m] <= 1'b0;
+                    for(m=0; m<`ICACHE_ASSOCIATIVITY; m=m+1)
+                        if(blockToEvict[m])begin
                             valid_col [index][m] <= 1'b1;
                             status_col[index][m] <= 1'b1;
+
+                            //PLRU POLICY
+                            if(&statusCol)
+                                for(k=0; k<`ICACHE_ASSOCIATIVITY; k=k+1)
+                                    if(k != m)
+                                        status_col[index][k] <= 1'b0;
+
                             tag_col   [index][m] <= tag; 
                             data_col  [index][m] <= dataIn;
-                        end
-
-                        //PLRU POLICY
-                        if(&status_col[index])
-                            for(k=0; k<`IASSOCIATIVITY; k=k+1)
-                                if(k != m)
-                                    status_col[index][k] <= 1'b0;
+                        end             
                 end //end of memWen if
             end //end of EN if
         end //end of rst==1 if
