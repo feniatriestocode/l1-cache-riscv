@@ -91,6 +91,7 @@ module Dcache_SRAM(clk, rst, en, wen, memWen, bytesAccess, blockAddr, dataIn, hi
             for(l=0; l<`DCACHE_SIZE_SETS; l=l+1)begin
                 valid_col [l] <= {`DCACHE_ASSOCIATIVITY{1'b0}}; 
                 status_col[l] <= {`DCACHE_ASSOCIATIVITY{1'b0}};  
+                dirty_col[l] <= {`DCACHE_ASSOCIATIVITY{1'b0}};  
                 for(m=0; m<`DCACHE_ASSOCIATIVITY; m=m+1)begin
                    tag_col [l][m] <= 1'b0;  
                    data_col[l][m] <= 1'b0;

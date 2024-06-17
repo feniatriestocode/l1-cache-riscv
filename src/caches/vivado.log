@@ -728,3 +728,55 @@ Compiling module xil_defaultlib.glbl
 Built simulation snapshot Dcache_SRAM_tb_behav
 INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
 Time resolution is 1 ps
+launch_runs synth_1 -jobs 6
+WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run synth_1. Auto-incremental flow will not be run, the standard flow will be run instead.
+[Mon Jun 17 22:14:59 2024] Launched synth_1...
+Run output will be captured here: /home/iordana/Documents/Parallel Computer Architecture/project_1/project_1.runs/synth_1/runme.log
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM_tb.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM.v:]
+relaunch_sim
+Command: launch_simulation -step compile -simset sim_1 -mode behavioral
+INFO: [Vivado 12-12493] Simulation top is 'Dcache_SRAM_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/iordana/Documents/Parallel Computer Architecture/project_1/project_1.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/iordana/Documents/Parallel Computer Architecture/project_1/project_1.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj Dcache_SRAM_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Dcache_SRAM
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Dcache_SRAM_tb
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+Command: launch_simulation -step elaborate -simset sim_1 -mode behavioral
+INFO: [Vivado 12-12493] Simulation top is 'Dcache_SRAM_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/iordana/Documents/Parallel Computer Architecture/project_1/project_1.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/iordana/Documents/Parallel Computer Architecture/project_1/project_1.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot Dcache_SRAM_tb_behav xil_defaultlib.Dcache_SRAM_tb xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2023.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2023.2/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot Dcache_SRAM_tb_behav xil_defaultlib.Dcache_SRAM_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.Dcache_SRAM
+Compiling module xil_defaultlib.Dcache_SRAM_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot Dcache_SRAM_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+Time resolution is 1 ps
+reset_run synth_1
+INFO: [Project 1-1160] Copying file /home/iordana/Documents/Parallel Computer Architecture/project_1/project_1.runs/synth_1/Dcache_SRAM.dcp to /home/iordana/Documents/Parallel Computer Architecture/project_1/project_1.srcs/utils_1/imports/synth_1 and adding it to utils fileset
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM_tb.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/iordana/Documents/GitHub/riscv/src/caches/D_SRAM.v:]
+launch_runs synth_1 -jobs 6
+[Mon Jun 17 22:17:59 2024] Launched synth_1...
+Run output will be captured here: /home/iordana/Documents/Parallel Computer Architecture/project_1/project_1.runs/synth_1/runme.log
