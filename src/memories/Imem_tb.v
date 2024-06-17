@@ -4,10 +4,10 @@
 
 module Imem_tb();
   reg clock, reset, ren;
-  reg [4:0] addr;
+  reg [15:0] addr;
 
   wire ready;
-  wire [255:0] dout;
+  wire [127:0] dout;
 
   integer i;
 
@@ -21,37 +21,37 @@ module Imem_tb();
 
   always
   begin
-    clock = 0; reset = 0; ren = 0; addr = 5'b0; // initialization
+    clock = 0; reset = 0; ren = 0; addr = 16'b0; // initialization
 
     // with reset activated
-    #10 addr = 5'b0;
+    #10 addr = 16'b0;
     #10 ren = 1;
     #1000 ren = 0;
     for(i=1; i<32; i=i+1)
     begin
-      #10 addr = addr + 5'b1;
+      #10 addr = addr + 16'b1;
       #10 ren = 1;
       #1000 ren = 0;
     end
 
     // with ren constantly activated and i change every half cycle
     #1000 reset = 1;
-    #10 addr = 5'b0;
+    #10 addr = 16'b0;
     #10 ren = 1;
     #1000
     for(i=1; i<32; i=i+1)
     begin
-      #5 addr = addr + 5'b1;
+      #5 addr = addr + 16'b1;
     end
 
     // correct
     #1000 reset = 1;
-    #10 addr = 5'b0;
+    #10 addr = 16'b0;
     #10 ren = 1;
     #1000 ren = 0;
     for(i=1; i<32; i=i+1)
     begin
-      #10 addr = addr + 5'b1;
+      #10 addr = addr + 16'b1;
       #10 ren = 1;
       #1000 ren = 0;
     end
@@ -59,7 +59,7 @@ module Imem_tb();
 
     // reset with ren activated
     #1000 reset = 1;
-    #10 addr = 5'b0100;
+    #10 addr = 16'b0100;
     #10 ren = 1;
     #1001 reset = 0;
 
