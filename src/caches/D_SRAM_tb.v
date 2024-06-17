@@ -17,39 +17,51 @@ module Dcache_SRAM_tb;
                        .blockAddr(blockAddr), .dataIn(dataIn), .hit(hit), .dirtyBit(dirtyBit), .dataOut(dataOut));
 
     initial begin
+        en=0;
+        wen=0;
+        memWen=0;
         clk=0;
         rst=0;
         #20 rst=1;
-        #20
-        wen=1;
-        en=1;
-        memWen=1;
-        blockAddr = {`DTAG_SIZE+`DSET_INDEX_SIZE{1'b0}};
+        #16
+        
+        //WRITE TARGETTING SET 0 BLOCK 0//
+        blockAddr={`ITAG_SIZE+`ISET_INDEX_SIZE{1'b0}};
+        dataIn={`IBLOCK_SIZE_BITS{1'b0}};
 
-        dataIn = {`DBLOCK_SIZE_BITS{1'b0}};
-        
-        #10
-        wen=1;
         en=1;
+        wen=1;
         memWen=1;
-        blockAddr = {{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
-        dataIn = {`DBLOCK_SIZE_BITS{1'b1}};
         
+        //WRITE DIFFERENT TAG / TARGETTING SET 0 BLOCK 1//
         #10
+        blockAddr={{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
+        dataIn={`DBLOCK_SIZE_BITS{1'b1}};
+
+        en=1;
+        wen=1;
+        memWen=1;
+
+        #10 
+        blockAddr={{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
+        dataIn={8'b10101010,{`DBLOCK_SIZE_BITS-8{1'b0}}};
+        bytesAccess = {1'b1,{`DBLOCK_SIZE-1{1'b0}}};
+        
+        en=1;
+        wen=1;
+        memWen=0;
+        
+        #10 
+        blockAddr={{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
         en=1;
         wen=0;
         memWen=0;
-        blockAddr = {{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
         
-        #30
-        wen=1;
+        #10 
+        blockAddr={`ITAG_SIZE+`ISET_INDEX_SIZE{1'b0}};
         en=1;
+        wen=0;
         memWen=0;
-        blockAddr = {{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
-        bytesAccess = {{1'b1},{`DBLOCK_SIZE-1{1'b0}}};
-        dataIn = {8'b10101010,{`DBLOCK_SIZE_BITS-8{1'b0}}};
-        
-        
     end
 
     always #5 clk = ~clk;

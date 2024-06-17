@@ -125,6 +125,8 @@ module Icache_SRAM(clk, rst, en, memWen, blockAddr, dataIn, hit, dataOut);
                         if(blockToEvict[m])begin
                             valid_col [index][m] <= 1'b1;
                             status_col[index][m] <= 1'b1;
+                            tag_col   [index][m] <= tag; 
+                            data_col  [index][m] <= dataIn;
 
                             //PLRU POLICY
                             if(&statusCol)
@@ -132,8 +134,6 @@ module Icache_SRAM(clk, rst, en, memWen, blockAddr, dataIn, hit, dataOut);
                                     if(k != m)
                                         status_col[index][k] <= 1'b0;
 
-                            tag_col   [index][m] <= tag; 
-                            data_col  [index][m] <= dataIn;
                         end             
                 end //end of memWen if
             end //end of EN if

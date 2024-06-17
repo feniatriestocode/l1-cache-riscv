@@ -75,7 +75,7 @@ module Dcache_SRAM(clk, rst, en, wen, memWen, bytesAccess, blockAddr, dataIn, hi
             for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1)
                 if((valid_col[index][j] == 1'b0 || status_col[index][j] == 1'b0) && found==1'b0)begin
                     found = 1'b1;
-                    dirtyBit = dirty_col[index][w]; 
+                    dirtyBit = dirty_col[index][j]; 
                     blockToEvict[j] = 1'b1;
                     statusCol[j] = 1'b1;
                 end else
@@ -88,8 +88,14 @@ module Dcache_SRAM(clk, rst, en, wen, memWen, bytesAccess, blockAddr, dataIn, hi
     
     always @(posedge clk or negedge rst)begin
         if(!rst)begin
-             for(l=0; l<`DCACHE_SIZE_BLOCKS; l=l+1)
-                valid_col [l] = {`DCACHE_ASSOCIATIVITY{1'b0}};
+            for(l=0; l<`DCACHE_SIZE_SETS; l=l+1)begin
+                valid_col [l] <= {`DCACHE_ASSOCIATIVITY{1'b0}}; 
+                status_col[l] <= {`DCACHE_ASSOCIATIVITY{1'b0}};  
+                for(m=0; m<`DCACHE_ASSOCIATIVITY; m=m+1)begin
+                   tag_col [l][m] <= 1'b0;  
+                   data_col[l][m] <= 1'b0;
+                end
+            end
         end
         else begin
             if(en)begin //CACHE ENABLED
@@ -100,12 +106,12 @@ module Dcache_SRAM(clk, rst, en, wen, memWen, bytesAccess, blockAddr, dataIn, hi
                                 dirty_col [index][m]  <= 1'b1;
                                 status_col[index][m]  <= 1'b1;
                                 
-                                //PLRU POLICY
-                                if(&status_col[index])begin
+                                 //PLRU POLICY
+                                if(&statusCol)begin
                                     for(k=0; k<`DCACHE_ASSOCIATIVITY; k=k+1)
                                         if(k != m)
                                             status_col[index][k] <= 1'b0;
-                                end
+                                    end
                             
                                 //CACHE WRITE BASED ON WHICH BYTE WE WANT TO ACCESS
                                 for(l=0; l<`DBLOCK_SIZE; l=l+1)
@@ -122,15 +128,15 @@ module Dcache_SRAM(clk, rst, en, wen, memWen, bytesAccess, blockAddr, dataIn, hi
                                 status_col[index][m] <= 1'b1;
                                 tag_col   [index][m] <= tag;
                                 data_col  [index][m] <= dataIn;
+
+                                    //PLRU POLICY
+                                if(&statusCol)begin
+                                    for(k=0; k<`DCACHE_ASSOCIATIVITY; k=k+1)
+                                        if(k != m)
+                                            status_col[index][k] <= 1'b0;
+                                    end
                             end
-
-                        //PLRU POLICY
-                        if(&status_col[index])
-                            for(k=0; k<`DCACHE_ASSOCIATIVITY; k=k+1)
-                                if(k != m)
-                                    status_col[index][k] <= 1'b0;
                     end
-
                 end //end of WEN if
             end //end of EN if
         end //end of rst==1 if
