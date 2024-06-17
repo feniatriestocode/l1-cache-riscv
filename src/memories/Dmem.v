@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 //`include "constants.v"
-//`include "counter.v"
+//`include "counter.v"aaa
 
 // If ren stays up then the next read has no delay !
 
