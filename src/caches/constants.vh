@@ -38,7 +38,7 @@
 `define IBLOCK_SIZE_BITS        `IBLOCK_SIZE*8                                      // in bits
 
 //ADDRESS SEGMENTS//
-`define IADDR_SIZE              32 
+`define IADDR_SIZE              $clog2(`IMEM_SIZE)
 `define IBLOCK_OFFSET_SIZE      $clog2(`IBLOCK_SIZE)
 `define ISET_INDEX_SIZE         $clog2(`ICACHE_SIZE_SETS)
 `define ITAG_SIZE               `IADDR_SIZE - `ISET_INDEX_SIZE - `IBLOCK_OFFSET_SIZE

@@ -8,7 +8,7 @@
 //ADDRESS SEGMENTS//
 `define DADDR_SIZE              $clog2(`DMEM_SIZE)
 `define DBLOCK_OFFSET_SIZE      $clog2(`DBLOCK_SIZE)
-`define DSET_INDEX_SIZE         $clog2(`DCACHE_ASSOCIATIVITY)
+`define DSET_INDEX_SIZE         $clog2(`DCACHE_SIZE_SETS)
 `define DTAG_SIZE               `DADDR_SIZE - `DSET_INDEX_SIZE - `DBLOCK_OFFSET_SIZE 
 
 /*********************************************D-CACHE*********************************************/
