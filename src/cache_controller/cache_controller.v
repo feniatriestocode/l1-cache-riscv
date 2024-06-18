@@ -1,7 +1,7 @@
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 
 //`include "constants.v"
-//`include "counter.v"
+`include "../memories/counter.v"
 
 module dcache_controller(// pipeline inputs
                         input clock,

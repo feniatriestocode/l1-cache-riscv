@@ -1,9 +1,9 @@
 /*IMPLEMENTATION OF A PARAMETRIZED DATA MEMORY ON RISC-V*/
 
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 
 `include "constants.vh"
-//`include "counter.v"
+`include "../memories/counter.v"
 
 // If ren stays up then the next read has no delay !
 
@@ -25,7 +25,7 @@ reg flag;
 
 wire delayed;
 wire [(`DMEM_DELAY_CNTR_SIZE-1):0] delay_counter;
-wire temp_ready, temp_done;
+wire temp_ready, temp_done, counter_reset;
 
 /****** LOGIC ******/
 assign counter_reset = ~reset || (~wen && ~ren) || (wen && ren);
