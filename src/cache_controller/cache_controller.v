@@ -36,9 +36,9 @@ module dcache_controller(// pipeline inputs
                         output [(`DBLOCK_SIZE_BITS-1):0] memDin);
 
   			   
-wire cpu_req;
+wire pipeline_req;
 
-assign cpu_req = ren || wen;
+assign pipeline_req = ren || wen;
 
 
 
@@ -64,12 +64,12 @@ begin
     end
 end
 
-//COMBINATIONAL LOGIC
-always @(state or cpu_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady)
+// COMBINATIONAL LOGIC FOR NEXT STATE
+always @(state or pipeline_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady)
 begin
 	case (state)
 	IDLE: begin
-		if(cpu_req && !cacheHit) begin
+		if(pipeline_req && !cacheHit) begin
             next_state = MISS;
         end
         else begin 
@@ -81,7 +81,7 @@ begin
             next_state = WRITEBACK;
         end
         else begin
-        next_state = MEMREAD;
+            next_state = MEMREAD;
         end
 	end
 	MEMREAD: begin
@@ -89,7 +89,7 @@ begin
             next_state = MEMCACHE;
         end
         else begin
-        next_state = MEMREAD;
+            next_state = MEMREAD;
         end
 	end
 	WRITEBACK: begin
@@ -97,7 +97,7 @@ begin
             next_state = MEMREAD;
         end
         else begin
-        next_state = WRITEBACK;
+            next_state = WRITEBACK;
         end
 	end
 	MEMCACHE: begin
@@ -108,36 +108,35 @@ begin
 end
 
 	
-//COMBINATIONAL LOGIC FOR OUTPUTS
+// COMBINATIONAL LOGIC FOR OUTPUTS
+    always @(state or pipeline_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady)
+    begin
+        stall = 1'b0;
+        cacheEn = 1'b0;
+        cacheWen = 1'b0; 
+        cacheFullblockWen = 1'b0;
+        memRen = 1'b0;
+        memWen = 1'b0;
 
-always @(state,cpu_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
-begin
-    stall = 1'b0;
-    cacheEn = 1'b0;
-    cacheWen = 1'b0; 
-    cacheFullblockWen = 1'b0;
-    memRen = 1'b0;
-    memWen = 1'b0;
-	case (state)
-	MISS: begin
-       stall = 1'b1;
-	end
-	MEMREAD: begin
-        stall = 1'b1;
-        memRen = 1'b1;
-	end
-	WRITEBACK: begin
-       stall = 1'b1;
-       memWen = 1'b1;
-	end
-	MEMCACHE: begin
-       stall = 1'b1;
-       cacheEn = 1'b1;
-       cacheWen = 1'b1; 
-       cacheFullblockWen = 1'b1;
-	end
-    endcase
+	    case (state)
+	    MISS: begin
+            stall = 1'b1;
+        end
+        MEMREAD: begin
+            stall = 1'b1;
+            memRen = 1'b1;
+        end
+        WRITEBACK: begin
+            stall = 1'b1;
+            memWen = 1'b1;
+        end
+        MEMCACHE: begin
+            stall = 1'b1;
+            cacheEn = 1'b1;
+            cacheWen = 1'b1; 
+            cacheFullblockWen = 1'b1;
+        end
+        endcase
 end
 
-                        
 endmodule

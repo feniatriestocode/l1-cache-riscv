@@ -21,6 +21,7 @@ reg [(`IBLOCK_SIZE_BITS-1):0] data [0:(`IMEM_SIZE_BLOCKS-1)];
 
 wire delayed;
 wire [(`IMEM_DELAY_CNTR_SIZE-1):0] delay_counter;
+wire counter_reset;
 
 /****** LOGIC ******/
 assign counter_reset = ~reset || ~ren;
