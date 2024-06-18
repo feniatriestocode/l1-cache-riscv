@@ -12,7 +12,7 @@ module Dcache_SRAM(clk, rst, en, wen, memWen, bytesAccess, blockAddr, dataIn, hi
     input clk, rst;
     input en, wen, memWen;
     input [`DBLOCK_SIZE-1:0] bytesAccess;
-    input [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] blockAddr;
+    input [`DMEM_BLOCK_ADDR_SIZE-1:0] blockAddr;
     input [`DBLOCK_SIZE_BITS-1:0] dataIn;
     //output ports//
     output wire hit;
@@ -45,15 +45,13 @@ module Dcache_SRAM(clk, rst, en, wen, memWen, bytesAccess, blockAddr, dataIn, hi
 
         for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1)begin
             //check all blocks in the expected set to find a possible hit
-            if(rst && en && valid_col[index][j])
+            if(rst && en)begin
                 hitReg[j] = (tag_col[index][j] == tag) && valid_col[index][j];
 
                 //in case of a hit read the data
                 if(hitReg[j])
                     dataOut = data_col[index][j];
-
-            else
-                hitReg[j] = {`DCACHE_ASSOCIATIVITY{1'b0}};
+            end
         end
     end
 
