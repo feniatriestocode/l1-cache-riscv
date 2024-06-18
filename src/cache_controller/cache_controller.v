@@ -7,7 +7,7 @@ module dcache_controller(// pipeline inputs
                         input clock,
                         input reset,
                         input ren, wen,
-                        input [(`DMEM_SIZE-1):0] addr,
+                        input [(`DADDR_SIZE-1):0] addr,
                         input [(`DWORD_SIZE-1):0] byteSelectVector,
                         input [(`DWORD_SIZE_BITS-1):0] din,
                         
@@ -43,7 +43,7 @@ assign cpu_req = ren || wen;
 
 
 
-//-----------------------FSM----------------------------------------//
+/*****************************************DCACHE MISS FSM*****************************************/
 
 parameter IDLE = 3'b000,
           MISS = 3'b001,
@@ -51,10 +51,9 @@ parameter IDLE = 3'b000,
           WRITEBACK = 3'b011,
           MEMCACHE = 3'b100;
 
+reg [2:0] state, next_state;
 
-reg [2:0 ]state, next_state;
-//SEQUENTIAL LOGIC
-
+// SEQUENTIAL LOGIC
 always @(posedge clock or negedge reset)
 begin
 	if (reset == 1'b0) begin
@@ -63,11 +62,10 @@ begin
 	else begin
         state <= next_state;
     end
-    current_state <= next_state; // Update current_state output
 end
 
 //COMBINATIONAL LOGIC
-always @(state, cpu_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
+always @(state or cpu_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady)
 begin
 	case (state)
 	IDLE: begin
