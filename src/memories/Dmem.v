@@ -25,7 +25,8 @@ reg flag;
 
 wire delayed;
 wire [(`DMEM_DELAY_CNTR_SIZE-1):0] delay_counter;
-wire temp_ready, temp_done, counter_reset;
+wire temp_ready, temp_done;
+wire counter_reset;
 
 /****** LOGIC ******/
 assign counter_reset = ~reset || (~wen && ~ren) || (wen && ren);

@@ -7,43 +7,43 @@ module dcache_controller(// pipeline inputs
                         input clock,
                         input reset,
                         input ren, wen,
-                        input [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0]  addr,
-                        input [`DWORD_SIZE-1:0] byteSelectVector,
-                        input [`DWORD_SIZE_BITS-1:0] din,
+                        input [(`DADDR_SIZE-1):0] addr,
+                        input [(`DWORD_SIZE-1):0] byteSelectVector,
+                        input [(`DWORD_SIZE_BITS-1):0] din,
                         
                         // cache inputs
                         input cacheHit,
                         input cacheDirtyBit,
-                        input [`DBLOCK_SIZE_BITS-1:0] cacheDout,
+                        input [(`DBLOCK_SIZE_BITS-1):0] cacheDout,
                         
                         // memory inputs
                         input memReadReady, memWriteDone,
-                        input [((`DBLOCK_SIZE_BITS)-1):0] memDout,
+                        input [(`DBLOCK_SIZE_BITS-1):0] memDout,
                         
                         // pipeline outputs
                         output stall,
-                        output [`DWORD_SIZE_BITS-1:0] dout,
+                        output [(`DWORD_SIZE_BITS-1):0] dout,
+
+                        output [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
 
                         // cache outputs
                         output cacheEn, cacheWen, cacheMemWen,
-                        output [`DBLOCK_SIZE-1:0] cacheBytesAccess,
-                        output [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] cacheBlockAddr,
-                        output [`DBLOCK_SIZE_BITS-1:0] cacheDin,
+                        output [(`DBLOCK_SIZE-1):0] cacheBytesAccess,
+                        output [(`DBLOCK_SIZE_BITS-1):0] cacheDin,
                         
                         // memory outputs
                         output memRen, memWen,
-                        output [`DMEM_BLOCK_ADDR-1:0] memBlockAddr,
-                        output [((`DBLOCK_SIZE_BITS)-1):0]  memDin);
+                        output [(`DBLOCK_SIZE_BITS-1):0] memDin);
 
   			   
-wire cpu_req;
+wire pipeline_req;
 
-assign cpu_req = ren || wen;
-
-
+assign pipeline_req = ren || wen;
 
 
-//-----------------------FSM----------------------------------------//
+
+
+/*****************************************DCACHE MISS FSM*****************************************/
 
 parameter IDLE = 3'b000,
           MISS = 3'b001,
@@ -51,10 +51,9 @@ parameter IDLE = 3'b000,
           WRITEBACK = 3'b011,
           MEMCACHE = 3'b100;
 
+reg [2:0] state, next_state;
 
-reg [2:0 ]state, next_state;
-//SEQUENTIAL LOGIC
-
+// SEQUENTIAL LOGIC
 always @(posedge clock or negedge reset)
 begin
 	if (reset == 1'b0) begin
@@ -63,15 +62,14 @@ begin
 	else begin
         state <= next_state;
     end
-    current_state <= next_state; // Update current_state output
 end
 
-//COMBINATIONAL LOGIC
-always @(state, cpu_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
+// COMBINATIONAL LOGIC FOR NEXT STATE
+always @(state or pipeline_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady)
 begin
 	case (state)
 	IDLE: begin
-		if(cpu_req && !cacheHit) begin
+		if(pipeline_req && !cacheHit) begin
             next_state = MISS;
         end
         else begin 
@@ -83,7 +81,7 @@ begin
             next_state = WRITEBACK;
         end
         else begin
-        next_state = MEMREAD;
+            next_state = MEMREAD;
         end
 	end
 	MEMREAD: begin
@@ -91,7 +89,7 @@ begin
             next_state = MEMCACHE;
         end
         else begin
-        next_state = MEMREAD;
+            next_state = MEMREAD;
         end
 	end
 	WRITEBACK: begin
@@ -99,7 +97,7 @@ begin
             next_state = MEMREAD;
         end
         else begin
-        next_state = WRITEBACK;
+            next_state = WRITEBACK;
         end
 	end
 	MEMCACHE: begin
@@ -110,36 +108,35 @@ begin
 end
 
 	
-//COMBINATIONAL LOGIC FOR OUTPUTS
+// COMBINATIONAL LOGIC FOR OUTPUTS
+    always @(state or pipeline_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady)
+    begin
+        stall = 1'b0;
+        cacheEn = 1'b0;
+        cacheWen = 1'b0; 
+        cacheFullblockWen = 1'b0;
+        memRen = 1'b0;
+        memWen = 1'b0;
 
-always @(state,cpu_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
-begin
-    stall = 1'b0;
-    cacheEn = 1'b0;
-    cacheWen = 1'b0; 
-    cacheFullblockWen = 1'b0;
-    memRen = 1'b0;
-    memWen = 1'b0;
-	case (state)
-	MISS: begin
-       stall = 1'b1;
-	end
-	MEMREAD: begin
-        stall = 1'b1;
-        memRen = 1'b1;
-	end
-	WRITEBACK: begin
-       stall = 1'b1;
-       memWen = 1'b1;
-	end
-	MEMCACHE: begin
-       stall = 1'b1;
-       cacheEn = 1'b1;
-       cacheWen = 1'b1; 
-       cacheFullblockWen = 1'b1;
-	end
-    endcase
+	    case (state)
+	    MISS: begin
+            stall = 1'b1;
+        end
+        MEMREAD: begin
+            stall = 1'b1;
+            memRen = 1'b1;
+        end
+        WRITEBACK: begin
+            stall = 1'b1;
+            memWen = 1'b1;
+        end
+        MEMCACHE: begin
+            stall = 1'b1;
+            cacheEn = 1'b1;
+            cacheWen = 1'b1; 
+            cacheFullblockWen = 1'b1;
+        end
+        endcase
 end
 
-                        
 endmodule
