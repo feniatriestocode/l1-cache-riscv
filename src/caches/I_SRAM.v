@@ -1,11 +1,11 @@
 /*IMPLEMENTATION OF A PARAMETRIZED INSTRUCTION CACHE ON RISC-V*/
 
-`timescale 1ns/1ps
-`include "constants.vh"
-
 /*Asyc Read: rst=1, en=1, memWen=0, blockAddr=[TAG,INDEX], dataIn=don't care*/
 /*Syc Write: rst=1, en=1, memWen=1, blockAddr=[TAG,INDEX], dataIn=don't care
   Write in memory in the next cycle from the write signals' arrival*/
+
+`timescale 1ns/1ps
+`include "constants.vh"
 
 module Icache_SRAM(clk, rst, en, memWen, blockAddr, dataIn, hit, dataOut);
     //input ports//
