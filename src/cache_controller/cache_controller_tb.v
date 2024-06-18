@@ -6,7 +6,7 @@ module dcache_controller_tb;
             reg reset;
             reg ren;
             reg wen;
-            reg [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] addr;//[15:0]
+            reg [`DMEM_SIZE-1:0] addr;//[15:0]
             reg [`DWORD_SIZE-1:0] byteSelectVector; //[3:0]
             reg [`DWORD_SIZE_BITS-1:0] din; //[31:0]
                                     
@@ -24,6 +24,10 @@ module dcache_controller_tb;
             wire stall;
             wire [`DWORD_SIZE_BITS-1:0] dout;//[31:0]
 
+
+           //both cache and memory wire 
+            wire [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
+
             // cache wires
             wire cacheEn;
             wire cacheWen;
@@ -35,7 +39,6 @@ module dcache_controller_tb;
             // memory wires
             wire memRen; 
             wire memWen;
-            wire [`DMEM_BLOCK_ADDR_SIZE-1:0] memBlockAddr;//[15:0]
             wire [((`DBLOCK_SIZE_BITS)-1):0]  memDin;//[127:0]
 
 
@@ -112,8 +115,10 @@ dcache_controller controller2check(
     memReadReady = 1;
     #100;
     memReadReady = 0;
-    
+    wen = 0;
 
+
+    #10;
     addr = {{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
     din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b0}}};
     byteSelectVector = 
@@ -121,16 +126,19 @@ dcache_controller controller2check(
     memReadReady = 1;
     #120;
     memReadReady = 0;
+    wen = 0;
 
 //set 2:
+    #10;
     addr = {{`DTAG_SIZE{1'b0}},{5'b0010}};
     din = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
      #90;
     memReadReady = 1;
     #100;
     memReadReady = 0;
+    wen = 0;
 
-
+    #10;
     addr = {{`DTAG_SIZE{1'b1}},{5'b0010}};
     din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b1}}};
      #90;
@@ -191,6 +199,7 @@ din = {`DWORD_SIZE_BITS{1'b0}};
 memReadReady = 1;
 #100;
 memReadReady = 0;
+wen = 0;
 
 
 #10;
@@ -203,6 +212,18 @@ memReadReady = 1;
 #100;
 memReadReady = 0;
 
+//initialization
+    ren = 0;
+    wen = 0;
+    addr = {`DTAG_SIZE+`DSET_INDEX_SIZE{1'b0}};
+    byteSelectVector = {`DWORD_SIZE{1'b1}};
+    din = {`DWORD_SIZE_BITS{1'b0}};
+    cacheHit = 0;
+    cacheDirtyBit = 0;
+    cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
+    memReadReady = 0;
+    memWriteDone = 0;
+    memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 //------------CASE 4-> CACHE READ MISS no writeback------------//
 
@@ -210,6 +231,19 @@ memReadReady = 0;
 
 
 
+
+//initialization
+    ren = 0;
+    wen = 0;
+    addr = {`DTAG_SIZE+`DSET_INDEX_SIZE{1'b0}};
+    byteSelectVector = {`DWORD_SIZE{1'b1}};
+    din = {`DWORD_SIZE_BITS{1'b0}};
+    cacheHit = 0;
+    cacheDirtyBit = 0;
+    cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
+    memReadReady = 0;
+    memWriteDone = 0;
+    memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 
 //------------CASE 5-> CACHE READ MISS with writeback------------//
@@ -219,6 +253,19 @@ cacheDirtyBit = 1;
 
 
 
+
+//initialization
+    ren = 0;
+    wen = 0;
+    addr = {`DTAG_SIZE+`DSET_INDEX_SIZE{1'b0}};
+    byteSelectVector = {`DWORD_SIZE{1'b1}};
+    din = {`DWORD_SIZE_BITS{1'b0}};
+    cacheHit = 0;
+    cacheDirtyBit = 0;
+    cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
+    memReadReady = 0;
+    memWriteDone = 0;
+    memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 
 //------------CASE 6-> CACHE WRITE MISS with writeback------------//
