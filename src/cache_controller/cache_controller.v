@@ -7,33 +7,33 @@ module dcache_controller(// pipeline inputs
                         input clock,
                         input reset,
                         input ren, wen,
-                        input [-1:0] addr,
-                        input [-1:0] byteSelectVector,
-                        input [-1:0] din,
+                        input [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0]  addr,
+                        input [`DWORD_SIZE-1:0] byteSelectVector,
+                        input [`DWORD_SIZE_BITS-1:0] din,
                         
                         // cache inputs
                         input cacheHit,
                         input cacheDirtyBit,
-                        input [-1:0] cacheDout,
+                        input [`DBLOCK_SIZE_BITS-1:0] cacheDout,
                         
                         // memory inputs
                         input memReadReady, memWriteDone,
-                        input [-1:0] memDout,
+                        input [((`DBLOCK_SIZE_BITS)-1):0] memDout,
                         
                         // pipeline outputs
                         output stall,
-                        output [-1:0] dout,
+                        output [`DWORD_SIZE_BITS-1:0] dout,
 
                         // cache outputs
                         output cacheEn, cacheWen, cacheMemWen,
-                        output [-1:0] cacheBytesAccess,
-                        output [-1:0] cacheBlockAddr,
-                        output [-1:0] cacheDin,
+                        output [`DBLOCK_SIZE-1:0] cacheBytesAccess,
+                        output [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] cacheBlockAddr,
+                        output [`DBLOCK_SIZE_BITS-1:0] cacheDin,
                         
                         // memory outputs
                         output memRen, memWen,
-                        output [-1:0] memBlockAddr,
-                        output [-1:0] memDin);
+                        output [`DMEM_BLOCK_ADDR-1:0] memBlockAddr,
+                        output [((`DBLOCK_SIZE_BITS)-1):0]  memDin);
 
   			   
 wire cpu_req;

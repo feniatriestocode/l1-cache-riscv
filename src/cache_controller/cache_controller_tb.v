@@ -82,18 +82,17 @@ dcache_controller controller2check(
     initial begin
         clock = 0;
         reset = 0;
-        dirty_bit = 0;
         ren = 0;
         wen = 0;
-        addr = 16'b0;
-        byteSelectVector = 16'b0;
-        din = 128'b0;
+        addr = {`DTAG_SIZE+`DSET_INDEX_SIZE{1'b0}};
+        byteSelectVector = {`DWORD_SIZE{1'b1}};
+        din = {`DWORD_SIZE_BITS{1'b0}};
         cacheHit = 0;
         cacheDirtyBit = 0;
-        cacheDout = 128'b0;
+        cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
         memReadReady = 0;
         memWriteDone = 0;
-        memDout = 128'b0;
+        memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 
 
@@ -103,15 +102,127 @@ dcache_controller controller2check(
     reset = 1;
 
 
-//------------CASE 1-> SIMPLE CACHE READ HIT------------//
-
+//------------CASE 1-> 4 CACHE WRITE MISSES ------------//
+//set 0:
     #10;
-    ren = 1;
-    cacheHit = 1;
+    wen = 1;
+    addr = {{`DTAG_SIZE{1'b0}},{`DSET_INDEX_SIZE{1'b0}}};
+    din = {`DWORD_SIZE_BITS{1'b1}};
+    #90;
+    memReadReady = 1;
+    #100;
+    memReadReady = 0;
+    
+
+    addr = {{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
+    din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b0}}};
+    byteSelectVector = 
+    #120;
+    memReadReady = 1;
+    #120;
+    memReadReady = 0;
+
+//set 2:
+    addr = {{`DTAG_SIZE{1'b0}},{5'b0010}};
+    din = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
+     #90;
+    memReadReady = 1;
+    #100;
+    memReadReady = 0;
+
+
+    addr = {{`DTAG_SIZE{1'b1}},{5'b0010}};
+    din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b1}}};
+     #90;
+    memReadReady = 1;
+    #100;
+    memReadReady = 0;
+//initialization
+    ren = 0;
+    wen = 0;
+    addr = {`DTAG_SIZE+`DSET_INDEX_SIZE{1'b0}};
+    byteSelectVector = {`DWORD_SIZE{1'b1}};
+    din = {`DWORD_SIZE_BITS{1'b0}};
+    cacheHit = 0;
+    cacheDirtyBit = 0;
+    cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
+    memReadReady = 0;
+    memWriteDone = 0;
+    memDout = {`DBLOCK_SIZE_BITS{1'b0}};
+
+//------------CASE 2-> READ HIT ------------//
+#10;
+ren = 1;
+cacheHit = 1;
+addr = {{`DTAG_SIZE{1'b0}},{5'b0010}};
+cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
+
+#10;
+ren = 0;
+cacheHit = 0;
+
+#10;
+ren = 1;
+cacheHit = 1;
+addr = {{`DTAG_SIZE{1'b1}},{5'b0010}};
+cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
+
+
+//initialization
+    ren = 0;
+    wen = 0;
+    addr = {`DTAG_SIZE+`DSET_INDEX_SIZE{1'b0}};
+    byteSelectVector = {`DWORD_SIZE{1'b1}};
+    din = {`DWORD_SIZE_BITS{1'b0}};
+    cacheHit = 0;
+    cacheDirtyBit = 0;
+    cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
+    memReadReady = 0;
+    memWriteDone = 0;
+    memDout = {`DBLOCK_SIZE_BITS{1'b0}};
+
+//------------CASE 3-> CACHE WRITE HIT ------------//
+#10;
+wen = 1;
+cacheHit = 1;
+addr = {{`DTAG_SIZE{1'b0}},{`DSET_INDEX_SIZE{1'b0}}};
+din = {`DWORD_SIZE_BITS{1'b0}};
+#90;
+memReadReady = 1;
+#100;
+memReadReady = 0;
+
+
+#10;
+wen = 1;
+cacheHit = 1;
+addr = {{`DTAG_SIZE{1'b0}},{`DSET_INDEX_SIZE{1'b0}}};
+din = {`DWORD_SIZE_BITS{1'b0}};
+#90;
+memReadReady = 1;
+#100;
+memReadReady = 0;
+
+
+//------------CASE 4-> CACHE READ MISS no writeback------------//
 
 
 
 
+
+
+
+//------------CASE 5-> CACHE READ MISS with writeback------------//
+cacheDirtyBit = 1;
+
+
+
+
+
+
+
+//------------CASE 6-> CACHE WRITE MISS with writeback------------//
+cacheDirtyBit = 1;
 
         $finish;
     end
