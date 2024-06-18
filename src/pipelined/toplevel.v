@@ -7,13 +7,13 @@ module toplevel(input clock,
 				
 
 wire    dmem_ren, dmem_wen, dmem_ready, dmem_done;
-wire [((DBLOCK_SIZE_BITS)-1):0] dmem_block_address;
-wire [((DBLOCK_SIZE_BITS)-1):0] dmem_din;
-wire [((DBLOCK_SIZE_BITS)-1):0] dmem_dout;
+wire [((`DBLOCK_SIZE_BITS)-1):0] dmem_block_address;
+wire [((`DBLOCK_SIZE_BITS)-1):0] dmem_din;
+wire [((`DBLOCK_SIZE_BITS)-1):0] dmem_dout;
 
 wire    imem_ren, imem_ready;
-wire [($clog2(IMEM_SIZE)-1):0] imem_block_address;
-wire [((WORD_SIZE*BLOCK_SIZE)-1):0] imem_dout;
+wire [($clog2(`IMEM_SIZE)-1):0] imem_block_address;
+wire [((`IWORD_SIZE*`IBLOCK_SIZE)-1):0] imem_dout;
 
 
 cpu cpu(.clock(clock), 
