@@ -64,7 +64,7 @@ module Icache_SRAM(clk, rst, en, memWen, blockAddr, dataIn, hit, dataOut);
     reg [`ICACHE_ASSOCIATIVITY-1:0] statusCol;
 
     always @(rst or en or index)begin
-        // default values
+        //default values
         found = 1'b0;
         blockToEvict = {`ICACHE_ASSOCIATIVITY{1'b0}};
         statusCol = {`ICACHE_ASSOCIATIVITY{1'b0}};
