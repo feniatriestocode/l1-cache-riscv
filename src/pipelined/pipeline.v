@@ -10,12 +10,12 @@ module pipeline( input clock,
 			     input reset,
 			     //dcache 
 			     input dcache_stall,
-                 input [`DBLOCK_SIZE_BITS-1:0] dcache_output,
+                 input [`DWORD_SIZE_BITS-1:0] dcache_output,
                  output dcache_ren,
                  output dcache_wen,
                  output [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] dcache_addr,
-                 output [`DBLOCK_SIZE-1:0] byteSelectVector,
-                 output [`DBLOCK_SIZE_BITS-1:0] dcache_input);
+                 output [`DWORD_SIZE-1:0] byteSelectVector,
+                 output [`DWORD_SIZE_BITS-1:0] dcache_input);
 
 reg		[31:0]	IFID_instr;
 reg		[31:0]	PC, IFID_PC, IDEX_PC;
