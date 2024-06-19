@@ -52,15 +52,16 @@ assign dout = cacheDout[blockOffset*8+:`DWORD_SIZE_BITS];
 // Write hit
 assign cacheWen = wen && ~ren && cacheHit;
 assign cacheBytesAccess = {{{(`DBLOCK_SIZE_WORDS-blockOffset-1)*`DWORD_SIZE}1'b0},{byteSelectVector},{{blockOffset*`DWORD_SIZE}1'b0}};
-assign cacheDin[blockOffset*8+:`DWORD_SIZE_BITS] = din;
+assign cacheDin = cacheMemWen ? memDout : {{},din,{}};
 
 //****************************************DCACHE MISS FSM****************************************//
 
-parameter IDLE = 3'b000,
-          MISS = 3'b001,
-          MEMREAD = 3'b010,
-          WRITEBACK = 3'b011,
-          MEMCACHE = 3'b100;
+assign memDin = cacheDout;
+
+parameter IDLE = 3'b00,
+          MEMREAD = 3'b1,
+          WRITEBACK = 3'b10,
+          MEMCACHE = 3'b11;
 
 reg [2:0] state, next_state;
 //SEQUENTIAL LOGIC
@@ -76,23 +77,28 @@ begin
 end
 
 //COMBINATIONAL LOGIC
-always @(state, pipeline_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
+always @(state or pipeline_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady)
 begin
 	case (state)
 	IDLE: begin
 		if(pipeline_req && !cacheHit) begin
-            next_state = MISS;
+            if(cacheDirtyBit == 1'b1) begin
+            next_state = WRITEBACK;
+            end
+            else begin
+            next_state = MEMREAD;
+            end
         end
         else begin 
             next_state = IDLE;
-        end
+        end 
 	end
-	MISS: begin
-        if(cacheDirtyBit == 1'b1) begin
-            next_state = WRITEBACK;
+    WRITEBACK: begin
+        if(memWriteDone==1) begin
+            next_state = MEMREAD;
         end
         else begin
-        next_state = MEMREAD;
+            next_state = WRITEBACK;
         end
 	end
 	MEMREAD: begin
@@ -100,15 +106,7 @@ begin
             next_state = MEMCACHE;
         end
         else begin
-        next_state = MEMREAD;
-        end
-	end
-	WRITEBACK: begin
-        if(memWriteDone==1) begin
             next_state = MEMREAD;
-        end
-        else begin
-        next_state = WRITEBACK;
         end
 	end
 	MEMCACHE: begin
@@ -118,35 +116,28 @@ begin
     endcase
 end
 
-	
 //COMBINATIONAL LOGIC FOR OUTPUTS
 
-always @(state,pipeline_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
+always @(state or pipeline_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady)
 begin
     stall = 1'b0;
-    cacheEn = 1'b0;
-    cacheWen = 1'b0; 
-    cacheFullblockWen = 1'b0;
+    cacheMemWen = 1'b0;
     memRen = 1'b0;
     memWen = 1'b0;
+
 	case (state)
-	MISS: begin
-       stall = 1'b1;
-	end
-	MEMREAD: begin
-        stall = 1'b1;
-        memRen = 1'b1;
-	end
-	WRITEBACK: begin
-       stall = 1'b1;
-       memWen = 1'b1;
-	end
-	MEMCACHE: begin
-       stall = 1'b1;
-       cacheEn = 1'b1;
-       cacheWen = 1'b1; 
-       cacheFullblockWen = 1'b1;
-	end
+        WRITEBACK: begin
+            stall = 1'b1;
+            memWen = 1'b1;
+        end
+        MEMREAD: begin
+            stall = 1'b1;
+            memRen = 1'b1;
+        end
+        MEMCACHE: begin
+            stall = 1'b1;
+            cacheMemWen = 1'b1;
+        end
     endcase
 end
 
