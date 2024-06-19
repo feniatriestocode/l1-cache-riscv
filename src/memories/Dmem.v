@@ -30,7 +30,7 @@ wire temp_ready, temp_done;
 /****** LOGIC ******/
 assign counter_reset = ~reset || (~wen && ~ren) || (wen && ren);
 
-counter #(.size(`DMEM_DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .cntr(delay_counter));
+counter #(.size(`DMEM_DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .counter(delay_counter));
 
 assign delayed = &delay_counter;
 
