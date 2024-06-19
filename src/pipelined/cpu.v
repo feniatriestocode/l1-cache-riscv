@@ -51,7 +51,7 @@ pipeline pipeline(.clock(clock),
 				  .dcache_input(dcache_input));
 
 // caches instantiated here
-Icache Icache_SRAM(.clk(clock), 
+Icache_SRAM Icache(.clk(clock), 
                 .rst(reset),
                 .en(IcacheEn), 
                 .memWen(IcacheMemWen),
@@ -61,7 +61,7 @@ Icache Icache_SRAM(.clk(clock),
                 .dirtyBit(IcacheDirtyBit),
                 .dataOut(IcacheDout));
 
-Dcache Dcache_SRAM(.clk(clock), 
+D_SRAM Dcache(.clk(clock), 
                 .rst(reset),
                 .en(DcacheEn), 
                 .wen(DcacheWen), 

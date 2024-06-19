@@ -1,4 +1,4 @@
-//`timescale 1ns / 1ps
+`timescale 1ns / 1ps
 
 // A general purpose parameterized, for size, counter with hold.
 

@@ -1,5 +1,5 @@
 VERILATOR = verilator
-VERILATOR_FLAGS = -cc --exe -Wall --trace -Wno-MODDUP -CFLAGS $(CFLAGS)
+VERILATOR_FLAGS = -cc --exe -Wall --trace -CFLAGS $(CFLAGS)
 VERILATOR_INPUT = ../src/pipelined/toplevel.v main.cpp 
 VERILATOR_INCLUDES = -I../src/cache_controller -I../src/caches -I../src/memories -I../src/pipelined -I../src/common -I../src/control -I../src/include -I../src/lib
 TESTDIR=../tests

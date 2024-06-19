@@ -63,10 +63,12 @@ wire	[31:0]	imm_i, imm_s, imm_b, imm_u, imm_j;
 
 
 wire            overflow;
-//changes for controlles --- h fenia ta vgale ap ta sxolia slay (esvhsa k to 2plo dcache_stall)
-wire stall_from_cache, icache_stall;
+//changes for controlles 
+/* 
+wire stall_from_cache, icache_stall, dcache_stall;
 
 assign stall_from_cache = icache_stall || dcache_stall;
+*/
 
 
 /********************** Instruction Fetch Unit (IF)  **********************/
