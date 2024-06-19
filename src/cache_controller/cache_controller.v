@@ -40,13 +40,6 @@ module dcache_controller(// pipeline inputs
 wire pipeline_req;
 wire [(`DBLOCK_OFFSET_SIZE-1):0] blockOffset;
 
-<<<<<<< Updated upstream
-assign pipeline_req = ren || wen;
-  			   
-wire pipeline_req;
-
-assign pipeline_req = ren || wen;
-=======
 assign pipeline_req = (ren && ~wen) || (wen && ~ren);
 
 assign BlockAddr = addr[(`DMEM_BLOCK_ADDR_SIZE-1):`DBLOCK_OFFSET_SIZE];
@@ -126,7 +119,6 @@ assign memRen = memRen;
 assign memWen = memWen;
 assign memDin = memDin;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
->>>>>>> Stashed changes
 
 
 //-----------------------FSM----------------------------------------//
