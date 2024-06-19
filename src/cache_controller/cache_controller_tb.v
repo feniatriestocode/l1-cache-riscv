@@ -10,7 +10,7 @@ module dcache_controller_tb;
             reg [(`DWORD_SIZE-1):0] byteSelectVector; //[3:0]
             reg [(`DWORD_SIZE_BITS-1):0] din; //[31:0]
                                     
-            // cache regs
+            // cache regs 
             reg cacheHit;
             reg cacheDirtyBit;
             reg [(`DBLOCK_SIZE_BITS-1):0] cacheDout;//[127:0]
