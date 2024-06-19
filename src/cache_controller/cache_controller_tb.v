@@ -6,15 +6,9 @@ module dcache_controller_tb;
             reg reset;
             reg ren;
             reg wen;
-<<<<<<< Updated upstream
-            reg [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] addr;//[15:0]
-            reg [`DWORD_SIZE-1:0] byteSelectVector; //[3:0]
-            reg [`DWORD_SIZE_BITS-1:0] din; //[31:0]
-=======
             reg [(`DADDR_SIZE-1):0] addr;//[19:0]
             reg [(`DWORD_SIZE-1):0] byteSelectVector; //[3:0]
             reg [(`DWORD_SIZE_BITS-1):0] din; //[31:0]
->>>>>>> Stashed changes
                                     
             // cache regs
             reg cacheHit;
@@ -30,6 +24,10 @@ module dcache_controller_tb;
             wire stall;
             wire [(`DWORD_SIZE_BITS-1):0] dout;//[31:0]
 
+
+           //both cache and memory wire 
+            wire [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
+
             // cache wires
             wire cacheEn;
             wire cacheWen;
@@ -40,12 +38,7 @@ module dcache_controller_tb;
             // memory wires
             wire memRen; 
             wire memWen;
-<<<<<<< Updated upstream
-            wire [`DMEM_BLOCK_ADDR_SIZE-1:0] memBlockAddr;//[15:0]
-            wire [((`DBLOCK_SIZE_BITS)-1):0]  memDin;//[127:0]
-=======
             wire [(`DBLOCK_SIZE_BITS-1):0]  memDin;//[127:0]
->>>>>>> Stashed changes
 
 
 
@@ -106,7 +99,7 @@ dcache_controller controller2check(
 
 
 
-    //reset=1 function can begin
+//reset=1 function can begin
     #10;
     reset = 1;
 
@@ -121,52 +114,53 @@ dcache_controller controller2check(
     memReadReady = 1;
     #100;
     memReadReady = 0;
-    
-
-<<<<<<< Updated upstream
-    addr = {{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
-=======
+    wen = 0;
+    addr = {`DADDR_SIZE{1'b0}};
+    din = {`DWORD_SIZE_BITS{1'b0}};
 
     #10;
     wen = 1;
     addr = 20'b0000 0000 0100 0001 0000; //hex 0x20010 
->>>>>>> Stashed changes
     din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b0}}};
-    byteSelectVector = 
     #120;
     memReadReady = 1;
     #120;
     memReadReady = 0;
+    wen = 0;
+    addr = {`DADDR_SIZE{1'b0}};
+    din = {`DWORD_SIZE_BITS{1'b0}};
 
-<<<<<<< Updated upstream
-//set 2:
-    addr = {{`DTAG_SIZE{1'b0}},{5'b0010}};
-=======
+
+
 //set 10: same set index 01010, different tags
     #10;
     wen = 1;
     addr = 20'b0000 1000 0100 1010 0000; //hex 0x084A0
->>>>>>> Stashed changes
     din = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
-     #90;
+    #90;
     memReadReady = 1;
     #100;
     memReadReady = 0;
+    wen = 0;
+    addr = {`DADDR_SIZE{1'b0}};
+    din = {`DWORD_SIZE_BITS{1'b0}};
 
-<<<<<<< Updated upstream
 
-    addr = {{`DTAG_SIZE{1'b1}},{5'b0010}};
-=======
+
     #10;
     wen = 1; 
     addr = 20'b0010 0001 0000 1010 0000;
->>>>>>> Stashed changes
     din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b1}}};
-     #90;
+    #90;
     memReadReady = 1;
     #100;
     memReadReady = 0;
+    wen = 0;
+    addr = {`DADDR_SIZE{1'b0}};
+    din = {`DWORD_SIZE_BITS{1'b0}};
+
 //initialization
+    #10;
     ren = 0;
     wen = 0;
     addr = {`DADDR_SIZE{1'b0}};
@@ -183,24 +177,31 @@ dcache_controller controller2check(
 // access and hit set 1 
 #10;
 ren = 1;
+addr = 20'b0000 0000 0100 0001 0000;
 #2;
 cacheHit = 1;
-addr = 20'b0000 0000 0100 0001 0000;
 cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
-
 #8;
 ren = 0;
 cacheHit = 0;
+addr = {`DADDR_SIZE{1'b0}};
+cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};    
+
 // access and hit set 10 
 #10;
 ren = 1;
+addr = 20'b0000 1000 0100 1010 0000;
 #2;
 cacheHit = 1;
-addr = 20'b0000 1000 0100 1010 0000;
 cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
 #8;
+ren = 0;
+cacheHit = 0;
+addr = {`DADDR_SIZE{1'b0}};
+cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};  
 
 //initialization
+    #10;
     ren = 0;
     wen = 0;
     addr = {`DMEM_SIZE{1'b0}};
@@ -216,30 +217,37 @@ cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
 //------------CASE 3-> CACHE WRITE HIT ------------//
 #10;
 wen = 1;
-#2;
-cacheHit = 1;
 addr = 20'b0000 0000 0100 0001 0000;
 din = {`DWORD_SIZE_BITS{1'b1}};
+#2;
+cacheHit = 1;
 #90;
 memReadReady = 1;
 #98;
 memReadReady = 0;
-
+wen = 0;
+addr = {`DMEM_SIZE{1'b0}};
+din = {`DWORD_SIZE_BITS{1'b0}};
+cacheHit = 0;
 
 #10;
 wen = 1;
-#2;
-cacheHit = 1;
 addr = 20'b0000 0000 0100 0001 0000;
 din = {`DWORD_SIZE_BITS{1'b0}};
+#2;
+cacheHit = 1;
 #90;
 memReadReady = 1;
 #98;
 memReadReady = 0;
+wen = 0;
+addr = {`DMEM_SIZE{1'b0}};
+din = {`DWORD_SIZE_BITS{1'b0}};
+cacheHit = 0;
 
-<<<<<<< Updated upstream
-=======
+
 //initialization
+    #10;
     ren = 0;
     wen = 0;
     addr = {`DMEM_SIZE{1'b0}};
@@ -251,7 +259,6 @@ memReadReady = 0;
     memReadReady = 0;
     memWriteDone = 0;
     memDout = {`DBLOCK_SIZE_BITS{1'b0}};
->>>>>>> Stashed changes
 
 //------------CASE 4-> CACHE READ MISS no writeback------------//
     ren = 1;
@@ -264,6 +271,10 @@ memReadReady = 0;
     #100;
     ren = 0;
     memReadReady = 0;
+    memDout = {`DBLOCK_SIZE_BITS{1'b0}};
+    addr = {`DMEM_SIZE{1'b0}};
+
+
 
     #10;
     ren = 1;
@@ -276,16 +287,16 @@ memReadReady = 0;
     #80;
     ren = 0;
     memReadReady = 0;
-    #10;
+    memDout = {`DBLOCK_SIZE_BITS{1'b0}};
+    addr = {`DMEM_SIZE{1'b0}};
 
 
 
 
 
 
-<<<<<<< Updated upstream
-=======
 //initialization
+    #10;
     ren = 0;
     wen = 0;
     addr = {`DMEM_SIZE{1'b0}};
@@ -298,16 +309,16 @@ memReadReady = 0;
     memWriteDone = 0;
     memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
->>>>>>> Stashed changes
 
 //------------CASE 5-> CACHE READ MISS with writeback------------//
 //read miss in set 16  
 #10;
 ren = 1;
-cacheDirtyBit = 1;
 addr = 20'b0000 0000 1111 0000 0000; //hex 
+#2;
 cacheHit = 0;
-#20;
+cacheDirtyBit = 1;
+#18;
 memWriteDone = 1;
 #100;
 memWriteDone= 0;
@@ -318,15 +329,18 @@ memDout = {{8'b11111111},{`DBLOCK_SIZE_BITS-8{1'b0}}};
 memReadReady = 0;
 ren = 0;
 cacheDirtyBit = 0;
+addr = {`DMEM_SIZE{1'b0}};
+memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 
 //read miss in set 29
 #10;
 ren = 1;
-cacheDirtyBit = 1;
-cacheHit = 0;
 addr = 20'b0000 1111 0001 1101 0000;
-#20;
+#2;
+cacheHit = 0;
+cacheDirtyBit = 1;
+#18;
 memWriteDone = 1;
 #100;
 memWriteDone= 0;
@@ -337,15 +351,15 @@ memDout = {{8'b11110000},{`DBLOCK_SIZE_BITS-8{1'b0}}};
 memReadReady = 0;
 ren = 0;
 cacheDirtyBit = 0;
+addr = {`DMEM_SIZE{1'b0}};
+memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 
 
 
 
-
-<<<<<<< Updated upstream
-=======
 //initialization
+    #10;
     ren = 0;
     wen = 0;
     addr = {`DMEM_SIZE{1'b0}};
@@ -358,7 +372,6 @@ cacheDirtyBit = 0;
     memWriteDone = 0;
     memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
->>>>>>> Stashed changes
 
 //------------CASE 6-> CACHE WRITE MISS with writeback------------//
 //cache write in set 15
@@ -378,6 +391,8 @@ memReadReady = 1;
 memReadReady = 0;
 wen = 0;
 cacheDirtyBit = 0;
+addr = {`DMEM_SIZE{1'b0}};
+din = {`DWORD_SIZE_BITS{1'b0}};
 
 //cache write in set 18
 #10;
@@ -396,7 +411,12 @@ memReadReady = 1;
 memReadReady = 0;
 wen = 0;
 cacheDirtyBit = 0;
+addr = {`DMEM_SIZE{1'b0}};
+din = {`DWORD_SIZE_BITS{1'b0}};
+
+
 //initialization
+    #10;
     ren = 0;
     wen = 0;
     addr = {`DADDR_SIZE{1'b0}};
@@ -457,7 +477,11 @@ cacheDirtyBit = 0;
     memReadReady = 1;
     #100;
     memReadReady = 0;
+    wen = 0;
+
+
 //initialization
+    #10;
     ren = 0;
     wen = 0;
     addr = {`DADDR_SIZE{1'b0}};
@@ -494,8 +518,12 @@ addr = 20'b0000 1000 0100 1010 0000;
 byteSelectVector = 4'b0010;
 cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
 #8;
+ren = 0;
+cacheHit = 0;
+
 
 //initialization
+    #10;
     ren = 0;
     wen = 0;
     addr = {`DMEM_SIZE{1'b0}};
@@ -509,17 +537,8 @@ cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
     memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 
-
-
-
-
-
         $finish;
     end
 
-initial begin
-        // Monitor outputs
-        $monitor("Time=%0d, clock=%b, reset=%b, ready=%b, done=%b, dirty_bit=%b, hit=%b, ren=%b, wen=%b, stall=%b, dMemWen=%b, renMem=%b, wenMem=%b, state=%b", $time, clock, reset, ready, done, dirty_bit, hit, ren, wen, stall, dMemWen, renMem, wenMem, current_state);
-    end
 
 endmodule    
