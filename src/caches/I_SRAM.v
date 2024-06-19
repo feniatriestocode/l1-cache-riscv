@@ -72,10 +72,32 @@ module Icache_SRAM(clk, rst, ren, memWen, blockAddr, dataIn, hit, dataOut);
     //if any of the blocks is a hit output the result
     assign hit = |hitReg;
 
-    //*******************************ASYNCHRONOUS STATUS CHECK*******************************//
-    wire [`ICACHE_ASSOCIATIVITY-1:0] statusFulOne;
-    assign statusFulOne = (~status_col[index]) & (~status_col[index] - 1); 
+    //*******************************ASYCHRONOUS PLRU IMPLEMENTANTION*******************************//
 
+    reg found;
+    reg [`ICACHE_ASSOCIATIVITY-1:0] blockToEvict;
+    reg [`ICACHE_ASSOCIATIVITY-1:0] statusCol;
+
+    always @(rst or en or index)begin
+        // default values
+        found = 1'b0;
+        blockToEvict = {`ICACHE_ASSOCIATIVITY{1'b0}};
+        statusCol = {`ICACHE_ASSOCIATIVITY{1'b0}};
+        
+        if(rst && en)begin
+            for(m=0; m<`ICACHE_ASSOCIATIVITY; m=m+1)begin
+                // PLRU should access the first block with status=0 or the first invalid one
+                if((valid_col[index][m] == 1'b0 || status_col[index][m] == 1'b0) && found==1'b0)begin
+                    found = 1'b1;
+                    blockToEvict[m] = 1'b1;
+                    // keeping the status col in regs to test it later
+                    statusCol[m] = 1'b1;
+                end else begin
+                    statusCol[m] = status_col[index][m];
+                end
+            end
+        end
+    end
 
     //*******************************SYNCHRONOUS WRITE DATA*******************************//
     
