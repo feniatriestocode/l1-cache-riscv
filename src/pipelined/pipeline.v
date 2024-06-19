@@ -17,6 +17,8 @@ module pipeline( input clock,
                  output [`DWORD_SIZE-1:0] byteSelectVector,
                  output [`DWORD_SIZE_BITS-1:0] dcache_input);
 
+
+
 reg		[31:0]	IFID_instr;
 reg		[31:0]	PC, IFID_PC, IDEX_PC;
 wire	[31:0]	PCplus4, JumpAddress, PC_new;
@@ -104,24 +106,24 @@ end
 
 // To be implemented !!!!!!!!!!!!
 
-icache_controller dcache_controller( //icache not dcache
-    .clk_i                  (clock),
-    .rst_i                  (reset),
-    // to Data Memory interface
-    .mem_data_i             (mem_data_i), //input ap to cpu
-    .mem_ack_i              (mem_ack_i),
-    .mem_data_o             (mem_data_o),
-    .mem_addr_o             (mem_addr_o),
-    .mem_enable_o           (mem_enable_o),
-    .mem_write_o            (mem_write_o),
-    // to CPU interface
-    .pipeline_data_i             (MEM_write_data),
-    .pipeline_addr_i             (MEM_addr),
-    .pipeline_MemRead_i          (MEM_MemRead),
-    .pipeline_MemWrite_i         (MEM_MemWrite),
-    .pipeline_data_o             (MEM_read_data),
-    .pipeline_stall_o            (icache_stall)
-);
+// icache_controller icache_controller( 
+//     .clk_i                  (clock),
+//     .rst_i                  (reset),
+//     // to Data Memory interface
+//     .mem_data_i             (mem_data_i), //input ap to cpu
+//     .mem_ack_i              (mem_ack_i),
+//     .mem_data_o             (mem_data_o),
+//     .mem_addr_o             (mem_addr_o),
+//     .mem_enable_o           (mem_enable_o),
+//     .mem_write_o            (mem_write_o),
+//     // to CPU interface
+//     .pipeline_data_i             (MEM_write_data),
+//     .pipeline_addr_i             (MEM_addr),
+//     .pipeline_MemRead_i          (MEM_MemRead),
+//     .pipeline_MemWrite_i         (MEM_MemWrite),
+//     .pipeline_data_o             (MEM_read_data),
+//     .pipeline_stall_o            (icache_stall)
+// );
 
 
 
@@ -343,24 +345,7 @@ mem_write_selector mem_write_selector(
 
 
 // To be implemented !!!!!!!!!!!!
-Dcntr Dcache_Controller(
-    .clk_i                  (clock),
-    .rst_i                  (reset),
-    // to Data Memory interface
-    .mem_data_i             (mem_data_i),
-    .mem_ack_i              (mem_ack_i),
-    .mem_data_o             (mem_data_o),
-    .mem_addr_o             (mem_addr_o),
-    .mem_enable_o           (mem_enable_o),
-    .mem_write_o            (mem_write_o),
-    // to CPU interface
-    .pipeline_data_i             (MEM_write_data),
-    .pipeline_addr_i             (MEM_addr),
-    .pipeline_MemRead_i          (MEM_MemRead),
-    .pipeline_MemWrite_i         (MEM_MemWrite),
-    .pipeline_data_o             (MEM_read_data),
-    .pipeline_stall_o            (dcache_stall)
-);
+
 
 // MEMWB pipeline register
 always @(posedge clock or negedge reset)

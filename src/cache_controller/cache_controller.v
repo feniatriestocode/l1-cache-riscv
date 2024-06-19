@@ -1,6 +1,6 @@
 //`timescale 1ns / 1ps
 
-//`include "constants.v"
+`include "../include/constants.vh"
 //`include "counter.v"
 
 module dcache_controller(// pipeline inputs
@@ -45,6 +45,7 @@ wire pipeline_req;
 
 assign pipeline_req = ren || wen;
 
+reg cacheFullblockWen;
 
 //-----------------------FSM----------------------------------------//
 

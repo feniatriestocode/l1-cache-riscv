@@ -3,7 +3,7 @@
 //`timescale 1ns / 1ps
 
 `include "constants.vh"
-`include "../common/counter.v"
+// `include "../common/counter.v" //sees it from makefile supposedly
 
 // If ren stays up then the next read has no delay !
 
@@ -23,7 +23,7 @@ reg [(`DBLOCK_SIZE_BITS-1):0] data [0:(`DMEM_SIZE_BLOCKS-1)];
 reg [(`DBLOCK_SIZE_BITS-1):0] temp_din;
 reg flag;
 
-wire delayed;
+wire delayed, counter_reset;
 wire [(`DMEM_DELAY_CNTR_SIZE-1):0] delay_counter;
 wire temp_ready, temp_done;
 

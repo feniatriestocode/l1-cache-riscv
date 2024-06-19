@@ -3,7 +3,7 @@
 //`timescale 1ns / 1ps
 
 `include "constants.vh"
-`include "../common/counter.v"
+// `include "../common/counter.v"
 
 // If ren stays up then the next read has no delay !
 
@@ -19,7 +19,7 @@ module Imem(input clock, reset,
 /****** SIGNALS ******/
 reg [(`IBLOCK_SIZE_BITS-1):0] data [0:(`IMEM_SIZE_BLOCKS-1)];
 
-wire delayed;
+wire delayed, counter_reset;
 wire [(`IMEM_DELAY_CNTR_SIZE-1):0] delay_counter;
 
 /****** LOGIC ******/
