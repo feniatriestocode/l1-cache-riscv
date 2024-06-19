@@ -19,7 +19,7 @@ module cpu(input clock,
            
            
  //pipeline          
-wire dcache_stall, dcache_ren, dcache_wen;
+wire dcache_stall, icache_stall, dcache_ren, dcache_wen;
 wire [`DBLOCK_SIZE_BITS-1:0] dcache_output;
 wire [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] dcache_addr;
 wire [`DBLOCK_SIZE-1:0] byteSelectVector;
@@ -43,6 +43,7 @@ wire [`IBLOCK_SIZE_BITS-1:0] IcacheDout;
 pipeline pipeline(.clock(clock), 
 				  .reset(reset),
 		/*input*/ .dcache_stall(dcache_stall),
+                  .icache_stall(icache_stall),
                   .dcache_output(dcache_output),
 				  .dcache_ren(dcache_ren),
 				  .dcache_wen(dcache_wen),
@@ -61,7 +62,7 @@ Icache_SRAM Icache(.clk(clock),
                 .dirtyBit(IcacheDirtyBit),
                 .dataOut(IcacheDout));
 
-D_SRAM Dcache(.clk(clock), 
+Dcache_SRAM Dcache(.clk(clock), 
                 .rst(reset),
                 .en(DcacheEn), 
                 .wen(DcacheWen), 
@@ -73,7 +74,7 @@ D_SRAM Dcache(.clk(clock),
                 .dirtyBit(DcacheDirtyBit),
                 .dataOut(DcacheDout));
 
-D_CNTRL dcache_controller(// pipeline inputs
+dcache_controller D_CNTRL (// pipeline inputs
                         .clock(clock),
                         .reset(reset),
                         .ren(dcache_ren), 

@@ -1,9 +1,9 @@
 /*IMPLEMENTATION OF A PARAMETRIZED DATA MEMORY ON RISC-V*/
 
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 
 `include "constants.vh"
-//`include "counter.v"
+`include "../common/counter.v"
 
 // If ren stays up then the next read has no delay !
 

@@ -1,9 +1,9 @@
 /*IMPLEMENTATION OF A PARAMETRIZED INSTRUCTION MEMORY ON RISC-V*/
 
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 
 `include "constants.vh"
-//`include "counter.v"
+`include "../common/counter.v"
 
 // If ren stays up then the next read has no delay !
 
@@ -25,7 +25,7 @@ wire [(`IMEM_DELAY_CNTR_SIZE-1):0] delay_counter;
 /****** LOGIC ******/
 assign counter_reset = ~reset || ~ren;
 
-counter #(.size(`IMEM_DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .cntr(delay_counter));
+counter #(.size(`IMEM_DELAY_CNTR_SIZE)) delay_cntr (.reset(counter_reset), .clk(clock), .hold(delayed), .counter(delay_counter));
 
 assign delayed = &delay_counter;
 

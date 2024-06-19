@@ -1,6 +1,5 @@
 `include "constants.v"
 `include "config.vh"
-
 /*****************************************************************************************/
 /* Implementation of the 5-stage MIPS pipeline that supports the following instructions: */
 /*  R-format: add, sub, and, or, xor, slt                                                */
@@ -10,6 +9,7 @@ module pipeline( input clock,
 			     input reset,
 			     //dcache 
 			     input dcache_stall,
+				 input icache_stall,
                  input [`DWORD_SIZE_BITS-1:0] dcache_output,
                  output dcache_ren,
                  output dcache_wen,
@@ -63,12 +63,9 @@ wire	[31:0]	imm_i, imm_s, imm_b, imm_u, imm_j;
 
 
 wire            overflow;
-//changes for controlles 
-/* 
-wire stall_from_cache, icache_stall, dcache_stall;
 
+wire stall_from_cache;
 assign stall_from_cache = icache_stall || dcache_stall;
-*/
 
 
 /********************** Instruction Fetch Unit (IF)  **********************/
@@ -107,7 +104,7 @@ end
 
 // To be implemented !!!!!!!!!!!!
 
-Icntr Icache_Controller(
+icache_controller dcache_controller( //icache not dcache
     .clk_i                  (clock),
     .rst_i                  (reset),
     // to Data Memory interface
