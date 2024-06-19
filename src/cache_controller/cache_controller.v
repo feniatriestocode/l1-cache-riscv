@@ -1,6 +1,6 @@
 //`timescale 1ns / 1ps
 
-//`include "constants.v"
+`include "../include/constants.vh"
 //`include "counter.v"
 
 module dcache_controller(// pipeline inputs
@@ -21,19 +21,20 @@ module dcache_controller(// pipeline inputs
                         input [(`DBLOCK_SIZE_BITS-1):0] memDout,
                         
                         // pipeline outputs
-                        output stall,
+                        output reg stall,
                         output [(`DWORD_SIZE_BITS-1):0] dout,
 
                         //both cache and memory output
                         output [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
 
                         // cache outputs
-                        output cacheRen, cacheWen, cacheMemWen,
-                        output [(`DBLOCK_SIZE-1):0] cacheBytesAccess,
-                        output [(`DBLOCK_SIZE_BITS-1):0] cacheDin,
+                        output cacheRen, cacheWen,
+                        output reg cacheMemWen,
+                        output reg [(`DBLOCK_SIZE-1):0] cacheBytesAccess,
+                        output reg [(`DBLOCK_SIZE_BITS-1):0] cacheDin,
                         
                         // memory outputs
-                        output memRen, memWen,
+                        output reg memRen, memWen,
                         output [(`DBLOCK_SIZE_BITS-1):0] memDin);
 
   			   
@@ -51,8 +52,20 @@ assign dout = cacheDout[blockOffset*8+:`DWORD_SIZE_BITS];
 
 // Write hit
 assign cacheWen = wen && ~ren && cacheHit;
-assign cacheBytesAccess = {{{(`DBLOCK_SIZE_WORDS-blockOffset-1)*`DWORD_SIZE}1'b0},{byteSelectVector},{{blockOffset*`DWORD_SIZE}1'b0}};
-assign cacheDin = cacheMemWen ? memDout : {{},din,{}};
+
+always @(byteSelectVector or blockOffset) begin
+    cacheBytesAccess = {(`DBLOCK_SIZE){1'b0}};
+    cacheBytesAccess[blockOffset * `DWORD_SIZE +: `DWORD_SIZE] = byteSelectVector;
+end
+
+always @(cacheMemWen or memDout or blockOffset) begin
+    if (cacheMemWen) begin
+        cacheDin = memDout;
+    end else begin
+        cacheDin[blockOffset * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
+    end
+end
+
 
 //****************************************DCACHE MISS FSM****************************************//
 
