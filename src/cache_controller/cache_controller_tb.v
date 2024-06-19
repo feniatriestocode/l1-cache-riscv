@@ -1,4 +1,6 @@
+`timescale 1ns / 1ps
 
+//`include "cache_controller.v"
 
 module dcache_controller_tb;
             //pipeline regs
@@ -26,10 +28,10 @@ module dcache_controller_tb;
 
 
            //both cache and memory wire 
-            wire [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
+            wire [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr;
 
             // cache wires
-            wire cacheEn;
+            wire cacheRen;
             wire cacheWen;
             wire cacheMemWen;
             wire [(`DBLOCK_SIZE-1):0] cacheBytesAccess;//[15:0]
@@ -40,8 +42,7 @@ module dcache_controller_tb;
             wire memWen;
             wire [(`DBLOCK_SIZE_BITS-1):0]  memDin;//[127:0]
 
-
-
+            integer test;
 
 dcache_controller controller2check(
     .clock(clock),
@@ -65,7 +66,7 @@ dcache_controller controller2check(
 //both memory and cache 
     .BlockAddr(BlockAddr),
 // cache outputs
-    .cacheEn(cacheEn),
+    .cacheRen(cacheRen),
     .cacheWen(cacheWen),
     .cacheMemWen(cacheMemWen),
     .cacheBytesAccess(cacheBytesAccess),
@@ -82,6 +83,7 @@ dcache_controller controller2check(
 
 //initial stages
     initial begin
+        test = 10; //////////////////////////////////////////////////////////////////////////
         clock = 0;
         reset = 0;
         ren = 0;
@@ -106,9 +108,10 @@ dcache_controller controller2check(
 
 //------------CASE 1-> 4 CACHE WRITE MISSES ------------//
 //set 1: same set index 00001, different tags 
+    test = 11; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1;
-    addr = 20'b0000 0000 0100 0001 0000; //hex 0x410
+    addr = 20'b0000_0000_0100_0001_0000; //hex 0x410
     din = {`DWORD_SIZE_BITS{1'b0}};
     #90;
     memReadReady = 1;
@@ -118,9 +121,10 @@ dcache_controller controller2check(
     addr = {`DADDR_SIZE{1'b0}};
     din = {`DWORD_SIZE_BITS{1'b0}};
 
+    test = 12; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1;
-    addr = 20'b0000 0000 0100 0001 0000; //hex 0x20010 
+    addr = 20'b0000_0000_0100_0001_0000; //hex 0x20010 
     din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b0}}};
     #120;
     memReadReady = 1;
@@ -133,9 +137,10 @@ dcache_controller controller2check(
 
 
 //set 10: same set index 01010, different tags
+    test = 13; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1;
-    addr = 20'b0000 1000 0100 1010 0000; //hex 0x084A0
+    addr = 20'b0000_1000_0100_1010_0000; //hex 0x084A0
     din = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
     #90;
     memReadReady = 1;
@@ -146,10 +151,10 @@ dcache_controller controller2check(
     din = {`DWORD_SIZE_BITS{1'b0}};
 
 
-
+    test = 14; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1; 
-    addr = 20'b0010 0001 0000 1010 0000;
+    addr = 20'b0010_0001_0000_1010_0000;
     din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b1}}};
     #90;
     memReadReady = 1;
@@ -160,6 +165,7 @@ dcache_controller controller2check(
     din = {`DWORD_SIZE_BITS{1'b0}};
 
 //initialization
+    test = 20; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 0;
     wen = 0;
@@ -175,9 +181,10 @@ dcache_controller controller2check(
 
 //------------CASE 2-> READ HIT ------------//
 // access and hit set 1 
+test = 21; //////////////////////////////////////////////////////////////////////////
 #10;
 ren = 1;
-addr = 20'b0000 0000 0100 0001 0000;
+addr = 20'b0000_0000_0100_0001_0000;
 #2;
 cacheHit = 1;
 cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
@@ -188,9 +195,10 @@ addr = {`DADDR_SIZE{1'b0}};
 cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};    
 
 // access and hit set 10 
+test = 22; //////////////////////////////////////////////////////////////////////////
 #10;
 ren = 1;
-addr = 20'b0000 1000 0100 1010 0000;
+addr = 20'b0000_1000_0100_1010_0000;
 #2;
 cacheHit = 1;
 cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
@@ -201,6 +209,7 @@ addr = {`DADDR_SIZE{1'b0}};
 cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};  
 
 //initialization
+    test = 30; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 0;
     wen = 0;
@@ -215,9 +224,10 @@ cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
     memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 //------------CASE 3-> CACHE WRITE HIT ------------//
+test = 31; //////////////////////////////////////////////////////////////////////////
 #10;
 wen = 1;
-addr = 20'b0000 0000 0100 0001 0000;
+addr = 20'b0000_0000_0100_0001_0000;
 din = {`DWORD_SIZE_BITS{1'b1}};
 #2;
 cacheHit = 1;
@@ -230,9 +240,10 @@ addr = {`DMEM_SIZE{1'b0}};
 din = {`DWORD_SIZE_BITS{1'b0}};
 cacheHit = 0;
 
+test = 32; //////////////////////////////////////////////////////////////////////////
 #10;
 wen = 1;
-addr = 20'b0000 0000 0100 0001 0000;
+addr = 20'b0000_0000_0100_0001_0000;
 din = {`DWORD_SIZE_BITS{1'b0}};
 #2;
 cacheHit = 1;
@@ -247,6 +258,7 @@ cacheHit = 0;
 
 
 //initialization
+    test = 40; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 0;
     wen = 0;
@@ -261,8 +273,9 @@ cacheHit = 0;
     memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 //------------CASE 4-> CACHE READ MISS no writeback------------//
+    test = 41; //////////////////////////////////////////////////////////////////////////
     ren = 1;
-    addr = 20'b0000 0000 0010 0110 0000; //hex 0x0260
+    addr = 20'b0000_0000_0010_0110_0000; //hex 0x0260
     cacheHit = 0;
     cacheDirtyBit = 0;
     #100;
@@ -275,10 +288,10 @@ cacheHit = 0;
     addr = {`DMEM_SIZE{1'b0}};
 
 
-
+    test = 42; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 1;
-    addr = 20'b0000 1111 0010 1111 0000; //hex 0x0F2F0
+    addr = 20'b0000_1111_0010_1111_0000; //hex 0x0F2F0
     cacheHit = 0;
     cacheDirtyBit = 0;
     #110;
@@ -296,6 +309,7 @@ cacheHit = 0;
 
 
 //initialization
+    test = 50; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 0;
     wen = 0;
@@ -312,9 +326,10 @@ cacheHit = 0;
 
 //------------CASE 5-> CACHE READ MISS with writeback------------//
 //read miss in set 16  
+test = 51; //////////////////////////////////////////////////////////////////////////
 #10;
 ren = 1;
-addr = 20'b0000 0000 1111 0000 0000; //hex 
+addr = 20'b0000_0000_1111_0000_0000; //hex 
 #2;
 cacheHit = 0;
 cacheDirtyBit = 1;
@@ -334,9 +349,10 @@ memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 
 //read miss in set 29
+test = 52; //////////////////////////////////////////////////////////////////////////
 #10;
 ren = 1;
-addr = 20'b0000 1111 0001 1101 0000;
+addr = 20'b0000_1111_0001_1101_0000;
 #2;
 cacheHit = 0;
 cacheDirtyBit = 1;
@@ -359,6 +375,7 @@ memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 
 //initialization
+    test = 60; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 0;
     wen = 0;
@@ -375,9 +392,10 @@ memDout = {`DBLOCK_SIZE_BITS{1'b0}};
 
 //------------CASE 6-> CACHE WRITE MISS with writeback------------//
 //cache write in set 15
+test = 61; //////////////////////////////////////////////////////////////////////////
 #10;
 wen = 1;
-addr = 20'b1111 0000 1100 1111 0000; //hex 0xF0CF0 
+addr = 20'b1111_0000_1100_1111_0000; //hex 0xF0CF0 
 din = {4'b0010,{`DWORD_SIZE_BITS-4{1'b0}}};
 cacheHit = 0;
 cacheDirtyBit = 1;
@@ -395,9 +413,10 @@ addr = {`DMEM_SIZE{1'b0}};
 din = {`DWORD_SIZE_BITS{1'b0}};
 
 //cache write in set 18
+test = 62; //////////////////////////////////////////////////////////////////////////
 #10;
 wen = 1;
-addr = 20'b0000 1111 0001 0010 0000; //hex 0x0F120 
+addr = 20'b0000_1111_0001_0010_0000; //hex 0x0F120 
 din = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
 cacheHit = 0;
 cacheDirtyBit = 1;
@@ -416,6 +435,7 @@ din = {`DWORD_SIZE_BITS{1'b0}};
 
 
 //initialization
+    test = 70; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 0;
     wen = 0;
@@ -432,9 +452,10 @@ din = {`DWORD_SIZE_BITS{1'b0}};
 
 //------------CASE 7-> 4 CACHE WRITE MISSES with different byteSelectVector ------------//
 //set 9: same set index 9, different tags 
+    test = 71; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1;
-    addr = 20'b0000 0000 0100 1001 0000; //hex 0x0490 
+    addr = 20'b0000_0000_0100_1001_0000; //hex 0x0490 
     byteSelectVector = 4'b0001;
     din = {`DWORD_SIZE_BITS{1'b0}};
     #90;
@@ -443,13 +464,13 @@ din = {`DWORD_SIZE_BITS{1'b0}};
     memReadReady = 0;
     wen = 0;
 
-
+    test = 72; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1;
-    addr = 20'b0000 0000 0100 1001 0000; //hex 0x20010 
+    addr = 20'b0000_0000_0100_1001_0000; //hex 0x20010 
     byteSelectVector = 4'b1000;
     din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b0}}};
-    byteSelectVector = 
+    byteSelectVector = 4'b0001;
     #120;
     memReadReady = 1;
     #120;
@@ -457,9 +478,10 @@ din = {`DWORD_SIZE_BITS{1'b0}};
     wen = 0;
 
 //set 10: same set index 01010, different tags
+    test = 73; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1;
-    addr = 20'b0000 1000 0100 1010 0000; //hex 0x084A0
+    addr = 20'b0000_1000_0100_1010_0000; //hex 0x084A0
     byteSelectVector = 4'b1100;
     din = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
      #90;
@@ -468,9 +490,10 @@ din = {`DWORD_SIZE_BITS{1'b0}};
     memReadReady = 0;
     wen = 0;
 
+    test = 74; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1; 
-    addr = 20'b0010 0001 0000 1010 0000;
+    addr = 20'b0010_0001_0000_1010_0000;
     byteSelectVector = 4'b0100;
     din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b1}}};
      #90;
@@ -481,6 +504,7 @@ din = {`DWORD_SIZE_BITS{1'b0}};
 
 
 //initialization
+    test = 80; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 0;
     wen = 0;
@@ -497,11 +521,12 @@ din = {`DWORD_SIZE_BITS{1'b0}};
 
 //------------CASE 8-> READ HIT with different byteSelectVector ------------//
 // access and hit set 1 
+test = 81; //////////////////////////////////////////////////////////////////////////
 #10;
 ren = 1;
 #2;
 cacheHit = 1;
-addr = 20'b0000 0000 0100 0001 0000;
+addr = 20'b0000_0000_0100_0001_0000;
 byteSelectVector = 4'b0100;
 cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
 #8;
@@ -510,11 +535,12 @@ cacheHit = 0;
 
 
 // access and hit set 10 
+test = 82; //////////////////////////////////////////////////////////////////////////
 #10;
 ren = 1;
 #2;
 cacheHit = 1;
-addr = 20'b0000 1000 0100 1010 0000;
+addr = 20'b0000_1000_0100_1010_0000;
 byteSelectVector = 4'b0010;
 cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
 #8;
@@ -523,6 +549,7 @@ cacheHit = 0;
 
 
 //initialization
+    test = 90; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 0;
     wen = 0;
