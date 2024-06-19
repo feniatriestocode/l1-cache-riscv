@@ -17,7 +17,26 @@ module cpu(input clock,
            input dmem_done,
            input [((`DWORD_SIZE*`DBLOCK_SIZE)-1):0] dmem_dout);     
            
-           
+//dcache_controller 
+reg ren, wen;
+reg [(`DADDR_SIZE-1):0] addr;
+reg [(`DWORD_SIZE-1):0] byteSelectVector;
+reg [(`DWORD_SIZE_BITS-1):0] din;
+reg cacheHit;
+reg cacheDirtyBit;
+reg [(`DBLOCK_SIZE_BITS-1):0] cacheDout;
+reg memReadReady, memWriteDone;
+reg [(`DBLOCK_SIZE_BITS-1):0] memDout;
+
+wire stall;
+wire [(`DWORD_SIZE_BITS-1):0] dout;
+wire [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr;
+wire cacheEn, cacheWen, cacheMemWen;
+wire [(`DBLOCK_SIZE-1):0] cacheBytesAccess;
+wire [(`DBLOCK_SIZE_BITS-1):0] cacheDin;
+wire memRen, memWen;
+wire [(`DBLOCK_SIZE_BITS-1):0] memDin;
+
  //pipeline          
 wire dcache_stall, icache_stall, dcache_ren, dcache_wen;
 wire [`DBLOCK_SIZE_BITS-1:0] dcache_output;
@@ -74,40 +93,32 @@ Dcache_SRAM Dcache(.clk(clock),
                 .dirtyBit(DcacheDirtyBit),
                 .dataOut(DcacheDout));
 
-dcache_controller D_CNTRL (// pipeline inputs
-                        .clock(clock),
-                        .reset(reset),
-                        .ren(dcache_ren), 
-                        .wen(dcache_wen),
-                        .addr(dcache_addr),
-                        .byteSelectVector(byteSelectVector),
-                        .din(dcache_input),
-                        
-                        // cache inputs
-                        .cacheHit(DcacheHit),
-                        .cacheDirtyBit(DcacheDirtyBit),
-                        .cacheDout(DcacheDout),
-                        
-                        // memory inputs
-                        .memReadReady(dmem_ready), 
-                        .memWriteDone(dmem_done),
-                        .memDout(dmem_dout),
-                        
-                        // pipeline outputs
-                        .stall(dcache_stall),
-                        .dout(dcache_output),
+dcache_controller Dcntr(
+  // Instantiate dcache_controller
+    .clock(clock),
+    .reset(reset),
+    .ren(ren),
+    .wen(wen),
+    .addr(addr),
+    .byteSelectVector(byteSelectVector),
+    .din(din),
+    .cacheHit(cacheHit),
+    .cacheDirtyBit(cacheDirtyBit),
+    .cacheDout(cacheDout),
+    .memReadReady(memReadReady),
+    .memWriteDone(memWriteDone),
+    .memDout(memDout),
+    .stall(stall),
+    .dout(dout),
+    .BlockAddr(BlockAddr),
+    .cacheEn(cacheEn),
+    .cacheWen(cacheWen),
+    .cacheMemWen(cacheMemWen),
+    .cacheBytesAccess(cacheBytesAccess),
+    .cacheDin(cacheDin),
+    .memRen(memRen),
+    .memWen(memWen),
+    .memDin(memDin)
+);
 
-                        // cache outputs
-                        .cacheEn(DcacheEn),
-                        .cacheWen(DcacheWen),
-                        .cacheMemWen(DcacheMemWen),
-                        .cacheBytesAccess(DcacheBytesAccess),
-                        .cacheBlockAddr(DcacheBlockAddr),
-                        .cacheDin(DcacheDin),
-                        
-                        // memory outputs
-                        .memRen(dmem_ren), 
-                        .memWen(dmem_wen),
-                        .memBlockAddr(dmem_block_address),
-                        .memDin(dmem_din)); 
 endmodule
