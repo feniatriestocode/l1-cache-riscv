@@ -5,15 +5,15 @@ SREC_CAT=srec_cat
 OBJCOPY=riscv32-unknown-elf-objcopy
 CFLAGS=-mabi=ilp32 -march=rv32i
 LDFLAGS=-Tlink.ld -melf32lriscv
-SRCS=$(wildcard *.S)
-OBJS=$(SRCS:.S=.o)
-ELFS=$(SRCS:.S=.elf)
-BINS=$(SRCS:.S=.text.vh) $(SRCS:.S=.data.vh)
-VHS=$(SRCS:.S=.text.vh) $(SRCS:.S=.data.vh)
+SRCS=$(wildcard *.s)
+OBJS=$(SRCS:.s=.o)
+ELFS=$(SRCS:.s=.elf)
+BINS=$(SRCS:.s=.text.vh) $(SRCS:.s=.data.vh)
+VHS=$(SRCS:.s=.text.vh) $(SRCS:.s=.data.vh)
 
 all: ${VHS}
 
-%.o: %.S 
+%.o: %.s 
 	${CC} -c ${CFLAGS} -o $@ $<
 
 %.elf: %.o 

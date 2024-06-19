@@ -7,14 +7,15 @@
 #define CACHE_SIZE 1024
 #define LINE_SIZE 64
 #define INT_SIZE 4
-const int stride = LINE_SIZE / INT_SIZE;
+#define STRIDE 16
+
 void main()
 {
     int index;
-    int arr[LINE_SIZE * CACHE_SIZE];
+    int arr[CACHE_SIZE];
     for (int j = 0; j < LINE_SIZE; j ++)
     {
-        index = j*stride;
+        index = 1;
         arr[index]++;
     }
 }

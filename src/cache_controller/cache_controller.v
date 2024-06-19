@@ -51,7 +51,7 @@ assign dout = cacheDout[blockOffset*8+:`DWORD_SIZE_BITS];
 
 // Write hit
 assign cacheWen = wen && ~ren && cacheHit;
-assign cacheBytesAccess = {{{(`DBLOCK_SIZE_WORDS-blockOffset-1)*`DWORD_SIZE}1'b0},{byteSelectVector},{{blockOffset*`DWORD_SIZE}1'b0}};
+assign cacheBytesAccess = {({(`DBLOCK_SIZE_WORDS-blockOffset-1)*`DWORD_SIZE{1'b0}}) , byteSelectVector, ({blockOffset*`DWORD_SIZE{1'b0}})};
 assign cacheDin[blockOffset*8+:`DWORD_SIZE_BITS] = din;
 reg cacheFullblockWen;
 
