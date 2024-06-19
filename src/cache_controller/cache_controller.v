@@ -38,12 +38,95 @@ module dcache_controller(// pipeline inputs
 
   			   
 wire pipeline_req;
+wire [(`DBLOCK_OFFSET_SIZE-1):0] blockOffset;
 
+<<<<<<< Updated upstream
 assign pipeline_req = ren || wen;
   			   
 wire pipeline_req;
 
 assign pipeline_req = ren || wen;
+=======
+assign pipeline_req = (ren && ~wen) || (wen && ~ren);
+
+assign BlockAddr = addr[(`DMEM_BLOCK_ADDR_SIZE-1):`DBLOCK_OFFSET_SIZE];
+
+assign blockOffset = addr[`DBLOCK_OFFSET_SIZE-1:0];
+
+assign dout = cacheDout[blockOffset*8+:`DWORD_SIZE_BITS];
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Cache Controller Logic
+reg [(`DBLOCK_SIZE_BITS-1):0] cacheData;
+reg [(`DBLOCK_SIZE-1):0] cacheBytesAccess;
+reg [(`DBLOCK_SIZE_BITS-1):0] cacheDin;
+reg cacheEn, cacheWen, cacheMemWen;
+
+always @(posedge clock or negedge reset) begin
+    if (reset == 1'b0) begin
+        cacheData <= 0;
+        cacheBytesAccess <= 0;
+        cacheDin <= 0;
+        cacheEn <= 0;
+        cacheWen <= 0;
+        cacheMemWen <= 0;
+    end else begin
+        if (cacheHit) begin
+            cacheData <= cacheDout;
+            cacheBytesAccess <= byteSelectVector;
+            cacheEn <= 1'b1;
+            cacheWen <= 1'b0;
+            cacheMemWen <= 1'b0;
+        end else begin
+            cacheData <= cacheDin;
+            cacheBytesAccess <= 0;
+            cacheEn <= 1'b0;
+            cacheWen <= 1'b1;
+            cacheMemWen <= 1'b1;
+        end
+    end
+end
+
+// Memory Controller Logic
+reg memRen, memWen;
+reg [(`DBLOCK_SIZE_BITS-1):0] memDin;
+
+always @(posedge clock or negedge reset) begin
+    if (reset == 1'b0) begin
+        memRen <= 0;
+        memWen <= 0;
+        memDin <= 0;
+    end else begin
+        if (state == MEMREAD) begin
+            memRen <= 1'b1;
+            memWen <= 1'b0;
+            memDin <= 0;
+        end else if (state == WRITEBACK) begin
+            memRen <= 1'b0;
+            memWen <= 1'b1;
+            memDin <= cacheData;
+        end else begin
+            memRen <= 1'b0;
+            memWen <= 1'b0;
+            memDin <= 0;
+        end
+    end
+end
+
+// Output Assignments
+assign dout = cacheData;
+assign BlockAddr = addr[`DMEM_BLOCK_ADDR_SIZE-1:0];
+assign cacheBytesAccess = cacheBytesAccess;
+assign cacheDin = cacheDin;
+assign cacheEn = cacheEn;
+assign cacheWen = cacheWen;
+assign cacheMemWen = cacheMemWen;
+assign memRen = memRen;
+assign memWen = memWen;
+assign memDin = memDin;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+>>>>>>> Stashed changes
 
 
 //-----------------------FSM----------------------------------------//
