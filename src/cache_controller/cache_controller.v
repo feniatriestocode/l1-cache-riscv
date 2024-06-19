@@ -7,38 +7,39 @@ module dcache_controller(// pipeline inputs
                         input clock,
                         input reset,
                         input ren, wen,
-                        input [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0]  addr,
-                        input [`DWORD_SIZE-1:0] byteSelectVector,
-                        input [`DWORD_SIZE_BITS-1:0] din,
+                        input [(`DADDR_SIZE-1):0] addr,
+                        input [(`DWORD_SIZE-1):0] byteSelectVector,
+                        input [(`DWORD_SIZE_BITS-1):0] din,
                         
                         // cache inputs
                         input cacheHit,
                         input cacheDirtyBit,
-                        input [`DBLOCK_SIZE_BITS-1:0] cacheDout,
+                        input [(`DBLOCK_SIZE_BITS-1):0] cacheDout,
                         
                         // memory inputs
                         input memReadReady, memWriteDone,
-                        input [((`DBLOCK_SIZE_BITS)-1):0] memDout,
+                        input [(`DBLOCK_SIZE_BITS-1):0] memDout,
                         
                         // pipeline outputs
                         output stall,
-                        output [`DWORD_SIZE_BITS-1:0] dout,
+                        output [(`DWORD_SIZE_BITS-1):0] dout,
+
+                        //both cache and memory output
+                        output [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
 
                         // cache outputs
                         output cacheEn, cacheWen, cacheMemWen,
-                        output [`DBLOCK_SIZE-1:0] cacheBytesAccess,
-                        output [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] cacheBlockAddr,
-                        output [`DBLOCK_SIZE_BITS-1:0] cacheDin,
+                        output [(`DBLOCK_SIZE-1):0] cacheBytesAccess,
+                        output [(`DBLOCK_SIZE_BITS-1):0] cacheDin,
                         
                         // memory outputs
                         output memRen, memWen,
-                        output [`DMEM_BLOCK_ADDR-1:0] memBlockAddr,
-                        output [((`DBLOCK_SIZE_BITS)-1):0]  memDin);
+                        output [(`DBLOCK_SIZE_BITS-1):0] memDin);
 
   			   
-wire cpu_req;
+wire pipeline_req;
 
-assign cpu_req = ren || wen;
+assign pipeline_req = ren || wen;
 
 
 
@@ -63,15 +64,14 @@ begin
 	else begin
         state <= next_state;
     end
-    current_state <= next_state; // Update current_state output
 end
 
 //COMBINATIONAL LOGIC
-always @(state, cpu_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
+always @(state, pipeline_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
 begin
 	case (state)
 	IDLE: begin
-		if(cpu_req && !cacheHit) begin
+		if(pipeline_req && !cacheHit) begin
             next_state = MISS;
         end
         else begin 
@@ -112,7 +112,7 @@ end
 	
 //COMBINATIONAL LOGIC FOR OUTPUTS
 
-always @(state,cpu_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
+always @(state,pipeline_req, cacheHit, cacheDirtyBit, memWriteDone, memReadReady)
 begin
     stall = 1'b0;
     cacheEn = 1'b0;
