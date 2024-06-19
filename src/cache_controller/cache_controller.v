@@ -44,25 +44,35 @@ wire [(`DBLOCK_OFFSET_SIZE-1):0] blockOffset;
 assign pipeline_req = (ren && ~wen) || (wen && ~ren);
 
 assign BlockAddr = addr[(`DMEM_BLOCK_ADDR_SIZE-1):`DBLOCK_OFFSET_SIZE];
-assign blockOffset = addr[`DBLOCK_OFFSET_SIZE-1:0];
+assign blockOffset = addr[`DBLOCK_OFFSET_SIZE-1:0]; //^_^we used only the first 2 bits for each reference!!!!!!!!!!^_^
 
 // Read hit
-assign cacheRen = ren && ~wen && cacheHit;
-assign dout = cacheDout[blockOffset*8+:`DWORD_SIZE_BITS];
+assign cacheRen = reset && ren && ~wen && cacheHit;
+assign dout = reset ? cacheDout[blockOffset[3:2]*8+:`DWORD_SIZE_BITS] : {`DWORD_SIZE_BITS{1'b0}}; 
 
 // Write hit
-assign cacheWen = wen && ~ren && cacheHit;
+assign cacheWen = reset && wen && ~ren && cacheHit;
 
-always @(byteSelectVector or blockOffset) begin
-    cacheBytesAccess = {(`DBLOCK_SIZE){1'b0}};
-    cacheBytesAccess[blockOffset * `DWORD_SIZE +: `DWORD_SIZE] = byteSelectVector;
+always @(byteSelectVector or blockOffset or reset) begin
+    if(~reset)begin
+        cacheBytesAccess = {(`DBLOCK_SIZE){1'b0}};
+    end
+    else begin
+        cacheBytesAccess = {(`DBLOCK_SIZE){1'b0}};
+        cacheBytesAccess[blockOffset[3:2] * `DWORD_SIZE +: `DWORD_SIZE] = byteSelectVector;
+    end
 end
 
-always @(cacheMemWen or memDout or blockOffset) begin
-    if (cacheMemWen) begin
-        cacheDin = memDout;
-    end else begin
-        cacheDin[blockOffset * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
+always @(cacheMemWen or memDout or blockOffset or reset or din) begin
+    if(~reset) begin
+        cacheDin = {(`DBLOCK_SIZE_BITS){1'b0}};
+    end   
+    else begin
+        if (cacheMemWen) begin
+            cacheDin = memDout;
+        end else begin
+            cacheDin[blockOffset[3:2] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
+        end
     end
 end
 
