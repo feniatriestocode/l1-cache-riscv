@@ -5,6 +5,8 @@
 `define DBLOCK_SIZE             16                                                  // in bytes 
 `define DBLOCK_SIZE_BITS        `DBLOCK_SIZE*8                                      // in bits
 
+`define DBLOCK_SIZE_WORDS       `DBLOCK_SIZE / `DWORD_SIZE                          // in words
+
 //ADDRESS SEGMENTS//
 `define DADDR_SIZE              $clog2(`DMEM_SIZE)
 `define DBLOCK_OFFSET_SIZE      $clog2(`DBLOCK_SIZE)
