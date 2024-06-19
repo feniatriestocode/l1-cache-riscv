@@ -81,6 +81,22 @@ module Dmem_tb();
     end
     #1000 reset = 0;
 
+  //read after write
+  #999 reset = 0; ren = 0; wen = 0; addr = 16'b0; din = 128'b0; // initialization
+
+    #1000 reset = 1;
+    #10 addr = 16'b0;
+    #10 ren = 1;
+    #1000 ren = 0;
+    for(i=1; i<32; i=i+1)
+    begin
+      #10 addr = addr + 16'b1;
+      #10 ren = 1;
+      #1000 ren = 0;
+    end
+    #1000 reset = 0;
+
+
     #1000 $finish;
   end
 
