@@ -124,7 +124,7 @@ dcache_controller controller2check(
     test = 12; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1;
-    addr = 20'b0000_0000_0100_0001_0000; //hex 0x20010 
+    addr = 20'b0010_0000_0000_0001_0000; //hex 0x20010
     din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b0}}};
     #120;
     memReadReady = 1;
@@ -232,9 +232,6 @@ din = {`DWORD_SIZE_BITS{1'b1}};
 #2;
 cacheHit = 1;
 #90;
-memReadReady = 1;
-#98;
-memReadReady = 0;
 wen = 0;
 addr = {`DMEM_SIZE{1'b0}};
 din = {`DWORD_SIZE_BITS{1'b0}};
@@ -243,14 +240,11 @@ cacheHit = 0;
 test = 32; //////////////////////////////////////////////////////////////////////////
 #10;
 wen = 1;
-addr = 20'b0000_0000_0100_0001_0000;
+addr =20'b0010_0000_0000_0001_0000;
 din = {`DWORD_SIZE_BITS{1'b0}};
 #2;
 cacheHit = 1;
 #90;
-memReadReady = 1;
-#98;
-memReadReady = 0;
 wen = 0;
 addr = {`DMEM_SIZE{1'b0}};
 din = {`DWORD_SIZE_BITS{1'b0}};
@@ -275,7 +269,7 @@ cacheHit = 0;
 //------------CASE 4-> CACHE READ MISS no writeback------------//
     test = 41; //////////////////////////////////////////////////////////////////////////
     ren = 1;
-    addr = 20'b0000_0000_0010_0110_0000; //hex 0x0260
+    addr = 20'b0000_0000_0010_0110_; //hex 0x0260
     cacheHit = 0;
     cacheDirtyBit = 0;
     #100;
