@@ -28,7 +28,7 @@ module dcache_controller(// pipeline inputs
                         output [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
 
                         // cache outputs
-                        output cacheEn, cacheWen, cacheMemWen,
+                        output cacheRen, cacheWen, cacheMemWen,
                         output [(`DBLOCK_SIZE-1):0] cacheBytesAccess,
                         output [(`DBLOCK_SIZE_BITS-1):0] cacheDin,
                         
@@ -38,16 +38,24 @@ module dcache_controller(// pipeline inputs
 
   			   
 wire pipeline_req;
+wire [(`DBLOCK_OFFSET_SIZE-1):0] blockOffset;
 
-assign pipeline_req = ren || wen;
-  			   
-wire pipeline_req;
+assign pipeline_req = (ren && ~wen) || (wen && ~ren);
 
-assign pipeline_req = ren || wen;
+assign BlockAddr = addr[(`DMEM_BLOCK_ADDR_SIZE-1):`DBLOCK_OFFSET_SIZE];
+assign blockOffset = addr[`DBLOCK_OFFSET_SIZE-1:0];
 
+// Read hit
+assign cacheRen = ren && ~wen && cacheHit;
+assign dout = cacheDout[blockOffset*8+:`DWORD_SIZE_BITS];
+
+// Write hit
+assign cacheWen = wen && ~ren && cacheHit;
+assign cacheBytesAccess = {{{(`DBLOCK_SIZE_WORDS-blockOffset-1)*`DWORD_SIZE}1'b0},{byteSelectVector},{{blockOffset*`DWORD_SIZE}1'b0}};
+assign cacheDin[blockOffset*8+:`DWORD_SIZE_BITS] = din;
 reg cacheFullblockWen;
 
-//-----------------------FSM----------------------------------------//
+//****************************************DCACHE MISS FSM****************************************//
 
 parameter IDLE = 3'b000,
           MISS = 3'b001,
@@ -55,8 +63,7 @@ parameter IDLE = 3'b000,
           WRITEBACK = 3'b011,
           MEMCACHE = 3'b100;
 
-
-reg [2:0 ]state, next_state;
+reg [2:0] state, next_state;
 //SEQUENTIAL LOGIC
 
 always @(posedge clock or negedge reset)
