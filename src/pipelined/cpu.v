@@ -31,7 +31,7 @@ reg [(`DBLOCK_SIZE_BITS-1):0] memDout;
 wire stall;
 wire [(`DWORD_SIZE_BITS-1):0] dout;
 wire [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr;
-wire cacheEn, cacheWen, cacheMemWen;
+wire cacheRen, cacheWen, cacheMemWen;
 wire [(`DBLOCK_SIZE-1):0] cacheBytesAccess;
 wire [(`DBLOCK_SIZE_BITS-1):0] cacheDin;
 wire memRen, memWen;
@@ -111,7 +111,7 @@ dcache_controller Dcntr(
     .stall(stall),
     .dout(dout),
     .BlockAddr(BlockAddr),
-    .cacheEn(cacheEn),
+    .cacheRen(cacheRen),
     .cacheWen(cacheWen),
     .cacheMemWen(cacheMemWen),
     .cacheBytesAccess(cacheBytesAccess),

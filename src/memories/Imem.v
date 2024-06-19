@@ -1,6 +1,6 @@
 /*IMPLEMENTATION OF A PARAMETRIZED INSTRUCTION MEMORY ON RISC-V*/
 
-//`timescale 1ns / 1ps
+////`timescale 1ns / 1ps
 
 `include "constants.vh"
 // `include "../common/counter.v"

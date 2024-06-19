@@ -3,7 +3,7 @@
 // inside the cache. Verification file: ../results/full.txt               //
 //========================================================================//
 #include <stdio.h>  
-#define NUM_ELEMENTS 1024
+#define NUM_ELEMENTS 1024 // size_int *
 
 void main()
 {
