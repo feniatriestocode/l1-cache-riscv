@@ -105,6 +105,7 @@ dcache_controller controller2check(
     #10;
     reset = 1;
 
+    #1; //delay 
 
 //------------CASE 1-> 4 CACHE WRITE MISSES ------------//
 //set 1: same set index 00001, different tags 
@@ -112,7 +113,7 @@ dcache_controller controller2check(
     #10;
     wen = 1;
     addr = 8'b00_01_00_00; //hex 0x10 
-    din = {`DWORD_SIZE_BITS{1'b0}};
+    din = {4'b1101,{`DWORD_SIZE_BITS-4{1'b0}}};
     #90;
     memReadReady = 1;
     #100;
@@ -327,8 +328,11 @@ addr = 8'b00_11_00_00; //hex 0x30
 #2;
 cacheHit = 0;
 cacheDirtyBit = 1;
-#18;
+cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
+#20;
 memWriteDone = 1;
+#10;
+cacheDirtyBit = 0;
 #100;
 memWriteDone= 0;
 #20;
@@ -350,8 +354,11 @@ addr = 8'b11_01_00_00; //hex 0xD0
 #2;
 cacheHit = 0;
 cacheDirtyBit = 1;
-#18;
+cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
+#20;
 memWriteDone = 1;
+#10;
+cacheDirtyBit = 0;
 #100;
 memWriteDone= 0;
 #20;

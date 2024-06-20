@@ -70,6 +70,9 @@ always @(cacheMemWen or memDout or blockOffset or reset or din) begin
     else begin
         if (cacheMemWen) begin
             cacheDin = memDout;
+            if(wen && ~ren) begin
+                cacheDin[blockOffset[3:2] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
+            end
         end else begin
             cacheDin = {(`DBLOCK_SIZE_BITS){1'b0}};
             cacheDin[blockOffset[3:2] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
