@@ -4,16 +4,12 @@
 // module inside the testbench.                                           //                         
 //========================================================================//
 #include <stdio.h>  
-#define CACHE_SIZE 1024
-#define LINE_SIZE 64
-#define INT_SIZE 4
-#define STRIDE 16
-
+#include "constants.h"
 void main()
 {
     int index;
-    int arr[CACHE_SIZE];
-    for (int j = 0; j < LINE_SIZE; j ++)
+    int arr[STRIDE];
+    for (int j = 0; j < STRIDE; j ++) //attention! j also in cache
     {
         index = 1;
         arr[index]++;

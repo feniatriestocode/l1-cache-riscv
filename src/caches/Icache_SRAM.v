@@ -31,7 +31,7 @@ module Icache_SRAM(clk, rst, ren, memWen, blockAddr, dataIn, hit, dataOut);
     assign index = blockAddr[`ISET_INDEX_SIZE-1:0];
     assign tag   = blockAddr[`ITAG_SIZE+`ISET_INDEX_SIZE-1:`ISET_INDEX_SIZE]; 
 
-    integer i,j;
+    integer i,j,m;
 
     //*******************************ASYNCHRONOUS HIT/READ DATA*******************************//
     reg [`ICACHE_ASSOCIATIVITY-1:0] hitReg;
@@ -78,13 +78,13 @@ module Icache_SRAM(clk, rst, ren, memWen, blockAddr, dataIn, hit, dataOut);
     reg [`ICACHE_ASSOCIATIVITY-1:0] blockToEvict;
     reg [`ICACHE_ASSOCIATIVITY-1:0] statusCol;
 
-    always @(rst or en or index)begin
+    always @(rst or ren or index)begin
         // default values
         found = 1'b0;
         blockToEvict = {`ICACHE_ASSOCIATIVITY{1'b0}};
         statusCol = {`ICACHE_ASSOCIATIVITY{1'b0}};
         
-        if(rst && en)begin
+        if(rst && ren)begin
             for(m=0; m<`ICACHE_ASSOCIATIVITY; m=m+1)begin
                 // PLRU should access the first block with status=0 or the first invalid one
                 if((valid_col[index][m] == 1'b0 || status_col[index][m] == 1'b0) && found==1'b0)begin

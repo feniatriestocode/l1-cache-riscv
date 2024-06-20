@@ -6,7 +6,7 @@
 void main()
 {
     int i = 0;
-    while (i < 100000)
+    while (i < 100000) //attention! i also in cache
     {
        i++;
     }
