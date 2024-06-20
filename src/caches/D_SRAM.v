@@ -56,11 +56,11 @@ module D_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, hit, d
 
                 if((&valid_col[index])==1'b0)begin
                     mask = {`DCACHE_ASSOCIATIVITY{1'b1}} >> (`DCACHE_ASSOCIATIVITY-(i+1));
-                    blockToEvict[i] = ((valid_col[index] & mask) == 2**(i-1));
+                    blockToEvict[i] = ((valid_col[index] & mask) == (2**i)-1);
                 end
                 else begin
                     mask = {`DCACHE_ASSOCIATIVITY{1'b1}} >> (`DCACHE_ASSOCIATIVITY-(i+1));
-                    blockToEvict[i] = ((status_col[index] & mask) == 2**(i-1));
+                    blockToEvict[i] = ((status_col[index] & mask) == (2**i)-1);
                 end
             end
 
