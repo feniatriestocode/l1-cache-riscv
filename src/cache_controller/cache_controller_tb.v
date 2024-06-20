@@ -111,7 +111,7 @@ dcache_controller controller2check(
     test = 11; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1;
-    addr = 8'00_01_00_00; //hex 0x10 
+    addr = 8'b00_01_00_00; //hex 0x10 
     din = {`DWORD_SIZE_BITS{1'b0}};
     #90;
     memReadReady = 1;
@@ -184,7 +184,7 @@ dcache_controller controller2check(
 test = 21; //////////////////////////////////////////////////////////////////////////
 #10;
 ren = 1;
-addr =  8'00_01_00_00; //hex 0x10 
+addr =  8'b00_01_00_00; //hex 0x10 
 #2;
 cacheHit = 1;
 cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
@@ -227,7 +227,7 @@ cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
 test = 31; //////////////////////////////////////////////////////////////////////////
 #10;
 wen = 1;
-addr = 8'00_01_00_00; //hex 0x10 
+addr = 8'b00_01_00_00; //hex 0x10 
 din = {`DWORD_SIZE_BITS{1'b1}};
 #2;
 cacheHit = 1;
