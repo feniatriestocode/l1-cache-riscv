@@ -11,15 +11,15 @@ module icache_controller(// pipeline inputs
                         
                         // cache inputs
                         input cacheHit,
-                        input [(`IBLOCK_SIZE_BITS-1):0] cacheDout,
+                        input [(`IBLOCK_SIZE_BITS-1):0] cacheIout,
                         
                         // memory inputs
                         input memReadReady,
-                        input [(`IBLOCK_SIZE_BITS-1):0] memDout,
+                        input [(`IBLOCK_SIZE_BITS-1):0] memIout,
                         
                         // pipeline outputs
                         output reg stall,
-                        output [(`IWORD_SIZE_BITS-1):0] dout,
+                        output [(`IWORD_SIZE_BITS-1):0] iout,
 
                         //both cache and memory output
                         output [(`IMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
@@ -32,15 +32,38 @@ module icache_controller(// pipeline inputs
                         // memory outputs
                         output reg memRen);
 
+wire [(`IBLOCK_OFFSET_SIZE-1):0] blockOffset;
 
+    
+assign BlockAddr = addr[(`IADDR_SIZE-1):`IBLOCK_OFFSET_SIZE];
+assign blockOffset = addr[`IBLOCK_OFFSET_SIZE-1:0];
+
+
+assign cacheRen = reset && ren;
+assign iout = reset ? cacheiout[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE]*8+:`DWORD_SIZE_BITS] : {`DWORD_SIZE_BITS{1'b0}}; 
+
+
+
+always @(cacheMemWen or memiout or reset) begin
+    if(~reset) begin
+        cacheDin = {(`IBLOCK_SIZE_BITS){1'b0}};
+    end else if (cacheMemWen)  begin
+        cacheDin = memiout;
+    end
+end
+
+
+    //****************************************ICACHE MISS FSM****************************************//
 
 parameter IDLE = 2'b00,
           MEMREAD = 2'b01,
           MEMCACHE = 2'b10;
 
 reg [1:0] state, next_state;
-//SEQUENTIAL LOGIC
 
+
+
+//SEQUENTIAL LOGIC
 always @(posedge clock or negedge reset)
 begin
 	if (reset == 1'b0) begin
@@ -52,6 +75,7 @@ begin
 end
 
 
+    //COMBINATIONAL LOGIC
 
 always @(state or ren or cacheHit or memReadReady)
 begin
@@ -78,6 +102,9 @@ begin
     endcase
 end   
 
+    //COMBINATIONAL LOGIC FOR OUTPUTS
+
+
 always @(state or ren or cacheHit or memReadReady)
 begin
     stall = 1'b0;
@@ -93,10 +120,6 @@ begin
             stall = 1'b1;
             cacheMemWen = 1'b1;
         end     
-
     endcase    
-
-
 end
-
 endmodule
