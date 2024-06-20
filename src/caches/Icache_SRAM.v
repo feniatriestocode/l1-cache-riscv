@@ -4,11 +4,11 @@
 /*Syc Write: rst=1, en=1, memWen=1, blockAddr=[TAG,INDEX], dataIn=don't care
   Write in memory in the next cycle from the write signals' arrival*/
 
-// `timescale 1ns / 1ps
+`timescale 1ns/1ps
 `include "constants.vh"
 
 
-module I_SRAM(clk, rst, ren, memWen, blockAddr, dataIn, hit, dataOut);
+module Icache_SRAM(clk, rst, ren, memWen, blockAddr, dataIn, hit, dataOut);
     //input ports//
     input clk, rst;
     input ren, memWen; 
@@ -67,7 +67,7 @@ module I_SRAM(clk, rst, ren, memWen, blockAddr, dataIn, hit, dataOut);
             end else begin
                 for(i=0; i<`ICACHE_ASSOCIATIVITY; i=i+1) begin
                     mask = {`ICACHE_ASSOCIATIVITY{1'b1}} >> (`ICACHE_ASSOCIATIVITY-(i+1));
-                    blockToEvict[i] = ((status_col[index] & mask) == (2**i)-1);
+                    blockToEvict[i] = ((status_col[index] & mask) == 2**(i-1));
                 end
             end
         end

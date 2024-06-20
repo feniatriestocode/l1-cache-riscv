@@ -4,10 +4,10 @@
 /*Syc Write: rst=1, en=1, wen=0, memWen=1, blockAddr=[TAG,INDEX], dataIn=don't care
   Write in memory in the next cycle from the write signals' arrival*/
 
-// `timescale 1ns / 1ps
+`timescale 1ns/1ps
 `include "constants.vh"
 
-module D_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, hit, dirtyBit, dataOut);
+module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, hit, dirtyBit, dataOut);
     //input ports//
     input clk, rst;
     input ren, wen, memWen;
@@ -168,3 +168,4 @@ module D_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, hit, d
     end //end of always
 
 endmodule
+
