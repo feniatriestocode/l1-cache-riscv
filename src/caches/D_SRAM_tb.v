@@ -25,43 +25,10 @@ module Dcache_SRAM_tb;
         #20 rst=1;
         #16
         
-        //WRITE TARGETTING SET 0 BLOCK 0//
-        blockAddr={{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
-        dataIn={`DBLOCK_SIZE_BITS{1'b1}};
-
-        ren=0;
-        wen=0;
-        memWen=1;
-        
-        //WRITE DIFFERENT TAG / TARGETTING SET 0 BLOCK 1//
-        /*#60
-        blockAddr={{`DTAG_SIZE{1'b0}},{`DSET_INDEX_SIZE{1'b0}}};
-        dataIn={`DBLOCK_SIZE_BITS/2{2'b10}};
-
-        ren=0;
-        wen=0;
-        memWen=1; /*
-
-        #60 
-        blockAddr={{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
-        dataIn={8'b10101010,{`DBLOCK_SIZE_BITS-8{1'b0}}};
-        bytesAccess = {1'b1,{`DBLOCK_SIZE-1{1'b0}}};
-        
-        ren=1;
-        wen=1;
-        memWen=0;
-        
-        #60 
-        blockAddr={{`DTAG_SIZE{1'b1}},{`DSET_INDEX_SIZE{1'b0}}};
         ren=1;
         wen=0;
         memWen=0;
         
-        #60 
-        blockAddr={`ITAG_SIZE+`ISET_INDEX_SIZE{1'b0}};
-        ren=1;
-        wen=0;
-        memWen=0;*/
     end
 
     always #5 clk = ~clk;

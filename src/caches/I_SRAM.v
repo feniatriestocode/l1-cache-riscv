@@ -19,8 +19,8 @@ module I_SRAM(clk, rst, ren, memWen, blockAddr, dataIn, hit, dataOut);
     output reg [`IBLOCK_SIZE_BITS-1:0] dataOut;
 
     //SRAM'S columns declaration
-    reg [`ICACHE_ASSOCIATIVITY-1:0]   valid_col  [`ICACHE_SIZE_SETS-1:0];
-    reg [`ICACHE_ASSOCIATIVITY-1:0]   status_col [`ICACHE_SIZE_SETS-1:0]; 
+    reg [`ICACHE_ASSOCIATIVITY-1:0] valid_col  [`ICACHE_SIZE_SETS-1:0];
+    reg [`ICACHE_ASSOCIATIVITY-1:0] status_col [`ICACHE_SIZE_SETS-1:0]; 
 
     reg [`ITAG_SIZE-1:0]        tag_col    [`ICACHE_SIZE_SETS-1:0][`ICACHE_ASSOCIATIVITY-1:0];
     reg [`IBLOCK_SIZE_BITS-1:0] data_col   [`ICACHE_SIZE_SETS-1:0][`ICACHE_ASSOCIATIVITY-1:0];
