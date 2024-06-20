@@ -49,7 +49,7 @@ module dcache_controller(// pipeline inputs
     
     // Read hit
     assign cacheRen = reset && ren && ~wen;
-    assign dout = reset ? cacheDout[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE]*8+:`DWORD_SIZE_BITS] : {`DWORD_SIZE_BITS{1'b0}}; 
+    assign dout = reset ? (cacheDout[(blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE])*`DWORD_SIZE_BITS +:`DWORD_SIZE_BITS]) : {`DWORD_SIZE_BITS{1'b0}}; 
     
     // Write hit
     assign cacheWen = reset && wen && ~ren;

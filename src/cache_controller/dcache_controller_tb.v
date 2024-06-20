@@ -188,7 +188,7 @@ ren = 1;
 addr =  8'b00_01_00_00; //hex 0x10 
 #2;
 cacheHit = 1;
-cacheDout = {`DBLOCK_SIZE_BITS{1'b0}};
+cacheDout = {8'b11001100,{`DBLOCK_SIZE_BITS-8{1'b1}}};
 #8;
 ren = 0;
 cacheHit = 0;
@@ -202,7 +202,7 @@ ren = 1;
 addr = 8'b10_10_00_00; //hex 0xA0 
 #2;
 cacheHit = 1;
-cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
+cacheDout = {4'b1111,{`DBLOCK_SIZE_BITS-4{1'b0}}};
 #8;
 ren = 0;
 cacheHit = 0;
@@ -328,7 +328,7 @@ addr = 8'b00_11_00_00; //hex 0x30
 #2;
 cacheHit = 0;
 cacheDirtyBit = 1;
-cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
+cacheDout = {4'b1111,{`DBLOCK_SIZE_BITS-4{1'b0}}};
 #20;
 memWriteDone = 1;
 #10;
@@ -354,7 +354,7 @@ addr = 8'b11_01_00_00; //hex 0xD0
 #2;
 cacheHit = 0;
 cacheDirtyBit = 1;
-cacheDout = {4'b1111,{`DWORD_SIZE_BITS-4{1'b0}}};
+cacheDout = {4'b1111,{`DBLOCK_SIZE_BITS-4{1'b0}}};
 #20;
 memWriteDone = 1;
 #10;

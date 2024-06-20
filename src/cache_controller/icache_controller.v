@@ -40,7 +40,7 @@ assign blockOffset = addr[`IBLOCK_OFFSET_SIZE-1:0];
 
 
 assign cacheRen = reset && ren;
-assign dout = reset ? cacheDout[blockOffset[(`IBLOCK_OFFSET_SIZE-1):`IWORD_OFFSET_SIZE]*8+:`IWORD_SIZE_BITS] : {`IWORD_SIZE_BITS{1'b0}}; 
+assign dout = reset ? (cacheDout[(blockOffset[(`IBLOCK_OFFSET_SIZE-1):`IWORD_OFFSET_SIZE])*`IWORD_SIZE_BITS +:`IWORD_SIZE_BITS]) : {`IWORD_SIZE_BITS{1'b0}};
 
 
 
@@ -49,6 +49,9 @@ always @(cacheMemWen or memDout or reset) begin
         cacheDin = {(`IBLOCK_SIZE_BITS){1'b0}};
     end else if (cacheMemWen)  begin
         cacheDin = memDout;
+    end
+    else begin
+        cacheDin = {(`IBLOCK_SIZE_BITS){1'b0}};
     end
 end
 
@@ -98,6 +101,7 @@ begin
         MEMCACHE: begin
             next_state = IDLE;
         end        
+        default: next_state = IDLE;
     endcase
 end   
 
