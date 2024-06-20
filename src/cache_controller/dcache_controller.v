@@ -47,11 +47,11 @@ assign BlockAddr = addr[(`DADDR_SIZE-1):`DBLOCK_OFFSET_SIZE];
 assign blockOffset = addr[`DBLOCK_OFFSET_SIZE-1:0]; //^_^we used only the first 2 bits for each reference!!!!!!!!!!^_^
 
 // Read hit
-assign cacheRen = reset && ren && ~wen && cacheHit;
+assign cacheRen = reset && ren && ~wen;
 assign dout = reset ? cacheDout[blockOffset[3:2]*8+:`DWORD_SIZE_BITS] : {`DWORD_SIZE_BITS{1'b0}}; 
 
 // Write hit
-assign cacheWen = reset && wen && ~ren && cacheHit;
+assign cacheWen = reset && wen && ~ren;
 
 always @(byteSelectVector or blockOffset or reset) begin
     if(~reset)begin
@@ -122,15 +122,12 @@ begin
 	end
     WRITEBACK: begin
         if(memWriteDone==1) begin
-            next_state = WRITEBACK_REPLACE;
+            next_state = MEMREAD;
         end
         else begin
             next_state = WRITEBACK;
         end
-	end    
-    WRITEBACK_REPLACE: begin
-            next_state = MEMREAD;
-    end
+	end 
 	MEMREAD: begin
         if(memReadReady==1) begin
             next_state = MEMCACHE;
@@ -140,9 +137,11 @@ begin
         end
 	end
 	MEMCACHE: begin
-        next_state = IDLE;
+        next_state = WRITEBACK_REPLACE;
 	end
-
+    WRITEBACK_REPLACE: begin
+        next_state = IDLE;
+    end
     default: next_state = IDLE;
     endcase
 end
@@ -161,15 +160,15 @@ begin
             stall = 1'b1;
             memWen = 1'b1;
         end
-        WRITEBACK_REPLACE: begin
-            stall = 1'b1;
-            cacheMemWen = 1'b1;
-        end
         MEMREAD: begin
             stall = 1'b1;
             memRen = 1'b1;
         end
         MEMCACHE: begin
+            stall = 1'b1;
+            cacheMemWen = 1'b1;
+        end
+        WRITEBACK_REPLACE: begin
             stall = 1'b1;
             cacheMemWen = 1'b1;
         end
