@@ -78,7 +78,6 @@ I_SRAM Icache(.clk(clock),
                 .blockAddr(IcacheBlockAddr), 
                 .dataIn(IcacheDin), 
                 .hit(IcacheHit),
-                .dirtyBit(IcacheDirtyBit),
                 .dataOut(IcacheDout));
 
 D_SRAM Dcache(.clk(clock), 
