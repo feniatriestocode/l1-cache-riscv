@@ -35,12 +35,12 @@ module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, h
     assign tag   = blockAddr[`DTAG_SIZE+`DSET_INDEX_SIZE-1:`DSET_INDEX_SIZE];
 
     //*******************************ASYNCHRONOUS HIT/READ DATA*******************************//
-    integer i, j, m, l;
+    integer i, j;
     reg [`DCACHE_ASSOCIATIVITY-1:0] hitReg;
     reg [`DCACHE_ASSOCIATIVITY-1:0] blockToEvict;
     reg [`DCACHE_ASSOCIATIVITY-1:0] mask;
 
-    always @(ren or rst or memWen or wen or index or tag)begin
+    always @(ren or rst or memWen or wen or index or tag) begin
         //default values
         dirtyBit = 1'b0;
         dataOut = {`DBLOCK_SIZE_BITS{1'b0}};
@@ -48,39 +48,37 @@ module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, h
         blockToEvict = {`DCACHE_ASSOCIATIVITY{1'b0}};
 
         //check all blocks in the expected set to find a possible hit
-        if(rst && (ren || wen || memWen))begin
+        if(rst && (ren || wen || memWen)) begin
 
             //-------------------------------HIT----------------------------------------//
-            for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1)begin
+            for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1) begin
                 hitReg[i] = (tag_col[index][i] == tag) && (valid_col[index][i] == 1'b1);
 
-                if((&valid_col[index])==1'b0)begin
+                if((&valid_col[index])==1'b0) begin
                     mask = {`DCACHE_ASSOCIATIVITY{1'b1}} >> (`DCACHE_ASSOCIATIVITY-(i+1));
                     blockToEvict[i] = ((valid_col[index] & mask) == (2**i)-1);
-                end
-                else begin
+                end else begin
                     mask = {`DCACHE_ASSOCIATIVITY{1'b1}} >> (`DCACHE_ASSOCIATIVITY-(i+1));
                     blockToEvict[i] = ((status_col[index] & mask) == (2**i)-1);
                 end
             end
 
             if(|hitReg) begin
-                for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1)begin
-                    if(hitReg[j])begin
-                        dataOut = data_col[index][j];
-                        dirtyBit = dirty_col[index][j];
+                for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1) begin
+                    if(hitReg[j]) begin
+                        dataOut = data_col[index][i];
+                        dirtyBit = dirty_col[index][i];
                     end
                 end
             end
             else begin
-                for(m=0; m<`DCACHE_ASSOCIATIVITY; m=m+1)begin
-                    if(blockToEvict[m])begin
-                        dataOut = data_col[index][m];
-                        dirtyBit = dirty_col[index][m];
+                for(i=0; m<`DCACHE_ASSOCIATIVITY; i=i+1) begin
+                    if(blockToEvict[i]) begin
+                        dataOut = data_col[index][i];
+                        dirtyBit = dirty_col[index][i];
                     end
                 end
             end
-
         end
     end
 
@@ -93,79 +91,80 @@ module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, h
 
     //*******************************SYNCHRONOUS WRITE DATA*******************************//
    
-    always @(posedge clk or negedge rst)begin
+    always @(posedge clk or negedge rst) begin
         //rst cache
-        if(!rst)begin
-            for(i=0; i<`DCACHE_SIZE_SETS; i=i+1)begin
+        if(!rst) begin
+            for(i=0; i<`DCACHE_SIZE_SETS; i=i+1) begin
                 valid_col [i] <= {`DCACHE_ASSOCIATIVITY{1'b0}}; 
                 status_col[i] <= {`DCACHE_ASSOCIATIVITY{1'b0}};  
-                dirty_col[i] <= {`DCACHE_ASSOCIATIVITY{1'b0}};  
-                for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1)begin
+                dirty_col [i] <= {`DCACHE_ASSOCIATIVITY{1'b0}};  
+                
+                for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1) begin
                    tag_col [i][j] <= 1'b0;  
                    data_col[i][j] <= 1'b0;
                 end
             end
-        end
-        else begin
-            if(ren)begin
-                for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1)begin
-                    if(hitReg[i])begin
+        end else begin
+            if(ren) begin
+                for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1) begin
+                    if(hitReg[i]) begin
                         status_col[index][i]  <= 1'b1; 
                                 
                         //check if all sets have status 1
-                        if(statusFullOne == {`DCACHE_ASSOCIATIVITY{1'b0}})begin
-                            for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1)begin
-                                if(j != i)
+                        if(statusFullOne == {`DCACHE_ASSOCIATIVITY{1'b0}}) begin
+                            for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1) begin
+                                if(j != i) begin
                                     status_col[index][j] <= 1'b0;
+                                end
                             end
                         end
                     end
                 end
-            end
-            else if(wen)begin //cache in "Write Mode"
-                    for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1)begin
-                        if(hitReg[i])begin
-                            dirty_col [index][i]  <= 1'b1; //data are dirty
-                            status_col[index][i]  <= 1'b1; 
-                                    
-                            //check if all sets have status 1
-                            if(statusFullOne == {`DCACHE_ASSOCIATIVITY{1'b0}})begin
-                                for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1)begin
-                                    if(j != i)
-                                        status_col[index][j] <= 1'b0;
+            end else if(wen) begin //cache in "Write Mode"
+                for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1) begin
+                    if(hitReg[i]) begin
+                        dirty_col [index][i]  <= 1'b1; //data are dirty
+                        status_col[index][i]  <= 1'b1; 
+                                
+                        //check if all sets have status 1
+                        if(statusFullOne == {`DCACHE_ASSOCIATIVITY{1'b0}}) begin
+                            for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1) begin
+                                if(j != i) begin
+                                    status_col[index][j] <= 1'b0;
                                 end
                             end
-                                
-                            //cache access in bytes do check whether to write it based on bytesAccess value
-                            for(l=0; l<`DBLOCK_SIZE; l=l+1)
-                                if(bytesAccess[l])
-                                    data_col[index][i][(l*8)+:8] = dataIn[(l*8)+:8]; //dataIn[l*8+8 : l*8]
+                        end
+                            
+                        //cache access in bytes do check whether to write it based on bytesAccess value
+                        for(j=0; j<`DBLOCK_SIZE; j=j+1) begin
+                            if(bytesAccess[j]) begin
+                                data_col[index][i][(j*8)+:8] = dataIn[(j*8)+:8]; //dataIn[j*8+8 : j*8]
+                            end
                         end
                     end
                 end 
                 //write cache block from the main memory
-                else if(memWen)begin 
-                    for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1)begin
-                        if(blockToEvict[i])begin
-                            valid_col [index][i] <= 1'b1; 
-                            status_col[index][i] <= 1'b1;
-                            dirty_col [index][i] <= 1'b0;
-                            tag_col   [index][i] <= tag; 
-                            data_col  [index][i] <= dataIn;
-
-                            //check if all sets have status 1
-                            if(statusFullOne == {`DCACHE_ASSOCIATIVITY{1'b0}})begin
-                                for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1)begin
-                                    if(j != i)
+            end else if(memWen) begin 
+                for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1) begin
+                    if(blockToEvict[i]) begin
+                        valid_col [index][i] <= 1'b1; 
+                        status_col[index][i] <= 1'b1;
+                        dirty_col [index][i] <= 1'b0;
+                        tag_col   [index][i] <= tag; 
+                        data_col  [index][i] <= dataIn;
+                
+                        //check if all sets have status 1
+                        if(statusFullOne == {`DCACHE_ASSOCIATIVITY{1'b0}}) begin
+                            for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1) begin
+                                if(j != i) begin
                                     status_col[index][j] <= 1'b0;
                                 end
                             end
                         end
-                    
+                    end
                 end
-            end //end of en
+            end //end of ren
         end
     end //end of always
-
 endmodule
 
