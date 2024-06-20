@@ -16,6 +16,7 @@
 #define YELLOW "\033[1;33m"
 
 double sc_time_stamp() { return 0; }
+std::ofstream file("output.txt");
 
 int main(int argc, const char **argv, const char **env)
 {
@@ -50,7 +51,7 @@ int main(int argc, const char **argv, const char **env)
         // print debugging messages
         #if VERBOSE==1
         if (top->clock && time > 8) {
-            std::cout << std::hex << std::setfill('0')
+                 file << std::hex << std::setfill('0')
                       << "pc=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__PC << " "
                       << "inst=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__IFID_instr << " "
                       << "addr=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut << " "
