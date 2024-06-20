@@ -89,7 +89,7 @@ begin
 end
 
 /****** SIMULATION ******/
-initial $readmemh("E:/github/riscv/src/memories/test.hex", data);
+initial $readmemh(`DATA_HEX, data);
 
 always @(ren or wen)
 begin

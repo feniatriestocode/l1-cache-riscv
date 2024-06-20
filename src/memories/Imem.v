@@ -44,6 +44,6 @@ end
 assign dout = delayed ? data[block_address] : {`IBLOCK_SIZE_BITS{1'b0}};
 
 /****** SIMULATION ******/
-initial $readmemh("E:/github/riscv/src/memories/test.hex", data);
+initial $readmemh(`TEXT_HEX, data);
 
 endmodule
