@@ -39,6 +39,7 @@ module dcache_controller(// pipeline inputs
 
   			   
 wire pipeline_req;
+reg replace;
 wire [(`DBLOCK_OFFSET_SIZE-1):0] blockOffset;
 
 assign pipeline_req = (ren && ~wen) || (wen && ~ren);
@@ -70,9 +71,8 @@ always @(cacheMemWen or memDout or blockOffset or reset or din) begin
     else begin
         if (cacheMemWen) begin
             cacheDin = memDout;
-            if(wen && ~ren) begin
-                cacheDin[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
-            end
+        end else if(replace) begin
+            cacheDin[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
         end else begin
             cacheDin = {(`DBLOCK_SIZE_BITS){1'b0}};
             cacheDin[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
@@ -138,7 +138,12 @@ begin
         end
 	end
 	MEMCACHE: begin
-        next_state = WRITEBACK_REPLACE;
+         if(wen && ~ren) begin
+            next_state = WRITEBACK_REPLACE;
+        end
+        else begin
+            next_state = IDLE;
+        end
 	end
     WRITEBACK_REPLACE: begin
         next_state = IDLE;
@@ -155,6 +160,7 @@ begin
     cacheMemWen = 1'b0;
     memRen = 1'b0;
     memWen = 1'b0;
+    replace = 1'b0;
 
 	case (state)
         WRITEBACK: begin
@@ -171,7 +177,7 @@ begin
         end
         WRITEBACK_REPLACE: begin
             stall = 1'b1;
-            cacheMemWen = 1'b1;
+            replace = 1'b1;
         end
     endcase
 end
