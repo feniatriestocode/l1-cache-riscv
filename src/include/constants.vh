@@ -10,6 +10,7 @@
 `define DADDR_SIZE              ($clog2(`DMEM_SIZE))                                                // 8
 `define DMEM_BLOCK_ADDR_SIZE    ($clog2(`DMEM_SIZE_BLOCKS))                                         // 4
 `define DBLOCK_OFFSET_SIZE      ($clog2(`DBLOCK_SIZE))                                              // 4
+`define DWORD_OFFSET_SIZE       ($clog2(`DWORD_SIZE))                                               // 2
 `define DSET_INDEX_SIZE         ($clog2(`DCACHE_SIZE_SETS))                                         // 2
 `define DTAG_SIZE               (`DADDR_SIZE-`DSET_INDEX_SIZE-`DBLOCK_OFFSET_SIZE)                  // 2
 
@@ -47,6 +48,7 @@
 `define IADDR_SIZE              ($clog2(`IMEM_SIZE))                                                // 8
 `define IMEM_BLOCK_ADDR_SIZE    ($clog2(`IMEM_SIZE_BLOCKS))                                         // 4
 `define IBLOCK_OFFSET_SIZE      ($clog2(`IBLOCK_SIZE))                                              // 4                                  
+`define IWORD_OFFSET_SIZE       ($clog2(`IWORD_SIZE))                                               // 2
 `define ISET_INDEX_SIZE         ($clog2(`ICACHE_SIZE_SETS))                                         // 2
 `define ITAG_SIZE               (`IADDR_SIZE-`ISET_INDEX_SIZE-`IBLOCK_OFFSET_SIZE)                  // 2
 

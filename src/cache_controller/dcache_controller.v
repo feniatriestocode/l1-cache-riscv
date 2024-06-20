@@ -48,7 +48,7 @@ assign blockOffset = addr[`DBLOCK_OFFSET_SIZE-1:0]; //^_^we used only the first 
 
 // Read hit
 assign cacheRen = reset && ren && ~wen;
-assign dout = reset ? cacheDout[blockOffset[3:2]*8+:`DWORD_SIZE_BITS] : {`DWORD_SIZE_BITS{1'b0}}; 
+assign dout = reset ? cacheDout[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE]*8+:`DWORD_SIZE_BITS] : {`DWORD_SIZE_BITS{1'b0}}; 
 
 // Write hit
 assign cacheWen = reset && wen && ~ren;
@@ -59,7 +59,7 @@ always @(byteSelectVector or blockOffset or reset) begin
     end
     else begin
         cacheBytesAccess = {(`DBLOCK_SIZE){1'b0}};
-        cacheBytesAccess[blockOffset[3:2] * `DWORD_SIZE +: `DWORD_SIZE] = byteSelectVector;
+        cacheBytesAccess[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE] * `DWORD_SIZE +: `DWORD_SIZE] = byteSelectVector;
     end
 end
 
@@ -71,11 +71,11 @@ always @(cacheMemWen or memDout or blockOffset or reset or din) begin
         if (cacheMemWen) begin
             cacheDin = memDout;
             if(wen && ~ren) begin
-                cacheDin[blockOffset[3:2] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
+                cacheDin[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
             end
         end else begin
             cacheDin = {(`DBLOCK_SIZE_BITS){1'b0}};
-            cacheDin[blockOffset[3:2] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
+            cacheDin[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
         end
     end
 end
