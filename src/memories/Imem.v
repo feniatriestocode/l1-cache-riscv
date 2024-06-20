@@ -51,7 +51,7 @@ always @(delayed or block_address) begin
         end
     end else begin
         for (i = 0; i < `IBLOCK_SIZE_WORDS; i = i + 1) begin
-            dout[i] = 8'b0;
+            dout[i] = 0;
         end
     end
 end

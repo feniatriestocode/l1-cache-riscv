@@ -103,10 +103,11 @@ icache_controller icachecontroller2check(
 //------------CASE 1-> CACHE READ MISS no writeback------------//
     test = 11; //////////////////////////////////////////////////////////////////////////
     ren = 1;
-    addr = 8'b00_00_11_10; //hex 0x06 
+    addr = 8'b00_00_11_10; //hex 
     cacheHit = 0;
     #100;
     memReadReady = 1;
+    cacheDout = {4'b1111,{`IBLOCK_SIZE_BITS-4{1'b0}}};
     memDout = {8'b10101010,{`IBLOCK_SIZE_BITS-8{1'b0}}};
     #100;
     ren = 0;
@@ -118,11 +119,12 @@ icache_controller icachecontroller2check(
     test = 12; //////////////////////////////////////////////////////////////////////////
     #10;
     ren = 1;
-    addr = 8'b11_11_00_00; //hex 0xF0 
+    addr = 8'b11_11_11_00; //hex 0xF0 
     cacheHit = 0;
     #110;
     memReadReady = 1;
-    memDout = {`IBLOCK_SIZE_BITS{1'b0}};
+    cacheDout = {4'b0000,{`IBLOCK_SIZE_BITS-4{1'b1}}};
+    memDout = {`IBLOCK_SIZE_BITS{1'b1}};
     #80;
     ren = 0;
     memReadReady = 0;
@@ -149,8 +151,8 @@ ren = 1;
 addr =  8'b00_01_00_00; //hex 0x10 
 #2;
 cacheHit = 1;
-cacheDout = {`IBLOCK_SIZE_BITS{1'b0}};
-#8;
+cacheDout = {`IBLOCK_SIZE_BITS{1'b1}};
+#200;
 ren = 0;
 cacheHit = 0;
 addr = {`IADDR_SIZE{1'b0}};
@@ -158,13 +160,13 @@ cacheDout = {`IBLOCK_SIZE_BITS{1'b0}};
 
 // access and hit set 10 
 test = 22; //////////////////////////////////////////////////////////////////////////
-#10;
+#7;
 ren = 1;
-addr = 8'b10_10_00_00; //hex 0xA0 
+addr = 8'b10_10_11_00; //hex 0xA0 
 #2;
 cacheHit = 1;
-cacheDout = {4'b1111,{`IWORD_SIZE_BITS-4{1'b0}}};
-#8;
+cacheDout = {4'b1111,{`IBLOCK_SIZE_BITS-4{1'b0}}};
+#200;
 ren = 0;
 cacheHit = 0;
 addr = {`IADDR_SIZE{1'b0}};
