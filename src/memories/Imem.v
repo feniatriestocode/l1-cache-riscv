@@ -4,6 +4,7 @@
 
 `include "../include/constants.vh"
 `include "../common/counter.v" //sees it from makefile supposedly
+`include "../../testbench/config.vh" //sees it from makefile supposedly
 
 // If ren stays up then the next read has no delay !
 
@@ -56,6 +57,6 @@ always @(delayed or block_address) begin
 end
 
 /****** SIMULATION ******/
-initial $readmemh("test.hex", data);
+initial $readmemh(`TEXT_HEX, data);
 
 endmodule

@@ -10,4 +10,5 @@ void main()
     {
        i++;
     }
+    SET_END_MARKER();
 }

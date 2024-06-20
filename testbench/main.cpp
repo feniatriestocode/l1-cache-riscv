@@ -39,11 +39,19 @@ int main(int argc, const char **argv, const char **env)
         if (time == 1)
         {
             for(int i = 0; i < 512; i++) {
-            for(int j = 0; j < 4; j++) {
-            std::cout << std::hex << std::setfill('0') << std::setw(8) << top->toplevel__DOT__Instruction_Mem__DOT__data[i][j] << "  ";
-        }
-    std::cout << "\n";
-}
+                for(int j = 0; j < 4; j++) {
+                    std::cout << std::hex << std::setfill('0') << std::setw(8) << top->toplevel__DOT__Instruction_Mem__DOT__data[i][j] << "  ";
+                }
+            
+                std::cout << "\n";
+            }
+                std::cout << "\n";
+            for(int i = 0; i < 64; i++) {
+                for(int j = 0; j < 4; j++) {
+                    std::cout << std::hex << std::setfill('0') << std::setw(8) << top->toplevel__DOT__Data_Mem__DOT__data[i][j] << "  ";
+                }
+                std::cout << "\n";
+            }
         }
         if (time > 9)
             top->reset = 1;
