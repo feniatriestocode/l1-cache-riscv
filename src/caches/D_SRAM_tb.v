@@ -25,10 +25,39 @@ module Dcache_SRAM_tb;
         #20 rst=1;
         #16
         
+        //-----------------------------SET 0 - TAG 000 MISS-------------------------------------// 
+    
         ren=1;
         wen=0;
         memWen=0;
+        blockAddr={3'b000,1'b0};
+        dataIn={32'b10101010101010101010101010101010,{`DBLOCK_SIZE_BITS{1'b0}}};
+
+        $display("HIT: %d DIRTYBIT: %d DATAOUT: %d",hit,dirtyBit,dataOut); 
+
+        //-----------------------------SET 0 - TAG 000 WRITE FROM MEM---------------------------// 
+        #10
+
+        ren=0;
+        wen=0;
+        memWen=1;
+        blockAddr={3'b000,1'b0};
+        dataIn=dataIn={{32{1'b1}},{`DBLOCK_SIZE_BITS{1'b0}}};
         
+        $display("HIT: %d DIRTYBIT: %d DATAOUT: %d",hit,dirtyBit,dataOut); //
+
+        //----------------------------SET 0 - TAG 001 MISS-------------------------------------//
+        #10
+
+        ren=1;
+        wen=0;
+        memWen=0;
+        blockAddr={3'b001,2'b0};
+        dataIn={32'b11001100110011001100110011001100,{`DBLOCK_SIZE_BITS{1'b0}}};
+
+        //----------------------------SET 1 - TAG 1----------------------------//
+
+
     end
 
     always #5 clk = ~clk;
