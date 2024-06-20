@@ -1,32 +1,32 @@
-`include "constants.v"
-`include "config.vh"
+//`include "constants.v"
+//`include "config.vh"
 
 module cpu(input clock, 
-		   input reset,
-		   // imem
-		   output imem_ren,
-           output [($clog2(`IMEM_SIZE)-1):0] imem_block_address,
-           input [((`IWORD_SIZE*`IBLOCK_SIZE)-1):0] imem_dout,
-           input imem_ready,
+		       input reset,
+		       // imem
+		       output imem_ren,
+           output [(`IMEM_BLOCK_ADDR_SIZE-1):0] imem_block_address,
+           input [(`IBLOCK_SIZE_BITS-1):0] imem_dout,
+           input imem_read_ready,
            // dmem
            output dmem_ren, 
            output dmem_wen,
-           output [($clog2(`DMEM_SIZE)-1):0] dmem_block_address, 
-           output [((`DWORD_SIZE*`DBLOCK_SIZE)-1):0] dmem_din,
-           input dmem_ready, 
-           input dmem_done,
-           input [((`DWORD_SIZE*`DBLOCK_SIZE)-1):0] dmem_dout);     
+           output [(`IMEM_BLOCK_ADDR_SIZE-1):0] dmem_block_address, 
+           output [(`IBLOCK_SIZE_BITS-1):0] dmem_din,
+           input dmem_read_ready, 
+           input dmem_write_done,
+           input [(`IBLOCK_SIZE_BITS-1):0] dmem_dout);     
            
 //dcache_controller 
-reg ren, wen;
-reg [(`DADDR_SIZE-1):0] addr;
-reg [(`DWORD_SIZE-1):0] byteSelectVector;
-reg [(`DWORD_SIZE_BITS-1):0] din;
-reg cacheHit;
-reg cacheDirtyBit;
-reg [(`DBLOCK_SIZE_BITS-1):0] cacheDout;
-reg memReadReady, memWriteDone;
-reg [(`DBLOCK_SIZE_BITS-1):0] memDout;
+wire ren, wen;
+wire [(`DADDR_SIZE-1):0] addr;
+wire [(`DWORD_SIZE-1):0] byteSelectVector;
+wire [(`DWORD_SIZE_BITS-1):0] din;
+wire cacheHit;
+wire cacheDirtyBit;
+wire [(`DBLOCK_SIZE_BITS-1):0] cacheDout;
+wire memReadReady, memWriteDone;
+wire [(`DBLOCK_SIZE_BITS-1):0] memDout;
 
 wire stall;
 wire [(`DWORD_SIZE_BITS-1):0] dout;
@@ -47,77 +47,73 @@ wire [`DBLOCK_SIZE_BITS-1:0] dcache_input;
 // dcache
 wire DcacheRen, DcacheWen, DcacheMemWen;
 wire [`DBLOCK_SIZE-1:0] DcacheBytesAccess;
-wire [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] DcacheBlockAddr;
+wire [`DMEM_BLOCK_ADDR_SIZE-1:0] DcacheBlockAddr;
 wire [`DBLOCK_SIZE_BITS-1:0] DcacheDin;
 wire DcacheHit, DcacheDirtyBit;
 wire [`DBLOCK_SIZE_BITS-1:0] DcacheDout;
 
 // icache
 wire IcacheRen, IcacheMemWen;
-wire [`ITAG_SIZE+`ISET_INDEX_SIZE-1:0] IcacheBlockAddr;
+wire [`IMEM_BLOCK_ADDR_SIZE-1:0] IcacheBlockAddr;
 wire [`IBLOCK_SIZE_BITS-1:0] IcacheDin;
 wire IcacheHit, IcacheDirtyBit;
 wire [`IBLOCK_SIZE_BITS-1:0] IcacheDout;
 
 pipeline pipeline(.clock(clock), 
-				  .reset(reset),
-		/*input*/ .dcache_stall(dcache_stall),
+				          .reset(reset),
+		              .dcache_stall(dcache_stall),
                   .icache_stall(icache_stall),
                   .dcache_output(dcache_output),
-				  .dcache_ren(dcache_ren),
-				  .dcache_wen(dcache_wen),
-				  .dcache_addr(dcache_addr),
-				  .byteSelectVector(byteSelectVector),
-				  .dcache_input(dcache_input));
+				          .dcache_ren(dcache_ren),
+				          .dcache_wen(dcache_wen),
+				          .dcache_addr(dcache_addr),
+				          .byteSelectVector(byteSelectVector),
+				          .dcache_input(dcache_input));
 
 // caches instantiated here
-I_SRAM Icache(.clk(clock), 
-                .rst(reset),
-                .ren(IcacheRen), 
-                .memWen(IcacheMemWen),
-                .blockAddr(IcacheBlockAddr), 
-                .dataIn(IcacheDin), 
-                .hit(IcacheHit),
-                .dataOut(IcacheDout));
+Icache_SRAM Icache(.clk(clock), 
+                   .rst(reset),
+                   .ren(IcacheRen), 
+                   .memWen(IcacheMemWen),
+                   .blockAddr(IcacheBlockAddr), 
+                   .dataIn(IcacheDin), 
+                   .hit(IcacheHit),
+                   .dataOut(IcacheDout));
 
-D_SRAM Dcache(.clk(clock), 
-                .rst(reset),
-                .ren(DcacheRen), 
-                .wen(DcacheWen), 
-                .memWen(DcacheMemWen),
-                .bytesAccess(DcacheBytesAccess),
-                .blockAddr(DcacheBlockAddr), 
-                .dataIn(DcacheDin), 
-                .hit(DcacheHit),
-                .dirtyBit(DcacheDirtyBit),
-                .dataOut(DcacheDout));
+Dcache_SRAM Dcache(.clk(clock), 
+                   .rst(reset),
+                   .ren(DcacheRen), 
+                   .wen(DcacheWen), 
+                   .memWen(DcacheMemWen),
+                   .bytesAccess(DcacheBytesAccess),
+                   .blockAddr(DcacheBlockAddr), 
+                   .dataIn(DcacheDin), 
+                   .hit(DcacheHit),
+                   .dirtyBit(DcacheDirtyBit),
+                   .dataOut(DcacheDout));
 
-dcache_controller Dcntr(
-  // Instantiate dcache_controller
-    .clock(clock),
-    .reset(reset),
-    .ren(ren),
-    .wen(wen),
-    .addr(addr),
-    .byteSelectVector(byteSelectVector),
-    .din(din),
-    .cacheHit(cacheHit),
-    .cacheDirtyBit(cacheDirtyBit),
-    .cacheDout(cacheDout),
-    .memReadReady(memReadReady),
-    .memWriteDone(memWriteDone),
-    .memDout(memDout),
-    .stall(stall),
-    .dout(dout),
-    .BlockAddr(BlockAddr),
-    .cacheRen(cacheRen),
-    .cacheWen(cacheWen),
-    .cacheMemWen(cacheMemWen),
-    .cacheBytesAccess(cacheBytesAccess),
-    .cacheDin(cacheDin),
-    .memRen(memRen),
-    .memWen(memWen),
-    .memDin(memDin)
-);
-
+dcache_controller Dcntr(.clock(clock),
+                        .reset(reset),
+                        .ren(ren),
+                        .wen(wen),
+                        .addr(addr),
+                        .byteSelectVector(byteSelectVector),
+                        .din(din),
+                        .cacheHit(cacheHit),
+                        .cacheDirtyBit(cacheDirtyBit),
+                        .cacheDout(cacheDout),
+                        .memReadReady(memReadReady),
+                        .memWriteDone(memWriteDone),
+                        .memDout(memDout),
+                        .stall(stall),
+                        .dout(dout),
+                        .BlockAddr(BlockAddr),
+                        .cacheRen(cacheRen),
+                        .cacheWen(cacheWen),
+                        .cacheMemWen(cacheMemWen),
+                        .cacheBytesAccess(cacheBytesAccess),
+                        .cacheDin(cacheDin),
+                        .memRen(memRen),
+                        .memWen(memWen),
+                        .memDin(memDin));
 endmodule

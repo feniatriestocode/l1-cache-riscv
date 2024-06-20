@@ -2,8 +2,8 @@
 
 ////`timescale 1ns / 1ps
 
-`include "constants.vh"
-// `include "../common/counter.v"
+`include "../include/constants.vh"
+`include "../common/counter.v" //sees it from makefile supposedly
 
 // If ren stays up then the next read has no delay !
 
@@ -14,13 +14,15 @@ module Imem(input clock, reset,
 			input ren, 
 			input [(`IMEM_BLOCK_ADDR_SIZE-1):0] block_address, 		// in blocks
 			output reg ready,
-			output [(`IBLOCK_SIZE_BITS-1):0] dout);
+			output reg [(`IBLOCK_SIZE_BITS-1):0] dout);
 
 /****** SIGNALS ******/
-reg [(`IBLOCK_SIZE_BITS-1):0] data [0:(`IMEM_SIZE_BLOCKS-1)];
+reg [(`IWORD_SIZE_BITS-1):0] data [0:(`IMEM_SIZE_BLOCKS-1)][`IBLOCK_SIZE_WORDS-1:0];
 
 wire delayed, counter_reset;
 wire [(`IMEM_DELAY_CNTR_SIZE-1):0] delay_counter;
+
+integer i;
 
 /****** LOGIC ******/
 assign counter_reset = ~reset || ~ren;
@@ -39,11 +41,21 @@ begin
 	begin
 		ready <= delayed;
 	end
-end 
+end
 
-assign dout = delayed ? data[block_address] : {`IBLOCK_SIZE_BITS{1'b0}};
+always @(delayed or block_address) begin
+    if (delayed) begin
+        for (i = 0; i < `IBLOCK_SIZE_WORDS; i = i + 1) begin
+            dout[i] = data[block_address][i];
+        end
+    end else begin
+        for (i = 0; i < `IBLOCK_SIZE_WORDS; i = i + 1) begin
+            dout[i] = 8'b0;
+        end
+    end
+end
 
 /****** SIMULATION ******/
-initial $readmemh(`TEXT_HEX, data);
+initial $readmemh("test.hex", data);
 
 endmodule
