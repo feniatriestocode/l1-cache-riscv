@@ -82,12 +82,12 @@ end
 
 assign memDin = cacheDout;
 
-parameter IDLE = 3'b00,
-          MEMREAD = 3'b1,
-          WRITEBACK = 3'b10,
-          MEMCACHE = 3'b11;
+parameter IDLE = 2'b00,
+          MEMREAD = 2'b01,
+          WRITEBACK = 2'b10,
+          MEMCACHE = 2'b11;
 
-reg [2:0] state, next_state;
+reg [1:0] state, next_state;
 //SEQUENTIAL LOGIC
 
 always @(posedge clock or negedge reset)
