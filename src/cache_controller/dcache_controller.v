@@ -63,13 +63,14 @@ module dcache_controller(// pipeline inputs
         end
     end
     
-    always @(cacheMemWen or memDout or blockOffset or reset or din) begin
+    always @(cacheMemWen or memDout or blockOffset or reset or din or replace) begin
         if(~reset) begin
             cacheDin = {(`DBLOCK_SIZE_BITS){1'b0}};
         end else begin
             if (cacheMemWen) begin
                 cacheDin = memDout;
             end else if(replace) begin
+                cacheDin = {(`DBLOCK_SIZE_BITS){1'b0}};
                 cacheDin[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
             end else begin
                 cacheDin = {(`DBLOCK_SIZE_BITS){1'b0}};
@@ -102,7 +103,7 @@ module dcache_controller(// pipeline inputs
     end
     
     //COMBINATIONAL LOGIC
-    always @(state or pipeline_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady)
+    always @(state or pipeline_req or cacheHit or cacheDirtyBit or memWriteDone or memReadReady or ren or wen)
     begin
     	case (state)
     	    IDLE: begin
