@@ -11,15 +11,15 @@ module icache_controller(// pipeline inputs
                         
                         // cache inputs
                         input cacheHit,
-                        input [(`IBLOCK_SIZE_BITS-1):0] cacheIout,
+                        input [(`IBLOCK_SIZE_BITS-1):0] cacheDout,
                         
                         // memory inputs
                         input memReadReady,
-                        input [(`IBLOCK_SIZE_BITS-1):0] memIout,
+                        input [(`IBLOCK_SIZE_BITS-1):0] memDout,
                         
                         // pipeline outputs
                         output reg stall,
-                        output [(`IWORD_SIZE_BITS-1):0] iout,
+                        output [(`IWORD_SIZE_BITS-1):0] dout,
 
                         //both cache and memory output
                         output [(`IMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
@@ -40,15 +40,15 @@ assign blockOffset = addr[`IBLOCK_OFFSET_SIZE-1:0];
 
 
 assign cacheRen = reset && ren;
-assign iout = reset ? cacheiout[blockOffset[(`DBLOCK_OFFSET_SIZE-1):`DWORD_OFFSET_SIZE]*8+:`DWORD_SIZE_BITS] : {`DWORD_SIZE_BITS{1'b0}}; 
+assign dout = reset ? cacheDout[blockOffset[(`IBLOCK_OFFSET_SIZE-1):`IWORD_OFFSET_SIZE]*8+:`IWORD_SIZE_BITS] : {`IWORD_SIZE_BITS{1'b0}}; 
 
 
 
-always @(cacheMemWen or memiout or reset) begin
+always @(cacheMemWen or memDout or reset) begin
     if(~reset) begin
         cacheDin = {(`IBLOCK_SIZE_BITS){1'b0}};
     end else if (cacheMemWen)  begin
-        cacheDin = memiout;
+        cacheDin = memDout;
     end
 end
 
@@ -76,7 +76,6 @@ end
 
 
     //COMBINATIONAL LOGIC
-
 always @(state or ren or cacheHit or memReadReady)
 begin
     case(state)
@@ -102,9 +101,8 @@ begin
     endcase
 end   
 
+
     //COMBINATIONAL LOGIC FOR OUTPUTS
-
-
 always @(state or ren or cacheHit or memReadReady)
 begin
     stall = 1'b0;
