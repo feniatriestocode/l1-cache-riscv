@@ -2,7 +2,7 @@
 `define DWORD_SIZE              (4)                                                 // in bytes     // 4
 `define DWORD_SIZE_BITS         (`DWORD_SIZE*8)                                     // in bits      // 32     
 
-`define DBLOCK_SIZE_WORDS       (2)                                                 // in words     // 4
+`define DBLOCK_SIZE_WORDS       (4)                                                 // in words     // 4
 `define DBLOCK_SIZE             (`DBLOCK_SIZE_WORDS*`DWORD_SIZE)                    // in bytes     // 16
 `define DBLOCK_SIZE_BITS        (`DBLOCK_SIZE*8)                                    // in bits      // 128
 
