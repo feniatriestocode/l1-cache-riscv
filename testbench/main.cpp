@@ -35,7 +35,16 @@ int main(int argc, const char **argv, const char **env)
     top->reset = 1;
 
     // define clock and reset signals (reset is active low)
-    for (int time = 0; time < 100000; time++) {
+    for (int time = 0; time < 1000; time++) {
+        if (time == 1)
+        {
+            for(int i = 0; i < 512; i++) {
+            for(int j = 0; j < 4; j++) {
+            std::cout << std::hex << std::setfill('0') << std::setw(8) << top->toplevel__DOT__Instruction_Mem__DOT__data[i][j] << "  ";
+        }
+    std::cout << "\n";
+}
+        }
         if (time > 9)
             top->reset = 1;
         else if (time > 4)
@@ -51,9 +60,8 @@ int main(int argc, const char **argv, const char **env)
         if (top->clock && time > 8) {
         std::cout << std::hex << std::setfill('0')
                     << "pc=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__PC << " "
-                    << "index=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr << " "
-                    << "set=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut << " "
-                    << "tag=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData << " "
+                    << "instr=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr << " "
+                    << "out=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData << " "
                     << "data=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut << " "   
                     << "cache_hit=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__cacheHit << " "                      
                     << (top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite ? "1" : "0") << " \n";

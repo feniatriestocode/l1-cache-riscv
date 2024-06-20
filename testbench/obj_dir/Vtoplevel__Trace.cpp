@@ -354,21 +354,21 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
             tracep->chgCData(oldp+169,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col[2]),2);
             tracep->chgCData(oldp+170,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col[3]),2);
             tracep->chgCData(oldp+171,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                       [0U][0U]),6);
+                                       [0U][0U]),7);
             tracep->chgCData(oldp+172,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                       [0U][1U]),6);
+                                       [0U][1U]),7);
             tracep->chgCData(oldp+173,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                       [1U][0U]),6);
+                                       [1U][0U]),7);
             tracep->chgCData(oldp+174,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                       [1U][1U]),6);
+                                       [1U][1U]),7);
             tracep->chgCData(oldp+175,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                       [2U][0U]),6);
+                                       [2U][0U]),7);
             tracep->chgCData(oldp+176,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                       [2U][1U]),6);
+                                       [2U][1U]),7);
             tracep->chgCData(oldp+177,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                       [3U][0U]),6);
+                                       [3U][0U]),7);
             tracep->chgCData(oldp+178,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                       [3U][1U]),6);
+                                       [3U][1U]),7);
             __Vtemp31[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [0U][0U][0U];
             __Vtemp31[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
@@ -517,7 +517,7 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                                            ? 
                                                           vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
                                                           [
-                                                          (0xffU 
+                                                          (0x1ffU 
                                                            & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][1U]
                                                            : 0U))) 
                                          << 0x20U) 
@@ -527,18 +527,18 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                                             ? 
                                                            vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
                                                            [
-                                                           (0xffU 
+                                                           (0x1ffU 
                                                             & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][0U]
                                                             : 0U))))),64);
             if ((0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter))) {
                 __Vtemp46[0U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-                    [(0xffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][0U];
+                    [(0x1ffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][0U];
                 __Vtemp46[1U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-                    [(0xffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][1U];
+                    [(0x1ffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][1U];
                 __Vtemp46[2U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-                    [(0xffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][2U];
+                    [(0x1ffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][2U];
                 __Vtemp46[3U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-                    [(0xffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][3U];
+                    [(0x1ffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][3U];
             } else {
                 __Vtemp46[0U] = 0U;
                 __Vtemp46[1U] = 0U;

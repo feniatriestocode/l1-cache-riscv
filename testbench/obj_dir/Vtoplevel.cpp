@@ -162,10 +162,10 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__6(Vtoplevel__Syms* __restrict vlSym
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v7;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v8;
     CData/*1:0*/ __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0;
-    CData/*5:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0;
+    CData/*6:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0;
     CData/*1:0*/ __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1;
-    CData/*5:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1;
+    CData/*6:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v2;
     CData/*1:0*/ __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v0;
@@ -677,7 +677,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__6(Vtoplevel__Syms* __restrict vlSym
             if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) {
                 if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
                     __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 
-                        = (0x3fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
+                        = (0x7fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
                                     >> 2U));
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 = 1U;
                     __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 
@@ -685,7 +685,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__6(Vtoplevel__Syms* __restrict vlSym
                 }
                 if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
                     __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 
-                        = (0x3fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
+                        = (0x7fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
                                     >> 2U));
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 = 1U;
                     __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 
@@ -2162,7 +2162,7 @@ VL_INLINE_OPT void Vtoplevel::_combo__TOP__8(Vtoplevel__Syms* __restrict vlSymsp
                   [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))] 
                   & (vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
                      [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))]
-                     [0U] == (0x3fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
+                     [0U] == (0x7fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
                                        >> 2U)))));
         vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg 
             = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg)) 
@@ -2170,7 +2170,7 @@ VL_INLINE_OPT void Vtoplevel::_combo__TOP__8(Vtoplevel__Syms* __restrict vlSymsp
                                  [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))] 
                                  & ((vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
                                      [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))]
-                                     [1U] == (0x3fU 
+                                     [1U] == (0x7fU 
                                               & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
                                                  >> 2U))) 
                                     << 1U))));

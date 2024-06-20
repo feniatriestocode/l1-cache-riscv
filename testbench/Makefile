@@ -4,7 +4,7 @@ VERILATOR_INPUT = ../src/pipelined/toplevel.v main.cpp
 VERILATOR_INCLUDES = -I../src/cache_controller -I../src/caches -I../src/memories -I../src/pipelined -I../src/common -I../src/control -I../src/include -I../src/lib
 TESTDIR=../tests/cachetests
 TESTS=$(notdir $(patsubst %.S,%,$(wildcard $(TESTDIR)/*.S)))
-TEST ?= hit
+TEST ?= towers
 CFLAGS = -DVERBOSE=$(VERBOSE)
 CFLAGS += -CFLAGS -DTRACE=$(TRACE)
 VERBOSE ?= 0

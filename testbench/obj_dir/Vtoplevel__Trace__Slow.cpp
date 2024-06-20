@@ -57,12 +57,12 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declQuad(c+300,"toplevel dmem_dout", false,-1, 63,0);
         tracep->declBit(c+318,"toplevel imem_ren", false,-1);
         tracep->declBit(c+25,"toplevel imem_ready", false,-1);
-        tracep->declBus(c+319,"toplevel imem_block_address", false,-1, 11,0);
+        tracep->declBus(c+319,"toplevel imem_block_address", false,-1, 12,0);
         tracep->declQuad(c+286,"toplevel imem_dout", false,-1, 63,0);
         tracep->declBit(c+298,"toplevel cpu clock", false,-1);
         tracep->declBit(c+299,"toplevel cpu reset", false,-1);
         tracep->declBit(c+318,"toplevel cpu imem_ren", false,-1);
-        tracep->declBus(c+319,"toplevel cpu imem_block_address", false,-1, 11,0);
+        tracep->declBus(c+319,"toplevel cpu imem_block_address", false,-1, 12,0);
         tracep->declQuad(c+286,"toplevel cpu imem_dout", false,-1, 63,0);
         tracep->declBit(c+25,"toplevel cpu imem_ready", false,-1);
         tracep->declBit(c+312,"toplevel cpu dmem_ren", false,-1);
@@ -112,7 +112,7 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declQuad(c+7,"toplevel cpu DcacheDout", false,-1, 63,0);
         tracep->declBit(c+352,"toplevel cpu IcacheRen", false,-1);
         tracep->declBit(c+353,"toplevel cpu IcacheMemWen", false,-1);
-        tracep->declBus(c+354,"toplevel cpu IcacheBlockAddr", false,-1, 7,0);
+        tracep->declBus(c+354,"toplevel cpu IcacheBlockAddr", false,-1, 8,0);
         tracep->declArray(c+355,"toplevel cpu IcacheDin", false,-1, 127,0);
         tracep->declBit(c+9,"toplevel cpu IcacheHit", false,-1);
         tracep->declBit(c+359,"toplevel cpu IcacheDirtyBit", false,-1);
@@ -319,21 +319,21 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declBit(c+352,"toplevel cpu Icache ren", false,-1);
         tracep->declBit(c+353,"toplevel cpu Icache memWen", false,-1);
         tracep->declArray(c+355,"toplevel cpu Icache dataIn", false,-1, 127,0);
-        tracep->declBus(c+354,"toplevel cpu Icache blockAddr", false,-1, 7,0);
+        tracep->declBus(c+354,"toplevel cpu Icache blockAddr", false,-1, 8,0);
         tracep->declBit(c+9,"toplevel cpu Icache hit", false,-1);
         tracep->declArray(c+10,"toplevel cpu Icache dataOut", false,-1, 127,0);
         {int i; for (i=0; i<4; i++) {
                 tracep->declBus(c+164+i*1,"toplevel cpu Icache valid_col", true,(i+0), 1,0);}}
         {int i; for (i=0; i<4; i++) {
                 tracep->declBus(c+168+i*1,"toplevel cpu Icache status_col", true,(i+0), 1,0);}}
-        tracep->declBus(c+172,"toplevel cpu Icache tag_col(0)(0)", false,-1, 5,0);
-        tracep->declBus(c+173,"toplevel cpu Icache tag_col(0)(1)", false,-1, 5,0);
-        tracep->declBus(c+174,"toplevel cpu Icache tag_col(1)(0)", false,-1, 5,0);
-        tracep->declBus(c+175,"toplevel cpu Icache tag_col(1)(1)", false,-1, 5,0);
-        tracep->declBus(c+176,"toplevel cpu Icache tag_col(2)(0)", false,-1, 5,0);
-        tracep->declBus(c+177,"toplevel cpu Icache tag_col(2)(1)", false,-1, 5,0);
-        tracep->declBus(c+178,"toplevel cpu Icache tag_col(3)(0)", false,-1, 5,0);
-        tracep->declBus(c+179,"toplevel cpu Icache tag_col(3)(1)", false,-1, 5,0);
+        tracep->declBus(c+172,"toplevel cpu Icache tag_col(0)(0)", false,-1, 6,0);
+        tracep->declBus(c+173,"toplevel cpu Icache tag_col(0)(1)", false,-1, 6,0);
+        tracep->declBus(c+174,"toplevel cpu Icache tag_col(1)(0)", false,-1, 6,0);
+        tracep->declBus(c+175,"toplevel cpu Icache tag_col(1)(1)", false,-1, 6,0);
+        tracep->declBus(c+176,"toplevel cpu Icache tag_col(2)(0)", false,-1, 6,0);
+        tracep->declBus(c+177,"toplevel cpu Icache tag_col(2)(1)", false,-1, 6,0);
+        tracep->declBus(c+178,"toplevel cpu Icache tag_col(3)(0)", false,-1, 6,0);
+        tracep->declBus(c+179,"toplevel cpu Icache tag_col(3)(1)", false,-1, 6,0);
         tracep->declArray(c+180,"toplevel cpu Icache data_col(0)(0)", false,-1, 127,0);
         tracep->declArray(c+184,"toplevel cpu Icache data_col(0)(1)", false,-1, 127,0);
         tracep->declArray(c+188,"toplevel cpu Icache data_col(1)(0)", false,-1, 127,0);
@@ -343,7 +343,7 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declArray(c+204,"toplevel cpu Icache data_col(3)(0)", false,-1, 127,0);
         tracep->declArray(c+208,"toplevel cpu Icache data_col(3)(1)", false,-1, 127,0);
         tracep->declBus(c+366,"toplevel cpu Icache index", false,-1, 1,0);
-        tracep->declBus(c+367,"toplevel cpu Icache tag", false,-1, 5,0);
+        tracep->declBus(c+367,"toplevel cpu Icache tag", false,-1, 6,0);
         tracep->declBus(c+306,"toplevel cpu Icache i", false,-1, 31,0);
         tracep->declBus(c+212,"toplevel cpu Icache j", false,-1, 31,0);
         tracep->declBus(c+14,"toplevel cpu Icache hitReg", false,-1, 1,0);
@@ -429,7 +429,7 @@ void Vtoplevel::traceInitSub0(void* userp, VerilatedVcd* tracep) {
         tracep->declBit(c+298,"toplevel Instruction_Mem clock", false,-1);
         tracep->declBit(c+299,"toplevel Instruction_Mem reset", false,-1);
         tracep->declBit(c+318,"toplevel Instruction_Mem ren", false,-1);
-        tracep->declBus(c+377,"toplevel Instruction_Mem block_address", false,-1, 7,0);
+        tracep->declBus(c+377,"toplevel Instruction_Mem block_address", false,-1, 8,0);
         tracep->declBit(c+25,"toplevel Instruction_Mem ready", false,-1);
         tracep->declArray(c+288,"toplevel Instruction_Mem dout", false,-1, 127,0);
         tracep->declBit(c+292,"toplevel Instruction_Mem delayed", false,-1);
@@ -797,21 +797,21 @@ void Vtoplevel::traceFullSub0(void* userp, VerilatedVcd* tracep) {
         tracep->fullCData(oldp+170,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col[2]),2);
         tracep->fullCData(oldp+171,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col[3]),2);
         tracep->fullCData(oldp+172,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                    [0U][0U]),6);
+                                    [0U][0U]),7);
         tracep->fullCData(oldp+173,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                    [0U][1U]),6);
+                                    [0U][1U]),7);
         tracep->fullCData(oldp+174,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                    [1U][0U]),6);
+                                    [1U][0U]),7);
         tracep->fullCData(oldp+175,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                    [1U][1U]),6);
+                                    [1U][1U]),7);
         tracep->fullCData(oldp+176,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                    [2U][0U]),6);
+                                    [2U][0U]),7);
         tracep->fullCData(oldp+177,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                    [2U][1U]),6);
+                                    [2U][1U]),7);
         tracep->fullCData(oldp+178,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                    [3U][0U]),6);
+                                    [3U][0U]),7);
         tracep->fullCData(oldp+179,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                    [3U][1U]),6);
+                                    [3U][1U]),7);
         __Vtemp15[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
             [0U][0U][0U];
         __Vtemp15[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
@@ -956,7 +956,7 @@ void Vtoplevel::traceFullSub0(void* userp, VerilatedVcd* tracep) {
                                                         ? 
                                                        vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
                                                        [
-                                                       (0xffU 
+                                                       (0x1ffU 
                                                         & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][1U]
                                                         : 0U))) 
                                       << 0x20U) | (QData)((IData)(
@@ -965,18 +965,18 @@ void Vtoplevel::traceFullSub0(void* userp, VerilatedVcd* tracep) {
                                                                     ? 
                                                                    vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
                                                                    [
-                                                                   (0xffU 
+                                                                   (0x1ffU 
                                                                     & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][0U]
                                                                     : 0U))))),64);
         if ((0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter))) {
             __Vtemp30[0U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-                [(0xffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][0U];
+                [(0x1ffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][0U];
             __Vtemp30[1U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-                [(0xffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][1U];
+                [(0x1ffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][1U];
             __Vtemp30[2U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-                [(0xffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][2U];
+                [(0x1ffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][2U];
             __Vtemp30[3U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-                [(0xffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][3U];
+                [(0x1ffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))][3U];
         } else {
             __Vtemp30[0U] = 0U;
             __Vtemp30[1U] = 0U;
@@ -1031,7 +1031,7 @@ void Vtoplevel::traceFullSub0(void* userp, VerilatedVcd* tracep) {
         tracep->fullQData(oldp+314,((QData)((IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))),64);
         tracep->fullQData(oldp+316,((QData)((IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_din))),64);
         tracep->fullBit(oldp+318,(vlTOPp->toplevel__DOT__imem_ren));
-        tracep->fullSData(oldp+319,(vlTOPp->toplevel__DOT__imem_block_address),12);
+        tracep->fullSData(oldp+319,(vlTOPp->toplevel__DOT__imem_block_address),13);
         tracep->fullCData(oldp+320,(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address),7);
         tracep->fullIData(oldp+321,(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_din),32);
         tracep->fullBit(oldp+322,(vlTOPp->toplevel__DOT__cpu__DOT__ren));
@@ -1062,7 +1062,7 @@ void Vtoplevel::traceFullSub0(void* userp, VerilatedVcd* tracep) {
         tracep->fullQData(oldp+350,(vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin),64);
         tracep->fullBit(oldp+352,(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen));
         tracep->fullBit(oldp+353,(vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen));
-        tracep->fullCData(oldp+354,(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr),8);
+        tracep->fullSData(oldp+354,(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr),9);
         tracep->fullWData(oldp+355,(vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin),128);
         tracep->fullBit(oldp+359,(vlTOPp->toplevel__DOT__cpu__DOT__IcacheDirtyBit));
         tracep->fullIData(oldp+360,((IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcache_output)),32);
@@ -1072,8 +1072,8 @@ void Vtoplevel::traceFullSub0(void* userp, VerilatedVcd* tracep) {
         tracep->fullBit(oldp+364,(1U));
         tracep->fullIData(oldp+365,(0x20U),32);
         tracep->fullCData(oldp+366,((3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))),2);
-        tracep->fullCData(oldp+367,((0x3fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
-                                              >> 2U))),6);
+        tracep->fullCData(oldp+367,((0x7fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
+                                              >> 2U))),7);
         tracep->fullCData(oldp+368,((3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBlockAddr))),2);
         tracep->fullCData(oldp+369,((3U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBlockAddr) 
                                            >> 2U))),2);
@@ -1087,7 +1087,7 @@ void Vtoplevel::traceFullSub0(void* userp, VerilatedVcd* tracep) {
         tracep->fullCData(oldp+374,(2U),3);
         tracep->fullCData(oldp+375,(3U),3);
         tracep->fullCData(oldp+376,(4U),3);
-        tracep->fullCData(oldp+377,((0xffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))),8);
+        tracep->fullSData(oldp+377,((0x1ffU & (IData)(vlTOPp->toplevel__DOT__imem_block_address))),9);
         tracep->fullIData(oldp+378,(4U),32);
         tracep->fullCData(oldp+379,((0xfU & (IData)((QData)((IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))))),4);
     }

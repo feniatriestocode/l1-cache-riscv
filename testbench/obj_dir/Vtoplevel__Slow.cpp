@@ -150,7 +150,7 @@ void Vtoplevel::_settle__TOP__1(Vtoplevel__Syms* __restrict vlSymsp) {
                   [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))] 
                   & (vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
                      [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))]
-                     [0U] == (0x3fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
+                     [0U] == (0x7fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
                                        >> 2U)))));
         vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg 
             = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg)) 
@@ -158,7 +158,7 @@ void Vtoplevel::_settle__TOP__1(Vtoplevel__Syms* __restrict vlSymsp) {
                                  [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))] 
                                  & ((vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
                                      [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))]
-                                     [1U] == (0x3fU 
+                                     [1U] == (0x7fU 
                                               & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
                                                  >> 2U))) 
                                     << 1U))));
@@ -919,7 +919,7 @@ void Vtoplevel::_initial__TOP__2(Vtoplevel__Syms* __restrict vlSymsp) {
         }
         __Vlabel1: ;
     }
-    VL_READMEM_N(true, 128, 256, 0, VL_CVT_PACK_STR_NN(__Vfunc_text_mem_file__0__Vfuncout)
+    VL_READMEM_N(true, 128, 512, 0, VL_CVT_PACK_STR_NN(__Vfunc_text_mem_file__0__Vfuncout)
                  , vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
                  , 0, ~0ULL);
     {
@@ -992,7 +992,7 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__dmem_done = VL_RAND_RESET_I(1);
     toplevel__DOT__imem_ren = VL_RAND_RESET_I(1);
     toplevel__DOT__imem_ready = VL_RAND_RESET_I(1);
-    toplevel__DOT__imem_block_address = VL_RAND_RESET_I(12);
+    toplevel__DOT__imem_block_address = VL_RAND_RESET_I(13);
     toplevel__DOT____Vcellout__cpu__dmem_din = VL_RAND_RESET_I(32);
     toplevel__DOT____Vcellout__cpu__dmem_block_address = VL_RAND_RESET_I(7);
     toplevel__DOT__cpu__DOT__ren = VL_RAND_RESET_I(1);
@@ -1028,7 +1028,7 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__cpu__DOT__DcacheDout = VL_RAND_RESET_Q(64);
     toplevel__DOT__cpu__DOT__IcacheRen = VL_RAND_RESET_I(1);
     toplevel__DOT__cpu__DOT__IcacheMemWen = VL_RAND_RESET_I(1);
-    toplevel__DOT__cpu__DOT__IcacheBlockAddr = VL_RAND_RESET_I(8);
+    toplevel__DOT__cpu__DOT__IcacheBlockAddr = VL_RAND_RESET_I(9);
     VL_RAND_RESET_W(128, toplevel__DOT__cpu__DOT__IcacheDin);
     toplevel__DOT__cpu__DOT__IcacheDirtyBit = VL_RAND_RESET_I(1);
     VL_RAND_RESET_W(128, toplevel__DOT__cpu__DOT__IcacheDout);
@@ -1123,7 +1123,7 @@ void Vtoplevel::_ctor_var_reset() {
     }}
     { int __Vi0=0; for (; __Vi0<4; ++__Vi0) {
             { int __Vi1=0; for (; __Vi1<2; ++__Vi1) {
-                    toplevel__DOT__cpu__DOT__Icache__DOT__tag_col[__Vi0][__Vi1] = VL_RAND_RESET_I(6);
+                    toplevel__DOT__cpu__DOT__Icache__DOT__tag_col[__Vi0][__Vi1] = VL_RAND_RESET_I(7);
             }}
     }}
     { int __Vi0=0; for (; __Vi0<4; ++__Vi0) {
@@ -1166,7 +1166,7 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne = VL_RAND_RESET_I(2);
     toplevel__DOT__cpu__DOT__Dcntr__DOT__state = VL_RAND_RESET_I(3);
     toplevel__DOT__cpu__DOT__Dcntr__DOT__next_state = VL_RAND_RESET_I(3);
-    { int __Vi0=0; for (; __Vi0<256; ++__Vi0) {
+    { int __Vi0=0; for (; __Vi0<512; ++__Vi0) {
             VL_RAND_RESET_W(128, toplevel__DOT__Instruction_Mem__DOT__data[__Vi0]);
     }}
     toplevel__DOT__Instruction_Mem__DOT__delayed = VL_RAND_RESET_I(1);

@@ -213,17 +213,11 @@ int main( int argc, char* argv[] )
 
   // If needed we preallocate everything in the caches
 
-#if PREALLOCATE
-  towers_solve( &towers );
-#endif
-
   // Solve it
 
   towers_clear( &towers );
-//   setStats(1);
   towers_solve( &towers );
-//   setStats(0);
 
   // Check the results
-//   return towers_verify( &towers );
+  return towers_verify( &towers );
 }
