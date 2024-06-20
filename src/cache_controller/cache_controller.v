@@ -1,4 +1,4 @@
-//`timescale 1ns / 1ps
+`timescale 1ns / 1ps
 
 `include "../include/constants.vh"
 //`include "counter.v"
@@ -43,7 +43,7 @@ wire [(`DBLOCK_OFFSET_SIZE-1):0] blockOffset;
 
 assign pipeline_req = (ren && ~wen) || (wen && ~ren);
 
-assign BlockAddr = addr[(`DMEM_BLOCK_ADDR_SIZE-1):`DBLOCK_OFFSET_SIZE];
+assign BlockAddr = addr[(`DADDR_SIZE-1):`DBLOCK_OFFSET_SIZE];
 assign blockOffset = addr[`DBLOCK_OFFSET_SIZE-1:0]; //^_^we used only the first 2 bits for each reference!!!!!!!!!!^_^
 
 // Read hit
@@ -71,6 +71,7 @@ always @(cacheMemWen or memDout or blockOffset or reset or din) begin
         if (cacheMemWen) begin
             cacheDin = memDout;
         end else begin
+            cacheDin = {(`DBLOCK_SIZE_BITS){1'b0}};
             cacheDin[blockOffset[3:2] * `DWORD_SIZE_BITS +: `DWORD_SIZE_BITS] = din;
         end
     end
