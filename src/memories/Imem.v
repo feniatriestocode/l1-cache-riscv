@@ -2,8 +2,8 @@
 
 ////// `timescale 1ns / 1ps
 
-`include "constants.vh"
-// `include "../common/counter.v"
+//`include "../include/constants.vh"
+//`include "../common/counter.v" //sees it from makefile supposedly
 
 // If ren stays up then the next read has no delay !
 
@@ -44,6 +44,6 @@ end
 assign dout = delayed ? data[block_address] : {`IBLOCK_SIZE_BITS{1'b0}};
 
 /****** SIMULATION ******/
-initial $readmemh(`TEXT_HEX, data);
+initial $readmemh("test.hex", data);
 
 endmodule

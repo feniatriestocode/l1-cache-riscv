@@ -1,9 +1,9 @@
 /*IMPLEMENTATION OF A PARAMETRIZED DATA MEMORY ON RISC-V*/
 
 ////// `timescale 1ns / 1ps
-
-`include "constants.vh"
-// `include "../common/counter.v" //sees it from makefile supposedly
+//`include "../include/constants.v"
+//`include "../include/constants.vh"
+//`include "../common/counter.v" //sees it from makefile supposedly
 
 // If ren stays up then the next read has no delay !
 
@@ -89,7 +89,7 @@ begin
 end
 
 /****** SIMULATION ******/
-initial $readmemh(`DATA_HEX, data);
+initial $readmemh("test.hex", data);
 
 always @(ren or wen)
 begin

@@ -24,7 +24,7 @@
 
 
 /**********************************************D-MEM**********************************************/
-`define DMEM_SIZE_BLOCKS        (16)                                                // in blocks    // 16
+`define DMEM_SIZE_BLOCKS        (64)                                                // in blocks    // 16
 `define DMEM_SIZE               (`DMEM_SIZE_BLOCKS*`DBLOCK_SIZE)                    // in bytes     // 256
 
 `define DMEM_ACCESS_DELAY       (16)                                                // in cycles    // 16
@@ -62,7 +62,7 @@
 
 
 /**********************************************D-MEM**********************************************/
-`define IMEM_SIZE_BLOCKS        (16)                                                // in blocks    // 16
+`define IMEM_SIZE_BLOCKS        (64)                                                // in blocks    // 16
 `define IMEM_SIZE               (`IMEM_SIZE_BLOCKS*`IBLOCK_SIZE)                    // in bytes     // 256
 
 `define IMEM_ACCESS_DELAY       (16)                                                // in cycles    // 16

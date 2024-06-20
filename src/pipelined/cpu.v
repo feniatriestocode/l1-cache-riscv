@@ -1,32 +1,32 @@
-`include "constants.v"
-`include "config.vh"
+//`include "constants.v"
+//`include "config.vh"
 
 module cpu(input clock, 
-		   input reset,
-		   // imem
-		   output imem_ren,
-           output [($clog2(`IMEM_SIZE)-1):0] imem_block_address,
-           input [((`IWORD_SIZE*`IBLOCK_SIZE)-1):0] imem_dout,
-           input imem_ready,
+		       input reset,
+		       // imem
+		       output imem_ren,
+           output [(`IMEM_BLOCK_ADDR_SIZE-1):0] imem_block_address,
+           input [(`IBLOCK_SIZE_BITS-1):0] imem_dout,
+           input imem_read_ready,
            // dmem
            output dmem_ren, 
            output dmem_wen,
-           output [($clog2(`DMEM_SIZE)-1):0] dmem_block_address, 
-           output [((`DWORD_SIZE*`DBLOCK_SIZE)-1):0] dmem_din,
-           input dmem_ready, 
-           input dmem_done,
-           input [((`DWORD_SIZE*`DBLOCK_SIZE)-1):0] dmem_dout);     
+           output [(`IMEM_BLOCK_ADDR_SIZE-1):0] dmem_block_address, 
+           output [(`IBLOCK_SIZE_BITS-1):0] dmem_din,
+           input dmem_read_ready, 
+           input dmem_write_done,
+           input [(`IBLOCK_SIZE_BITS-1):0] dmem_dout);     
            
 //dcache_controller 
-reg ren, wen;
-reg [(`DADDR_SIZE-1):0] addr;
-reg [(`DWORD_SIZE-1):0] byteSelectVector;
-reg [(`DWORD_SIZE_BITS-1):0] din;
-reg cacheHit;
-reg cacheDirtyBit;
-reg [(`DBLOCK_SIZE_BITS-1):0] cacheDout;
-reg memReadReady, memWriteDone;
-reg [(`DBLOCK_SIZE_BITS-1):0] memDout;
+wire ren, wen;
+wire [(`DADDR_SIZE-1):0] addr;
+wire [(`DWORD_SIZE-1):0] byteSelectVector;
+wire [(`DWORD_SIZE_BITS-1):0] din;
+wire cacheHit;
+wire cacheDirtyBit;
+wire [(`DBLOCK_SIZE_BITS-1):0] cacheDout;
+wire memReadReady, memWriteDone;
+wire [(`DBLOCK_SIZE_BITS-1):0] memDout;
 
 wire stall;
 wire [(`DWORD_SIZE_BITS-1):0] dout;
