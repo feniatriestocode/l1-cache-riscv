@@ -67,7 +67,7 @@ module I_SRAM(clk, rst, ren, memWen, blockAddr, dataIn, hit, dataOut);
             end else begin
                 for(i=0; i<`ICACHE_ASSOCIATIVITY; i=i+1) begin
                     mask = {`ICACHE_ASSOCIATIVITY{1'b1}} >> (`ICACHE_ASSOCIATIVITY-(i+1));
-                    blockToEvict[i] = ((status_col[index] & mask) == 2**(i-1));
+                    blockToEvict[i] = ((status_col[index] & mask) == (2**i)-1);
                 end
             end
         end
