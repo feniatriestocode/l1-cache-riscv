@@ -122,15 +122,12 @@ begin
 	end
     WRITEBACK: begin
         if(memWriteDone==1) begin
-            next_state = WRITEBACK_REPLACE;
+            next_state = MEMREAD;
         end
         else begin
             next_state = WRITEBACK;
         end
-	end    
-    WRITEBACK_REPLACE: begin
-            next_state = MEMREAD;
-    end
+	end
 	MEMREAD: begin
         if(memReadReady==1) begin
             next_state = MEMCACHE;
@@ -142,7 +139,6 @@ begin
 	MEMCACHE: begin
         next_state = IDLE;
 	end
-
     default: next_state = IDLE;
     endcase
 end
@@ -160,10 +156,6 @@ begin
         WRITEBACK: begin
             stall = 1'b1;
             memWen = 1'b1;
-        end
-        WRITEBACK_REPLACE: begin
-            stall = 1'b1;
-            cacheMemWen = 1'b1;
         end
         MEMREAD: begin
             stall = 1'b1;

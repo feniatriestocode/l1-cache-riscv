@@ -45,7 +45,7 @@ wire [`DBLOCK_SIZE-1:0] byteSelectVector;
 wire [`DBLOCK_SIZE_BITS-1:0] dcache_input;
 
 // dcache
-wire DcacheEn, DcacheWen, DcacheMemWen;
+wire DcacheRen, DcacheWen, DcacheMemWen;
 wire [`DBLOCK_SIZE-1:0] DcacheBytesAccess;
 wire [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] DcacheBlockAddr;
 wire [`DBLOCK_SIZE_BITS-1:0] DcacheDin;
@@ -53,7 +53,7 @@ wire DcacheHit, DcacheDirtyBit;
 wire [`DBLOCK_SIZE_BITS-1:0] DcacheDout;
 
 // icache
-wire IcacheEn, IcacheMemWen;
+wire IcacheRen, IcacheMemWen;
 wire [`ITAG_SIZE+`ISET_INDEX_SIZE-1:0] IcacheBlockAddr;
 wire [`IBLOCK_SIZE_BITS-1:0] IcacheDin;
 wire IcacheHit, IcacheDirtyBit;
@@ -71,9 +71,9 @@ pipeline pipeline(.clock(clock),
 				  .dcache_input(dcache_input));
 
 // caches instantiated here
-Icache_SRAM Icache(.clk(clock), 
+I_SRAM Icache(.clk(clock), 
                 .rst(reset),
-                .en(IcacheEn), 
+                .ren(IcacheRen), 
                 .memWen(IcacheMemWen),
                 .blockAddr(IcacheBlockAddr), 
                 .dataIn(IcacheDin), 
@@ -81,11 +81,11 @@ Icache_SRAM Icache(.clk(clock),
                 .dirtyBit(IcacheDirtyBit),
                 .dataOut(IcacheDout));
 
-Dcache_SRAM Dcache(.clk(clock), 
+D_SRAM Dcache(.clk(clock), 
                 .rst(reset),
-                .en(DcacheEn), 
+                .ren(DcacheRen), 
                 .wen(DcacheWen), 
-                .dmemWen(DcacheMemWen),
+                .memWen(DcacheMemWen),
                 .bytesAccess(DcacheBytesAccess),
                 .blockAddr(DcacheBlockAddr), 
                 .dataIn(DcacheDin), 

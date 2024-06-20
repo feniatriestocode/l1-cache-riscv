@@ -1,6 +1,6 @@
 /*IMPLEMENTATION OF A PARAMETRIZED DATA MEMORY ON RISC-V*/
 
-////`timescale 1ns / 1ps
+////// `timescale 1ns / 1ps
 
 `include "constants.vh"
 // `include "../common/counter.v" //sees it from makefile supposedly
