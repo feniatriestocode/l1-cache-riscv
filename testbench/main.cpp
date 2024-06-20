@@ -20,6 +20,7 @@ std::ofstream file("output.txt");
 
 int main(int argc, const char **argv, const char **env)
 {
+    std::string testname = argv[0];
     Verilated::commandArgs(argc, argv);
 
     // instatiate top level module
