@@ -405,6 +405,8 @@ memWriteDone = 1;
 memWriteDone= 0;
 #20;
 memReadReady = 1;
+#10;
+cacheHit = 1;
 #100;
 memReadReady = 0;
 wen = 0;
@@ -425,6 +427,8 @@ memWriteDone = 1;
 memWriteDone= 0;
 #20;
 memReadReady = 1;
+#10;
+cacheHit = 1;
 #100;
 memReadReady = 0;
 wen = 0;
@@ -466,10 +470,9 @@ din = {`DWORD_SIZE_BITS{1'b0}};
     test = 72; //////////////////////////////////////////////////////////////////////////
     #10;
     wen = 1;
-    addr = 8'b00_01_00_00; //hex 0x10 
+    addr = 8'b00_01_01_00; //hex 0x10 
     byteSelectVector = 4'b1000;
-    din = {4'b1010,{`DWORD_SIZE_BITS-4{1'b0}}};
-    byteSelectVector = 4'b0001;
+    din = {`DWORD_SIZE_BITS{1'b1}};
     #120;
     memReadReady = 1;
     #120;
