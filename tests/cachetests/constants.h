@@ -35,3 +35,19 @@
 #define NUM_ELEMENTS 256
 #define STRIDE 5 //16/4 = 4 ints per block
 #define NUM_DISCS  7
+#define END_MARKER 0xDEADBEEF
+
+// Multi-line macro to set the end marker
+#define SET_END_MARKER()                    \
+        unsigned int end_marker_value;      \
+        asm volatile (                      \
+            "li %0, 0xDEADBEEF"             \
+            : "=r" (end_marker_value)       \
+        );                                  \
+        volatile unsigned int *end_marker = (volatile unsigned int *)END_MARKER_ADDR; \
+        *end_marker = end_marker_value;     \
+        asm volatile ("" : : "r" (*end_marker) : "memory"); \
+
+#define END_MARKER_ADDR 0x80000000
+#define END_MARKER_VALUE 0xDEADBEEF
+

@@ -31,7 +31,7 @@ void Vtoplevel::eval_step() {
             Verilated::debug(1);
             __Vchange = _change_request(vlSymsp);
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("../../src/cache_controller/../../src/pipelined/toplevel.v", 5, "",
+            VL_FATAL_MT("../src/pipelined/toplevel.v", 5, "",
                 "Verilated model didn't converge\n"
                 "- See DIDNOTCONVERGE in the Verilator manual");
         } else {
@@ -57,7 +57,7 @@ void Vtoplevel::_eval_initial_loop(Vtoplevel__Syms* __restrict vlSymsp) {
             Verilated::debug(1);
             __Vchange = _change_request(vlSymsp);
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("../../src/cache_controller/../../src/pipelined/toplevel.v", 5, "",
+            VL_FATAL_MT("../src/pipelined/toplevel.v", 5, "",
                 "Verilated model didn't DC converge\n"
                 "- See DIDNOTCONVERGE in the Verilator manual");
         } else {
@@ -77,12 +77,10 @@ VL_INLINE_OPT void Vtoplevel::_combo__TOP__3(Vtoplevel__Syms* __restrict vlSymsp
     if (vlTOPp->reset) {
         vlTOPp->toplevel__DOT__cpu__DOT__cacheBytesAccess = 0U;
         vlTOPp->toplevel__DOT__cpu__DOT__cacheBytesAccess 
-            = (((~ ((IData)(0xfU) << (4U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__addr) 
-                                            << 2U)))) 
+            = (((~ ((IData)(0xfU) << (4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__addr)))) 
                 & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__cacheBytesAccess)) 
                | ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__byteSelectVector) 
-                  << (4U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__addr) 
-                            << 2U))));
+                  << (4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__addr))));
     } else {
         vlTOPp->toplevel__DOT__cpu__DOT__cacheBytesAccess = 0U;
     }
@@ -164,10 +162,10 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__6(Vtoplevel__Syms* __restrict vlSym
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v7;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v8;
     CData/*1:0*/ __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0;
-    CData/*1:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0;
+    CData/*5:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0;
     CData/*1:0*/ __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1;
-    CData/*1:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1;
+    CData/*5:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v2;
     CData/*1:0*/ __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v0;
@@ -679,16 +677,16 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__6(Vtoplevel__Syms* __restrict vlSym
             if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) {
                 if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
                     __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 
-                        = (3U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
-                                 >> 2U));
+                        = (0x3fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
+                                    >> 2U));
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 = 1U;
                     __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 
                         = (3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr));
                 }
                 if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
                     __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 
-                        = (3U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
-                                 >> 2U));
+                        = (0x3fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
+                                    >> 2U));
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 = 1U;
                     __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 
                         = (3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr));
@@ -2164,17 +2162,17 @@ VL_INLINE_OPT void Vtoplevel::_combo__TOP__8(Vtoplevel__Syms* __restrict vlSymsp
                   [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))] 
                   & (vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
                      [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))]
-                     [0U] == (3U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
-                                    >> 2U)))));
+                     [0U] == (0x3fU & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
+                                       >> 2U)))));
         vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg 
             = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg)) 
                | (0xfffffffeU & (vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
                                  [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))] 
                                  & ((vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
                                      [(3U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr))]
-                                     [1U] == (3U & 
-                                              ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
-                                               >> 2U))) 
+                                     [1U] == (0x3fU 
+                                              & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheBlockAddr) 
+                                                 >> 2U))) 
                                     << 1U))));
         if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg))) {
             vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[0U] 
@@ -2331,21 +2329,21 @@ VL_INLINE_OPT void Vtoplevel::_combo__TOP__8(Vtoplevel__Syms* __restrict vlSymsp
                 vlTOPp->toplevel__DOT__cpu__DOT__cacheDin 
                     = (((~ (0xffffffffULL << (0x20U 
                                               & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__addr) 
-                                                 << 5U)))) 
+                                                 << 3U)))) 
                         & vlTOPp->toplevel__DOT__cpu__DOT__cacheDin) 
                        | ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__din)) 
                           << (0x20U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__addr) 
-                                       << 5U))));
+                                       << 3U))));
             }
         } else {
             vlTOPp->toplevel__DOT__cpu__DOT__cacheDin = 0ULL;
             vlTOPp->toplevel__DOT__cpu__DOT__cacheDin 
                 = (((~ (0xffffffffULL << (0x20U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__addr) 
-                                                   << 5U)))) 
+                                                   << 3U)))) 
                     & vlTOPp->toplevel__DOT__cpu__DOT__cacheDin) 
                    | ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__din)) 
                       << (0x20U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__addr) 
-                                   << 5U))));
+                                   << 3U))));
         }
     } else {
         vlTOPp->toplevel__DOT__cpu__DOT__cacheDin = 0ULL;
@@ -2469,8 +2467,8 @@ VL_INLINE_OPT QData Vtoplevel::_change_request_1(Vtoplevel__Syms* __restrict vlS
     QData __req = false;  // Logically a bool
     __req |= ((vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset)
          | (vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset));
-    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../../src/memories/Imem.v:22: toplevel.Instruction_Mem.counter_reset\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../../src/memories/Dmem.v:26: toplevel.Data_Mem.counter_reset\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../src/memories/Imem.v:22: toplevel.Instruction_Mem.counter_reset\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../src/memories/Dmem.v:26: toplevel.Data_Mem.counter_reset\n"); );
     // Final
     vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset 
         = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset;

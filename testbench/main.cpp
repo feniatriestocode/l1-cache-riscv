@@ -16,11 +16,9 @@
 #define YELLOW "\033[1;33m"
 
 double sc_time_stamp() { return 0; }
-std::ofstream file("output.txt");
 
 int main(int argc, const char **argv, const char **env)
 {
-    std::string testname = argv[0];
     Verilated::commandArgs(argc, argv);
 
     // instatiate top level module
@@ -49,21 +47,20 @@ int main(int argc, const char **argv, const char **env)
         tfp->dump(time);
         #endif
 
-        // print debugging messages
-        #if VERBOSE==1
+    // print debugging messages
         if (top->clock && time > 8) {
-                 file << std::hex << std::setfill('0')
-                      << "pc=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__PC << " "
-                      << "inst=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__IFID_instr << " "
-                      << "addr=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut << " "
-                      << "out=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__EXMEM_MemWriteData << " "
-                      << "alu out=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut << " "                      
-                      << (top->toplevel__DOT__cpu__DOT__EXMEM_MemWrite ? "1" : "0") << " \n";
-        }
-        #endif
+        std::cout << std::hex << std::setfill('0')
+                    << "pc=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__PC << " "
+                    << "index=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr << " "
+                    << "set=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut << " "
+                    << "tag=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData << " "
+                    << "data=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut << " "   
+                    << "cache_hit=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__cacheHit << " "                      
+                    << (top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite ? "1" : "0") << " \n";
+    }
 
-        if (top->toplevel__DOT__cpu__DOT__EXMEM_MemWrite && top->toplevel__DOT__cpu__DOT__EXMEM_ALUOut == 0xfffffff0) {
-            if (top->toplevel__DOT__cpu__DOT__EXMEM_MemWriteData) {
+        if (top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite && top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut == 0xDEADBEEF) {
+            if (top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData) {
                 printf("%sPASS%s\n", GREEN, RESET);
                 #if TRACE==1
                 tfp->close();
@@ -76,10 +73,8 @@ int main(int argc, const char **argv, const char **env)
                 #endif
                 return -1;
             }
-        }
-        
+        }        
     }
-    
 
     #if TRACE==1
     tfp->close();
