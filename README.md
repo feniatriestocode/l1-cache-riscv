@@ -3,8 +3,14 @@
 ## Project Structure
   ![newfilestructure_dark drawio](https://github.com/feniatriestocode/l1-cache-riscv/assets/96126980/063d04ae-3f19-41b6-a2a6-911a1bfe80c3)
 
-## Implemented ISA
-The base ISA is RV32I
+## Cache characteristics
+The size of the cache memory, as well as the block size and the associativity are fully parameterizable.
+The same holds true for the main memory.
+
+## Cache policies
+* Write-back
+* Write-allocate
+* bit pseudo-LRU eviction policy
 
 ## Installation
 Download the repository
@@ -60,9 +66,22 @@ $ docker exec -it <container_name> bash
 	```
 
 ## Building the tests
+The basis of the testing environment is maintained from our predecessors. As a recap, a testbench written in C++ as well as the Verilog code for our toplevel are entered as inputs into Verilator, an open-source simulator that converts Verilog models into  C++. We then run the verilated output with the instructions (hex files) as arguments. The key difference is the use of custom tests written directly in C and compiled using riscv32-unknown-elf-gcc and the appropriate flags instead of the official ones under the repository riscv-tests.
+![testbench_dark drawio](https://github.com/feniatriestocode/l1-cache-riscv/assets/96126980/8b686259-2259-41ec-a1cd-0f5d8a917584)
+
+We have divided the problem of verifying the correct functionality of our implementation in shorter, important steps. 
+1.	Confirm that previous functionality of the processor remains
+2.	Create tests in C that cover both common and corner cases for the functionality of the cache memory
+3.	Make a new testbench to verify the validity of the tests
+
 To build the unit tests, run 
 ```
 $ cd tests
+$ make
+```
+for the first part, or
+```
+$ cd tests/cachetests
 $ make
 ```
 
@@ -83,7 +102,7 @@ To compile the **toplevel.v** RISCV model and **main.cpp** testbench into one ex
 	```
 
 ## Run the tests
-To run an individual test (for example addi.S), change the variable **TEST** of **testbench/Makefile** file to the test name and run
+To run an individual test (for example addi.S), change the variable **TEST** of **testbench/Makefile** file to the test name and **TESTDIR** to ../tests/cachetests and run
 ```
 $ cd testbench # if not already in testbech folder
 $ make run
