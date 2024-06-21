@@ -1,6 +1,6 @@
 //`include "../include/constants.v"
-`include "../common/counter.v"
-`include "../include/constants.vh"
+// `include "../common/counter.v"
+// `include "../include/constants.vh"
 `include "../memories/Dmem.v"
 `include "../memories/Imem.v"
 `include "cpu.v"

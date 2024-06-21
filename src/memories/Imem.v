@@ -56,5 +56,5 @@ always @(delayed or block_address) begin
 end
 
 /****** SIMULATION ******/
-initial $readmemh("test.hex", data);
+initial $readmemh(`TEXT_HEX, data);
 endmodule

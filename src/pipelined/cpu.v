@@ -38,7 +38,7 @@ wire memRen, memWen;
 wire [(`DBLOCK_SIZE_BITS-1):0] memDin;
 
  //pipeline          
-wire dcache_stall, icache_stall, dcache_ren, dcache_wen;
+wire DcacheStall,IcacheStall;
 wire [`DBLOCK_SIZE_BITS-1:0] dcache_output;
 wire [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] dcache_addr;
 wire [`DBLOCK_SIZE-1:0] byteSelectVector;
