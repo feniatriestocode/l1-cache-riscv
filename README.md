@@ -1,10 +1,10 @@
-# An RV32I implementation with 5 pipeline stages
-A risc-v implementation for our Parallel Computer Architecture Class
+# A L1 cache implementation, integrated with a
+risc-v implementation for our Parallel Computer Architecture Class
 
 ## Project Structure
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/newfilestructure_dark.png">
-  <img alt="" src="docs/file_structure.jpeg">
+  <img alt="" src="docs/newfilestructure_dark.png">
 </picture>
 
 ## Implemented ISA
