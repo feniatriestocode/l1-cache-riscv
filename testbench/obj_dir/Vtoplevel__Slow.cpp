@@ -106,21 +106,33 @@ void Vtoplevel::_settle__TOP__6(Vtoplevel__Syms* __restrict vlSymsp) {
     vlTOPp->toplevel__DOT__Data_Mem__DOT__delayed = 
         (0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter));
     vlTOPp->toplevel__DOT__imem_ren = 0U;
-    if ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
-        vlTOPp->toplevel__DOT__imem_ren = 1U;
+    if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
+        vlTOPp->toplevel__DOT__imem_ren = 0U;
+    } else {
+        if ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
+            vlTOPp->toplevel__DOT__imem_ren = 1U;
+        }
     }
     vlTOPp->toplevel__DOT__cpu__DOT__icacheStall = 0U;
-    if ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__icacheStall = 1U;
+    if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheStall = 0U;
     } else {
-        if ((2U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
+        if ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
             vlTOPp->toplevel__DOT__cpu__DOT__icacheStall = 1U;
+        } else {
+            if ((2U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
+                vlTOPp->toplevel__DOT__cpu__DOT__icacheStall = 1U;
+            }
         }
     }
     vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen = 0U;
-    if ((1U != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
-        if ((2U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
-            vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen = 1U;
+    if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen = 0U;
+    } else {
+        if ((1U != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
+            if ((2U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
+                vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen = 1U;
+            }
         }
     }
     vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen = (((IData)(vlTOPp->reset) 
@@ -485,34 +497,50 @@ void Vtoplevel::_settle__TOP__6(Vtoplevel__Syms* __restrict vlSymsp) {
                                      >> 4U))] >> 1U));
             }
         } else {
-            vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i = 0U;
-            while (VL_GTS_III(1,32,32, 2U, vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__m)) {
-                if ((1U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict) 
-                           >> (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)))) {
-                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[0U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
-                                >> 4U))][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][0U];
-                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[1U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
-                                >> 4U))][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][1U];
-                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[2U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
-                                >> 4U))][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][2U];
-                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[3U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
-                                >> 4U))][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][3U];
-                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDirtyBit 
-                        = (1U & (vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col
-                                 [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
-                                         >> 4U))] >> 
-                                 (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)));
-                }
-                vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i 
-                    = ((IData)(1U) + vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i);
+            if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[0U] 
+                    = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][0U][0U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[1U] 
+                    = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][0U][1U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[2U] 
+                    = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][0U][2U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[3U] 
+                    = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][0U][3U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDirtyBit 
+                    = (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col
+                       [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                               >> 4U))]);
+            }
+            vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i = 2U;
+            if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[0U] 
+                    = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][1U][0U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[1U] 
+                    = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][1U][1U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[2U] 
+                    = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][1U][2U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[3U] 
+                    = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][1U][3U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDirtyBit 
+                    = (1U & (vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col
+                             [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U))] >> 1U));
             }
         }
     }
@@ -1199,6 +1227,7 @@ void Vtoplevel::_eval_settle(Vtoplevel__Syms* __restrict vlSymsp) {
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->_settle__TOP__6(vlSymsp);
+    vlTOPp->__Vm_traceActivity[5U] = 1U;
     vlTOPp->__Vm_traceActivity[4U] = 1U;
     vlTOPp->__Vm_traceActivity[3U] = 1U;
     vlTOPp->__Vm_traceActivity[2U] = 1U;
@@ -1362,7 +1391,6 @@ void Vtoplevel::_ctor_var_reset() {
     }}
     toplevel__DOT__cpu__DOT__Dcache__DOT__i = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__Dcache__DOT__j = VL_RAND_RESET_I(32);
-    toplevel__DOT__cpu__DOT__Dcache__DOT__m = VL_RAND_RESET_I(32);
     toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg = VL_RAND_RESET_I(2);
     toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict = VL_RAND_RESET_I(2);
     toplevel__DOT__cpu__DOT__Dcache__DOT__mask = VL_RAND_RESET_I(2);
@@ -2906,12 +2934,22 @@ void Vtoplevel::_ctor_var_reset() {
     __Vtable3_toplevel__DOT__cpu__DOT__Dcntr__DOT__replace[5] = 0U;
     __Vtable3_toplevel__DOT__cpu__DOT__Dcntr__DOT__replace[6] = 0U;
     __Vtable3_toplevel__DOT__cpu__DOT__Dcntr__DOT__replace[7] = 0U;
+    __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v0 = 0;
+    __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v1 = 0;
+    __Vdlyvval__toplevel__DOT__Data_Mem__DOT__temp_din__v4 = VL_RAND_RESET_I(32);
+    __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v4 = 0;
+    __Vdlyvval__toplevel__DOT__Data_Mem__DOT__temp_din__v5 = VL_RAND_RESET_I(32);
+    __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v5 = 0;
+    __Vdlyvval__toplevel__DOT__Data_Mem__DOT__temp_din__v6 = VL_RAND_RESET_I(32);
+    __Vdlyvval__toplevel__DOT__Data_Mem__DOT__temp_din__v7 = VL_RAND_RESET_I(32);
+    __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v8 = 0;
+    __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v9 = 0;
     __Vdly__toplevel__DOT__Instruction_Mem__DOT__delay_counter = VL_RAND_RESET_I(4);
     __VinpClk__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
     __VinpClk__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
     __Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
     __Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
-    { int __Vi0=0; for (; __Vi0<5; ++__Vi0) {
+    { int __Vi0=0; for (; __Vi0<6; ++__Vi0) {
             __Vm_traceActivity[__Vi0] = VL_RAND_RESET_I(1);
     }}
 }

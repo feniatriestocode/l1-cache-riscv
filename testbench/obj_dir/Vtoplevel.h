@@ -158,12 +158,11 @@ VL_MODULE(Vtoplevel) {
         IData/*31:0*/ toplevel__DOT__cpu__DOT__Icache__DOT__j;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__Dcache__DOT__i;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__Dcache__DOT__j;
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__Dcache__DOT__m;
         IData/*31:0*/ toplevel__DOT__Instruction_Mem__DOT__i;
         IData/*31:0*/ toplevel__DOT__Data_Mem__DOT__i;
+        QData/*32:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_alu__DOT__unsigned_sub;
     };
     struct {
-        QData/*32:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_alu__DOT__unsigned_sub;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_regs__DOT__data[32];
         CData/*1:0*/ toplevel__DOT__cpu__DOT__Icache__DOT__valid_col[4];
         CData/*1:0*/ toplevel__DOT__cpu__DOT__Icache__DOT__status_col[4];
@@ -184,6 +183,12 @@ VL_MODULE(Vtoplevel) {
     CData/*6:0*/ __Vtableidx1;
     CData/*5:0*/ __Vtableidx2;
     CData/*2:0*/ __Vtableidx3;
+    CData/*0:0*/ __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v0;
+    CData/*0:0*/ __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v1;
+    CData/*0:0*/ __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v4;
+    CData/*0:0*/ __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v5;
+    CData/*0:0*/ __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v8;
+    CData/*0:0*/ __Vdlyvset__toplevel__DOT__Data_Mem__DOT__temp_din__v9;
     CData/*3:0*/ __Vdly__toplevel__DOT__Instruction_Mem__DOT__delay_counter;
     CData/*0:0*/ __VinpClk__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset;
     CData/*0:0*/ __VinpClk__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset;
@@ -193,7 +198,11 @@ VL_MODULE(Vtoplevel) {
     CData/*0:0*/ __Vclklast__TOP____VinpClk__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset;
     CData/*0:0*/ __Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset;
     CData/*0:0*/ __Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset;
-    CData/*0:0*/ __Vm_traceActivity[5];
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__temp_din__v4;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__temp_din__v5;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__temp_din__v6;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__temp_din__v7;
+    CData/*0:0*/ __Vm_traceActivity[6];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__RegDst[128];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__MemRead[128];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__MemWrite[128];
@@ -249,7 +258,7 @@ VL_MODULE(Vtoplevel) {
     static QData _change_request(Vtoplevel__Syms* __restrict vlSymsp);
     static QData _change_request_1(Vtoplevel__Syms* __restrict vlSymsp);
   public:
-    static void _combo__TOP__10(Vtoplevel__Syms* __restrict vlSymsp);
+    static void _combo__TOP__11(Vtoplevel__Syms* __restrict vlSymsp);
     static void _combo__TOP__8(Vtoplevel__Syms* __restrict vlSymsp);
   private:
     void _ctor_var_reset() VL_ATTR_COLD;
@@ -264,6 +273,7 @@ VL_MODULE(Vtoplevel) {
     static void _eval_settle(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _initial__TOP__1(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _multiclk__TOP__9(Vtoplevel__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__10(Vtoplevel__Syms* __restrict vlSymsp);
     static void _sequent__TOP__2(Vtoplevel__Syms* __restrict vlSymsp);
     static void _sequent__TOP__3(Vtoplevel__Syms* __restrict vlSymsp);
     static void _sequent__TOP__4(Vtoplevel__Syms* __restrict vlSymsp);

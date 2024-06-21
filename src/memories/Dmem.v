@@ -74,7 +74,7 @@ begin
 	if(~reset)
 	begin
 		for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-            temp_din[i] = {`DWORD_SIZE_BITS{1'b0}};
+            temp_din[i] <= {`DWORD_SIZE_BITS{1'b0}};
         end
 
 		flag <= 1'b0;
@@ -93,7 +93,7 @@ begin
 		begin
 			if(~flag) begin
     		for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-        		temp_din[i] = din[(i+1)*`DWORD_SIZE_BITS-1 -: `DWORD_SIZE_BITS];
+        		temp_din[i] <= din[(i+1)*`DWORD_SIZE_BITS-1 -: `DWORD_SIZE_BITS];
     			end
 
 				flag <= 1'b1;

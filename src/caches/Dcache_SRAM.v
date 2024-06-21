@@ -72,7 +72,7 @@ module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, h
                 end
             end
             else begin
-                for(i=0; m<`DCACHE_ASSOCIATIVITY; i=i+1) begin
+                for(i=0; i<`DCACHE_ASSOCIATIVITY; i=i+1) begin
                     if(blockToEvict[i]) begin
                         dataOut = data_col[index][i];
                         dirtyBit = dirty_col[index][i];
