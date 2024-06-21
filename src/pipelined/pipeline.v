@@ -8,15 +8,15 @@ module pipeline( input clock,
 			     input reset,
 			     input dcache_stall,
 				 input icache_stall,
-                 input [`DWORD_SIZE_BITS-1:0] dcache_output,
-				 input [`IWORD_SIZE_BITS-1:0] icache_output,
+                 input [`DWORD_SIZE_BITS-1:0] data_input,
+				 input [`IWORD_SIZE_BITS-1:0] instruction_input,
                  output dcache_ren,
                  output dcache_wen,
 				 output icache_ren,
-                 output [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] dcache_addr,
-				 output [`ITAG_SIZE+`ISET_INDEX_SIZE-1:0] icache_addr,
+                 output [`DADDR_SIZE-1:0] dcache_addr,
+				 output [`IADDR_SIZE-1:0] icache_addr,
                  output [`DWORD_SIZE-1:0] byteSelectVector,
-                 output [`DWORD_SIZE_BITS-1:0] dcache_input);
+                 output [`DWORD_SIZE_BITS-1:0] data_output);
 
 
 
@@ -74,17 +74,17 @@ wire stall_from_cache;
 assign stall_from_cache = icache_stall || dcache_stall;
 
 // Instruction Cache controller I/O
-assign instr = icache_output;
+assign instr = instruction_input;
 assign icache_addr = PC;
 assign icache_ren = write_ifid;
 
 
 // Data Cache controller I/O
-assign DMemOut = dcache_output;
+assign DMemOut = data_input;
 assign dcache_addr = EXMEM_ALUOut;
 assign dcache_ren = EXMEM_MemRead;
 assign dcache_wen = EXMEM_MemWrite; 
-assign dcache_input = MemWriteData;
+assign data_output = MemWriteData;
 assign byteSelectVector = byte_select_vector;
 
 
