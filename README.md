@@ -1,6 +1,4 @@
-# A L1 cache implementation, integrated with a
-# risc-v implementation for our Parallel Computer 
-# Architecture Class
+# L1 cache implementation integrated with a risc-v CPU
 
 ## Project Structure
 <picture>
