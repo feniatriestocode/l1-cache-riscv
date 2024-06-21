@@ -66,7 +66,7 @@ $ docker exec -it <container_name> bash
 	```
 
 ## Building the tests
-The basis of the testing environment is maintained from our predecessors. As a recap, a testbench written in C++ as well as the Verilog code for our toplevel are entered as inputs into Verilator, an open-source simulator that converts Verilog models into  C++. We then run the verilated output with the instructions (hex files) as arguments. The key difference is the use of custom tests written directly in C and compiled using riscv32-unknown-elf-gcc and the appropriate flags instead of the official ones under the repository riscv-tests.
+The basis of the testing environment is maintained from our predecessors. As a recap, a testbench written in C++ as well as the Verilog code for our toplevel are entered as inputs into Verilator, an open-source simulator that converts Verilog models into  C++. We then run the verilated output with the instructions (hex files) as arguments. The key difference is the use of custom tests written directly in C and compiled using riscv32-unknown-elf-gcc and the appropriate flags instead of the official ones under the repository riscv-tests. The 'vanilla' assembly generated, added additional complications to creating a testing environment.
 ![testbench_dark drawio](https://github.com/feniatriestocode/l1-cache-riscv/assets/96126980/8b686259-2259-41ec-a1cd-0f5d8a917584)
 
 We have divided the problem of verifying the correct functionality of our implementation in shorter, important steps. 
@@ -84,6 +84,7 @@ for the first part, or
 $ cd tests/cachetests
 $ make
 ```
+* The creation of the testbench for the C tests is under construction since it will make use of the anonymous struct created upon compilation of the verilated output.
 
 ## Compile the model
 To compile the **toplevel.v** RISCV model and **main.cpp** testbench into one executable, run
