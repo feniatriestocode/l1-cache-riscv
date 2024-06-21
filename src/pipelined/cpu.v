@@ -16,107 +16,86 @@ module cpu(input clock,
            input DmemReadReady, 
            input DmemWriteDone,
            input [(`DBLOCK_SIZE_BITS-1):0] DmemDout);     
-           
-//dcache_controller 
-//auta mallon tha fugoun 
-wire ren, wen;
-wire [(`DADDR_SIZE-1):0] addr;
-wire [(`DWORD_SIZE-1):0] byteSelectVector;
-wire [(`DWORD_SIZE_BITS-1):0] din;
-wire cacheHit;
-wire cacheDirtyBit;
-wire [(`DBLOCK_SIZE_BITS-1):0] cacheDout;
-wire memReadReady, memWriteDone;
-wire [(`DBLOCK_SIZE_BITS-1):0] memDout;
 
-wire stall;
-wire [(`DWORD_SIZE_BITS-1):0] dout;
-wire [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr;
-wire cacheRen, cacheWen, cacheMemWen;
-wire [(`DBLOCK_SIZE-1):0] cacheBytesAccess;
-wire [(`DBLOCK_SIZE_BITS-1):0] cacheDin;
-wire memRen, memWen;
-wire [(`DBLOCK_SIZE_BITS-1):0] memDin;
+// pipeline signals
+wire dcacheStall, icacheStall;
+wire pipelineDRen, pipelineDWen, pipelineIRen;
+wire [`DADDR_SIZE-1:0] pipelineDAddr;
+wire [`IADDR_SIZE-1:0] pipelineIAddr;
+wire [`DWORD_SIZE-1:0] byteSelectVector;
+wire [`DWORD_SIZE_BITS-1:0] pipelineDataIn, pipelineDataOut;
+wire [`IWORD_SIZE_BITS-1:0] pipelineInstrIn;
 
- //pipeline        -----xekinaw apo edw  -- ta ekana
-wire DcacheStall, IcacheStall, DcacheRen, DcacheWen;
-wire [`DBLOCK_SIZE_BITS-1:0] DpipelineOutput;
-wire [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] DcacheAddr;
-wire [`DBLOCK_SIZE-1:0] byteSelectVector;
-wire [`DBLOCK_SIZE_BITS-1:0] DcacheInput;
+wire [`IMEM_BLOCK_ADDR_SIZE-1:0] iblockAddr;
+wire [`DMEM_BLOCK_ADDR_SIZE-1:0] dblockAddr;
 
-// dcache          --- paw edw  --egine
-wire DcacheRen, DcacheWen, DcacheMemWen;
-wire [`DBLOCK_SIZE-1:0] DcacheBytesAccess;
-wire [`DMEM_BLOCK_ADDR_SIZE-1:0] DcacheBlockAddr;
-wire [`DBLOCK_SIZE_BITS-1:0] DcacheDin;
-wire DcacheHit, DcacheDirtyBit;
-wire [`DBLOCK_SIZE_BITS-1:0] DcacheDout;
+// icache signals
+wire icacheRen, icacheMemWen, icacheHit;
+wire [`IBLOCK_SIZE_BITS-1:0] icacheDin, icacheDout;
 
-// icache   ---pame edw  IcacheRen problem
-wire IcacheRen, IcacheMemWen;
-wire [`IMEM_BLOCK_ADDR_SIZE-1:0] IcacheBlockAddr; //ggg
-wire [`IBLOCK_SIZE_BITS-1:0] IcacheDin;
-wire IcacheHit, IcacheDirtyBit;   //icacheDirtyBit problem
-wire [`IBLOCK_SIZE_BITS-1:0] IcacheDout;
+// dcache signals
+wire dcacheRen, dcacheWen, dcacheMemWen, dcacheHit, dcacheDirtyBit;
+wire [`DBLOCK_SIZE_BITS-1:0] dcacheDin, dcacheDout;
+wire [`DBLOCK_SIZE-1:0] bytesAccess;
+
 
 pipeline pipeline(.clock(clock), 
 				  .reset(reset),
 
                   // inputs from cache controllers
-		          .dcache_stall(DcacheStall),
-                  .icache_stall(IcacheStall),
-                  .dcache_output(DpipelineOutput),
-                  .icache_output(IpipelineOutput),
+		          .dcache_stall(dcacheStall),
+                  .icache_stall(icacheStall),
+                  .data_input(pipelineDataIn),
+                  .instruction_input(pipelineInstrIn),
 				  
                   // outputs for cache controllers
-                  .dcache_ren(DcacheRen),
-				  .dcache_wen(DcacheWen),
-                  .icache_ren(Ren),
-				  .dcache_addr(DcacheAddr),
-                  .icache_addr(IcacheAddr),
+                  .dcache_ren(pipelineDRen),
+				  .dcache_wen(pipelineDWen),
+                  .icache_ren(pipelineIRen),
+				  .dcache_addr(pipelineDAddr),
+                  .icache_addr(pipelineIAddr),
 				  .byteSelectVector(byteSelectVector),
-                  .dcache_input(DcacheInput));
+                  .data_output(pipelineDataOut));
 
 icache_controller icachecontroller2check(
                         .clock(clock),
                         .reset(reset),
                         
                         // pipeline inputs
-                        .ren(Ren),
-                        .addr(IcacheAddr),
+                        .ren(pipelineIRen),
+                        .addr(pipelineIAddr),
 
                         // cache inputs
-                        .cacheHit(IcacheHit),
-                        .cacheDout(IcacheDout),
+                        .cacheHit(icacheHit),
+                        .cacheDout(icacheDout),
                         
                         // memory inputs
                         .memReadReady(ImemReadReady),
                         .memDout(ImemDout),
 
                         // pipeline outputs
-                        .stall(IcacheStall),
-                        .dout(IpipelineOutput),
+                        .stall(icacheStall),
+                        .dout(pipelineInstrIn),
                         
                         //both cache and memory output
-                        .BlockAddr(IblockAddr),
+                        .BlockAddr(iblockAddr),
 
                         // cache outputs
-                        .cacheRen(IcacheRen),
-                        .cacheMemWen(IcacheMemWen),
-                        .cacheDin(IcacheDin),
+                        .cacheRen(icacheRen),
+                        .cacheMemWen(icacheMemWen),
+                        .cacheDin(icacheDin),
 
                         // memory outputs
                         .memRen(ImemRen));
 
 Icache_SRAM Icache(.clk(clock), 
                    .rst(reset),
-                   .ren(IcacheRen), 
-                   .memWen(IcacheMemWen),
-                   .blockAddr(IblockAddr), 
-                   .dataIn(IcacheDin), 
-                   .hit(IcacheHit),
-                   .dataOut(IcacheDout));
+                   .ren(icacheRen), 
+                   .memWen(icacheMemWen),
+                   .blockAddr(iblockAddr), 
+                   .dataIn(icacheDin), 
+                   .hit(icacheHit),
+                   .dataOut(icacheDout));
 
 
 
@@ -125,16 +104,16 @@ dcache_controller Dcntr(.clock(clock),
                         .reset(reset),
                         
                         // pipeline inputs
-                        .ren(DcacheRen),
-                        .wen(DcacheWen),
-                        .addr(DcacheAddr),
+                        .ren(pipelineDRen),
+                        .wen(pipelineDWen),
+                        .addr(pipelineDAddr),
                         .byteSelectVector(byteSelectVector),
-                        .din(DcacheInput),
+                        .din(pipelineDataOut),
 
                         // cache inputs
-                        .cacheHit(DcacheHit),
-                        .cacheDirtyBit(DcacheDirtyBit),
-                        .cacheDout(DcacheDout),
+                        .cacheHit(dcacheHit),
+                        .cacheDirtyBit(dcacheDirtyBit),
+                        .cacheDout(dcacheDout),
                         
                         // memory inputs
                         .memReadReady(DmemReadReady),
@@ -142,18 +121,18 @@ dcache_controller Dcntr(.clock(clock),
                         .memDout(DmemDout),
                         
                         // pipeline outputs
-                        .stall(DcacheStall),
-                        .dout(DpipelineOutput),
+                        .stall(dcacheStall),
+                        .dout(pipelineDataIn),
                         
                         //both cache and memory output
-                        .BlockAddr(DblockAddress),
+                        .BlockAddr(dblockAddr),
                         
                         // cache outputs
-                        .cacheRen(DcacheRen),
-                        .cacheWen(DcacheWen),
-                        .cacheMemWen(DcacheMemWen),
-                        .cacheBytesAccess(DcacheBytesAccess),
-                        .cacheDin(DcacheDin),
+                        .cacheRen(dcacheRen),
+                        .cacheWen(dcacheWen),
+                        .cacheMemWen(dcacheMemWen),
+                        .cacheBytesAccess(bytesAccess),
+                        .cacheDin(dcacheDin),
                         
                         // memory outputs
                         .memRen(DmemRen),
@@ -162,14 +141,14 @@ dcache_controller Dcntr(.clock(clock),
 
 Dcache_SRAM Dcache(.clk(clock), 
                    .rst(reset),
-                   .ren(DcacheRen), 
-                   .wen(DcacheWen), 
-                   .memWen(DcacheMemWen),
-                   .bytesAccess(DcacheBytesAccess),
-                   .blockAddr(DblockAddress), 
-                   .dataIn(DcacheDin), 
-                   .hit(DcacheHit),
-                   .dirtyBit(DcacheDirtyBit),
-                   .dataOut(DcacheDout));
+                   .ren(dcacheRen), 
+                   .wen(dcacheWen), 
+                   .memWen(dcacheMemWen),
+                   .bytesAccess(bytesAccess),
+                   .blockAddr(dblockAddr), 
+                   .dataIn(dcacheDin), 
+                   .hit(dcacheHit),
+                   .dirtyBit(dcacheDirtyBit),
+                   .dataOut(dcacheDout));
 
 endmodule
