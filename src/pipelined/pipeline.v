@@ -1,4 +1,5 @@
-`include "constants.v"
+`include "../include/constants.v"
+`include "../include/constants.vh"
 `include "config.vh"
 /*****************************************************************************************/
 /* Implementation of the 5-stage MIPS pipeline that supports the following instructions: */
@@ -7,13 +8,14 @@
 /*****************************************************************************************/
 module pipeline( input clock,
 			     input reset,
-			     //dcache 
 			     input dcache_stall,
 				 input icache_stall,
                  input [`DWORD_SIZE_BITS-1:0] dcache_output,
+				 input [`IWORD_SIZE_BITS-1:0] icache_stall,
                  output dcache_ren,
                  output dcache_wen,
                  output [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] dcache_addr,
+				 output [`ITAG_SIZE+`ISET_INDEX_SIZE-1:0] icache_addr,
                  output [`DWORD_SIZE-1:0] byteSelectVector,
                  output [`DWORD_SIZE_BITS-1:0] dcache_input);
 
@@ -77,6 +79,8 @@ begin
 		PC <= `INITIAL_PC;     
 	else if (write_pc == 1'b1)
 		PC <= PC_new;
+	else if(stall_from_cache == 1'b1)
+		PC <= PC; 
 end
 
 // PC adder
@@ -92,7 +96,7 @@ assign JumpAddress = IFID_PC + signExtend;
 // IFID pipeline register
 always @(posedge clock or negedge reset)
 begin 
-	if ((reset == 1'b0) || (bubble_ifid == 1'b1) || (stall_from_cache == 1'b1)) begin //cache stall
+	if ((reset == 1'b0) || (bubble_ifid == 1'b1)) begin
 		IFID_PC			<= 32'b0;
 		IFID_instr		<= 32'b0;
 	end 
@@ -102,28 +106,6 @@ begin
 	end
 end
 
-// Instruction memory
-
-// To be implemented !!!!!!!!!!!!
-
-// icache_controller icache_controller( 
-//     .clk_i                  (clock),
-//     .rst_i                  (reset),
-//     // to Data Memory interface
-//     .mem_data_i             (mem_data_i), //input ap to cpu
-//     .mem_ack_i              (mem_ack_i),
-//     .mem_data_o             (mem_data_o),
-//     .mem_addr_o             (mem_addr_o),
-//     .mem_enable_o           (mem_enable_o),
-//     .mem_write_o            (mem_write_o),
-//     // to CPU interface
-//     .pipeline_data_i             (MEM_write_data),
-//     .pipeline_addr_i             (MEM_addr),
-//     .pipeline_MemRead_i          (MEM_MemRead),
-//     .pipeline_MemWrite_i         (MEM_MemWrite),
-//     .pipeline_data_o             (MEM_read_data),
-//     .pipeline_stall_o            (icache_stall)
-// );
 
 
 
@@ -172,7 +154,7 @@ SignExtendSelector SignExtendSelector (
 // IDEX pipeline register
 always @(posedge clock or negedge reset)
 begin 
-	if ((reset == 1'b0) || (bubble_idex == 1'b1) || (stall_from_cache == 1'b1)) begin //cache stall logika the perasei kai tha gine ides stall_from_cache
+	if ((reset == 1'b0) || (bubble_idex == 1'b1)) begin 
 		IDEX_inA_is_PC	<= 1'b0;
 		IDEX_Jump		<= 1'b0;
 		IDEX_JumpJALR	<= 1'b0;
@@ -283,7 +265,7 @@ assign RegWriteAddr = (IDEX_RegDst==1'b0) ? IDEX_instr_rs2 : IDEX_instr_rd;
 // EXMEM pipeline register
 always @(posedge clock or negedge reset)
 begin
-	if ((reset == 1'b0) || (bubble_exmem == 1'b1) || (stall_from_cache == 1'b1)) begin //stall here logika tha perasoun ap ta pipeline san exmem
+	if ((reset == 1'b0) || (bubble_exmem == 1'b1)) begin
 		EXMEM_ALUOut		<= 32'b0;
 		EXMEM_JumpJALR 		<= 1'b0;
 		EXMEM_BranchALUOut	<= 32'b0;
@@ -343,8 +325,6 @@ mem_write_selector mem_write_selector(
 	.out(MemWriteData)
 );
 
-
-// To be implemented !!!!!!!!!!!!
 
 
 // MEMWB pipeline register
