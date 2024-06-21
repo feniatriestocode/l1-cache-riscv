@@ -2,7 +2,7 @@
 
 ## Project Structure
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/newfilestructure_dark.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/new_filestructure_dark.drawio.png">
   <img alt="" src="docs/new_filestructure_dark.drawio.png">
 </picture>
 
