@@ -53,10 +53,10 @@ int main(int argc, const char **argv, const char **env)
                 std::cout << "\n";
             }
             
-            for(int k = 0; k < 4; i++) {
+            for(int k = 0; k < 4; k++) {
                 for(int i = 0; i < 2; i++) {
                     for(int j = 0; j < 4; j++) {
-                        toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[k][i][j] << " ";
+                        std::cout << std::hex << std::setfill('0') << std::setw(8) << top->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[k][i][j] << " ";
                     }
                     std::cout << "\n";
                 }
@@ -79,7 +79,6 @@ int main(int argc, const char **argv, const char **env)
                     << "instr=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr << " "
                     << "out=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData << " "
                     << "data=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut << " "   
-                    << "cache_hit=" << std::setw(8) << top->toplevel__DOT__cpu__DOT__cacheHit << " "                      
                     << (top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite ? "1" : "0") << " \n";
     }
 
