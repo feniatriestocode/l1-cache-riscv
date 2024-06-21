@@ -3,34 +3,35 @@
 `include "../include/constants.vh"
 //`include "counter.v"
 
-module icache_controller(// pipeline inputs
-                        input clock,
-                        input reset,
-                        input ren,
-                        input [(`IADDR_SIZE-1):0] addr,
-                        
-                        // cache inputs
-                        input cacheHit,
-                        input [(`IBLOCK_SIZE_BITS-1):0] cacheDout,
-                        
-                        // memory inputs
-                        input memReadReady,
-                        input [(`IBLOCK_SIZE_BITS-1):0] memDout,
-                        
-                        // pipeline outputs
-                        output reg stall,
-                        output [(`IWORD_SIZE_BITS-1):0] dout,
-
-                        //both cache and memory output
-                        output [(`IMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
-
-                        // cache outputs
-                        output cacheRen,
-                        output reg cacheMemWen,
-                        output reg [(`IBLOCK_SIZE_BITS-1):0] cacheDin,
-                        
-                        // memory outputs
-                        output reg memRen);
+module icache_controller(input clock,
+                         input reset,
+                         
+                         // pipeline inputs
+                         input ren,
+                         input [(`IADDR_SIZE-1):0] addr,
+                         
+                         // cache inputs
+                         input cacheHit,
+                         input [(`IBLOCK_SIZE_BITS-1):0] cacheDout,
+                         
+                         // memory inputs
+                         input memReadReady,
+                         input [(`IBLOCK_SIZE_BITS-1):0] memDout,
+                         
+                         // pipeline outputs
+                         output reg stall,
+                         output [(`IWORD_SIZE_BITS-1):0] dout,
+ 
+                         //both cache and memory output
+                         output [(`IMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
+ 
+                         // cache outputs
+                         output cacheRen,
+                         output reg cacheMemWen,
+                         output reg [(`IBLOCK_SIZE_BITS-1):0] cacheDin,
+                         
+                         // memory outputs
+                         output reg memRen);
 
 wire [(`IBLOCK_OFFSET_SIZE-1):0] blockOffset;
 

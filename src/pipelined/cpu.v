@@ -61,36 +61,53 @@ wire [`IBLOCK_SIZE_BITS-1:0] IcacheDout;
 
 pipeline pipeline(.clock(clock), 
 				  .reset(reset),
+
+                  // inputs from cache controllers
 		          .dcache_stall(DcacheStall),
                   .icache_stall(IcacheStall),
                   .dcache_output(DpipelineOutput),
                   .icache_output(IpipelineOutput),
-				  .dcache_ren(DcacheRen),
+				  
+                  // outputs for cache controllers
+                  .dcache_ren(DcacheRen),
 				  .dcache_wen(DcacheWen),
+                  .icache_ren(IcacheRen),
 				  .dcache_addr(DcacheAddr),
                   .icache_addr(IcacheAddr),
 				  .byteSelectVector(byteSelectVector),
-				  .dcache_input(DcacheInput));
+                  .dcache_input(DcacheInput));
 
 icache_controller icachecontroller2check(
                         .clock(clock),
                         .reset(reset),
+                        
+                        // pipeline inputs
                         .ren(IcacheRen),
-                        .addr(IcacheAddr), 
+                        .addr(IcacheAddr),
+
+                        // cache inputs
                         .cacheHit(IcacheHit),
                         .cacheDout(IcacheDout),
+                        
+                        // memory inputs
                         .memReadReady(ImemReadReady),
                         .memDout(ImemDout),
+
+                        // pipeline outputs
                         .stall(IcacheStall),
                         .dout(IpipelineOutput),
+                        
+                        //both cache and memory output
                         .BlockAddr(IblockAddr),
+
+                        // cache outputs
                         .cacheRen(IcacheRen),
                         .cacheMemWen(IcacheMemWen),
                         .cacheDin(IcacheDin),
+
+                        // memory outputs
                         .memRen(ImemRen));
 
-
-                        // caches instantiated here
 Icache_SRAM Icache(.clk(clock), 
                    .rst(reset),
                    .ren(IcacheRen), 
@@ -105,30 +122,42 @@ Icache_SRAM Icache(.clk(clock),
 
 dcache_controller Dcntr(.clock(clock),
                         .reset(reset),
+                        
+                        // pipeline inputs
                         .ren(DcacheRen),
                         .wen(DcacheWen),
                         .addr(DcacheAddr),
                         .byteSelectVector(byteSelectVector),
                         .din(DcacheInput),
+
+                        // cache inputs
                         .cacheHit(DcacheHit),
                         .cacheDirtyBit(DcacheDirtyBit),
                         .cacheDout(DcacheDout),
+                        
+                        // memory inputs
                         .memReadReady(DmemReadReady),
                         .memWriteDone(DmemWriteDone),
                         .memDout(DmemDout),
+                        
+                        // pipeline outputs
                         .stall(DcacheStall),
                         .dout(DpipelineOutput),
+                        
+                        //both cache and memory output
                         .BlockAddr(DblockAddress),
+                        
+                        // cache outputs
                         .cacheRen(DcacheRen),
                         .cacheWen(DcacheWen),
                         .cacheMemWen(DcacheMemWen),
                         .cacheBytesAccess(DcacheBytesAccess),
                         .cacheDin(DcacheDin),
+                        
+                        // memory outputs
                         .memRen(DmemRen),
                         .memWen(DmemWen),
                         .memDin(DmemDin));
-
-
 
 Dcache_SRAM Dcache(.clk(clock), 
                    .rst(reset),
@@ -141,14 +170,5 @@ Dcache_SRAM Dcache(.clk(clock),
                    .hit(DcacheHit),
                    .dirtyBit(DcacheDirtyBit),
                    .dataOut(DcacheDout));
-
-
-
-
-
-
-
-
-
 
 endmodule

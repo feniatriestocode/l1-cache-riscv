@@ -3,39 +3,40 @@
 `include "../include/constants.vh"
 //`include "counter.v"
 
-module dcache_controller(// pipeline inputs
-                        input clock,
-                        input reset,
-                        input ren, wen,
-                        input [(`DADDR_SIZE-1):0] addr,
-                        input [(`DWORD_SIZE-1):0] byteSelectVector,
-                        input [(`DWORD_SIZE_BITS-1):0] din,
-                        
-                        // cache inputs
-                        input cacheHit,
-                        input cacheDirtyBit,
-                        input [(`DBLOCK_SIZE_BITS-1):0] cacheDout,
-                        
-                        // memory inputs
-                        input memReadReady, memWriteDone,
-                        input [(`DBLOCK_SIZE_BITS-1):0] memDout,
-                        
-                        // pipeline outputs
-                        output reg stall,
-                        output [(`DWORD_SIZE_BITS-1):0] dout,
-
-                        //both cache and memory output
-                        output [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
-
-                        // cache outputs
-                        output cacheRen, cacheWen,
-                        output reg cacheMemWen,
-                        output reg [(`DBLOCK_SIZE-1):0] cacheBytesAccess,
-                        output reg [(`DBLOCK_SIZE_BITS-1):0] cacheDin,
-                        
-                        // memory outputs
-                        output reg memRen, memWen,
-                        output [(`DBLOCK_SIZE_BITS-1):0] memDin);
+module dcache_controller(input clock,
+                         input reset,
+                         
+                         // pipeline inputs
+                         input ren, wen,
+                         input [(`DADDR_SIZE-1):0] addr,
+                         input [(`DWORD_SIZE-1):0] byteSelectVector,
+                         input [(`DWORD_SIZE_BITS-1):0] din,
+                         
+                         // cache inputs
+                         input cacheHit,
+                         input cacheDirtyBit,
+                         input [(`DBLOCK_SIZE_BITS-1):0] cacheDout,
+                         
+                         // memory inputs
+                         input memReadReady, memWriteDone,
+                         input [(`DBLOCK_SIZE_BITS-1):0] memDout,
+                         
+                         // pipeline outputs
+                         output reg stall,
+                         output [(`DWORD_SIZE_BITS-1):0] dout,
+ 
+                         //both cache and memory output
+                         output [(`DMEM_BLOCK_ADDR_SIZE-1):0] BlockAddr,
+ 
+                         // cache outputs
+                         output cacheRen, cacheWen,
+                         output reg cacheMemWen,
+                         output reg [(`DBLOCK_SIZE-1):0] cacheBytesAccess,
+                         output reg [(`DBLOCK_SIZE_BITS-1):0] cacheDin,
+                         
+                         // memory outputs
+                         output reg memRen, memWen,
+                         output [(`DBLOCK_SIZE_BITS-1):0] memDin);
     
     
     wire pipeline_req;
