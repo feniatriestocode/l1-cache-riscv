@@ -220,4 +220,6 @@ int main( int argc, char* argv[] )
 
   // Check the results
   return towers_verify( &towers );
+  SET_END_MARKER();
+
 }

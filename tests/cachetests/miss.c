@@ -14,4 +14,6 @@ void main()
         index = 1;
         arr[index]++;
     }
+    SET_END_MARKER();
+
 }

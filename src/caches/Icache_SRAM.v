@@ -4,7 +4,7 @@
 /*Syc Write: rst=1, en=1, memWen=1, blockAddr=[TAG,INDEX], dataIn=don't care
   Write in memory in the next cycle from the write signals' arrival*/
 
-`timescale 1ns/1ps
+//`timescale 1ns/1ps
 `include "constants.vh"
 
 

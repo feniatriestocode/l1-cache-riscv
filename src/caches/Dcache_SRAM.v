@@ -4,7 +4,7 @@
 /*Syc Write: rst=1, en=1, wen=0, memWen=1, blockAddr=[TAG,INDEX], dataIn=don't care
   Write in memory in the next cycle from the write signals' arrival*/
 
-`timescale 1ns/1ps
+//`timescale 1ns/1ps
 `include "constants.vh"
 
 module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, hit, dirtyBit, dataOut);
@@ -35,7 +35,7 @@ module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, h
     assign tag   = blockAddr[`DTAG_SIZE+`DSET_INDEX_SIZE-1:`DSET_INDEX_SIZE];
 
     //*******************************ASYNCHRONOUS HIT/READ DATA*******************************//
-    integer i, j;
+    integer i, j, m;
     reg [`DCACHE_ASSOCIATIVITY-1:0] hitReg;
     reg [`DCACHE_ASSOCIATIVITY-1:0] blockToEvict;
     reg [`DCACHE_ASSOCIATIVITY-1:0] mask;
