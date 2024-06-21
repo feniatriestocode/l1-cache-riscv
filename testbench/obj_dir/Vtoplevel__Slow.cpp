@@ -54,6 +54,7 @@ void Vtoplevel::_settle__TOP__1(Vtoplevel__Syms* __restrict vlSymsp) {
         VL_WRITEF("\nMemory ERROR (time %0#): ren and wen both active!\n\n",
                   64,VL_TIME_UNITED_Q(1));
     }
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
     if (((IData)(vlTOPp->reset) & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) 
                                    | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__mask = 3U;
@@ -213,6 +214,10 @@ void Vtoplevel::_settle__TOP__1(Vtoplevel__Syms* __restrict vlSymsp) {
                 [1U][3U];
         }
     }
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready 
+        = (((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
+            & (IData)(vlTOPp->toplevel__DOT__dmem_ren)) 
+           & (~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)));
     vlTOPp->toplevel__DOT__cpu__DOT__DcacheDirtyBit = 0U;
     vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[0U] = 0U;
     vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[1U] = 0U;
@@ -951,38 +956,38 @@ void Vtoplevel::_initial__TOP__2(Vtoplevel__Syms* __restrict vlSymsp) {
     {
         __Vtemp7[0U] = 0x653d2573U;
         __Vtemp7[1U] = 0x5f66696cU;
-        __Vtemp7[2U] = 0x64617461U;
+        __Vtemp7[2U] = 0x74657874U;
         if (VL_LIKELY((0U != VL_VALUEPLUSARGS_INN(64,
                                                   VL_CVT_PACK_STR_NW(3, __Vtemp7),
-                                                  __Vfunc_data_mem_file__1__s)))) {
-            __Vfunc_data_mem_file__1__Vfuncout = __Vfunc_data_mem_file__1__s;
-            goto __Vlabel1;
-        } else {
-            VL_WRITEF("Data memory file not supplied.\n");
-            VL_FINISH_MT("../src/cache_controller/../../testbench/config.vh", 50, "");
-        }
-        __Vlabel1: ;
-    }
-    VL_READMEM_N(true, 128, 64, 0, VL_CVT_PACK_STR_NN(__Vfunc_data_mem_file__1__Vfuncout)
-                 , vlTOPp->toplevel__DOT__Data_Mem__DOT__data
-                 , 0, ~0ULL);
-    {
-        __Vtemp8[0U] = 0x653d2573U;
-        __Vtemp8[1U] = 0x5f66696cU;
-        __Vtemp8[2U] = 0x74657874U;
-        if (VL_LIKELY((0U != VL_VALUEPLUSARGS_INN(64,
-                                                  VL_CVT_PACK_STR_NW(3, __Vtemp8),
                                                   __Vfunc_text_mem_file__0__s)))) {
             __Vfunc_text_mem_file__0__Vfuncout = __Vfunc_text_mem_file__0__s;
-            goto __Vlabel2;
+            goto __Vlabel1;
         } else {
             VL_WRITEF("Text memory file not supplied.\n");
             VL_FINISH_MT("../src/cache_controller/../../testbench/config.vh", 40, "");
         }
-        __Vlabel2: ;
+        __Vlabel1: ;
     }
     VL_READMEM_N(true, 32, 2048, 0, VL_CVT_PACK_STR_NN(__Vfunc_text_mem_file__0__Vfuncout)
                  , vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
+                 , 0, ~0ULL);
+    {
+        __Vtemp8[0U] = 0x653d2573U;
+        __Vtemp8[1U] = 0x5f66696cU;
+        __Vtemp8[2U] = 0x64617461U;
+        if (VL_LIKELY((0U != VL_VALUEPLUSARGS_INN(64,
+                                                  VL_CVT_PACK_STR_NW(3, __Vtemp8),
+                                                  __Vfunc_data_mem_file__1__s)))) {
+            __Vfunc_data_mem_file__1__Vfuncout = __Vfunc_data_mem_file__1__s;
+            goto __Vlabel2;
+        } else {
+            VL_WRITEF("Data memory file not supplied.\n");
+            VL_FINISH_MT("../src/cache_controller/../../testbench/config.vh", 50, "");
+        }
+        __Vlabel2: ;
+    }
+    VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NN(__Vfunc_data_mem_file__1__Vfuncout)
+                 , vlTOPp->toplevel__DOT__Data_Mem__DOT__data
                  , 0, ~0ULL);
 }
 
@@ -1028,6 +1033,52 @@ void Vtoplevel::_settle__TOP__8(Vtoplevel__Syms* __restrict vlSymsp) {
         vlTOPp->toplevel__DOT__imem_dout[0U] = (0xfffffff7U 
                                                 & vlTOPp->toplevel__DOT__imem_dout[0U]);
     }
+    if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready) {
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = ((0xfffffffeU 
+                                                 & vlTOPp->toplevel__DOT__dmem_dout[0U]) 
+                                                | (1U 
+                                                   & vlTOPp->toplevel__DOT__Data_Mem__DOT__data
+                                                   [
+                                                   (0x3fU 
+                                                    & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))]
+                                                   [0U]));
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = ((0xfffffffdU 
+                                                 & vlTOPp->toplevel__DOT__dmem_dout[0U]) 
+                                                | (2U 
+                                                   & (vlTOPp->toplevel__DOT__Data_Mem__DOT__data
+                                                      [
+                                                      (0x3fU 
+                                                       & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))]
+                                                      [1U] 
+                                                      << 1U)));
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = ((0xfffffffbU 
+                                                 & vlTOPp->toplevel__DOT__dmem_dout[0U]) 
+                                                | (4U 
+                                                   & (vlTOPp->toplevel__DOT__Data_Mem__DOT__data
+                                                      [
+                                                      (0x3fU 
+                                                       & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))]
+                                                      [2U] 
+                                                      << 2U)));
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = ((0xfffffff7U 
+                                                 & vlTOPp->toplevel__DOT__dmem_dout[0U]) 
+                                                | (8U 
+                                                   & (vlTOPp->toplevel__DOT__Data_Mem__DOT__data
+                                                      [
+                                                      (0x3fU 
+                                                       & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))]
+                                                      [3U] 
+                                                      << 3U)));
+    } else {
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = (0xfffffffeU 
+                                                & vlTOPp->toplevel__DOT__dmem_dout[0U]);
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = (0xfffffffdU 
+                                                & vlTOPp->toplevel__DOT__dmem_dout[0U]);
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = (0xfffffffbU 
+                                                & vlTOPp->toplevel__DOT__dmem_dout[0U]);
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = (0xfffffff7U 
+                                                & vlTOPp->toplevel__DOT__dmem_dout[0U]);
+    }
 }
 
 void Vtoplevel::_eval_initial(Vtoplevel__Syms* __restrict vlSymsp) {
@@ -1055,7 +1106,6 @@ void Vtoplevel::_eval_settle(Vtoplevel__Syms* __restrict vlSymsp) {
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->_settle__TOP__1(vlSymsp);
-    vlTOPp->__Vm_traceActivity[5U] = 1U;
     vlTOPp->__Vm_traceActivity[4U] = 1U;
     vlTOPp->__Vm_traceActivity[3U] = 1U;
     vlTOPp->__Vm_traceActivity[2U] = 1U;
@@ -1074,6 +1124,7 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__dmem_read_ready = VL_RAND_RESET_I(1);
     toplevel__DOT__dmem_write_done = VL_RAND_RESET_I(1);
     VL_RAND_RESET_W(128, toplevel__DOT__dmem_din);
+    VL_RAND_RESET_W(128, toplevel__DOT__dmem_dout);
     toplevel__DOT__imem_ren = VL_RAND_RESET_I(1);
     toplevel__DOT__imem_read_ready = VL_RAND_RESET_I(1);
     toplevel__DOT__imem_block_address = VL_RAND_RESET_I(9);
@@ -1260,14 +1311,20 @@ void Vtoplevel::_ctor_var_reset() {
     toplevel__DOT__Instruction_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
     toplevel__DOT__Instruction_Mem__DOT__delay_counter = VL_RAND_RESET_I(4);
     { int __Vi0=0; for (; __Vi0<64; ++__Vi0) {
-            VL_RAND_RESET_W(128, toplevel__DOT__Data_Mem__DOT__data[__Vi0]);
+            { int __Vi1=0; for (; __Vi1<4; ++__Vi1) {
+                    toplevel__DOT__Data_Mem__DOT__data[__Vi0][__Vi1] = VL_RAND_RESET_I(32);
+            }}
     }}
-    VL_RAND_RESET_W(128, toplevel__DOT__Data_Mem__DOT__temp_din);
+    { int __Vi0=0; for (; __Vi0<4; ++__Vi0) {
+            toplevel__DOT__Data_Mem__DOT__temp_din[__Vi0] = VL_RAND_RESET_I(32);
+    }}
     toplevel__DOT__Data_Mem__DOT__flag = VL_RAND_RESET_I(1);
     toplevel__DOT__Data_Mem__DOT__delayed = VL_RAND_RESET_I(1);
     toplevel__DOT__Data_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
     toplevel__DOT__Data_Mem__DOT__delay_counter = VL_RAND_RESET_I(4);
+    toplevel__DOT__Data_Mem__DOT__temp_ready = VL_RAND_RESET_I(1);
     toplevel__DOT__Data_Mem__DOT__temp_done = VL_RAND_RESET_I(1);
+    toplevel__DOT__Data_Mem__DOT__i = VL_RAND_RESET_I(32);
     __Vtableidx1 = 0;
     __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__RegDst[0] = 0U;
     __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__RegDst[1] = 0U;
@@ -2783,14 +2840,12 @@ void Vtoplevel::_ctor_var_reset() {
     __Vtable3_toplevel__DOT__cpu__DOT__Dcntr__DOT__replace[5] = 0U;
     __Vtable3_toplevel__DOT__cpu__DOT__Dcntr__DOT__replace[6] = 0U;
     __Vtable3_toplevel__DOT__cpu__DOT__Dcntr__DOT__replace[7] = 0U;
-    __Vdly__toplevel__DOT__Data_Mem__DOT__flag = VL_RAND_RESET_I(1);
     __Vdly__toplevel__DOT__Instruction_Mem__DOT__delay_counter = VL_RAND_RESET_I(4);
-    __Vdly__toplevel__DOT__Data_Mem__DOT__delay_counter = VL_RAND_RESET_I(4);
     __VinpClk__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
     __VinpClk__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
     __Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
     __Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset = VL_RAND_RESET_I(1);
-    { int __Vi0=0; for (; __Vi0<6; ++__Vi0) {
+    { int __Vi0=0; for (; __Vi0<5; ++__Vi0) {
             __Vm_traceActivity[__Vi0] = VL_RAND_RESET_I(1);
     }}
 }

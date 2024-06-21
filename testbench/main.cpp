@@ -75,7 +75,7 @@ int main(int argc, const char **argv, const char **env)
                     << (top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite ? "1" : "0") << " \n";
     }
 
-        if (top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite && top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut == 0xDEADBEEF) {
+        if (top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite && top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut == 0xfffffff0) {
             if (top->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData) {
                 printf("%sPASS%s\n", GREEN, RESET);
                 #if TRACE==1

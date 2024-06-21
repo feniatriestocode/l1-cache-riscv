@@ -49,5 +49,5 @@
         asm volatile ("" : : "r" (*end_marker) : "memory"); \
 
 #define END_MARKER_ADDR 0x80000000
-#define END_MARKER_VALUE 0xDEADBEEF
+#define END_MARKER_VALUE 0xfffffff0
 
