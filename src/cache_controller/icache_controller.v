@@ -115,6 +115,11 @@ begin
     memRen = 1'b0;
 
     case(state)
+        IDLE: begin
+            stall = 1'b0;
+            cacheMemWen = 1'b0;
+            memRen = 1'b0;
+        end
         MEMREAD: begin
             stall = 1'b1;
             memRen = 1'b1;
@@ -122,7 +127,7 @@ begin
         MEMCACHE: begin
             stall = 1'b1;
             cacheMemWen = 1'b1;
-        end     
+        end
     endcase    
 end
 endmodule

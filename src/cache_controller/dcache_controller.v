@@ -161,6 +161,13 @@ module dcache_controller(input clock,
         replace = 1'b0;
 
     	case (state)
+            IDLE: begin
+                stall = 1'b0;
+                cacheMemWen = 1'b0;
+                memRen = 1'b0;
+                memWen = 1'b0;
+                replace = 1'b0;
+            end
             WRITEBACK: begin
                 stall = 1'b1;
                 memWen = 1'b1;
