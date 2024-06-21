@@ -20,10 +20,10 @@ module pipeline( input clock,
 
 
 
-reg		[31:0]	IFID_instr;
+wire		[31:0]	IFID_instr; /////////////////////////////////////////////////////////////////
 reg		[31:0]	PC, IFID_PC, IDEX_PC;
 wire	[31:0]	PCplus4, JumpAddress, PC_new;
-//wire	[31:0]	instr;
+wire	[31:0]	instr;
 wire			inA_is_PC, branch_taken;
 wire	[31:0]	BranchInA;
 reg		[31:0]	IDEX_signExtend;
@@ -46,7 +46,7 @@ reg		[3:0]	byte_select_vector;
 reg		[31:0]	EXMEM_MemWriteData;
 wire	[31:0]	MemWriteData;
 reg				EXMEM_MemRead, EXMEM_MemWrite, EXMEM_RegWrite, EXMEM_MemToReg;
-reg		[31:0]	MEMWB_DMemOut;
+wire		[31:0]	MEMWB_DMemOut; //////////////////////////////////////////////////////////////////////
 reg		[4:0]	MEMWB_RegWriteAddr;
 reg		[31:0]	MEMWB_ALUOut;
 reg				MEMWB_MemToReg, MEMWB_RegWrite;
