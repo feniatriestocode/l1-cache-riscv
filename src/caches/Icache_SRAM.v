@@ -89,9 +89,9 @@ module Icache_SRAM(clk, rst, ren, memWen, blockAddr, dataIn, hit, dataOut);
                 valid_col [i] <= {`ICACHE_ASSOCIATIVITY{1'b0}}; 
                 status_col[i] <= {`ICACHE_ASSOCIATIVITY{1'b0}};  
                 
-                for(j=0; j<`ICACHE_ASSOCIATIVITY; j=j+1) begin
-                   tag_col [i][j] <= 1'b0;  
-                   data_col [i][j] <= 1'b0;
+                for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1) begin
+                   tag_col [i][j] <= {`DTAG_SIZE{1'b0}};  
+                   data_col[i][j] <= {`DBLOCK_SIZE_BITS{1'b0}};
                 end
             end
         end else begin

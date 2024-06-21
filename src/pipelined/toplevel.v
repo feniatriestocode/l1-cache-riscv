@@ -1,9 +1,9 @@
 //`include "../include/constants.v"
 // `include "../common/counter.v"
 // `include "../include/constants.vh"
-`include "../memories/Dmem.v"
-`include "../memories/Imem.v"
-`include "cpu.v"
+// `include "../memories/Dmem.v"
+// `include "../memories/Imem.v"
+// `include "cpu.v"
 
 //`include "config.vh"
 
@@ -40,7 +40,7 @@ Imem Instruction_Mem(.clock(clock),
                      .reset(reset), 
 			         .ren(imem_ren), 
 			         .block_address(imem_block_address),
-			         .ready(imem_ready), 
+			         .ready(imem_read_ready), 
                      .dout(imem_dout));
 
 Dmem Data_Mem(.clock(clock),
