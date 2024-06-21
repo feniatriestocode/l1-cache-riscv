@@ -100,8 +100,8 @@ module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, h
                 dirty_col [i] <= {`DCACHE_ASSOCIATIVITY{1'b0}};  
                 
                 for(j=0; j<`DCACHE_ASSOCIATIVITY; j=j+1) begin
-                   tag_col [i][j] <= 1'b0;  
-                   data_col[i][j] <= 1'b0;
+                   tag_col [i][j] <= {`DTAG_SIZE{1'b0}};  
+                   data_col[i][j] <= {`DBLOCK_SIZE_BITS{1'b0}};
                 end
             end
         end else begin
