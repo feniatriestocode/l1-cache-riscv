@@ -4,7 +4,7 @@
 
 `include "../include/constants.vh"
 `include "../common/counter.v" //sees it from makefile supposedly
-`include "../../testbench/config.vh" //sees it from makefile supposedly
+//`include "../../testbench/config.vh" //sees it from makefile supposedly
 
 // If ren stays up then the next read has no delay !
 
@@ -46,17 +46,15 @@ end
 
 always @(delayed or block_address) begin
     if (delayed) begin
+        dout = {`IBLOCK_SIZE_BITS{1'b0}};  // Initialize dout
         for (i = 0; i < `IBLOCK_SIZE_WORDS; i = i + 1) begin
-            dout[i] = data[block_address][i];
+            dout[(i+1)*`IWORD_SIZE_BITS-1 -: `IWORD_SIZE_BITS] = data[block_address][i];
         end
     end else begin
-        for (i = 0; i < `IBLOCK_SIZE_WORDS; i = i + 1) begin
-            dout[i] = 0;
-        end
+        dout = {`IBLOCK_SIZE_BITS{1'b0}};
     end
 end
 
 /****** SIMULATION ******/
-initial $readmemh(`TEXT_HEX, data);
-
+initial $readmemh("test.hex", data);
 endmodule

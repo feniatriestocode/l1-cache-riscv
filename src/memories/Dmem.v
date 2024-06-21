@@ -58,13 +58,12 @@ end
 // read
 always @(temp_ready or block_address) begin
     if (temp_ready) begin
+        dout = {`DBLOCK_SIZE_BITS{1'b0}};  // Initialize dout
         for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-            dout[i] = data[block_address][i];
+            dout[(i+1)*`DWORD_SIZE_BITS-1 -: `DWORD_SIZE_BITS] = data[block_address][i];
         end
     end else begin
-        for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-            dout[i] = 0;
-        end
+        dout = {`DBLOCK_SIZE_BITS{1'b0}};
     end
 end
 
@@ -75,7 +74,7 @@ begin
 	if(~reset)
 	begin
 		for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-            temp_din[i] = 0;
+            temp_din[i] = {`DBLOCK_SIZE_BITS{1'b0}};
         end
 
 		flag <= 1'b0;
@@ -85,7 +84,7 @@ begin
 		if(~wen || ren)
 		begin
 			for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-            	temp_din[i] = 0;
+            	temp_din[i] = {`DBLOCK_SIZE_BITS{1'b0}};
         	end
 		
 		flag <= 1'b0;
@@ -96,7 +95,7 @@ begin
     		for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
         		temp_din[i] = din[(i+1)*`DWORD_SIZE_BITS-1 -: `DWORD_SIZE_BITS];
     			end
-				
+
 				flag <= 1'b1;
 			end
 		end
@@ -107,7 +106,7 @@ always @ (posedge clock)
 begin 
 	if(temp_done)
 	begin
-		for (i = 0; i < `IBLOCK_SIZE_WORDS; i = i + 1) begin
+		for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
             data[block_address][i] <= temp_din[i];
         end
 	end
