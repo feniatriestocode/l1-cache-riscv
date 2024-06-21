@@ -3,7 +3,7 @@
 ## Project Structure
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/newfilestructure_dark.png">
-  <img alt="" src="docs/newfilestructure_dark.png">
+  <img alt="" src="docs/new_filestructure_dark.drawio.png">
 </picture>
 
 ## Implemented ISA
