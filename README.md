@@ -2,7 +2,7 @@
 
 ## Project Structure
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/feniatriestocode/riscv/blob/RV32I_UNIT_TESTS/docs%2Fnewfilestructure_dark.drawio.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/newfilestructure_dark.drawio.png">
 </picture>
 
 ## Implemented ISA
