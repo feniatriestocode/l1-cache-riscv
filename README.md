@@ -1,10 +1,7 @@
 # L1 cache implementation integrated with a risc-v CPU
 
 ## Project Structure
-<picture>
   ![newfilestructure_dark drawio](https://github.com/feniatriestocode/l1-cache-riscv/assets/96126980/063d04ae-3f19-41b6-a2a6-911a1bfe80c3)
-
-</picture>
 
 ## Implemented ISA
 The base ISA is RV32I
