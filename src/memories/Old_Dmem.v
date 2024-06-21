@@ -2,9 +2,8 @@
 
 ////// `timescale 1ns / 1ps
 //`include "../include/constants.v"
-`include "../include/constants.vh"
-`include "../common/counter.v" //sees it from makefile supposedly
-`include "../../testbench/config.vh" //sees it from makefile supposedly
+//`include "../include/constants.vh"
+//`include "../common/counter.v" //sees it from makefile supposedly
 
 // If ren stays up then the next read has no delay !
 
@@ -17,19 +16,16 @@ module Dmem(input clock, reset,
 			input [(`DMEM_BLOCK_ADDR_SIZE-1):0] block_address, 		// in blocks
 			input [(`DBLOCK_SIZE_BITS-1):0] din,
 			output reg ready, done,
-			output reg[(`DBLOCK_SIZE_BITS-1):0] dout);
+			output [(`DBLOCK_SIZE_BITS-1):0] dout);
 
 /****** SIGNALS ******/
-reg [(`DWORD_SIZE_BITS-1):0] data [0:(`DMEM_SIZE_BLOCKS-1)][`DBLOCK_SIZE_WORDS-1:0];
-
-reg [(`DWORD_SIZE_BITS-1):0] temp_din [`DBLOCK_SIZE_WORDS-1:0];
+reg [(`DBLOCK_SIZE_BITS-1):0] data [0:(`DMEM_SIZE_BLOCKS-1)];
+reg [(`DBLOCK_SIZE_BITS-1):0] temp_din;
 reg flag;
 
 wire delayed, counter_reset;
 wire [(`DMEM_DELAY_CNTR_SIZE-1):0] delay_counter;
 wire temp_ready, temp_done;
-
-integer i;
 
 /****** LOGIC ******/
 assign counter_reset = ~reset || (~wen && ~ren) || (wen && ren);
@@ -56,46 +52,28 @@ begin
 end
 
 // read
-always @(temp_ready or block_address) begin
-    if (temp_ready) begin
-        dout = {`DBLOCK_SIZE_BITS{1'b0}};  // Initialize dout
-        for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-            dout[(i+1)*`DWORD_SIZE_BITS-1 -: `DWORD_SIZE_BITS] = data[block_address][i];
-        end
-    end else begin
-        dout = {`DBLOCK_SIZE_BITS{1'b0}};
-    end
-end
-
+assign dout = (temp_ready) ? data[block_address] : {`DBLOCK_SIZE_BITS{1'b0}};
 
 // write
 always @ (posedge clock or negedge reset)
 begin
 	if(~reset)
 	begin
-		for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-            temp_din[i] = {`DBLOCK_SIZE_BITS{1'b0}};
-        end
-
+		temp_din <= {`DBLOCK_SIZE_BITS{1'b0}};
 		flag <= 1'b0;
 	end
 	else
 	begin
 		if(~wen || ren)
 		begin
-			for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-            	temp_din[i] = {`DBLOCK_SIZE_BITS{1'b0}};
-        	end
-		
-		flag <= 1'b0;
+			temp_din <= {`DBLOCK_SIZE_BITS{1'b0}};
+			flag <= 1'b0;
 		end
 		else
 		begin
-			if(~flag) begin
-    		for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-        		temp_din[i] = din[(i+1)*`DWORD_SIZE_BITS-1 -: `DWORD_SIZE_BITS];
-    			end
-
+			if(~flag)
+			begin
+				temp_din <= din;
 				flag <= 1'b1;
 			end
 		end
@@ -106,14 +84,12 @@ always @ (posedge clock)
 begin 
 	if(temp_done)
 	begin
-		for (i = 0; i < `DBLOCK_SIZE_WORDS; i = i + 1) begin
-            data[block_address][i] <= temp_din[i];
-        end
+		data[block_address] <= temp_din;
 	end
 end
 
 /****** SIMULATION ******/
-initial $readmemh(`DATA_HEX, data);
+initial $readmemh("test.hex", data);
 
 always @(ren or wen)
 begin

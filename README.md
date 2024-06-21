@@ -3,7 +3,7 @@ A risc-v implementation for our Parallel Computer Architecture Class
 
 ## Project Structure
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/file_structure.jpeg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/newfilestructure_dark.png">
   <img alt="" src="docs/file_structure.jpeg">
 </picture>
 
