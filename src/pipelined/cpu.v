@@ -18,6 +18,7 @@ module cpu(input clock,
            input [(`DBLOCK_SIZE_BITS-1):0] DmemDout);     
            
 //dcache_controller 
+//auta mallon tha fugoun 
 wire ren, wen;
 wire [(`DADDR_SIZE-1):0] addr;
 wire [(`DWORD_SIZE-1):0] byteSelectVector;
@@ -37,14 +38,14 @@ wire [(`DBLOCK_SIZE_BITS-1):0] cacheDin;
 wire memRen, memWen;
 wire [(`DBLOCK_SIZE_BITS-1):0] memDin;
 
- //pipeline          
-wire dcache_stall, icache_stall, dcache_ren, dcache_wen;
-wire [`DBLOCK_SIZE_BITS-1:0] dcache_output;
-wire [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] dcache_addr;
+ //pipeline        -----xekinaw apo edw  -- ta ekana
+wire DcacheStall, IcacheStall, DcacheRen, DcacheWen;
+wire [`DBLOCK_SIZE_BITS-1:0] DpipelineOutput;
+wire [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] DcacheAddr;
 wire [`DBLOCK_SIZE-1:0] byteSelectVector;
-wire [`DBLOCK_SIZE_BITS-1:0] dcache_input;
+wire [`DBLOCK_SIZE_BITS-1:0] DcacheInput;
 
-// dcache
+// dcache          --- paw edw  --egine
 wire DcacheRen, DcacheWen, DcacheMemWen;
 wire [`DBLOCK_SIZE-1:0] DcacheBytesAccess;
 wire [`DMEM_BLOCK_ADDR_SIZE-1:0] DcacheBlockAddr;
@@ -52,11 +53,11 @@ wire [`DBLOCK_SIZE_BITS-1:0] DcacheDin;
 wire DcacheHit, DcacheDirtyBit;
 wire [`DBLOCK_SIZE_BITS-1:0] DcacheDout;
 
-// icache
+// icache   ---pame edw  IcacheRen problem
 wire IcacheRen, IcacheMemWen;
-wire [`IMEM_BLOCK_ADDR_SIZE-1:0] IcacheBlockAddr;
+wire [`IMEM_BLOCK_ADDR_SIZE-1:0] IcacheBlockAddr; //ggg
 wire [`IBLOCK_SIZE_BITS-1:0] IcacheDin;
-wire IcacheHit, IcacheDirtyBit;
+wire IcacheHit, IcacheDirtyBit;   //icacheDirtyBit problem
 wire [`IBLOCK_SIZE_BITS-1:0] IcacheDout;
 
 pipeline pipeline(.clock(clock), 
@@ -71,7 +72,7 @@ pipeline pipeline(.clock(clock),
                   // outputs for cache controllers
                   .dcache_ren(DcacheRen),
 				  .dcache_wen(DcacheWen),
-                  .icache_ren(IcacheRen),
+                  .icache_ren(Ren),
 				  .dcache_addr(DcacheAddr),
                   .icache_addr(IcacheAddr),
 				  .byteSelectVector(byteSelectVector),
@@ -82,7 +83,7 @@ icache_controller icachecontroller2check(
                         .reset(reset),
                         
                         // pipeline inputs
-                        .ren(IcacheRen),
+                        .ren(Ren),
                         .addr(IcacheAddr),
 
                         // cache inputs
