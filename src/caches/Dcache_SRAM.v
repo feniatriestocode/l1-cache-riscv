@@ -35,7 +35,7 @@ module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, h
     assign tag   = blockAddr[`DTAG_SIZE+`DSET_INDEX_SIZE-1:`DSET_INDEX_SIZE];
 
     //*******************************ASYNCHRONOUS HIT/READ DATA*******************************//
-    integer i, j, m;
+    integer i, j;
     reg [`DCACHE_ASSOCIATIVITY-1:0] hitReg;
     reg [`DCACHE_ASSOCIATIVITY-1:0] blockToEvict;
     reg [`DCACHE_ASSOCIATIVITY-1:0] mask;
@@ -138,7 +138,7 @@ module Dcache_SRAM(clk, rst, ren, wen, memWen, bytesAccess, blockAddr, dataIn, h
                         //cache access in bytes do check whether to write it based on bytesAccess value
                         for(j=0; j<`DBLOCK_SIZE; j=j+1) begin
                             if(bytesAccess[j]) begin
-                                data_col[index][i][(j*8)+:8] = dataIn[(j*8)+:8]; //dataIn[j*8+8 : j*8]
+                                data_col[index][i][(j*8)+:8] <= dataIn[(j*8)+:8]; //dataIn[j*8+8 : j*8]
                             end
                         end
                     end
