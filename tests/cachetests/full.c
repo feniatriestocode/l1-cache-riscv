@@ -1,6 +1,5 @@
 //========================================================================//
 // full.c: test that elements fall inside the correct sets and blocks     //
-// inside the cache. Verification file: ../results/full.txt               //
 //========================================================================//
 #include <stdio.h>  
 #include "constants.h"

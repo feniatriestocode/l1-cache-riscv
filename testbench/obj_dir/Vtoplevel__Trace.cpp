@@ -21,6 +21,9 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
     vluint32_t* const oldp = tracep->oldp(vlSymsp->__Vm_baseCode + 1);
     if (false && oldp) {}  // Prevent unused
     // Variables
+    WData/*127:0*/ __Vtemp49[4];
+    WData/*127:0*/ __Vtemp50[4];
+    WData/*127:0*/ __Vtemp51[4];
     WData/*127:0*/ __Vtemp52[4];
     WData/*127:0*/ __Vtemp53[4];
     WData/*127:0*/ __Vtemp54[4];
@@ -34,10 +37,6 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
     WData/*127:0*/ __Vtemp62[4];
     WData/*127:0*/ __Vtemp63[4];
     WData/*127:0*/ __Vtemp64[4];
-    WData/*127:0*/ __Vtemp65[4];
-    WData/*127:0*/ __Vtemp66[4];
-    WData/*127:0*/ __Vtemp67[4];
-    WData/*127:0*/ __Vtemp71[4];
     // Body
     {
         if (VL_UNLIKELY(vlTOPp->__Vm_traceActivity[0U])) {
@@ -376,78 +375,78 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                        [3U][0U]),7);
             tracep->chgCData(oldp+181,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
                                        [3U][1U]),7);
-            __Vtemp52[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp49[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [0U][0U][0U];
-            __Vtemp52[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp49[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [0U][0U][1U];
-            __Vtemp52[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp49[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [0U][0U][2U];
-            __Vtemp52[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp49[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [0U][0U][3U];
-            tracep->chgWData(oldp+182,(__Vtemp52),128);
-            __Vtemp53[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            tracep->chgWData(oldp+182,(__Vtemp49),128);
+            __Vtemp50[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [0U][1U][0U];
-            __Vtemp53[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp50[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [0U][1U][1U];
-            __Vtemp53[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp50[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [0U][1U][2U];
-            __Vtemp53[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp50[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [0U][1U][3U];
-            tracep->chgWData(oldp+186,(__Vtemp53),128);
-            __Vtemp54[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            tracep->chgWData(oldp+186,(__Vtemp50),128);
+            __Vtemp51[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [1U][0U][0U];
-            __Vtemp54[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp51[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [1U][0U][1U];
-            __Vtemp54[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp51[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [1U][0U][2U];
-            __Vtemp54[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp51[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [1U][0U][3U];
-            tracep->chgWData(oldp+190,(__Vtemp54),128);
-            __Vtemp55[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            tracep->chgWData(oldp+190,(__Vtemp51),128);
+            __Vtemp52[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [1U][1U][0U];
-            __Vtemp55[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp52[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [1U][1U][1U];
-            __Vtemp55[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp52[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [1U][1U][2U];
-            __Vtemp55[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp52[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [1U][1U][3U];
-            tracep->chgWData(oldp+194,(__Vtemp55),128);
-            __Vtemp56[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            tracep->chgWData(oldp+194,(__Vtemp52),128);
+            __Vtemp53[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [2U][0U][0U];
-            __Vtemp56[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp53[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [2U][0U][1U];
-            __Vtemp56[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp53[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [2U][0U][2U];
-            __Vtemp56[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp53[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [2U][0U][3U];
-            tracep->chgWData(oldp+198,(__Vtemp56),128);
-            __Vtemp57[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            tracep->chgWData(oldp+198,(__Vtemp53),128);
+            __Vtemp54[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [2U][1U][0U];
-            __Vtemp57[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp54[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [2U][1U][1U];
-            __Vtemp57[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp54[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [2U][1U][2U];
-            __Vtemp57[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp54[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [2U][1U][3U];
-            tracep->chgWData(oldp+202,(__Vtemp57),128);
-            __Vtemp58[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            tracep->chgWData(oldp+202,(__Vtemp54),128);
+            __Vtemp55[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [3U][0U][0U];
-            __Vtemp58[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp55[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [3U][0U][1U];
-            __Vtemp58[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp55[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [3U][0U][2U];
-            __Vtemp58[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp55[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [3U][0U][3U];
-            tracep->chgWData(oldp+206,(__Vtemp58),128);
-            __Vtemp59[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            tracep->chgWData(oldp+206,(__Vtemp55),128);
+            __Vtemp56[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [3U][1U][0U];
-            __Vtemp59[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp56[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [3U][1U][1U];
-            __Vtemp59[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp56[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [3U][1U][2U];
-            __Vtemp59[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+            __Vtemp56[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
                 [3U][1U][3U];
-            tracep->chgWData(oldp+210,(__Vtemp59),128);
+            tracep->chgWData(oldp+210,(__Vtemp56),128);
             tracep->chgIData(oldp+214,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__j),32);
             tracep->chgCData(oldp+215,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__statusFullOne),2);
             tracep->chgCData(oldp+216,(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col[0]),2);
@@ -478,78 +477,78 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                        [3U][0U]),4);
             tracep->chgCData(oldp+235,(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col
                                        [3U][1U]),4);
-            __Vtemp60[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp57[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [0U][0U][0U];
-            __Vtemp60[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp57[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [0U][0U][1U];
-            __Vtemp60[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp57[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [0U][0U][2U];
-            __Vtemp60[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp57[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [0U][0U][3U];
-            tracep->chgWData(oldp+236,(__Vtemp60),128);
-            __Vtemp61[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            tracep->chgWData(oldp+236,(__Vtemp57),128);
+            __Vtemp58[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [0U][1U][0U];
-            __Vtemp61[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp58[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [0U][1U][1U];
-            __Vtemp61[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp58[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [0U][1U][2U];
-            __Vtemp61[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp58[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [0U][1U][3U];
-            tracep->chgWData(oldp+240,(__Vtemp61),128);
-            __Vtemp62[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            tracep->chgWData(oldp+240,(__Vtemp58),128);
+            __Vtemp59[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [1U][0U][0U];
-            __Vtemp62[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp59[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [1U][0U][1U];
-            __Vtemp62[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp59[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [1U][0U][2U];
-            __Vtemp62[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp59[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [1U][0U][3U];
-            tracep->chgWData(oldp+244,(__Vtemp62),128);
-            __Vtemp63[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            tracep->chgWData(oldp+244,(__Vtemp59),128);
+            __Vtemp60[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [1U][1U][0U];
-            __Vtemp63[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp60[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [1U][1U][1U];
-            __Vtemp63[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp60[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [1U][1U][2U];
-            __Vtemp63[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp60[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [1U][1U][3U];
-            tracep->chgWData(oldp+248,(__Vtemp63),128);
-            __Vtemp64[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            tracep->chgWData(oldp+248,(__Vtemp60),128);
+            __Vtemp61[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [2U][0U][0U];
-            __Vtemp64[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp61[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [2U][0U][1U];
-            __Vtemp64[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp61[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [2U][0U][2U];
-            __Vtemp64[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp61[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [2U][0U][3U];
-            tracep->chgWData(oldp+252,(__Vtemp64),128);
-            __Vtemp65[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            tracep->chgWData(oldp+252,(__Vtemp61),128);
+            __Vtemp62[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [2U][1U][0U];
-            __Vtemp65[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp62[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [2U][1U][1U];
-            __Vtemp65[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp62[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [2U][1U][2U];
-            __Vtemp65[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp62[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [2U][1U][3U];
-            tracep->chgWData(oldp+256,(__Vtemp65),128);
-            __Vtemp66[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            tracep->chgWData(oldp+256,(__Vtemp62),128);
+            __Vtemp63[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [3U][0U][0U];
-            __Vtemp66[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp63[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [3U][0U][1U];
-            __Vtemp66[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp63[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [3U][0U][2U];
-            __Vtemp66[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp63[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [3U][0U][3U];
-            tracep->chgWData(oldp+260,(__Vtemp66),128);
-            __Vtemp67[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            tracep->chgWData(oldp+260,(__Vtemp63),128);
+            __Vtemp64[0U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [3U][1U][0U];
-            __Vtemp67[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp64[1U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [3U][1U][1U];
-            __Vtemp67[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp64[2U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [3U][1U][2U];
-            __Vtemp67[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
+            __Vtemp64[3U] = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
                 [3U][1U][3U];
-            tracep->chgWData(oldp+264,(__Vtemp67),128);
+            tracep->chgWData(oldp+264,(__Vtemp64),128);
             tracep->chgIData(oldp+268,(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__j),32);
             tracep->chgCData(oldp+269,(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne),2);
             tracep->chgBit(oldp+270,(vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__replace));
@@ -587,57 +586,40 @@ void Vtoplevel::traceChgSub0(void* userp, VerilatedVcd* tracep) {
                                                      ? 1U
                                                      : 2U)
                                                     : 0U))))),3);
+            tracep->chgIData(oldp+273,(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[0]),32);
+            tracep->chgIData(oldp+274,(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[1]),32);
+            tracep->chgIData(oldp+275,(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[2]),32);
+            tracep->chgIData(oldp+276,(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3]),32);
+            tracep->chgBit(oldp+277,(vlTOPp->toplevel__DOT__Data_Mem__DOT__flag));
         }
         if (VL_UNLIKELY(vlTOPp->__Vm_traceActivity[3U])) {
-            tracep->chgWData(oldp+273,(vlTOPp->toplevel__DOT__imem_dout),128);
-            tracep->chgBit(oldp+277,((0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter))));
-            tracep->chgCData(oldp+278,(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter),4);
+            tracep->chgWData(oldp+278,(vlTOPp->toplevel__DOT__imem_dout),128);
+            tracep->chgBit(oldp+282,((0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter))));
+            tracep->chgCData(oldp+283,(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter),4);
         }
         if (VL_UNLIKELY(vlTOPp->__Vm_traceActivity[4U])) {
-            tracep->chgBit(oldp+279,((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter))));
-            tracep->chgCData(oldp+280,(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter),4);
-            tracep->chgBit(oldp+281,((((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
-                                       & (IData)(vlTOPp->toplevel__DOT__dmem_ren)) 
-                                      & (~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)))));
-            tracep->chgBit(oldp+282,(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done));
+            tracep->chgWData(oldp+284,(vlTOPp->toplevel__DOT__dmem_dout),128);
+            tracep->chgBit(oldp+288,(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready));
+            tracep->chgBit(oldp+289,(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done));
         }
-        if (VL_UNLIKELY(vlTOPp->__Vm_traceActivity[5U])) {
-            tracep->chgWData(oldp+283,(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din),128);
-            tracep->chgBit(oldp+287,(vlTOPp->toplevel__DOT__Data_Mem__DOT__flag));
-        }
-        tracep->chgBit(oldp+288,(vlTOPp->clock));
-        tracep->chgBit(oldp+289,(vlTOPp->reset));
-        if ((((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
-              & (IData)(vlTOPp->toplevel__DOT__dmem_ren)) 
-             & (~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)))) {
-            __Vtemp71[0U] = vlTOPp->toplevel__DOT__Data_Mem__DOT__data
-                [(0x3fU & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))][0U];
-            __Vtemp71[1U] = vlTOPp->toplevel__DOT__Data_Mem__DOT__data
-                [(0x3fU & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))][1U];
-            __Vtemp71[2U] = vlTOPp->toplevel__DOT__Data_Mem__DOT__data
-                [(0x3fU & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))][2U];
-            __Vtemp71[3U] = vlTOPp->toplevel__DOT__Data_Mem__DOT__data
-                [(0x3fU & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))][3U];
-        } else {
-            __Vtemp71[0U] = 0U;
-            __Vtemp71[1U] = 0U;
-            __Vtemp71[2U] = 0U;
-            __Vtemp71[3U] = 0U;
-        }
-        tracep->chgWData(oldp+290,(__Vtemp71),128);
-        tracep->chgIData(oldp+294,(((IData)(vlTOPp->reset)
+        tracep->chgBit(oldp+290,(vlTOPp->clock));
+        tracep->chgBit(oldp+291,(vlTOPp->reset));
+        tracep->chgIData(oldp+292,(((IData)(vlTOPp->reset)
                                      ? vlTOPp->toplevel__DOT__cpu__DOT__cacheDout[
                                     (3U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__addr) 
                                            >> 2U))]
                                      : 0U)),32);
-        tracep->chgBit(oldp+295,((((IData)(vlTOPp->reset) 
+        tracep->chgBit(oldp+293,((((IData)(vlTOPp->reset) 
                                    & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ren)) 
                                   & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__wen)))));
-        tracep->chgBit(oldp+296,((((IData)(vlTOPp->reset) 
+        tracep->chgBit(oldp+294,((((IData)(vlTOPp->reset) 
                                    & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__wen)) 
                                   & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__ren)))));
-        tracep->chgIData(oldp+297,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__i),32);
-        tracep->chgIData(oldp+298,(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i),32);
+        tracep->chgIData(oldp+295,(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__i),32);
+        tracep->chgIData(oldp+296,(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i),32);
+        tracep->chgBit(oldp+297,((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter))));
+        tracep->chgCData(oldp+298,(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter),4);
+        tracep->chgIData(oldp+299,(vlTOPp->toplevel__DOT__Data_Mem__DOT__i),32);
     }
 }
 
@@ -652,6 +634,5 @@ void Vtoplevel::traceCleanup(void* userp, VerilatedVcd* /*unused*/) {
         vlTOPp->__Vm_traceActivity[2U] = 0U;
         vlTOPp->__Vm_traceActivity[3U] = 0U;
         vlTOPp->__Vm_traceActivity[4U] = 0U;
-        vlTOPp->__Vm_traceActivity[5U] = 0U;
     }
 }

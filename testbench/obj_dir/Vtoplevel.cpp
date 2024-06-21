@@ -115,13 +115,13 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__5(Vtoplevel__Syms* __restrict vlSym
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__5\n"); );
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->__Vdly__toplevel__DOT__Data_Mem__DOT__delay_counter 
-        = vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter;
-    vlTOPp->__Vdly__toplevel__DOT__Data_Mem__DOT__delay_counter 
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter 
         = ((IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset)
             ? 0U : (0xfU & ((IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delayed)
                              ? (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)
                              : ((IData)(1U) + (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)))));
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__delayed = 
+        (0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter));
 }
 
 VL_INLINE_OPT void Vtoplevel::_sequent__TOP__6(Vtoplevel__Syms* __restrict vlSymsp) {
@@ -244,14 +244,14 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__6(Vtoplevel__Syms* __restrict vlSym
     CData/*1:0*/ __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v2;
+    CData/*0:0*/ __Vdly__toplevel__DOT__Data_Mem__DOT__flag;
     IData/*31:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_regs__DOT__data__v0;
     WData/*127:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0[4];
     WData/*127:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1[4];
     WData/*127:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v0[4];
     WData/*127:0*/ __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1[4];
     // Body
-    vlTOPp->__Vdly__toplevel__DOT__Data_Mem__DOT__flag 
-        = vlTOPp->toplevel__DOT__Data_Mem__DOT__flag;
+    __Vdly__toplevel__DOT__Data_Mem__DOT__flag = vlTOPp->toplevel__DOT__Data_Mem__DOT__flag;
     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 = 0U;
     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 = 0U;
     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v2 = 0U;
@@ -667,15 +667,43 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__6(Vtoplevel__Syms* __restrict vlSym
     } else {
         vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__j = 2U;
     }
+    if (vlTOPp->reset) {
+        if ((1U & ((~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)) 
+                   | (IData)(vlTOPp->toplevel__DOT__dmem_ren)))) {
+            vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[0U] = 0U;
+            vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
+            vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[1U] = 0U;
+            __Vdly__toplevel__DOT__Data_Mem__DOT__flag = 0U;
+            vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[2U] = 0U;
+            vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3U] = 0U;
+        } else {
+            if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__flag)))) {
+                vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[0U] 
+                    = vlTOPp->toplevel__DOT__dmem_din[0U];
+                vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
+                vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[1U] 
+                    = vlTOPp->toplevel__DOT__dmem_din[1U];
+                __Vdly__toplevel__DOT__Data_Mem__DOT__flag = 1U;
+                vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[2U] 
+                    = vlTOPp->toplevel__DOT__dmem_din[2U];
+                vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3U] 
+                    = vlTOPp->toplevel__DOT__dmem_din[3U];
+            }
+        }
+    } else {
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[0U] = 0U;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[1U] = 0U;
+        __Vdly__toplevel__DOT__Data_Mem__DOT__flag = 0U;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[2U] = 0U;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3U] = 0U;
+    }
     vlTOPp->toplevel__DOT__dmem_write_done = ((IData)(vlTOPp->reset) 
                                               & (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done));
     vlTOPp->toplevel__DOT__imem_ready = ((IData)(vlTOPp->reset) 
                                          & (0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter)));
     vlTOPp->toplevel__DOT__dmem_read_ready = ((IData)(vlTOPp->reset) 
-                                              & (((0xfU 
-                                                   == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
-                                                  & (IData)(vlTOPp->toplevel__DOT__dmem_ren)) 
-                                                 & (~ (IData)(vlTOPp->toplevel__DOT__dmem_wen))));
+                                              & (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready));
     vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__state 
         = ((IData)(vlTOPp->reset) ? (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__next_state)
             : 0U);
@@ -1126,6 +1154,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__6(Vtoplevel__Syms* __restrict vlSym
     } else {
         __Vdlyvset__toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_regs__DOT__data__v1 = 1U;
     }
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__flag = __Vdly__toplevel__DOT__Data_Mem__DOT__flag;
     if (__Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0) {
         vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col[__Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0][0U] 
             = __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0;
@@ -2216,31 +2245,50 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__7(Vtoplevel__Syms* __restrict vlSym
     // Variables
     CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0;
     CData/*0:0*/ __Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0;
-    WData/*127:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0[4];
+    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v1;
+    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v2;
+    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v3;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v1;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v2;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v3;
     // Body
+    if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done) {
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
+    }
     __Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0 = 0U;
     if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done) {
-        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0[0U] 
-            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[0U];
-        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0[1U] 
-            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[1U];
-        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0[2U] 
-            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[2U];
-        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0[3U] 
-            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3U];
+        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0 
+            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
+            [0U];
         __Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0 = 1U;
         __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0 
+            = (0x3fU & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address));
+        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v1 
+            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
+            [1U];
+        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v1 
+            = (0x3fU & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address));
+        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v2 
+            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
+            [2U];
+        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v2 
+            = (0x3fU & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address));
+        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v3 
+            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
+            [3U];
+        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v3 
             = (0x3fU & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address));
     }
     if (__Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0) {
         vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0][0U] 
-            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0[0U];
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0][1U] 
-            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0[1U];
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0][2U] 
-            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0[2U];
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0][3U] 
-            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0[3U];
+            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v1][1U] 
+            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v1;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v2][2U] 
+            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v2;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v3][3U] 
+            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v3;
     }
 }
 
@@ -2550,49 +2598,60 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__11(Vtoplevel__Syms* __restrict vlSy
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__11\n"); );
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter 
-        = vlTOPp->__Vdly__toplevel__DOT__Data_Mem__DOT__delay_counter;
-    vlTOPp->toplevel__DOT__Data_Mem__DOT__delayed = 
-        (0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter));
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready 
+        = (((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
+            & (IData)(vlTOPp->toplevel__DOT__dmem_ren)) 
+           & (~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)));
     vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done 
         = (((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
             & (~ (IData)(vlTOPp->toplevel__DOT__dmem_ren))) 
            & (IData)(vlTOPp->toplevel__DOT__dmem_wen));
-}
-
-VL_INLINE_OPT void Vtoplevel::_sequent__TOP__12(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__12\n"); );
-    Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    if (vlTOPp->reset) {
-        if ((1U & ((~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)) 
-                   | (IData)(vlTOPp->toplevel__DOT__dmem_ren)))) {
-            vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[0U] = 0U;
-            vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[1U] = 0U;
-            vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[2U] = 0U;
-            vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3U] = 0U;
-            vlTOPp->__Vdly__toplevel__DOT__Data_Mem__DOT__flag = 0U;
-        } else {
-            if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__flag)))) {
-                vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[0U] 
-                    = vlTOPp->toplevel__DOT__dmem_din[0U];
-                vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[1U] 
-                    = vlTOPp->toplevel__DOT__dmem_din[1U];
-                vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[2U] 
-                    = vlTOPp->toplevel__DOT__dmem_din[2U];
-                vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3U] 
-                    = vlTOPp->toplevel__DOT__dmem_din[3U];
-                vlTOPp->__Vdly__toplevel__DOT__Data_Mem__DOT__flag = 1U;
-            }
-        }
+    if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready) {
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = ((0xfffffffeU 
+                                                 & vlTOPp->toplevel__DOT__dmem_dout[0U]) 
+                                                | (1U 
+                                                   & vlTOPp->toplevel__DOT__Data_Mem__DOT__data
+                                                   [
+                                                   (0x3fU 
+                                                    & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))]
+                                                   [0U]));
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = ((0xfffffffdU 
+                                                 & vlTOPp->toplevel__DOT__dmem_dout[0U]) 
+                                                | (2U 
+                                                   & (vlTOPp->toplevel__DOT__Data_Mem__DOT__data
+                                                      [
+                                                      (0x3fU 
+                                                       & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))]
+                                                      [1U] 
+                                                      << 1U)));
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = ((0xfffffffbU 
+                                                 & vlTOPp->toplevel__DOT__dmem_dout[0U]) 
+                                                | (4U 
+                                                   & (vlTOPp->toplevel__DOT__Data_Mem__DOT__data
+                                                      [
+                                                      (0x3fU 
+                                                       & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))]
+                                                      [2U] 
+                                                      << 2U)));
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = ((0xfffffff7U 
+                                                 & vlTOPp->toplevel__DOT__dmem_dout[0U]) 
+                                                | (8U 
+                                                   & (vlTOPp->toplevel__DOT__Data_Mem__DOT__data
+                                                      [
+                                                      (0x3fU 
+                                                       & (IData)(vlTOPp->toplevel__DOT____Vcellout__cpu__dmem_block_address))]
+                                                      [3U] 
+                                                      << 3U)));
     } else {
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[0U] = 0U;
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[1U] = 0U;
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[2U] = 0U;
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3U] = 0U;
-        vlTOPp->__Vdly__toplevel__DOT__Data_Mem__DOT__flag = 0U;
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = (0xfffffffeU 
+                                                & vlTOPp->toplevel__DOT__dmem_dout[0U]);
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = (0xfffffffdU 
+                                                & vlTOPp->toplevel__DOT__dmem_dout[0U]);
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = (0xfffffffbU 
+                                                & vlTOPp->toplevel__DOT__dmem_dout[0U]);
+        vlTOPp->toplevel__DOT__dmem_dout[0U] = (0xfffffff7U 
+                                                & vlTOPp->toplevel__DOT__dmem_dout[0U]);
     }
-    vlTOPp->toplevel__DOT__Data_Mem__DOT__flag = vlTOPp->__Vdly__toplevel__DOT__Data_Mem__DOT__flag;
 }
 
 void Vtoplevel::_eval(Vtoplevel__Syms* __restrict vlSymsp) {
@@ -2632,11 +2691,6 @@ void Vtoplevel::_eval(Vtoplevel__Syms* __restrict vlSymsp) {
         vlTOPp->_sequent__TOP__11(vlSymsp);
         vlTOPp->__Vm_traceActivity[4U] = 1U;
     }
-    if ((((IData)(vlTOPp->clock) & (~ (IData)(vlTOPp->__Vclklast__TOP__clock))) 
-         | ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->__Vclklast__TOP__reset)))) {
-        vlTOPp->_sequent__TOP__12(vlSymsp);
-        vlTOPp->__Vm_traceActivity[5U] = 1U;
-    }
     // Final
     vlTOPp->__Vclklast__TOP__clock = vlTOPp->clock;
     vlTOPp->__Vclklast__TOP____VinpClk__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset 
@@ -2666,7 +2720,7 @@ VL_INLINE_OPT QData Vtoplevel::_change_request_1(Vtoplevel__Syms* __restrict vlS
     __req |= ((vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset)
          | (vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset));
     VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../src/cache_controller/../memories/Imem.v:23: toplevel.Instruction_Mem.counter_reset\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../src/cache_controller/../memories/Dmem.v:27: toplevel.Data_Mem.counter_reset\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../src/cache_controller/../memories/Dmem.v:28: toplevel.Data_Mem.counter_reset\n"); );
     // Final
     vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset 
         = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset;
