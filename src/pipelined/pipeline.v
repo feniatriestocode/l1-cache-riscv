@@ -68,9 +68,26 @@ wire	[31:0]	imm_i, imm_s, imm_b, imm_u, imm_j;
 
 wire            overflow;
 
+
+
+//changes after caches 
+
+
 wire stall_from_cache;
 assign stall_from_cache = icache_stall || dcache_stall;
 
+
+assign icache_addr = PC;
+
+assign dcache_addr = RegWriteAddr ; //-----mallon idk
+
+assign dcache_ren = MemRead;
+
+assign dcache_wen = MemWrite; 
+
+assign dcache_output = ;
+
+assign icache_output = ;
 
 /********************** Instruction Fetch Unit (IF)  **********************/
 always @(posedge clock or negedge reset)
