@@ -23,7 +23,7 @@ module pipeline( input clock,
 reg		[31:0]	IFID_instr;
 reg		[31:0]	PC, IFID_PC, IDEX_PC;
 wire	[31:0]	PCplus4, JumpAddress, PC_new;
-wire	[31:0]	instr;
+//wire	[31:0]	instr;
 wire			inA_is_PC, branch_taken;
 wire	[31:0]	BranchInA;
 reg		[31:0]	IDEX_signExtend;
@@ -74,13 +74,13 @@ wire stall_from_cache;
 assign stall_from_cache = icache_stall || dcache_stall;
 
 // Instruction Cache controller I/O
-assign instr = instruction_input;
+assign IFID_instr = instruction_input;
 assign icache_addr = PC;
 assign icache_ren = write_ifid;
 
 
 // Data Cache controller I/O
-assign DMemOut = data_input;
+assign MEMWB_DMemOut = data_input;
 assign dcache_addr = EXMEM_ALUOut;
 assign dcache_ren = EXMEM_MemRead;
 assign dcache_wen = EXMEM_MemWrite; 
@@ -113,11 +113,11 @@ always @(posedge clock or negedge reset)
 begin 
 	if ((reset == 1'b0) || (bubble_ifid == 1'b1)) begin
 		IFID_PC			<= 32'b0;
-		IFID_instr		<= 32'b0;
+		//IFID_instr		<= 32'b0;
 	end 
 	else if (write_ifid == 1'b1 && stall_from_cache == 1'b0) begin
 		IFID_PC			<= PC;
-		IFID_instr		<= instr;
+		//IFID_instr		<= instr;
 	end
 end
 
@@ -346,7 +346,7 @@ mem_write_selector mem_write_selector(
 always @(posedge clock or negedge reset)
 begin 
 	if (reset == 1'b0) begin
-		MEMWB_DMemOut		<= 32'b0;
+		//MEMWB_DMemOut		<= 32'b0;
 		MEMWB_ALUOut		<= 32'b0;
 		MEMWB_RegWriteAddr	<= 5'b0;
 		MEMWB_MemToReg		<= 1'b0;
@@ -354,7 +354,7 @@ begin
 		MEMWB_funct3		<= 3'b111;
 	end 
 	else if (write_memwb == 1'b1 && stall_from_cache == 1'b0) begin
-		MEMWB_DMemOut		<= DMemOut;
+		//MEMWB_DMemOut		<= DMemOut;
 		MEMWB_ALUOut		<= EXMEM_ALUOut;
 		MEMWB_RegWriteAddr	<= EXMEM_RegWriteAddr;
 		MEMWB_MemToReg		<= EXMEM_MemToReg;
