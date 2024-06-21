@@ -1,6 +1,4 @@
-`include "../include/constants.v"
-`include "../include/constants.vh"
-`include "config.vh"
+
 /*****************************************************************************************/
 /* Implementation of the 5-stage MIPS pipeline that supports the following instructions: */
 /*  R-format: add, sub, and, or, xor, slt                                                */
@@ -14,6 +12,7 @@ module pipeline( input clock,
 				 input [`IWORD_SIZE_BITS-1:0] icache_output,
                  output dcache_ren,
                  output dcache_wen,
+				 output icache_ren,
                  output [`DTAG_SIZE+`DSET_INDEX_SIZE-1:0] dcache_addr,
 				 output [`ITAG_SIZE+`ISET_INDEX_SIZE-1:0] icache_addr,
                  output [`DWORD_SIZE-1:0] byteSelectVector,
@@ -71,33 +70,32 @@ wire            overflow;
 
 
 //changes after caches 
-
-
 wire stall_from_cache;
 assign stall_from_cache = icache_stall || dcache_stall;
 
-
+// Instruction Cache controller I/O
+assign instr = icache_output;
 assign icache_addr = PC;
+assign icache_ren = write_ifid;
 
-assign dcache_addr = RegWriteAddr ; //-----mallon idk
 
-assign dcache_ren = MemRead;
+// Data Cache controller I/O
+assign DMemOut = dcache_output;
+assign dcache_addr = EXMEM_ALUOut;
+assign dcache_ren = EXMEM_MemRead;
+assign dcache_wen = EXMEM_MemWrite; 
+assign dcache_input = MemWriteData;
+assign byteSelectVector = byte_select_vector;
 
-assign dcache_wen = MemWrite; 
 
-assign dcache_output = ;
-
-assign icache_output = ;
 
 /********************** Instruction Fetch Unit (IF)  **********************/
 always @(posedge clock or negedge reset)
 begin 
 	if (reset == 1'b0)     
-		PC <= `INITIAL_PC;     
-	else if (write_pc == 1'b1)
+		PC <= 0;//`INITIAL_PC;     
+	else if (write_pc == 1'b1 && stall_from_cache == 1'b0) // if no stall, update PC
 		PC <= PC_new;
-	else if(stall_from_cache == 1'b1)
-		PC <= PC; 
 end
 
 // PC adder
@@ -117,7 +115,7 @@ begin
 		IFID_PC			<= 32'b0;
 		IFID_instr		<= 32'b0;
 	end 
-	else if (write_ifid == 1'b1) begin
+	else if (write_ifid == 1'b1 && stall_from_cache == 1'b0) begin
 		IFID_PC			<= PC;
 		IFID_instr		<= instr;
 	end
@@ -193,7 +191,7 @@ begin
 		IDEX_rdA		<= 32'b0;
 		IDEX_rdB		<= 32'b0;
 	end
-	else if (write_idex == 1'b1) begin
+	else if (write_idex == 1'b1 && stall_from_cache == 1'b0) begin
 		IDEX_inA_is_PC	<= inA_is_PC;
 		IDEX_Jump		<= Jump;
 		IDEX_JumpJALR	<= JumpJALR;
@@ -296,7 +294,7 @@ begin
 		EXMEM_RegWrite		<= 1'b0;
 		EXMEM_funct3		<= 3'b111;
 	end 
-	else if (write_exmem == 1'b1) begin
+	else if (write_exmem == 1'b1 && stall_from_cache == 1'b0) begin
 		EXMEM_ALUOut		<= ALUOut;
 		EXMEM_JumpJALR		<= IDEX_JumpJALR;
 		EXMEM_BranchALUOut	<= BranchALUOut;
@@ -355,7 +353,7 @@ begin
 		MEMWB_RegWrite		<= 1'b0;
 		MEMWB_funct3		<= 3'b111;
 	end 
-	else if (write_memwb == 1'b1) begin
+	else if (write_memwb == 1'b1 && stall_from_cache == 1'b0) begin
 		MEMWB_DMemOut		<= DMemOut;
 		MEMWB_ALUOut		<= EXMEM_ALUOut;
 		MEMWB_RegWriteAddr	<= EXMEM_RegWriteAddr;

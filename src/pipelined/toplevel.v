@@ -22,18 +22,18 @@ wire [(`IBLOCK_SIZE_BITS-1):0] imem_dout;
 cpu cpu(.clock(clock), 
 		.reset(reset),
 		//imem
-        .imem_ren(imem_ren),
-        .imem_block_address(imem_block_address),
-        .imem_read_ready(imem_read_ready),
-        .imem_dout(imem_dout),
+        .ImemRen(imem_ren),
+        .IblockAddr(imem_block_address),
+        .ImemReadReady(imem_read_ready),
+        .ImemDout(imem_dout),
         //dmem
-		.dmem_ren(dmem_ren), 
-        .dmem_wen(dmem_wen),
-        .dmem_block_address(dmem_block_address), 
-        .dmem_din(dmem_din),
-        .dmem_read_ready(dmem_read_ready), 
-        .dmem_write_done(dmem_write_done),
-        .dmem_dout(dmem_dout));
+		.DmemRen(dmem_ren), 
+        .DmemWen(dmem_wen),
+        .DblockAddress(dmem_block_address), 
+        .DmemDin(dmem_din),
+        .DmemReadReady(dmem_read_ready), 
+        .DmemWriteDone(dmem_write_done),
+        .DmemDout(dmem_dout));
         
 // Memories
 Imem Instruction_Mem(.clock(clock), 
