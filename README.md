@@ -2,7 +2,8 @@
 
 ## Project Structure
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/newfilestructure_dark.drawio.png">
+  ![newfilestructure_dark drawio](https://github.com/feniatriestocode/l1-cache-riscv/assets/96126980/063d04ae-3f19-41b6-a2a6-911a1bfe80c3)
+
 </picture>
 
 ## Implemented ISA
