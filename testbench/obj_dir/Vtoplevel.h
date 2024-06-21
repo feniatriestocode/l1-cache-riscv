@@ -37,37 +37,17 @@ VL_MODULE(Vtoplevel) {
         CData/*0:0*/ toplevel__DOT__dmem_wen;
         CData/*0:0*/ toplevel__DOT__dmem_read_ready;
         CData/*0:0*/ toplevel__DOT__dmem_write_done;
+        CData/*5:0*/ toplevel__DOT__dmem_block_address;
         CData/*0:0*/ toplevel__DOT__imem_ren;
         CData/*0:0*/ toplevel__DOT__imem_read_ready;
-        CData/*0:0*/ toplevel__DOT__imem_ready;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__ren;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__wen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__cacheHit;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__cacheDirtyBit;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__memReadReady;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__memWriteDone;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__stall;
-        CData/*5:0*/ toplevel__DOT__cpu__DOT__BlockAddr;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__cacheRen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__cacheWen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__cacheMemWen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__memRen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__memWen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__dcache_stall;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__icache_stall;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__dcache_ren;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__dcache_wen;
-        CData/*5:0*/ toplevel__DOT__cpu__DOT__dcache_addr;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__DcacheRen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__DcacheWen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__DcacheMemWen;
-        CData/*5:0*/ toplevel__DOT__cpu__DOT__DcacheBlockAddr;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__DcacheDirtyBit;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__IcacheRen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__IcacheMemWen;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__IcacheDirtyBit;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__DcacheStall;
-        CData/*0:0*/ toplevel__DOT__cpu__DOT__IcacheStall;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__dcacheStall;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__icacheStall;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__icacheRen;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__icacheMemWen;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__dcacheRen;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__dcacheWen;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__dcacheMemWen;
+        CData/*0:0*/ toplevel__DOT__cpu__DOT__dcacheDirtyBit;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__inA_is_PC;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__branch_taken;
         CData/*2:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_funct3;
@@ -95,8 +75,6 @@ VL_MODULE(Vtoplevel) {
         CData/*0:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_RegWrite;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemToReg;
         CData/*4:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__MEMWB_RegWriteAddr;
-    };
-    struct {
         CData/*0:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__MEMWB_MemToReg;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__MEMWB_RegWrite;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__RegDst;
@@ -117,6 +95,8 @@ VL_MODULE(Vtoplevel) {
         CData/*0:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__write_ifid;
         CData/*0:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__write_pc;
         CData/*2:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__ALUcntrl;
+    };
+    struct {
         CData/*3:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__ALUOp;
         CData/*1:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__bypassA;
         CData/*1:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__bypassB;
@@ -143,27 +123,15 @@ VL_MODULE(Vtoplevel) {
         CData/*3:0*/ toplevel__DOT__Data_Mem__DOT__delay_counter;
         CData/*0:0*/ toplevel__DOT__Data_Mem__DOT__temp_ready;
         CData/*0:0*/ toplevel__DOT__Data_Mem__DOT__temp_done;
-        SData/*9:0*/ toplevel__DOT__cpu__DOT__addr;
-        SData/*15:0*/ toplevel__DOT__cpu__DOT__cacheBytesAccess;
-        SData/*15:0*/ toplevel__DOT__cpu__DOT__DcacheBytesAccess;
-        SData/*8:0*/ toplevel__DOT__cpu__DOT__IcacheBlockAddr;
+        SData/*8:0*/ toplevel__DOT__imem_block_address;
+        SData/*15:0*/ toplevel__DOT__cpu__DOT__bytesAccess;
         SData/*15:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__mem_read_selector__DOT__half;
         WData/*127:0*/ toplevel__DOT__dmem_dout[4];
         WData/*127:0*/ toplevel__DOT__imem_dout[4];
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__din;
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__cacheDout[4];
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__memDout[4];
-        IData/*31:0*/ toplevel__DOT__cpu__DOT__dout;
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__cacheDin[4];
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__memDin[4];
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__dcache_output[4];
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__dcache_input[4];
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__DcacheDin[4];
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__DcacheDout[4];
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__IcacheDin[4];
-    };
-    struct {
-        WData/*127:0*/ toplevel__DOT__cpu__DOT__IcacheDout[4];
+        WData/*127:0*/ toplevel__DOT__cpu__DOT__icacheDin[4];
+        WData/*127:0*/ toplevel__DOT__cpu__DOT__icacheDout[4];
+        WData/*127:0*/ toplevel__DOT__cpu__DOT__dcacheDin[4];
+        WData/*127:0*/ toplevel__DOT__cpu__DOT__dcacheDout[4];
         IData/*31:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__PC;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_PC;
@@ -193,6 +161,8 @@ VL_MODULE(Vtoplevel) {
         IData/*31:0*/ toplevel__DOT__cpu__DOT__Dcache__DOT__m;
         IData/*31:0*/ toplevel__DOT__Instruction_Mem__DOT__i;
         IData/*31:0*/ toplevel__DOT__Data_Mem__DOT__i;
+    };
+    struct {
         QData/*32:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_alu__DOT__unsigned_sub;
         IData/*31:0*/ toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_regs__DOT__data[32];
         CData/*1:0*/ toplevel__DOT__cpu__DOT__Icache__DOT__valid_col[4];
@@ -221,12 +191,9 @@ VL_MODULE(Vtoplevel) {
     CData/*0:0*/ __Vclklast__TOP____VinpClk__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset;
     CData/*0:0*/ __Vclklast__TOP__reset;
     CData/*0:0*/ __Vclklast__TOP____VinpClk__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset;
-    CData/*0:0*/ __Vchglast__TOP__toplevel__DOT__cpu__DOT__DcacheRen;
-    CData/*0:0*/ __Vchglast__TOP__toplevel__DOT__cpu__DOT__DcacheWen;
-    CData/*0:0*/ __Vchglast__TOP__toplevel__DOT__cpu__DOT__IcacheRen;
     CData/*0:0*/ __Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset;
     CData/*0:0*/ __Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset;
-    CData/*0:0*/ __Vm_traceActivity[7];
+    CData/*0:0*/ __Vm_traceActivity[5];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__RegDst[128];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__MemRead[128];
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__MemWrite[128];
@@ -239,8 +206,8 @@ VL_MODULE(Vtoplevel) {
     static CData/*0:0*/ __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__inA_is_PC[128];
     static CData/*2:0*/ __Vtable1_toplevel__DOT__cpu__DOT__pipeline__DOT__ALUcntrl[128];
     static CData/*0:0*/ __Vtable2_toplevel__DOT__cpu__DOT__pipeline__DOT__branch_taken[64];
-    static CData/*0:0*/ __Vtable3_toplevel__DOT__cpu__DOT__DcacheStall[8];
-    static CData/*0:0*/ __Vtable3_toplevel__DOT__cpu__DOT__DcacheMemWen[8];
+    static CData/*0:0*/ __Vtable3_toplevel__DOT__cpu__DOT__dcacheStall[8];
+    static CData/*0:0*/ __Vtable3_toplevel__DOT__cpu__DOT__dcacheMemWen[8];
     static CData/*0:0*/ __Vtable3_toplevel__DOT__dmem_ren[8];
     static CData/*0:0*/ __Vtable3_toplevel__DOT__dmem_wen[8];
     static CData/*0:0*/ __Vtable3_toplevel__DOT__cpu__DOT__Dcntr__DOT__replace[8];
@@ -282,8 +249,7 @@ VL_MODULE(Vtoplevel) {
     static QData _change_request(Vtoplevel__Syms* __restrict vlSymsp);
     static QData _change_request_1(Vtoplevel__Syms* __restrict vlSymsp);
   public:
-    static void _combo__TOP__12(Vtoplevel__Syms* __restrict vlSymsp);
-    static void _combo__TOP__14(Vtoplevel__Syms* __restrict vlSymsp);
+    static void _combo__TOP__10(Vtoplevel__Syms* __restrict vlSymsp);
     static void _combo__TOP__8(Vtoplevel__Syms* __restrict vlSymsp);
   private:
     void _ctor_var_reset() VL_ATTR_COLD;
@@ -297,10 +263,7 @@ VL_MODULE(Vtoplevel) {
     static void _eval_initial(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _eval_settle(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _initial__TOP__1(Vtoplevel__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _multiclk__TOP__11(Vtoplevel__Syms* __restrict vlSymsp);
-    static void _multiclk__TOP__13(Vtoplevel__Syms* __restrict vlSymsp);
     static void _multiclk__TOP__9(Vtoplevel__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__10(Vtoplevel__Syms* __restrict vlSymsp);
     static void _sequent__TOP__2(Vtoplevel__Syms* __restrict vlSymsp);
     static void _sequent__TOP__3(Vtoplevel__Syms* __restrict vlSymsp);
     static void _sequent__TOP__4(Vtoplevel__Syms* __restrict vlSymsp);

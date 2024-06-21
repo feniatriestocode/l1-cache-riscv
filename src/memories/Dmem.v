@@ -4,7 +4,7 @@
 //`include "../include/constants.v"
 //`include "../include/constants.vh"
 //`include "../common/counter.v" //sees it from makefile supposedly
-//`include "../../testbench/config.vh" //sees it from makefile supposedly
+`include "../../testbench/config.vh" //sees it from makefile supposedly
 
 // If ren stays up then the next read has no delay !
 

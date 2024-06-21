@@ -258,10 +258,10 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_regs__DOT__i = 0x20U;
     }
     if (vlTOPp->reset) {
-        if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen) {
+        if (vlTOPp->toplevel__DOT__cpu__DOT__icacheRen) {
             vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__i = 2U;
         } else {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen) {
                 vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__i = 2U;
             }
         }
@@ -269,7 +269,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__i = 4U;
     }
     if (vlTOPp->reset) {
-        if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen) {
+        if (vlTOPp->toplevel__DOT__cpu__DOT__icacheRen) {
             if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg))) {
                 if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__statusFullOne))) {
                     vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__j = 2U;
@@ -281,7 +281,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                 }
             }
         } else {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen) {
                 if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
                     if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__statusFullOne))) {
                         vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__j = 2U;
@@ -298,13 +298,13 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__j = 2U;
     }
     if (vlTOPp->reset) {
-        if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen) {
+        if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen) {
             vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i = 2U;
         } else {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen) {
                 vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i = 2U;
             } else {
-                if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen) {
+                if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen) {
                     vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i = 2U;
                 }
             }
@@ -313,7 +313,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i = 4U;
     }
     if (vlTOPp->reset) {
-        if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen) {
+        if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen) {
             if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
                 if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne))) {
                     vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__j = 2U;
@@ -325,7 +325,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                 }
             }
         } else {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen) {
                 if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
                     if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne))) {
                         vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__j = 2U;
@@ -339,7 +339,7 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                     vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__j = 0x10U;
                 }
             } else {
-                if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen) {
+                if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen) {
                     if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
                         if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne))) {
                             vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__j = 2U;
@@ -357,211 +357,308 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__j = 2U;
     }
     if (vlTOPp->reset) {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen)))) {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen) {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen)))) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen) {
                 if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
-                    if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][0U] 
+                    if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][0U] 
                             = ((0xffffff00U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][0U]) | (0xffU 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][0U]) 
+                               | (0xffU & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U]));
                     }
-                    if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][0U] 
+                    if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][0U] 
                             = ((0xffff00ffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][0U]) | (0xff00U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][0U]) 
+                               | (0xff00U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U]));
                     }
-                    if ((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][0U] 
+                    if ((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][0U] 
                             = ((0xff00ffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][0U]) | (0xff0000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][0U]) 
+                               | (0xff0000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U]));
                     }
-                    if ((8U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][0U] 
+                    if ((8U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][0U] 
                             = ((0xffffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][0U]) | (0xff000000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][0U]) 
+                               | (0xff000000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U]));
                     }
-                    if ((0x10U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][1U] 
+                    if ((0x10U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][1U] 
                             = ((0xffffff00U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][1U]) | (0xffU 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][1U]) 
+                               | (0xffU & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U]));
                     }
-                    if ((0x20U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][1U] 
+                    if ((0x20U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][1U] 
                             = ((0xffff00ffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][1U]) | (0xff00U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][1U]) 
+                               | (0xff00U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U]));
                     }
-                    if ((0x40U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][1U] 
+                    if ((0x40U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][1U] 
                             = ((0xff00ffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][1U]) | (0xff0000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][1U]) 
+                               | (0xff0000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U]));
                     }
-                    if ((0x80U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][1U] 
+                    if ((0x80U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][1U] 
                             = ((0xffffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][1U]) | (0xff000000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][1U]) 
+                               | (0xff000000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U]));
                     }
-                    if ((0x100U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][2U] 
+                    if ((0x100U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][2U] 
                             = ((0xffffff00U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][2U]) | (0xffU 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][2U]) 
+                               | (0xffU & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U]));
                     }
-                    if ((0x200U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][2U] 
+                    if ((0x200U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][2U] 
                             = ((0xffff00ffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][2U]) | (0xff00U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][2U]) 
+                               | (0xff00U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U]));
                     }
-                    if ((0x400U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][2U] 
+                    if ((0x400U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][2U] 
                             = ((0xff00ffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][2U]) | (0xff0000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][2U]) 
+                               | (0xff0000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U]));
                     }
-                    if ((0x800U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][2U] 
+                    if ((0x800U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][2U] 
                             = ((0xffffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][2U]) | (0xff000000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][2U]) 
+                               | (0xff000000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U]));
                     }
-                    if ((0x1000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][3U] 
+                    if ((0x1000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][3U] 
                             = ((0xffffff00U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][3U]) | (0xffU 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][3U]) 
+                               | (0xffU & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U]));
                     }
-                    if ((0x2000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][3U] 
+                    if ((0x2000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][3U] 
                             = ((0xffff00ffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][3U]) | (0xff00U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][3U]) 
+                               | (0xff00U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U]));
                     }
-                    if ((0x4000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][3U] 
+                    if ((0x4000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][3U] 
                             = ((0xff00ffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][3U]) | (0xff0000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][3U]) 
+                               | (0xff0000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U]));
                     }
-                    if ((0x8000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][0U][3U] 
+                    if ((0x8000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][0U][3U] 
                             = ((0xffffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][0U][3U]) | (0xff000000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][0U][3U]) 
+                               | (0xff000000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U]));
                     }
                 }
                 if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
-                    if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][0U] 
+                    if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][0U] 
                             = ((0xffffff00U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][0U]) | (0xffU 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][0U]) 
+                               | (0xffU & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U]));
                     }
-                    if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][0U] 
+                    if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][0U] 
                             = ((0xffff00ffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][0U]) | (0xff00U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][0U]) 
+                               | (0xff00U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U]));
                     }
-                    if ((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][0U] 
+                    if ((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][0U] 
                             = ((0xff00ffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][0U]) | (0xff0000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][0U]) 
+                               | (0xff0000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U]));
                     }
-                    if ((8U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][0U] 
+                    if ((8U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][0U] 
                             = ((0xffffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][0U]) | (0xff000000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][0U]) 
+                               | (0xff000000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U]));
                     }
-                    if ((0x10U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][1U] 
+                    if ((0x10U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][1U] 
                             = ((0xffffff00U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][1U]) | (0xffU 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][1U]) 
+                               | (0xffU & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U]));
                     }
-                    if ((0x20U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][1U] 
+                    if ((0x20U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][1U] 
                             = ((0xffff00ffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][1U]) | (0xff00U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][1U]) 
+                               | (0xff00U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U]));
                     }
-                    if ((0x40U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][1U] 
+                    if ((0x40U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][1U] 
                             = ((0xff00ffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][1U]) | (0xff0000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][1U]) 
+                               | (0xff0000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U]));
                     }
-                    if ((0x80U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][1U] 
+                    if ((0x80U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][1U] 
                             = ((0xffffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][1U]) | (0xff000000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][1U]) 
+                               | (0xff000000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U]));
                     }
-                    if ((0x100U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][2U] 
+                    if ((0x100U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][2U] 
                             = ((0xffffff00U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][2U]) | (0xffU 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][2U]) 
+                               | (0xffU & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U]));
                     }
-                    if ((0x200U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][2U] 
+                    if ((0x200U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][2U] 
                             = ((0xffff00ffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][2U]) | (0xff00U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][2U]) 
+                               | (0xff00U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U]));
                     }
-                    if ((0x400U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][2U] 
+                    if ((0x400U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][2U] 
                             = ((0xff00ffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][2U]) | (0xff0000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][2U]) 
+                               | (0xff0000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U]));
                     }
-                    if ((0x800U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][2U] 
+                    if ((0x800U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][2U] 
                             = ((0xffffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][2U]) | (0xff000000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][2U]) 
+                               | (0xff000000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U]));
                     }
-                    if ((0x1000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][3U] 
+                    if ((0x1000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][3U] 
                             = ((0xffffff00U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][3U]) | (0xffU 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][3U]) 
+                               | (0xffU & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U]));
                     }
-                    if ((0x2000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][3U] 
+                    if ((0x2000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][3U] 
                             = ((0xffff00ffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][3U]) | (0xff00U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][3U]) 
+                               | (0xff00U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U]));
                     }
-                    if ((0x4000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][3U] 
+                    if ((0x4000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][3U] 
                             = ((0xff00ffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][3U]) | (0xff0000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][3U]) 
+                               | (0xff0000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U]));
                     }
-                    if ((0x8000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess))) {
-                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[0U][1U][3U] 
+                    if ((0x8000U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess))) {
+                        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col[(3U 
+                                                                                & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                                                >> 4U))][1U][3U] 
                             = ((0xffffffU & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                                [0U][1U][3U]) | (0xff000000U 
-                                                 & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U]));
+                                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                        >> 4U))][1U][3U]) 
+                               | (0xff000000U & vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U]));
                     }
                 }
             }
         }
     }
-    vlTOPp->toplevel__DOT__imem_ready = ((IData)(vlTOPp->reset) 
-                                         & (0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter)));
     vlTOPp->toplevel__DOT__dmem_write_done = ((IData)(vlTOPp->reset) 
                                               & (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done));
+    vlTOPp->toplevel__DOT__imem_read_ready = ((IData)(vlTOPp->reset) 
+                                              & (0xfU 
+                                                 == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter)));
     vlTOPp->toplevel__DOT__dmem_read_ready = ((IData)(vlTOPp->reset) 
                                               & (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready));
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex)))) {
@@ -631,14 +728,6 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                 = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_JumpJALR;
         }
     }
-    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem)))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite = 0U;
-    } else {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
-            vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite 
-                = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemWrite;
-        }
-    }
     if (vlTOPp->reset) {
         if ((1U & ((~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)) 
                    | (IData)(vlTOPp->toplevel__DOT__dmem_ren)))) {
@@ -651,15 +740,15 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         } else {
             if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__flag)))) {
                 vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[0U] 
-                    = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[0U];
+                    = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[0U];
                 vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
                 vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[1U] 
-                    = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[1U];
+                    = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[1U];
                 __Vdly__toplevel__DOT__Data_Mem__DOT__flag = 1U;
                 vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[2U] 
-                    = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[2U];
+                    = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[2U];
                 vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3U] 
-                    = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[3U];
+                    = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[3U];
             }
         }
     } else {
@@ -671,6 +760,17 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din[3U] = 0U;
     }
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem)))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite = 0U;
+    } else {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
+            vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite 
+                = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemWrite;
+        }
+    }
+    vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__state 
+        = ((IData)(vlTOPp->reset) ? (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__next_state)
+            : 0U);
+    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemRead = 0U;
     } else {
         if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
@@ -678,9 +778,6 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                 = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemRead;
         }
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__state 
-        = ((IData)(vlTOPp->reset) ? (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__next_state)
-            : 0U);
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_funct7 = 0U;
     } else {
@@ -689,6 +786,68 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                 = (0x7fU & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr 
                             >> 0x19U));
         }
+    }
+    if (vlTOPp->reset) {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheRen)))) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen) {
+                if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 
+                        = (0x7fU & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                    >> 6U));
+                    __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 = 1U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
+                }
+                if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 
+                        = (0x7fU & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                    >> 6U));
+                    __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 = 1U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
+                }
+            }
+        }
+    } else {
+        __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v2 = 1U;
+    }
+    if (vlTOPp->reset) {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheRen)))) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen) {
+                if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0[0U] 
+                        = vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[0U];
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0[1U] 
+                        = vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[1U];
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0[2U] 
+                        = vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[2U];
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0[3U] 
+                        = vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[3U];
+                    __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0 = 1U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
+                }
+                if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1[0U] 
+                        = vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[0U];
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1[1U] 
+                        = vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[1U];
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1[2U] 
+                        = vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[2U];
+                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1[3U] 
+                        = vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[3U];
+                    __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1 = 1U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
+                }
+            }
+        }
+    } else {
+        __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v2 = 1U;
     }
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_BranchALUOut = 0U;
@@ -702,67 +861,21 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         }
     }
     if (vlTOPp->reset) {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen)))) {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) {
-                if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 = 0U;
-                    __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v0 = 0U;
-                }
-                if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 = 0U;
-                    __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v1 = 0U;
-                }
-            }
-        }
-    } else {
-        __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__tag_col__v2 = 1U;
-    }
-    if (vlTOPp->reset) {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen)))) {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) {
-                if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0[0U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[0U];
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0[1U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[1U];
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0[2U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[2U];
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0[3U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[3U];
-                    __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v0 = 0U;
-                }
-                if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1[0U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[0U];
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1[1U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[1U];
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1[2U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[2U];
-                    __Vdlyvval__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1[3U] 
-                        = vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[3U];
-                    __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v1 = 0U;
-                }
-            }
-        }
-    } else {
-        __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__data_col__v2 = 1U;
-    }
-    if (vlTOPp->reset) {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen)))) {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheRen)))) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen) {
                 if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v0 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v0 = 0U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v0 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v0 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
                 }
                 if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v1 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v1 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v1 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__valid_col__v1 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
                 }
             }
         }
@@ -795,18 +908,26 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__MEMWB_funct3 = 7U;
     }
     if (vlTOPp->reset) {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen)))) {
-            if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen)))) {
-                if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen) {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen)))) {
+            if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen)))) {
+                if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen) {
                     if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
-                        __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v0 = 0U;
+                        __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v0 
+                            = (0xfU & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                       >> 6U));
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v0 = 1U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v0 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v0 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                     if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
-                        __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v1 = 0U;
+                        __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v1 
+                            = (0xfU & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                       >> 6U));
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v1 = 1U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v1 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v1 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                 }
             }
@@ -815,18 +936,22 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col__v2 = 1U;
     }
     if (vlTOPp->reset) {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen)))) {
-            if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen)))) {
-                if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen) {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen)))) {
+            if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen)))) {
+                if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen) {
                     if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col__v0 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col__v0 = 0U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col__v0 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col__v0 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                     if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col__v1 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col__v1 = 1U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col__v1 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col__v1 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                 }
             }
@@ -835,32 +960,36 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col__v2 = 1U;
     }
     if (vlTOPp->reset) {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen)))) {
-            if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen)))) {
-                if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen) {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen)))) {
+            if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen)))) {
+                if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen) {
                     if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
                         __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v0[0U] 
-                            = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U];
+                            = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U];
                         __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v0[1U] 
-                            = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U];
+                            = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U];
                         __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v0[2U] 
-                            = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U];
+                            = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U];
                         __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v0[3U] 
-                            = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U];
+                            = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U];
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v0 = 1U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v0 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v0 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                     if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
                         __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1[0U] 
-                            = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U];
+                            = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U];
                         __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1[1U] 
-                            = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U];
+                            = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U];
                         __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1[2U] 
-                            = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U];
+                            = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U];
                         __Vdlyvval__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1[3U] 
-                            = vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U];
+                            = vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U];
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1 = 1U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v1 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                 }
             }
@@ -869,47 +998,63 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__data_col__v2 = 1U;
     }
     if (vlTOPp->reset) {
-        if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen) {
+        if (vlTOPp->toplevel__DOT__cpu__DOT__icacheRen) {
             if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg))) {
                 __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v0 = 1U;
                 __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v0 = 0U;
-                __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v0 = 0U;
+                __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v0 
+                    = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                             >> 4U));
                 if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__statusFullOne))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v1 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v1 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v1 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v1 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
                 }
             }
             if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg))) {
                 __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v2 = 1U;
                 __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v2 = 1U;
-                __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v2 = 0U;
+                __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v2 
+                    = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                             >> 4U));
                 if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__statusFullOne))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v3 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v3 = 0U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v3 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v3 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
                 }
             }
         } else {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen) {
                 if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v4 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v4 = 0U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v4 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v4 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
                     if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__statusFullOne))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v5 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v5 = 1U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v5 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v5 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                     >> 4U));
                     }
                 }
                 if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v6 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v6 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v6 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v6 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                 >> 4U));
                     if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__statusFullOne))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v7 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v7 = 0U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v7 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Icache__DOT__status_col__v7 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                     >> 4U));
                     }
                 }
             }
@@ -928,8 +1073,9 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
     if (vlTOPp->reset) {
         if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
             vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__MEMWB_DMemOut 
-                = ((IData)(vlTOPp->reset) ? (1U & vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[0U])
-                    : 0U);
+                = ((IData)(vlTOPp->reset) ? vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[
+                   (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                          >> 2U))] : 0U);
         }
     } else {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__MEMWB_DMemOut = 0U;
@@ -967,29 +1113,37 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         }
     }
     if (vlTOPp->reset) {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen)))) {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen) {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen)))) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen) {
                 if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v0 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v0 = 0U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v0 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v0 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                 >> 4U));
                 }
                 if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v1 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v1 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v1 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v1 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                 >> 4U));
                 }
             } else {
-                if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen) {
+                if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen) {
                     if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v2 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v2 = 0U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v2 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v2 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                     if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v3 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v3 = 1U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v3 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col__v3 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                 }
             }
@@ -1010,69 +1164,93 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         __Vdlyvset__toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_regs__DOT__data__v1 = 1U;
     }
     if (vlTOPp->reset) {
-        if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen) {
+        if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen) {
             if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
                 __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v0 = 1U;
                 __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v0 = 0U;
-                __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v0 = 0U;
+                __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v0 
+                    = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                             >> 4U));
                 if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v1 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v1 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v1 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v1 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                 >> 4U));
                 }
             }
             if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
                 __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v2 = 1U;
                 __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v2 = 1U;
-                __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v2 = 0U;
+                __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v2 
+                    = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                             >> 4U));
                 if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v3 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v3 = 0U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v3 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v3 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                 >> 4U));
                 }
             }
         } else {
-            if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen) {
+            if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen) {
                 if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v4 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v4 = 0U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v4 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v4 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                 >> 4U));
                     if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v5 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v5 = 1U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v5 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v5 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                 }
                 if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
                     __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v6 = 1U;
                     __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v6 = 1U;
-                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v6 = 0U;
+                    __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v6 
+                        = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                 >> 4U));
                     if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v7 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v7 = 0U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v7 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v7 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                     }
                 }
             } else {
-                if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen) {
+                if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen) {
                     if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v8 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v8 = 0U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v8 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v8 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                         if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne))) {
                             __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v9 = 1U;
                             __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v9 = 1U;
-                            __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v9 = 0U;
+                            __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v9 
+                                = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                         >> 4U));
                         }
                     }
                     if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict))) {
                         __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v10 = 1U;
                         __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v10 = 1U;
-                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v10 = 0U;
+                        __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v10 
+                            = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U));
                         if ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne))) {
                             __Vdlyvset__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v11 = 1U;
                             __Vdlyvlsb__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v11 = 0U;
-                            __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v11 = 0U;
+                            __Vdlyvdim0__toplevel__DOT__cpu__DOT__Dcache__DOT__status_col__v11 
+                                = (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                         >> 4U));
                         }
                     }
                 }
@@ -1466,18 +1644,18 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
     if ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
         vlTOPp->toplevel__DOT__imem_ren = 1U;
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__IcacheStall = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__icacheStall = 0U;
     if ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__IcacheStall = 1U;
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheStall = 1U;
     } else {
         if ((2U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheStall = 1U;
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheStall = 1U;
         }
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen = 0U;
     if ((1U != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
         if ((2U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))) {
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen = 1U;
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen = 1U;
         }
     }
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex)))) {
@@ -1488,7 +1666,6 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                 = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__Branch;
         }
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite;
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemWrite = 0U;
     } else {
@@ -1497,21 +1674,12 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                 = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__MemWrite;
         }
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemRead;
-    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex)))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemRead = 0U;
-    } else {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
-            vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemRead 
-                = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__MemRead;
-        }
-    }
     vlTOPp->__Vtableidx3 = vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__state;
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheStall = 
-        vlTOPp->__Vtable3_toplevel__DOT__cpu__DOT__DcacheStall
+    vlTOPp->toplevel__DOT__cpu__DOT__dcacheStall = 
+        vlTOPp->__Vtable3_toplevel__DOT__cpu__DOT__dcacheStall
         [vlTOPp->__Vtableidx3];
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen = 
-        vlTOPp->__Vtable3_toplevel__DOT__cpu__DOT__DcacheMemWen
+    vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen = 
+        vlTOPp->__Vtable3_toplevel__DOT__cpu__DOT__dcacheMemWen
         [vlTOPp->__Vtableidx3];
     vlTOPp->toplevel__DOT__dmem_ren = vlTOPp->__Vtable3_toplevel__DOT__dmem_ren
         [vlTOPp->__Vtableidx3];
@@ -1520,6 +1688,14 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
     vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__replace 
         = vlTOPp->__Vtable3_toplevel__DOT__cpu__DOT__Dcntr__DOT__replace
         [vlTOPp->__Vtableidx3];
+    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex)))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemRead = 0U;
+    } else {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
+            vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemRead 
+                = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__MemRead;
+        }
+    }
     if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_signExtend = 0U;
     } else {
@@ -1589,6 +1765,14 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         }
     } else {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__MEMWB_RegWriteAddr = 0U;
+    }
+    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem)))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut = 0U;
+    } else {
+        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
+            vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_alu__DOT__out_val;
+        }
     }
     if (VL_UNLIKELY(((IData)(vlTOPp->toplevel__DOT__dmem_ren) 
                      & (IData)(vlTOPp->toplevel__DOT__dmem_wen)))) {
@@ -1663,6 +1847,24 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                     : (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_instr_rs2));
         }
     }
+    vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne 
+        = (3U & ((~ vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__status_col
+                  [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                          >> 4U))]) & ((~ vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__status_col
+                                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                >> 4U))]) 
+                                       - (IData)(1U))));
+    vlTOPp->__Vtableidx2 = (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_Zero) 
+                             << 5U) | ((0x10U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                 >> 0x1bU)) 
+                                       | (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3) 
+                                           << 1U) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_Branch))));
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__branch_taken 
+        = vlTOPp->__Vtable2_toplevel__DOT__cpu__DOT__pipeline__DOT__branch_taken
+        [vlTOPp->__Vtableidx2];
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PCSrc 
+        = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_JumpJALR) 
+           | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__branch_taken));
     vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUOp 
         = ((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_ALUcntrl))
             ? ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_ALUcntrl))
@@ -1775,6 +1977,20 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                             >> 0x14U));
         }
     }
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem = 0U;
+    if (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PCSrc) {
+        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem = 1U;
+    }
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassOutA 
+        = ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassA))
+            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_rdA
+            : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassA))
+                ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__wRegData
+                : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut));
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInA 
+        = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_inA_is_PC)
+            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_PC
+            : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassOutA);
     vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassB 
         = ((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_RegWrite) 
              & (0U != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_RegWriteAddr))) 
@@ -1791,10 +2007,23 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         if (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__write_ifid) 
              & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
             vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr 
-                = ((IData)(vlTOPp->reset) ? (1U & vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[0U])
-                    : 0U);
+                = ((IData)(vlTOPp->reset) ? vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[
+                   (3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                          >> 2U))] : 0U);
         }
     }
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassOutB 
+        = ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassB))
+            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_rdB
+            : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassB))
+                ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__wRegData
+                : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut));
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInB 
+        = (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_Jump) 
+            | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_JumpJALR))
+            ? 4U : ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_ALUSrc)
+                     ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_signExtend
+                     : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassOutB));
     if (vlTOPp->reset) {
         if (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__write_pc) 
              & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
@@ -1803,6 +2032,19 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
         }
     } else {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC = 0U;
+    }
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex = 0U;
+    if (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemRead) 
+         & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_instr_rd) 
+             == (0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr 
+                          >> 0xfU))) | ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_instr_rd) 
+                                        == (0x1fU & 
+                                            (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr 
+                                             >> 0x14U)))))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex = 1U;
+    }
+    if (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PCSrc) {
+        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex = 1U;
     }
     vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__imm_i 
         = ((0xfffff000U & ((- (IData)((1U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr 
@@ -1853,6 +2095,12 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                                              >> 0x14U)))))) {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__write_ifid = 0U;
     }
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_alu__DOT__unsigned_sub 
+        = (0x1ffffffffULL & ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInA)) 
+                             - (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInB))));
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache 
+        = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheStall) 
+           | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheStall));
     vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__signExtend 
         = ((0x40U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr)
             ? ((0x20U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr)
@@ -1970,288 +2218,6 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__3(Vtoplevel__Syms* __restrict vlSym
                                                      ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__imm_i
                                                      : 0U)
                                                     : 0U))))));
-    vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__write_ifid;
-    vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__statusFullOne 
-        = (3U & ((~ vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col
-                  [0U]) & ((~ vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col
-                            [0U]) - (IData)(1U))));
-}
-
-VL_INLINE_OPT void Vtoplevel::_sequent__TOP__4(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__4\n"); );
-    Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter 
-        = ((IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset)
-            ? 0U : (0xfU & ((IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delayed)
-                             ? (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)
-                             : ((IData)(1U) + (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)))));
-    vlTOPp->toplevel__DOT__Data_Mem__DOT__delayed = 
-        (0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter));
-}
-
-VL_INLINE_OPT void Vtoplevel::_sequent__TOP__5(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__5\n"); );
-    Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Variables
-    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0;
-    CData/*0:0*/ __Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0;
-    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v1;
-    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v2;
-    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v3;
-    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0;
-    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v1;
-    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v2;
-    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v3;
-    // Body
-    if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done) {
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
-    }
-    __Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0 = 0U;
-    if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done) {
-        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0 
-            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
-            [0U];
-        __Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0 = 1U;
-        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0 = 0U;
-        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v1 
-            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
-            [1U];
-        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v1 = 0U;
-        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v2 
-            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
-            [2U];
-        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v2 = 0U;
-        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v3 
-            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
-            [3U];
-        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v3 = 0U;
-    }
-    if (__Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0) {
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0][0U] 
-            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0;
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v1][1U] 
-            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v1;
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v2][2U] 
-            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v2;
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v3][3U] 
-            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v3;
-    }
-}
-
-VL_INLINE_OPT void Vtoplevel::_sequent__TOP__7(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__7\n"); );
-    Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter 
-        = vlTOPp->__Vdly__toplevel__DOT__Instruction_Mem__DOT__delay_counter;
-    vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delayed 
-        = (0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter));
-    if ((0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter))) {
-        vlTOPp->toplevel__DOT__Instruction_Mem__DOT__i = 4U;
-    }
-}
-
-VL_INLINE_OPT void Vtoplevel::_combo__TOP__8(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_combo__TOP__8\n"); );
-    Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset 
-        = (1U & ((~ (IData)(vlTOPp->reset)) | (~ (IData)(vlTOPp->toplevel__DOT__imem_ren))));
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen = (((IData)(vlTOPp->reset) 
-                                                   & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen)) 
-                                                  & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen)));
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen = (((IData)(vlTOPp->reset) 
-                                                   & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen)) 
-                                                  & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen)));
-    if (((IData)(vlTOPp->reset) & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen) 
-                                    | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen)) 
-                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen)))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__mask = 3U;
-    }
-    vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen = ((IData)(vlTOPp->reset) 
-                                                  & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen));
-    if (((IData)(vlTOPp->reset) & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) 
-                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen)))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__mask = 3U;
-    }
-    if (((IData)(vlTOPp->reset) & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__i = 2U;
-    }
-    if (((IData)(vlTOPp->reset) & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) 
-                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen)))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__i = 2U;
-    }
-    vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict = 0U;
-    if (((IData)(vlTOPp->reset) & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen) 
-                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen)))) {
-        if ((3U == vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
-             [0U])) {
-            vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict 
-                = ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict)) 
-                   | (0U == (1U & vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col
-                             [0U])));
-            vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict 
-                = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict)) 
-                   | ((1U == (3U & vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col
-                              [0U])) << 1U));
-        } else {
-            vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict 
-                = ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict)) 
-                   | (0U == (1U & vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
-                             [0U])));
-            vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict 
-                = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict)) 
-                   | ((1U == (3U & vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
-                              [0U])) << 1U));
-        }
-    }
-    vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[0U] = 0U;
-    vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[1U] = 0U;
-    vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[2U] = 0U;
-    vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[3U] = 0U;
-    vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg = 0U;
-    if (((IData)(vlTOPp->reset) & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg 
-            = ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg)) 
-               | (vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
-                  [0U] & (0U == vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                          [0U][0U])));
-        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg 
-            = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg)) 
-               | (0xfffffffeU & (vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
-                                 [0U] & ((0U == vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
-                                          [0U][1U]) 
-                                         << 1U))));
-        if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg))) {
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[0U] 
-                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
-                [0U][0U][0U];
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[1U] 
-                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
-                [0U][0U][1U];
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[2U] 
-                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
-                [0U][0U][2U];
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[3U] 
-                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
-                [0U][0U][3U];
-        }
-        if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg))) {
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[0U] 
-                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
-                [0U][1U][0U];
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[1U] 
-                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
-                [0U][1U][1U];
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[2U] 
-                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
-                [0U][1U][2U];
-            vlTOPp->toplevel__DOT__cpu__DOT__IcacheDout[3U] 
-                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
-                [0U][1U][3U];
-        }
-    }
-    vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset 
-        = (1U & (((~ (IData)(vlTOPp->reset)) | ((~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)) 
-                                                & (~ (IData)(vlTOPp->toplevel__DOT__dmem_ren)))) 
-                 | ((IData)(vlTOPp->toplevel__DOT__dmem_wen) 
-                    & (IData)(vlTOPp->toplevel__DOT__dmem_ren))));
-    vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__next_state 
-        = ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))
-            ? (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen) 
-                & (~ (IData)((0U != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg)))))
-                ? 1U : 0U) : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))
-                               ? ((IData)(vlTOPp->toplevel__DOT__imem_read_ready)
-                                   ? 2U : 1U) : 0U));
-}
-
-VL_INLINE_OPT void Vtoplevel::_multiclk__TOP__9(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_multiclk__TOP__9\n"); );
-    Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready 
-        = (((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
-            & (IData)(vlTOPp->toplevel__DOT__dmem_ren)) 
-           & (~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)));
-    vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done 
-        = (((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
-            & (~ (IData)(vlTOPp->toplevel__DOT__dmem_ren))) 
-           & (IData)(vlTOPp->toplevel__DOT__dmem_wen));
-    if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready) {
-        vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
-    }
-}
-
-VL_INLINE_OPT void Vtoplevel::_sequent__TOP__10(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__10\n"); );
-    Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    if ((1U & ((~ (IData)(vlTOPp->reset)) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem)))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut = 0U;
-    } else {
-        if ((1U & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache)))) {
-            vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
-                = vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_alu__DOT__out_val;
-        }
-    }
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__stall_from_cache 
-        = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheStall) 
-           | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheStall));
-    vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__statusFullOne 
-        = (3U & ((~ vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__status_col
-                  [0U]) & ((~ vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__status_col
-                            [0U]) - (IData)(1U))));
-    vlTOPp->__Vtableidx2 = (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_Zero) 
-                             << 5U) | ((0x10U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
-                                                 >> 0x1bU)) 
-                                       | (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3) 
-                                           << 1U) | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_Branch))));
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__branch_taken 
-        = vlTOPp->__Vtable2_toplevel__DOT__cpu__DOT__pipeline__DOT__branch_taken
-        [vlTOPp->__Vtableidx2];
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassOutA 
-        = ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassA))
-            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_rdA
-            : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassA))
-                ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__wRegData
-                : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut));
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassOutB 
-        = ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassB))
-            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_rdB
-            : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassB))
-                ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__wRegData
-                : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut));
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PCSrc 
-        = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_JumpJALR) 
-           | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__branch_taken));
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInA 
-        = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_inA_is_PC)
-            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_PC
-            : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassOutA);
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInB 
-        = (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_Jump) 
-            | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_JumpJALR))
-            ? 4U : ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_ALUSrc)
-                     ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_signExtend
-                     : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bypassOutB));
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem = 0U;
-    if (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PCSrc) {
-        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_exmem = 1U;
-    }
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex = 0U;
-    if (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemRead) 
-         & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_instr_rd) 
-             == (0x1fU & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr 
-                          >> 0xfU))) | ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_instr_rd) 
-                                        == (0x1fU & 
-                                            (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_instr 
-                                             >> 0x14U)))))) {
-        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex = 1U;
-    }
-    if (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PCSrc) {
-        vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_idex = 1U;
-    }
     vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__bubble_ifid = 0U;
     if ((1U & (~ ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_MemRead) 
                   & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IDEX_instr_rd) 
@@ -2285,16 +2251,6 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__10(Vtoplevel__Syms* __restrict vlSy
     if (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PCSrc) {
         vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__write_pc = 1U;
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC_new 
-        = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PCSrc)
-            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_BranchALUOut
-            : ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__Jump)
-                ? (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_PC 
-                   + vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__signExtend)
-                : ((IData)(4U) + vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC)));
-    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__cpu_alu__DOT__unsigned_sub 
-        = (0x1ffffffffULL & ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInA)) 
-                             - (QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInB))));
     vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__overflow 
         = (1U & (IData)((1ULL & (((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUOp))
                                    ? ((QData)((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInA)) 
@@ -2462,25 +2418,116 @@ VL_INLINE_OPT void Vtoplevel::_sequent__TOP__10(Vtoplevel__Syms* __restrict vlSy
                                                                              (0xfffff000U 
                                                                               & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__ALUInB))))
                                                            : 0ULL)))))))))))))));
+    vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__statusFullOne 
+        = (3U & ((~ vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col
+                  [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                          >> 4U))]) & ((~ vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col
+                                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                                >> 4U))]) 
+                                       - (IData)(1U))));
+    vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC_new 
+        = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PCSrc)
+            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_BranchALUOut
+            : ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__Jump)
+                ? (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__IFID_PC 
+                   + vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__signExtend)
+                : ((IData)(4U) + vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC)));
 }
 
-VL_INLINE_OPT void Vtoplevel::_multiclk__TOP__11(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_multiclk__TOP__11\n"); );
+VL_INLINE_OPT void Vtoplevel::_sequent__TOP__4(Vtoplevel__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__4\n"); );
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter 
+        = ((IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset)
+            ? 0U : (0xfU & ((IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delayed)
+                             ? (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)
+                             : ((IData)(1U) + (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)))));
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__delayed = 
+        (0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter));
+}
+
+VL_INLINE_OPT void Vtoplevel::_sequent__TOP__5(Vtoplevel__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__5\n"); );
+    Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Variables
+    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0;
+    CData/*0:0*/ __Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0;
+    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v1;
+    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v2;
+    CData/*5:0*/ __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v3;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v1;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v2;
+    IData/*31:0*/ __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v3;
+    // Body
+    if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done) {
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
+    }
+    __Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0 = 0U;
+    if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done) {
+        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0 
+            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
+            [0U];
+        __Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0 = 1U;
+        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0 
+            = vlTOPp->toplevel__DOT__dmem_block_address;
+        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v1 
+            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
+            [1U];
+        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v1 
+            = vlTOPp->toplevel__DOT__dmem_block_address;
+        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v2 
+            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
+            [2U];
+        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v2 
+            = vlTOPp->toplevel__DOT__dmem_block_address;
+        __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v3 
+            = vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_din
+            [3U];
+        __Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v3 
+            = vlTOPp->toplevel__DOT__dmem_block_address;
+    }
+    if (__Vdlyvset__toplevel__DOT__Data_Mem__DOT__data__v0) {
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v0][0U] 
+            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v0;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v1][1U] 
+            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v1;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v2][2U] 
+            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v2;
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__data[__Vdlyvdim0__toplevel__DOT__Data_Mem__DOT__data__v3][3U] 
+            = __Vdlyvval__toplevel__DOT__Data_Mem__DOT__data__v3;
+    }
+}
+
+VL_INLINE_OPT void Vtoplevel::_sequent__TOP__7(Vtoplevel__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_sequent__TOP__7\n"); );
+    Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter 
+        = vlTOPp->__Vdly__toplevel__DOT__Instruction_Mem__DOT__delay_counter;
+    vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delayed 
+        = (0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter));
+    if ((0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter))) {
+        vlTOPp->toplevel__DOT__Instruction_Mem__DOT__i = 4U;
+    }
     if ((0xfU == (IData)(vlTOPp->toplevel__DOT__Instruction_Mem__DOT__delay_counter))) {
         vlTOPp->toplevel__DOT__imem_dout[0U] = 0U;
         vlTOPp->toplevel__DOT__imem_dout[1U] = 0U;
         vlTOPp->toplevel__DOT__imem_dout[2U] = 0U;
         vlTOPp->toplevel__DOT__imem_dout[3U] = 0U;
         vlTOPp->toplevel__DOT__imem_dout[0U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-            [0U][0U];
+            [vlTOPp->toplevel__DOT__imem_block_address]
+            [0U];
         vlTOPp->toplevel__DOT__imem_dout[1U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-            [0U][1U];
+            [vlTOPp->toplevel__DOT__imem_block_address]
+            [1U];
         vlTOPp->toplevel__DOT__imem_dout[2U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-            [0U][2U];
+            [vlTOPp->toplevel__DOT__imem_block_address]
+            [2U];
         vlTOPp->toplevel__DOT__imem_dout[3U] = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__data
-            [0U][3U];
+            [vlTOPp->toplevel__DOT__imem_block_address]
+            [3U];
     } else {
         vlTOPp->toplevel__DOT__imem_dout[0U] = 0U;
         vlTOPp->toplevel__DOT__imem_dout[1U] = 0U;
@@ -2489,187 +2536,369 @@ VL_INLINE_OPT void Vtoplevel::_multiclk__TOP__11(Vtoplevel__Syms* __restrict vlS
     }
 }
 
-VL_INLINE_OPT void Vtoplevel::_combo__TOP__12(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_combo__TOP__12\n"); );
+VL_INLINE_OPT void Vtoplevel::_combo__TOP__8(Vtoplevel__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_combo__TOP__8\n"); );
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen = (((IData)(vlTOPp->reset) 
+                                                   & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemRead)) 
+                                                  & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite)));
+    vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen = (((IData)(vlTOPp->reset) 
+                                                   & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite)) 
+                                                  & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemRead)));
+    vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset 
+        = (1U & ((~ (IData)(vlTOPp->reset)) | (~ (IData)(vlTOPp->toplevel__DOT__imem_ren))));
     if (vlTOPp->reset) {
-        vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess = 0U;
-        vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess 
-            = ((0xfffffff0U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess)) 
-               | (0xfU & ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
-                           ? ((IData)(1U) << (3U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut))
-                           : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
-                               ? ((2U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
-                                   ? 0xcU : 3U) : 0xfU))));
+        vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess 
+            = (((~ ((IData)(0xfU) << (0xcU & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut))) 
+                & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess)) 
+               | ((0xfU & ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
+                            ? ((IData)(1U) << (3U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut))
+                            : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
+                                ? ((2U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
+                                    ? 0xcU : 3U) : 0xfU))) 
+                  << (0xcU & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)));
     } else {
-        vlTOPp->toplevel__DOT__cpu__DOT__DcacheBytesAccess = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__bytesAccess = 0U;
     }
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDirtyBit = 0U;
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[0U] = 0U;
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[1U] = 0U;
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[2U] = 0U;
-    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[3U] = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__icacheRen = ((IData)(vlTOPp->reset) 
+                                                  & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__write_ifid));
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset 
+        = (1U & (((~ (IData)(vlTOPp->reset)) | ((~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)) 
+                                                & (~ (IData)(vlTOPp->toplevel__DOT__dmem_ren)))) 
+                 | ((IData)(vlTOPp->toplevel__DOT__dmem_wen) 
+                    & (IData)(vlTOPp->toplevel__DOT__dmem_ren))));
+    if (vlTOPp->reset) {
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[0U] 
+            = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen)
+                ? vlTOPp->toplevel__DOT__imem_dout[0U]
+                : 0U);
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[1U] 
+            = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen)
+                ? vlTOPp->toplevel__DOT__imem_dout[1U]
+                : 0U);
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[2U] 
+            = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen)
+                ? vlTOPp->toplevel__DOT__imem_dout[2U]
+                : 0U);
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[3U] 
+            = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen)
+                ? vlTOPp->toplevel__DOT__imem_dout[3U]
+                : 0U);
+    } else {
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[0U] = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[1U] = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[2U] = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__icacheDin[3U] = 0U;
+    }
+    if (((IData)(vlTOPp->reset) & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen) 
+                                    | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen)) 
+                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen)))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__mask = 3U;
+    }
+    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDirtyBit = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[0U] = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[1U] = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[2U] = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[3U] = 0U;
     vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg = 0U;
     vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict = 0U;
-    if (((IData)(vlTOPp->reset) & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen) 
-                                    | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen)) 
-                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen)))) {
+    if (((IData)(vlTOPp->reset) & (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheRen) 
+                                    | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheWen)) 
+                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen)))) {
         vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg 
             = ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg)) 
-               | ((0U == vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col
-                   [0U][0U]) & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
-                  [0U]));
+               | ((vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col
+                   [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                           >> 4U))][0U] == (0xfU & 
+                                            (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                             >> 6U))) 
+                  & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
+                  [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                          >> 4U))]));
         vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict 
             = ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict)) 
                | ((3U == vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
-                   [0U]) ? (0U == (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__status_col
-                                   [0U])) : (0U == 
-                                             (1U & 
-                                              vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
-                                              [0U]))));
+                   [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                           >> 4U))]) ? (0U == (1U & 
+                                               vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__status_col
+                                               [(3U 
+                                                 & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                    >> 4U))]))
+                   : (0U == (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
+                             [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U))]))));
         vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg 
             = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg)) 
-               | (0xfffffffeU & (((0U == vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col
-                                   [0U][1U]) << 1U) 
-                                 & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
-                                 [0U])));
+               | (0xfffffffeU & (((vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__tag_col
+                                   [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                           >> 4U))]
+                                   [1U] == (0xfU & 
+                                            (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                             >> 6U))) 
+                                  << 1U) & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
+                                 [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                         >> 4U))])));
         vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict 
             = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict)) 
                | (((3U == vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
-                    [0U]) ? (1U == (3U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__status_col
-                                    [0U])) : (1U == 
-                                              (3U & 
-                                               vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
-                                               [0U]))) 
-                  << 1U));
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))]) ? (1U == (3U 
+                                                & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__status_col
+                                                [(3U 
+                                                  & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                                     >> 4U))]))
+                    : (1U == (3U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__valid_col
+                              [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                      >> 4U))]))) << 1U));
         if ((0U != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg))) {
             if ((1U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg) 
                        >> (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__j)))) {
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[0U] 
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[0U] 
                     = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                    [0U][0U][0U];
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[1U] 
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][0U][0U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[1U] 
                     = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                    [0U][0U][1U];
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[2U] 
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][0U][1U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[2U] 
                     = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                    [0U][0U][2U];
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[3U] 
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][0U][2U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[3U] 
                     = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                    [0U][0U][3U];
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDirtyBit 
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][0U][3U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDirtyBit 
                     = (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col
-                       [0U]);
+                       [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                               >> 4U))]);
             }
             vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i = 2U;
             if ((1U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg) 
                        >> (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__j)))) {
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[0U] 
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[0U] 
                     = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                    [0U][1U][0U];
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[1U] 
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][1U][0U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[1U] 
                     = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                    [0U][1U][1U];
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[2U] 
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][1U][1U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[2U] 
                     = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                    [0U][1U][2U];
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[3U] 
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][1U][2U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[3U] 
                     = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                    [0U][1U][3U];
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDirtyBit 
+                    [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                            >> 4U))][1U][3U];
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDirtyBit 
                     = (1U & (vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col
-                             [0U] >> 1U));
+                             [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                     >> 4U))] >> 1U));
             }
         } else {
             vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i = 0U;
             while (VL_GTS_III(1,32,32, 2U, vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__m)) {
                 if ((1U & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__blockToEvict) 
                            >> (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)))) {
-                    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[0U] 
+                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[0U] 
                         = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                        [0U][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][0U];
-                    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[1U] 
+                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                >> 4U))][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][0U];
+                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[1U] 
                         = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                        [0U][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][1U];
-                    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[2U] 
+                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                >> 4U))][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][1U];
+                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[2U] 
                         = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                        [0U][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][2U];
-                    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDout[3U] 
+                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                >> 4U))][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][2U];
+                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDout[3U] 
                         = vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__data_col
-                        [0U][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][3U];
-                    vlTOPp->toplevel__DOT__cpu__DOT__DcacheDirtyBit 
+                        [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                >> 4U))][(1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)][3U];
+                    vlTOPp->toplevel__DOT__cpu__DOT__dcacheDirtyBit 
                         = (1U & (vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__dirty_col
-                                 [0U] >> (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)));
+                                 [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                         >> 4U))] >> 
+                                 (1U & vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i)));
                 }
                 vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i 
                     = ((IData)(1U) + vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__i);
             }
         }
     }
-    if (vlTOPp->reset) {
-        vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[0U] 
-            = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen)
-                ? vlTOPp->toplevel__DOT__imem_dout[0U]
-                : 0U);
-        vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[1U] 
-            = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen)
-                ? vlTOPp->toplevel__DOT__imem_dout[1U]
-                : 0U);
-        vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[2U] 
-            = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen)
-                ? vlTOPp->toplevel__DOT__imem_dout[2U]
-                : 0U);
-        vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[3U] 
-            = ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__IcacheMemWen)
-                ? vlTOPp->toplevel__DOT__imem_dout[3U]
-                : 0U);
-    } else {
-        vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[0U] = 0U;
-        vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[1U] = 0U;
-        vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[2U] = 0U;
-        vlTOPp->toplevel__DOT__cpu__DOT__IcacheDin[3U] = 0U;
+    if (((IData)(vlTOPp->reset) & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen) 
+                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheRen)))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__mask = 3U;
+    }
+    if (((IData)(vlTOPp->reset) & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheRen))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__i = 2U;
+    }
+    if (((IData)(vlTOPp->reset) & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen) 
+                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheRen)))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__i = 2U;
+    }
+    vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict = 0U;
+    if (((IData)(vlTOPp->reset) & ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheMemWen) 
+                                   | (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheRen)))) {
+        if ((3U == vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
+             [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                     >> 4U))])) {
+            vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict 
+                = ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict)) 
+                   | (0U == (1U & vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col
+                             [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                     >> 4U))])));
+            vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict 
+                = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict)) 
+                   | ((1U == (3U & vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__status_col
+                              [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                      >> 4U))])) << 1U));
+        } else {
+            vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict 
+                = ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict)) 
+                   | (0U == (1U & vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
+                             [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                     >> 4U))])));
+            vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict 
+                = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__blockToEvict)) 
+                   | ((1U == (3U & vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
+                              [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                      >> 4U))])) << 1U));
+        }
+    }
+    vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[0U] = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[1U] = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[2U] = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[3U] = 0U;
+    vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg = 0U;
+    if (((IData)(vlTOPp->reset) & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icacheRen))) {
+        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg 
+            = ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg)) 
+               | (vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
+                  [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                          >> 4U))] & (vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
+                                      [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                              >> 4U))]
+                                      [0U] == (0x7fU 
+                                               & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                                  >> 6U)))));
+        vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg 
+            = ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg)) 
+               | (0xfffffffeU & (vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__valid_col
+                                 [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                         >> 4U))] & 
+                                 ((vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__tag_col
+                                   [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                           >> 4U))]
+                                   [1U] == (0x7fU & 
+                                            (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                                             >> 6U))) 
+                                  << 1U))));
+        if ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg))) {
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[0U] 
+                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                        >> 4U))][0U][0U];
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[1U] 
+                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                        >> 4U))][0U][1U];
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[2U] 
+                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                        >> 4U))][0U][2U];
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[3U] 
+                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                        >> 4U))][0U][3U];
+        }
+        if ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg))) {
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[0U] 
+                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                        >> 4U))][1U][0U];
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[1U] 
+                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                        >> 4U))][1U][1U];
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[2U] 
+                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                        >> 4U))][1U][2U];
+            vlTOPp->toplevel__DOT__cpu__DOT__icacheDout[3U] 
+                = vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__data_col
+                [(3U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__PC 
+                        >> 4U))][1U][3U];
+        }
     }
     vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__next_state 
         = ((4U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__state))
             ? 0U : ((2U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__state))
                      ? ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__state))
-                         ? (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen) 
-                             & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen)))
+                         ? (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite) 
+                             & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemRead)))
                              ? 4U : 0U) : ((IData)(vlTOPp->toplevel__DOT__dmem_read_ready)
                                             ? 3U : 2U))
                      : ((1U & (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__state))
                          ? ((IData)(vlTOPp->toplevel__DOT__dmem_write_done)
-                             ? 2U : 1U) : (((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen) 
-                                              & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen))) 
-                                             | ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen) 
-                                                & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen)))) 
+                             ? 2U : 1U) : (((((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemRead) 
+                                              & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite))) 
+                                             | ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWrite) 
+                                                & (~ (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemRead)))) 
                                             & (~ (IData)(
                                                          (0U 
                                                           != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Dcache__DOT__hitReg)))))
-                                            ? ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__DcacheDirtyBit)
+                                            ? ((IData)(vlTOPp->toplevel__DOT__cpu__DOT__dcacheDirtyBit)
                                                 ? 1U
                                                 : 2U)
                                             : 0U))));
+    vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__next_state 
+        = ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))
+            ? (((IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__write_ifid) 
+                & (~ (IData)((0U != (IData)(vlTOPp->toplevel__DOT__cpu__DOT__Icache__DOT__hitReg)))))
+                ? 1U : 0U) : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__icachecontroller2check__DOT__state))
+                               ? ((IData)(vlTOPp->toplevel__DOT__imem_read_ready)
+                                   ? 2U : 1U) : 0U));
 }
 
-VL_INLINE_OPT void Vtoplevel::_multiclk__TOP__13(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_multiclk__TOP__13\n"); );
+VL_INLINE_OPT void Vtoplevel::_multiclk__TOP__9(Vtoplevel__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_multiclk__TOP__9\n"); );
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready 
+        = (((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
+            & (IData)(vlTOPp->toplevel__DOT__dmem_ren)) 
+           & (~ (IData)(vlTOPp->toplevel__DOT__dmem_wen)));
+    vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_done 
+        = (((0xfU == (IData)(vlTOPp->toplevel__DOT__Data_Mem__DOT__delay_counter)) 
+            & (~ (IData)(vlTOPp->toplevel__DOT__dmem_ren))) 
+           & (IData)(vlTOPp->toplevel__DOT__dmem_wen));
+    if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready) {
+        vlTOPp->toplevel__DOT__Data_Mem__DOT__i = 4U;
+    }
     if (vlTOPp->toplevel__DOT__Data_Mem__DOT__temp_ready) {
         vlTOPp->toplevel__DOT__dmem_dout[0U] = 0U;
         vlTOPp->toplevel__DOT__dmem_dout[1U] = 0U;
         vlTOPp->toplevel__DOT__dmem_dout[2U] = 0U;
         vlTOPp->toplevel__DOT__dmem_dout[3U] = 0U;
         vlTOPp->toplevel__DOT__dmem_dout[0U] = vlTOPp->toplevel__DOT__Data_Mem__DOT__data
-            [0U][0U];
+            [vlTOPp->toplevel__DOT__dmem_block_address]
+            [0U];
         vlTOPp->toplevel__DOT__dmem_dout[1U] = vlTOPp->toplevel__DOT__Data_Mem__DOT__data
-            [0U][1U];
+            [vlTOPp->toplevel__DOT__dmem_block_address]
+            [1U];
         vlTOPp->toplevel__DOT__dmem_dout[2U] = vlTOPp->toplevel__DOT__Data_Mem__DOT__data
-            [0U][2U];
+            [vlTOPp->toplevel__DOT__dmem_block_address]
+            [2U];
         vlTOPp->toplevel__DOT__dmem_dout[3U] = vlTOPp->toplevel__DOT__Data_Mem__DOT__data
-            [0U][3U];
+            [vlTOPp->toplevel__DOT__dmem_block_address]
+            [3U];
     } else {
         vlTOPp->toplevel__DOT__dmem_dout[0U] = 0U;
         vlTOPp->toplevel__DOT__dmem_dout[1U] = 0U;
@@ -2678,104 +2907,88 @@ VL_INLINE_OPT void Vtoplevel::_multiclk__TOP__13(Vtoplevel__Syms* __restrict vlS
     }
 }
 
-VL_INLINE_OPT void Vtoplevel::_combo__TOP__14(Vtoplevel__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_combo__TOP__14\n"); );
+VL_INLINE_OPT void Vtoplevel::_combo__TOP__10(Vtoplevel__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtoplevel::_combo__TOP__10\n"); );
     Vtoplevel* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     if (vlTOPp->reset) {
-        if (vlTOPp->toplevel__DOT__cpu__DOT__DcacheMemWen) {
-            vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U] 
+        if (vlTOPp->toplevel__DOT__cpu__DOT__dcacheMemWen) {
+            vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U] 
                 = vlTOPp->toplevel__DOT__dmem_dout[0U];
-            vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U] 
+            vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U] 
                 = vlTOPp->toplevel__DOT__dmem_dout[1U];
-            vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U] 
+            vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U] 
                 = vlTOPp->toplevel__DOT__dmem_dout[2U];
-            vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U] 
+            vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U] 
                 = vlTOPp->toplevel__DOT__dmem_dout[3U];
         } else {
             if (vlTOPp->toplevel__DOT__cpu__DOT__Dcntr__DOT__replace) {
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U] = 0U;
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U] = 0U;
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U] = 0U;
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U] = 0U;
-                VL_ASSIGNSEL_WIII(32,0U, vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin, 
-                                  (1U & ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
-                                          ? ((2U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
-                                              ? ((1U 
-                                                  & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
-                                                  ? 
-                                                 (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
-                                                  << 0x18U)
-                                                  : 
-                                                 (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
-                                                  << 0x10U))
-                                              : ((1U 
-                                                  & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
-                                                  ? 
-                                                 (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
-                                                  << 8U)
-                                                  : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData))
-                                          : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
-                                              ? ((0U 
-                                                  == 
-                                                  (3U 
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U] = 0U;
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U] = 0U;
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U] = 0U;
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U] = 0U;
+                VL_ASSIGNSEL_WIII(32,(0x60U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                               << 3U)), vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin, 
+                                  ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
+                                    ? ((2U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
+                                        ? ((1U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
+                                            ? (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
+                                               << 0x18U)
+                                            : (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
+                                               << 0x10U))
+                                        : ((1U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
+                                            ? (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
+                                               << 8U)
+                                            : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData))
+                                    : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
+                                        ? ((0U == (3U 
                                                    & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut))
-                                                  ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData
-                                                  : 
-                                                 ((2U 
-                                                   == 
-                                                   (3U 
-                                                    & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut))
-                                                   ? 
-                                                  (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
+                                            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData
+                                            : ((2U 
+                                                == 
+                                                (3U 
+                                                 & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut))
+                                                ? (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
                                                    << 0x10U)
-                                                   : 0U))
-                                              : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData))));
+                                                : 0U))
+                                        : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData)));
             } else {
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U] = 0U;
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U] = 0U;
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U] = 0U;
-                vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U] = 0U;
-                VL_ASSIGNSEL_WIII(32,0U, vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin, 
-                                  (1U & ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
-                                          ? ((2U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
-                                              ? ((1U 
-                                                  & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
-                                                  ? 
-                                                 (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
-                                                  << 0x18U)
-                                                  : 
-                                                 (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
-                                                  << 0x10U))
-                                              : ((1U 
-                                                  & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
-                                                  ? 
-                                                 (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
-                                                  << 8U)
-                                                  : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData))
-                                          : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
-                                              ? ((0U 
-                                                  == 
-                                                  (3U 
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U] = 0U;
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U] = 0U;
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U] = 0U;
+                vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U] = 0U;
+                VL_ASSIGNSEL_WIII(32,(0x60U & (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut 
+                                               << 3U)), vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin, 
+                                  ((0U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
+                                    ? ((2U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
+                                        ? ((1U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
+                                            ? (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
+                                               << 0x18U)
+                                            : (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
+                                               << 0x10U))
+                                        : ((1U & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut)
+                                            ? (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
+                                               << 8U)
+                                            : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData))
+                                    : ((1U == (IData)(vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_funct3))
+                                        ? ((0U == (3U 
                                                    & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut))
-                                                  ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData
-                                                  : 
-                                                 ((2U 
-                                                   == 
-                                                   (3U 
-                                                    & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut))
-                                                   ? 
-                                                  (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
+                                            ? vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData
+                                            : ((2U 
+                                                == 
+                                                (3U 
+                                                 & vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_ALUOut))
+                                                ? (vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData 
                                                    << 0x10U)
-                                                   : 0U))
-                                              : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData))));
+                                                : 0U))
+                                        : vlTOPp->toplevel__DOT__cpu__DOT__pipeline__DOT__EXMEM_MemWriteData)));
             }
         }
     } else {
-        vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[0U] = 0U;
-        vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[1U] = 0U;
-        vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[2U] = 0U;
-        vlTOPp->toplevel__DOT__cpu__DOT__DcacheDin[3U] = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[0U] = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[1U] = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[2U] = 0U;
+        vlTOPp->toplevel__DOT__cpu__DOT__dcacheDin[3U] = 0U;
     }
 }
 
@@ -2814,28 +3027,9 @@ void Vtoplevel::_eval(Vtoplevel__Syms* __restrict vlSymsp) {
          | ((IData)(vlTOPp->__VinpClk__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset) 
             & (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset))))) {
         vlTOPp->_multiclk__TOP__9(vlSymsp);
-    }
-    if ((((IData)(vlTOPp->clock) & (~ (IData)(vlTOPp->__Vclklast__TOP__clock))) 
-         | ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->__Vclklast__TOP__reset)))) {
-        vlTOPp->_sequent__TOP__10(vlSymsp);
         vlTOPp->__Vm_traceActivity[4U] = 1U;
     }
-    if (((((IData)(vlTOPp->clock) & (~ (IData)(vlTOPp->__Vclklast__TOP__clock))) 
-          | ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->__Vclklast__TOP__reset))) 
-         | ((IData)(vlTOPp->__VinpClk__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset) 
-            & (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset))))) {
-        vlTOPp->_multiclk__TOP__11(vlSymsp);
-        vlTOPp->__Vm_traceActivity[5U] = 1U;
-    }
-    vlTOPp->_combo__TOP__12(vlSymsp);
-    if (((((IData)(vlTOPp->clock) & (~ (IData)(vlTOPp->__Vclklast__TOP__clock))) 
-          | ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->__Vclklast__TOP__reset))) 
-         | ((IData)(vlTOPp->__VinpClk__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset) 
-            & (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset))))) {
-        vlTOPp->_multiclk__TOP__13(vlSymsp);
-        vlTOPp->__Vm_traceActivity[6U] = 1U;
-    }
-    vlTOPp->_combo__TOP__14(vlSymsp);
+    vlTOPp->_combo__TOP__10(vlSymsp);
     // Final
     vlTOPp->__Vclklast__TOP__clock = vlTOPp->clock;
     vlTOPp->__Vclklast__TOP____VinpClk__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset 
@@ -2862,23 +3056,11 @@ VL_INLINE_OPT QData Vtoplevel::_change_request_1(Vtoplevel__Syms* __restrict vlS
     // Body
     // Change detection
     QData __req = false;  // Logically a bool
-    __req |= ((vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__cpu__DOT__DcacheRen)
-         | (vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__cpu__DOT__DcacheWen)
-         | (vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__cpu__DOT__IcacheRen)
-         | (vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset)
+    __req |= ((vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset)
          | (vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset));
-    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__cpu__DOT__DcacheRen))) VL_DBG_MSGF("        CHANGE: ../src/pipelined/cpu.v:48: toplevel.cpu.DcacheRen\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__cpu__DOT__DcacheWen))) VL_DBG_MSGF("        CHANGE: ../src/pipelined/cpu.v:48: toplevel.cpu.DcacheWen\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__cpu__DOT__IcacheRen))) VL_DBG_MSGF("        CHANGE: ../src/pipelined/cpu.v:56: toplevel.cpu.IcacheRen\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../src/cache_controller/../memories/Imem.v:23: toplevel.Instruction_Mem.counter_reset\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../src/cache_controller/../memories/Dmem.v:28: toplevel.Data_Mem.counter_reset\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../src/memories/Imem.v:23: toplevel.Instruction_Mem.counter_reset\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->toplevel__DOT__Data_Mem__DOT__counter_reset ^ vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset))) VL_DBG_MSGF("        CHANGE: ../src/memories/Dmem.v:28: toplevel.Data_Mem.counter_reset\n"); );
     // Final
-    vlTOPp->__Vchglast__TOP__toplevel__DOT__cpu__DOT__DcacheRen 
-        = vlTOPp->toplevel__DOT__cpu__DOT__DcacheRen;
-    vlTOPp->__Vchglast__TOP__toplevel__DOT__cpu__DOT__DcacheWen 
-        = vlTOPp->toplevel__DOT__cpu__DOT__DcacheWen;
-    vlTOPp->__Vchglast__TOP__toplevel__DOT__cpu__DOT__IcacheRen 
-        = vlTOPp->toplevel__DOT__cpu__DOT__IcacheRen;
     vlTOPp->__Vchglast__TOP__toplevel__DOT__Instruction_Mem__DOT__counter_reset 
         = vlTOPp->toplevel__DOT__Instruction_Mem__DOT__counter_reset;
     vlTOPp->__Vchglast__TOP__toplevel__DOT__Data_Mem__DOT__counter_reset 
