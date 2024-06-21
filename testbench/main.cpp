@@ -52,6 +52,13 @@ int main(int argc, const char **argv, const char **env)
                 }
                 std::cout << "\n";
             }
+
+            for(int i = 0; i < 64; i++) {
+                for(int j = 0; j < 4; j++) {
+                    toplevel__DOT__cpu__DOT__Icache__DOT__data_col[4][2][4] << " ";
+                }
+                std::cout << "\n";
+            }
         }
         if (time > 9)
             top->reset = 1;
