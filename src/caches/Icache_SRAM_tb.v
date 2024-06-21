@@ -15,56 +15,162 @@ module Icache_SRAM_tb;
 
     initial begin
         ren=0;
+        wen=0;
         memWen=0;
         clk=0;
-        rst=1;
-        #5
         rst=0;
-        blockAddr={`IMEM_BLOCK_ADDR_SIZE{1'b0}};
-        dataIn={`IBLOCK_SIZE_BITS{1'b0}};
-
         #20 rst=1;
+        #16
         
-        #21
-        //WRITE TARGETTING SET 0 BLOCK 0//
-        blockAddr={`IMEM_BLOCK_ADDR_SIZE{1'b0}};
-        dataIn={`IBLOCK_SIZE_BITS{1'b0}};
+        //-----------------------------SET 0 - TAG 000 WRITE MISS-------------------------------------// 
+        i=0;
+        ren=0;
+        wen=1;
+        memWen=0;
+        blockAddr={3'b000,1'b0};
+        bytesAccess={8'b11110000};
+        dataIn={32'b10101010101010101010101010101010,{`DBLOCK_SIZE_BITS-32{1'b0}}};
+
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+        //-----------------------------SET 0 - TAG 000 WRITE FROM MEM--------------------------// 
+        #10
+        i=1;
 
         ren=0;
+        wen=0;
         memWen=1;
+        blockAddr={3'b000,1'b0};
+        dataIn={{32{1'b1}},{`DBLOCK_SIZE_BITS{1'b1}}};
         
-        //WRITE DIFFERENT TAG / TARGETTING SET 0 BLOCK 1//
-        #30
-        blockAddr={{`ITAG_SIZE{1'b1}},{`ISET_INDEX_SIZE{1'b0}}};
-        dataIn={`IBLOCK_SIZE_BITS{1'b1}};
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+        //----------------------------SET 0 - TAG 000 WRITE HIT-------------------------------------//
+        #10 
+        i=2;
 
         ren=0;
-        memWen=1;
-        
-        //READ SET 0 BLOCK 1//
-        #30 
-        blockAddr={{`ITAG_SIZE{1'b1}},{`ISET_INDEX_SIZE{1'b0}}};
+        wen=1;
+        memWen=0;
+        blockAddr={3'b000,1'b0};
+        bytesAccess={8'b11110000};
+        dataIn={32'b10101010101010101010101010101010,{`DBLOCK_SIZE_BITS-32{1'b0}}};
+
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+        //----------------------------SET 0 - TAG 001 READ MISS------------------------------------//
+        #10
+        i=3;
+
         ren=1;
+        wen=0;
         memWen=0;
-        
-        #30
-        blockAddr={{5'b00000},{`ITAG_SIZE-5{1'b1}},{`ISET_INDEX_SIZE{1'b0}}};
-        dataIn={ {5'b00000},{`IBLOCK_SIZE_BITS-5{1'b1}}};
-        memWen=1;
+        blockAddr={3'b001,1'b0};
+
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut);  
+
+        //-----------------------------SET 0 - TAG 001 WRITE FROM MEM--------------------------// 
+        #10
+        i=4;
+
         ren=0;
-        
-        #30
-        blockAddr={{5'b10101},{`ITAG_SIZE-5{1'b1}},{`ISET_INDEX_SIZE{1'b0}}};
-        dataIn={ {5'b10101},{`IBLOCK_SIZE_BITS-5{1'b1}}};
+        wen=0;
         memWen=1;
-        ren=0;
+        blockAddr={3'b001,1'b0};
+        dataIn={{32{1'b0}},{`DBLOCK_SIZE_BITS-32{1'b1}}};
         
-        #30
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+        //----------------------------SET 0 - TAG 010 READ MISS------------------------------------//
+
+        #10
+        i=5;
+
+        ren=1;
+        wen=0;
         memWen=0;
+        blockAddr={3'b010,1'b0};
+
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+        //-----------------------------SET 0 - TAG 010 WRITE FROM MEM--------------------------// 
+        #10
+        i=6;
+
         ren=0;
+        wen=0;
+        memWen=1;
+        blockAddr={3'b010,1'b0};
+        dataIn={{48{1'b1}},{`DBLOCK_SIZE_BITS-48{1'b0}}};
+        
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+        //----------------------------SET 0 - TAG 100 READ MISS------------------------------------//
+
+        #10
+        i=7;
+
+        ren=1;
+        wen=0;
+        memWen=0;
+        blockAddr={3'b100,1'b0};
+
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+        //-----------------------------SET 0 - TAG 100 WRITE FROM MEM--------------------------// 
+        #10
+        i=8;
+
+        ren=0;
+        wen=0;
+        memWen=1;
+        blockAddr={3'b100,1'b0};
+        dataIn={{48{1'b0}},{`DBLOCK_SIZE_BITS-48{1'b1}}};
+        
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+        //-----------------------------SET 0 - TAG 000 READ HIT-------------------------------------// 
+        #10
+        i=9;
+
+        ren=1;
+        wen=0;
+        memWen=0;
+        blockAddr={3'b000,1'b0};
+
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+
+
+        //-----------------------------SET 0 - TAG 111 READ MISS -----------------------------// 
+        #10
+        i=10;
+
+        ren=1;
+        wen=0;
+        memWen=0;
+        blockAddr={3'b111,1'b0};
+        
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+        //-----------------------------SET 0 - TAG 100 WRITE FROM MEM--------------------------// 
+        #10
+        i=11;
+        
+        ren=0;
+        wen=0;
+        memWen=1;
+        blockAddr={3'b111,1'b0};
+        dataIn={{30{1'b0}},{`DBLOCK_SIZE_BITS-30{1'b1}}};
+        
+        $display("TEST: %d, HIT: %d || DIRTYBIT: %d || DATAOUT: %d",i,hit,dirtyBit,dataOut); 
+
+
+
         
 
     end
+
 
     always #15 clk = ~clk;
     
